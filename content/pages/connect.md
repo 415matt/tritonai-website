@@ -65,11 +65,18 @@ bannerMode: abstract
 </section>
 
 <section class="hub-section" aria-labelledby="connect-tools-heading">
-  <div class="hub-heading">
-    <p class="home-kicker">FOR POWER USERS</p>
-    <h2 id="connect-tools-heading">TritonAI Tools Working Group</h2>
-    <p>Bringing together our most active and engaged TritonAI users monthly who help us spot issues early, inform the roadmap, and share what's working across the UCSD community.</p>
-    <p><a class="btn btn-primary" href="mailto:tritonai@ucsd.edu?subject=Join%20TritonAI%20Tools%20Working%20Group">Join TritonAI Tools Working Group</a></p>
+  <div class="row hub-split hub-split-align-center">
+    <div class="col-md-6 hub-split-media">
+      <figure class="hub-photo-frame">
+        <img alt="Abstract illustration of monthly feedback, issue reports, roadmap input, and campus sharing" class="img-responsive" src="/_images/connect/tools-working-group-feedback.svg">
+      </figure>
+    </div>
+    <div class="col-md-6 hub-split-copy">
+      <p class="home-kicker">FOR POWER USERS</p>
+      <h2 id="connect-tools-heading">TritonAI Tools Working Group</h2>
+      <p class="hub-body">Bringing together our most active and engaged TritonAI users monthly who help us spot issues early, inform the roadmap, and share what's working across the UCSD community.</p>
+      <p><a class="btn btn-primary" href="mailto:tritonai@ucsd.edu?subject=Join%20TritonAI%20Tools%20Working%20Group">Join TritonAI Tools Working Group</a></p>
+    </div>
   </div>
 </section>
 
@@ -85,11 +92,18 @@ bannerMode: abstract
 </section>
 
 <section class="hub-section" aria-labelledby="connect-use-case-heading">
-  <div class="hub-heading">
-    <p class="home-kicker">REAL WORK, REAL USE CASES</p>
-    <h2 id="connect-use-case-heading">AI Use-Case Group</h2>
-    <p>Explore the group and see how campus teams are applying AI to real work. The group meets every other Friday for presenter-led sessions open to staff, faculty, and researchers: bring an AI idea, and leave with a scoped use case and a clear recommendation on whether to proceed. Sessions are recorded and archived, so one team's experiment becomes shared learning for the whole campus.</p>
-    <p><a class="btn btn-primary" href="/use-cases/ai-use-case-meeting.html">Explore the AI Use-Case Group</a></p>
+  <div class="row hub-split hub-split-align-center">
+    <div class="col-md-6 hub-split-media">
+      <figure class="hub-photo-frame">
+        <img alt="Abstract illustration of an AI idea moving to a scoped use case, recommendation, and shared learning" class="img-responsive" src="/_images/connect/ai-use-case-flow.svg">
+      </figure>
+    </div>
+    <div class="col-md-6 hub-split-copy">
+      <p class="home-kicker">REAL WORK, REAL USE CASES</p>
+      <h2 id="connect-use-case-heading">AI Use-Case Group</h2>
+      <p class="hub-body">Explore the group and see how campus teams are applying AI to real work. The group meets every other Friday for presenter-led sessions open to staff, faculty, and researchers: bring an AI idea, and leave with a scoped use case and a clear recommendation on whether to proceed. Sessions are recorded and archived, so one team's experiment becomes shared learning for the whole campus.</p>
+      <p><a class="btn btn-primary" href="/use-cases/ai-use-case-meeting.html">Explore the AI Use-Case Group</a></p>
+    </div>
   </div>
 </section>
 
