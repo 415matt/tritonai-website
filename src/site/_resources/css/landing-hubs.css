@@ -364,7 +364,7 @@
   color: var(--triton-gold);
 }
 
-.hub-section-dark .hub-heading a {
+.hub-section-dark .hub-heading a:not(.btn) {
   color: #fff;
   text-decoration: underline;
   text-decoration-color: var(--triton-bright-blue);
