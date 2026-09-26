@@ -3767,6 +3767,15 @@
   font-weight: 700;
 }
 
+.hub-feature-list a:hover,
+.hub-feature-list a:focus {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: var(--triton-bright-blue);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
 .hub-feature-list-light strong {
   color: var(--triton-navy);
 }
