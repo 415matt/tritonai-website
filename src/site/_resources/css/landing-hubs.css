@@ -559,6 +559,15 @@
   color: var(--triton-gold);
 }
 
+.about-feature .hub-quote-card .home-kicker {
+  color: var(--triton-blue);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
 .about-feature .hub-quote-card h3,
 .about-feature .hub-quote-card p {
   color: #fff;
