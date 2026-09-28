@@ -8,7 +8,7 @@ audiences: [staff, leaders]
 source: UC San Diego and Digital Education Council certificate program content
 canonicalUrl: /training-resources/certificate.html
 relatedSlides: []
-landingHub: true
+sidebar: true
 ---
 
 <section class="hub-section hub-section-intro" aria-label="Certificate overview">
@@ -100,7 +100,7 @@ landingHub: true
   </div>
 </section>
 
-<section class="hub-section hub-section-dark hub-full-bleed certificate-close" aria-labelledby="certificate-close-heading">
+<section class="hub-section hub-section-dark hub-full-bleed" aria-labelledby="certificate-close-heading">
   <div class="container">
     <div class="hub-heading">
       <p class="home-kicker">GO FURTHER, TOGETHER</p>
