@@ -14,27 +14,21 @@ bannerPosition: center
 bannerMode: abstract
 ---
 
-<section class="hub-section hub-section-intro connect-intro" aria-labelledby="connect-intro-heading">
-  <div class="row hub-split hub-split-align-center">
-    <div class="col-md-6 hub-split-copy">
+<section class="hub-section hub-section-intro about-feature" aria-labelledby="connect-intro-heading">
+  <div class="row hub-split">
+    <div class="col-md-7 hub-split-copy">
       <h2 id="connect-intro-heading">The best way to learn AI is by doing</h2>
-      <p class="hub-body">The best way to learn AI is by doing — and by sharing what you learn along the way. TritonAI Connect brings together the communities, communications, and updates that keep you connected to AI at UC San Diego. Join a community of practice like the TritonAI Tools Working Group or the n8n Automation Working Group or bring your questions to AI Consulting Hours. Whether you want to swap experiments, ask questions, or stay in the loop, there's a place for you here.</p>
+      <p class="hub-lede">The best way to learn AI is by doing — and by sharing what you learn along the way. TritonAI Connect brings together the communities, communications, and updates that keep you connected to AI at UC San Diego. Join a community of practice like the TritonAI Tools Working Group or the n8n Automation Working Group or bring your questions to AI Consulting Hours. Whether you want to swap experiments, ask questions, or stay in the loop, there's a place for you here.</p>
     </div>
-    <div class="col-md-6">
-      <figure class="triton-graphic triton-choice-lens" aria-describedby="connect-ways-caption">
-        <p class="triton-graphic-label">Four ways to connect</p>
+    <div class="col-md-5">
+      <figure class="triton-graphic triton-choice-lens hub-quote-card" aria-labelledby="connect-ways-heading">
+        <p id="connect-ways-heading" class="triton-graphic-label">Four ways to connect</p>
         <ul>
           <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span><strong>Join a community</strong><small>Find a group that matches your work.</small></li>
           <li><span class="glyphicon glyphicon-comment" aria-hidden="true"></span><strong>Ask a question</strong><small>Bring a problem or an idea to a session.</small></li>
           <li><span class="glyphicon glyphicon-random" aria-hidden="true"></span><strong>Share an experiment</strong><small>Tell peers what you tried and what you learned.</small></li>
           <li><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span><strong>Stay in the loop</strong><small>Get news, trainings, and updates.</small></li>
         </ul>
-        <div class="triton-choice-result">
-          <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-          <strong>Where to start</strong>
-          <small>Pick the way that matches your work.</small>
-        </div>
-        <figcaption id="connect-ways-caption">Each path can start on its own. You can move between them as your work changes.</figcaption>
       </figure>
     </div>
   </div>

@@ -81,6 +81,16 @@
   display: none;
 }
 
+.landing-hub-page .sidebar-section {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .landing-hub-page .sidebar-section {
+    display: block;
+  }
+}
+
 /* About subpages keep the section navigation visible while preserving the
    stronger visual language used on the About landing page. */
 .about-subpage .about-subpage-hero {
@@ -321,6 +331,10 @@
   color: #fff;
 }
 
+.hub-section.certificate-close {
+  margin-top: 70px;
+}
+
 .hub-section-sand {
   background: var(--triton-sand);
 }
@@ -539,6 +553,13 @@
   flex-direction: column;
   justify-content: center;
   padding: 52px 48px;
+}
+
+.about-feature .hub-quote-card .triton-graphic-label {
+  color: #fff;
+  font-size: 30px;
+  line-height: 1.15;
+  margin-top: 18px;
 }
 
 .about-feature .hub-quote-card .glyphicon {
