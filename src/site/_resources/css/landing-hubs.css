@@ -323,6 +323,18 @@
   margin-right: 0;
 }
 
+body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-full-bleed {
+  padding: 70px 30px;
+}
+
+body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-full-bleed > .container {
+  margin: 0;
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  width: auto;
+}
+
 .hub-section-dark {
   background-color: var(--triton-navy);
   background-image: linear-gradient(115deg, rgba(24, 43, 73, .98), rgba(0, 98, 155, .88)), url("https://cdn.ucsd.edu/cms/decorator-5/img/navy-simple-grit.jpg");
@@ -5434,6 +5446,7 @@
   .hub-full-bleed { padding-left: 22px; padding-right: 22px; }
   .hub-full-bleed { margin-left: -15px; margin-right: -15px; }
   .main-section > .hub-full-bleed { margin-left: 0; margin-right: 0; }
+  body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-full-bleed { padding: 48px 22px; }
   .build-architecture {
     padding: 22px 18px;
   }

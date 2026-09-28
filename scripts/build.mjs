@@ -1256,7 +1256,9 @@ function transformHtml(html, relativePath, context) {
     $("head").append(`<link rel="stylesheet" href="/_resources/css/agent-site.css?v=${AGENT_SITE_CSS_VERSION}">`);
   }
   if (
-    ($("body").hasClass("landing-hub-page") || $("body").hasClass("about-subpage"))
+    ($("body").hasClass("landing-hub-page")
+      || $("body").hasClass("about-subpage")
+      || $("main#main-content").find(".hub-full-bleed").length)
     && !$("link[href*='/landing-hubs.css']").length
   ) {
     $("head").append(`<link rel="stylesheet" href="/_resources/css/landing-hubs.css?v=${LANDING_HUBS_CSS_VERSION}">`);
