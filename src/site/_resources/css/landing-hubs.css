@@ -560,7 +560,7 @@
 }
 
 .about-feature .hub-quote-card .home-kicker {
-  color: var(--triton-blue);
+  color: #fff;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: .12em;
