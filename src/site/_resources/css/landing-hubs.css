@@ -290,6 +290,11 @@
   padding: 70px 0;
 }
 
+body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-section {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
 .landing-hub-content > .hub-section,
 .hub-full-bleed {
   padding-left: max(30px, calc((100vw - 1170px) / 2 + 15px));
@@ -5447,6 +5452,7 @@ body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-full-bleed 
   .hub-full-bleed { margin-left: -15px; margin-right: -15px; }
   .main-section > .hub-full-bleed { margin-left: 0; margin-right: 0; }
   body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-full-bleed { padding: 48px 22px; }
+  body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-section { padding-left: 22px; padding-right: 22px; }
   .build-architecture {
     padding: 22px 18px;
   }
