@@ -56,5 +56,5 @@ bannerMode: abstract
 </section>
 
 <section class="hub-section hub-subscribe" aria-labelledby="closing-heading">
-<div class="row hub-split hub-split-align-center"><div class="col-md-12"><p class="home-kicker">Your next step</p><h2 id="closing-heading">There's a place for you here</h2></div></div>
+<div class="row hub-split hub-split-align-center"><div class="col-md-12"><p class="home-kicker">Your next step</p><h2 id="closing-heading">There's a place for you here</h2><p class="hub-lede">Wherever you're starting from — curious, excited, or a little overwhelmed — you don't have to do it all at once. Just take one small step today: watch a TritonAI Discovery video, try a new tool, or join a conversation. The TritonAI community is here to learn alongside you, and there's a place for you in it.</p></div></div>
 </section>
