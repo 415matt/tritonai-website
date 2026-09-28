@@ -555,13 +555,6 @@
   padding: 52px 48px;
 }
 
-.about-feature .hub-quote-card .triton-graphic-label {
-  color: #fff;
-  font-size: 30px;
-  line-height: 1.15;
-  margin-top: 18px;
-}
-
 .about-feature .hub-quote-card .glyphicon {
   color: var(--triton-gold);
 }

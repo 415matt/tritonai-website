@@ -22,7 +22,7 @@ bannerMode: abstract
     </div>
     <div class="col-md-5">
       <figure class="triton-graphic triton-choice-lens hub-quote-card" aria-labelledby="connect-ways-heading">
-        <p id="connect-ways-heading" class="triton-graphic-label">Four ways to connect</p>
+        <p id="connect-ways-heading" class="home-kicker">Four ways to connect</p>
         <ul>
           <li><span class="glyphicon glyphicon-user" aria-hidden="true"></span><strong>Join a community</strong><small>Find a group that matches your work.</small></li>
           <li><span class="glyphicon glyphicon-comment" aria-hidden="true"></span><strong>Ask a question</strong><small>Bring a problem or an idea to a session.</small></li>
