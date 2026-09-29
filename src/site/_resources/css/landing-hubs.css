@@ -352,6 +352,14 @@ body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-full-bleed 
   margin-top: 70px;
 }
 
+.hub-section-intro.certificate-tight {
+  padding-bottom: 0;
+}
+
+.hub-section.certificate-tight {
+  padding-top: 0;
+}
+
 .hub-section-sand {
   background: var(--triton-sand);
 }

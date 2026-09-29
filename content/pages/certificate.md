@@ -11,11 +11,11 @@ relatedSlides: []
 sidebar: true
 ---
 
-<section class="hub-section hub-section-intro" aria-label="Certificate overview">
+<section class="hub-section hub-section-intro certificate-tight" aria-label="Certificate overview">
   <p class="lead">UC San Diego partners with the Digital Education Council to offer the Certificate in AI for Higher Education — a deeper dive into AI across higher education, with a stream built around your role. Many people move here from the TritonAI Discovery Series. Wherever you're starting, the certificate connects the tools you use to the bigger questions shaping AI in higher education globally.</p>
 </section>
 
-<section class="hub-section" aria-labelledby="certificate-streams-heading">
+<section class="hub-section certificate-tight" aria-labelledby="certificate-streams-heading">
   <div class="hub-heading">
     <p class="home-kicker">TWO STREAMS</p>
     <h2 id="certificate-streams-heading">A path suited to your role</h2>
