@@ -3878,6 +3878,8 @@ body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-full-bleed 
 .hub-link-columns::before,
 .hub-link-columns::after {
   display: none;
+}
+
 .connect-departmental .hub-link-panel {
   border-top: 0;
 }
