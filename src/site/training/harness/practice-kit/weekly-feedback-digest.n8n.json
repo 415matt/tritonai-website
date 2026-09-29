@@ -1,0 +1,172 @@
+{
+  "name": "TRAINING DEMO - weekly feedback digest",
+  "nodes": [
+    {
+      "id": "schedule-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * 1"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "read-feedback-file",
+      "name": "Read Feedback File",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "operation": "read",
+        "fileSelector": "/Users/you/harness-practice/workshop-feedback.csv"
+      }
+    },
+    {
+      "id": "extract-feedback-csv",
+      "name": "Extract Feedback CSV",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        440,
+        0
+      ],
+      "parameters": {
+        "operation": "csv",
+        "binaryPropertyName": "data",
+        "options": {
+          "rawData": false
+        }
+      }
+    },
+    {
+      "id": "prepare-summary-data",
+      "name": "Prepare Summary Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        0
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const rows = $input.all().map((item) => item.json);\nconst fields = ['pace', 'content', 'room'];\nconst averages = {};\nfor (const field of fields) {\n  const values = rows.map((row) => Number(row[field])).filter((value) => Number.isFinite(value));\n  averages[field] = values.length\n    ? Number((values.reduce((sum, value) => sum + value, 0) / values.length).toFixed(2))\n    : null;\n}\nconst commentCounts = {};\nfor (const row of rows) {\n  const comment = (row.comment || '').trim();\n  if (!comment) continue;\n  commentCounts[comment] = (commentCounts[comment] || 0) + 1;\n}\nconst topComments = Object.entries(commentCounts)\n  .sort((left, right) => right[1] - left[1])\n  .slice(0, 3)\n  .map(([comment, count]) => ({ comment, count }));\nreturn [{ json: { responseCount: rows.length, averages, topComments } }];"
+      }
+    },
+    {
+      "id": "ai-summary",
+      "name": "AI Summary",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        880,
+        0
+      ],
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "role": "user",
+              "content": "=Create a concise weekly workshop feedback digest for the planning team. Use these averages and top comments: {{ JSON.stringify($json) }}"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "create-outlook-draft",
+      "name": "Create Outlook Draft",
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        0
+      ],
+      "parameters": {
+        "resource": "draft",
+        "operation": "create",
+        "subject": "Weekly Workshop Feedback Digest",
+        "body": "={{ $json.output }}",
+        "to": [
+          "you@ucsd.edu"
+        ]
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Read Feedback File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Feedback File": {
+      "main": [
+        [
+          {
+            "node": "Extract Feedback CSV",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Feedback CSV": {
+      "main": [
+        [
+          {
+            "node": "Prepare Summary Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Summary Data": {
+      "main": [
+        [
+          {
+            "node": "AI Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Summary": {
+      "main": [
+        [
+          {
+            "node": "Create Outlook Draft",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false
+}

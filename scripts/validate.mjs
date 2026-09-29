@@ -24,6 +24,7 @@ const SITE_BASE_PATH = (process.env.SITE_BASE_PATH || "").replace(/^\/+|\/+$/g, 
 const OFFICIAL_ORIGIN = "https://tritonai.ucsd.edu";
 const inheritedProductionFailures = new Set();
 const standaloneRoutes = new Set([
+  "/training/harness/index.html",
   "/presentations/managing-the-tritonai-website.html",
 ]);
 const renderedProvenancePatterns = [

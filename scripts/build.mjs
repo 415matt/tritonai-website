@@ -42,6 +42,7 @@ const SITE_BASE_PATH = normalizeBasePath(process.env.SITE_BASE_PATH || "");
 const IS_PRODUCTION_BUILD = SITE_BASE_PATH === "";
 const UNLISTED_ROUTES = new Set([
   "/presentations/managing-the-tritonai-website.html",
+  "/training/harness/index.html",
 ]);
 const AFTER_RENDER_SCRIPTS = new Set([
   "https://cdn.ucsd.edu/cms/decorator-5/scripts/modernizr.min.js",

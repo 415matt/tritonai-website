@@ -37,7 +37,10 @@ import {
 
 const DIST_DIR = path.resolve("dist");
 const SITE_BASE_PATH = (process.env.SITE_BASE_PATH || "").replace(/^\/+|\/+$/g, "");
-const STANDALONE_ROUTES = new Set(["/presentations/managing-the-tritonai-website.html"]);
+const STANDALONE_ROUTES = new Set([
+  "/presentations/managing-the-tritonai-website.html",
+  "/training/harness/index.html",
+]);
 // Tier 4 reads the sources rather than dist, so a finding points at the file to
 // edit. The copies under dist/_resources are byte-identical.
 const SITE_CSS_DIR = path.resolve("src/site/_resources/css");
