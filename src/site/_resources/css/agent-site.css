@@ -4384,59 +4384,68 @@ a.video-theater-nav-next.is-suggested .video-theater-nav-next-label {
 .video-training-cta .video-theater-about-inner {
   max-width: 880px;
 }
-.video-quiz-question {
-  border: 1px solid #d5d9de;
+main#main-content .video-quiz-question {
+  min-width: 0;
+  border: 0;
   border-radius: 8px;
-  padding: 18px 22px;
-  margin: 0 0 16px;
+  background: #f3f5f7;
+  padding: 24px;
+  margin: 0 0 28px;
 }
-.video-quiz-question legend {
+main#main-content .video-quiz-question legend {
+  float: left;
+  width: 100%;
+  border: 0;
+  margin: 0 0 16px;
   font-size: 18px;
   font-weight: 700;
   color: #182b49;
-  padding: 0 6px;
+  padding: 0;
 }
-.video-quiz-options {
+main#main-content .video-quiz-options {
+  clear: both;
   list-style: none;
   margin: 8px 0 0;
   padding: 0;
   display: grid;
   gap: 8px;
 }
-.video-quiz-option {
+main#main-content .video-quiz-option {
   display: block;
   width: 100%;
   text-align: left;
   font-size: 16px;
   padding: 10px 14px;
-  border: 1px solid #d5d9de;
+  border: 0;
   border-radius: 6px;
   background: #fff;
   color: #37474f;
   cursor: pointer;
 }
-.video-quiz-option:hover:not(:disabled) {
-  border-color: #00629b;
-  background: rgba(0, 98, 155, 0.05);
+main#main-content .video-quiz-option:hover:not(:disabled):not([aria-pressed="true"]) {
+  background: #e4edf4;
 }
-.video-quiz-option:focus-visible {
-  outline: 3px solid #ffcd00;
-  outline-offset: 1px;
+main#main-content .video-quiz-option:focus-visible {
+  outline: 3px solid #00629b;
+  outline-offset: 2px;
 }
-.video-quiz-option.is-correct {
-  border-color: #1a7a3c;
+main#main-content .video-quiz-option[aria-pressed="true"] {
+  box-shadow: inset 4px 0 0 currentColor;
+  font-weight: 700;
+}
+main#main-content .video-quiz-option.is-correct {
   background: #e8f5e9;
   color: #14532d;
   font-weight: 700;
 }
-.video-quiz-option.is-incorrect {
-  border-color: #b42318;
+main#main-content .video-quiz-option.is-incorrect {
   background: #fde8e8;
   color: #8a1c12;
 }
 .video-quiz-option.is-muted {
   opacity: 0.55;
 }
+main#main-content .video-quiz-result:empty { display: none; }
 .video-quiz-result {
   margin: 10px 0 0;
   font-weight: 700;
@@ -4726,9 +4735,36 @@ main#main-content .landing-hub-title .discovery-hero-description {
   font-weight: 400;
   color: #fff;
 }
-main#main-content .discovery-card .panel-body { display: flex; flex-direction: column; height: 100%; }
+/* Shared rows align the presenter band and lesson links to the tallest card in each row. */
+main#main-content .discovery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 30px;
+}
+main#main-content .discovery-card,
+main#main-content .discovery-card .panel-body {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+  min-width: 0;
+}
+main#main-content .discovery-card { margin: 0 0 30px; }
+main#main-content .discovery-card .panel-body::before,
+main#main-content .discovery-card .panel-body::after { content: none; }
+main#main-content .discovery-card .discovery-presenters { align-content: start; }
+main#main-content .discovery-card .discovery-presenter { align-items: flex-start; }
+main#main-content .discovery-card-intro > p:last-child,
+main#main-content .discovery-card-footer > p:last-child { margin: 0; padding: 0; }
+@media (max-width: 991px) {
+  main#main-content .discovery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  main#main-content .discovery-grid { display: block; }
+  main#main-content .discovery-card,
+  main#main-content .discovery-card .panel-body { display: block; }
+}
 main#main-content .discovery-card h3 { font-size: 23px; line-height: 1.25; }
-main#main-content .discovery-card-link { margin-top: auto; padding-top: 18px; }
+main#main-content .discovery-card-link { margin: 0; padding: 0; }
 main#main-content .discovery-presenters { display: grid; gap: 14px; margin: 20px 0; }
 main#main-content .discovery-presenter { display: flex; align-items: center; gap: 12px; }
 main#main-content .discovery-presenter img,
