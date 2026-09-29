@@ -1697,9 +1697,8 @@ SHOTS.pptThread='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAQDAwQD
 })();
 
 const VO_DUR=[13.97, 13.46, 17.58, 9.0, 10.23, 7.74, 18.28, 17.14, 8.44, 7.7, 10.37, 8.07, 8.29, 10.67, 8.02, 10.04, 10.39, 11.41, 17.01, 16.5, 10.33, 15.56, 9.89, 8.97, 9.74, 9.29, 7.38, 9.24, 17.88, 15.88, 15.19, 8.84, 18.4, 10.41, 20.48, 8.29, 12.38, 7.38, 9.85, 7.99, 7.61, 14.99, 17.16, 15.56, 11.42, 16.33, 13.05, 8.77, 14.38, 13.76, 13.36, 9.91, 14.94, 11.15, 11.71, 12.96, 19.0, 13.86, 11.51, 16.09, 19.56, 13.26, 7.42, 16.42, 15.22, 11.28, 12.23, 14.37, 16.61, 10.96, 13.88, 14.1, 11.62, 6.28, 18.63, 11.53, 11.65, 11.88, 15.09, 12.16, 10.57, 11.54, 13.5, 18.8, 10.68, 14.52, 13.54, 13.58, 17.45, 11.24, 11.41, 9.54, 9.52, 12.44, 18.99, 6.67];
-{ let k=0; CH.forEach(c=>c.beats.forEach(b=>{ if(VO_DUR[k]) b.dur=VO_DUR[k]; k++; })); }
 const FLAT=[]; let total=0;
-CH.forEach((c,ci)=>{ c.start=total; c.beats.forEach((b,bi)=>{ b.dur=Math.max(4.5,Math.min(16,words(b.say)/2.55+1.6)); FLAT.push({ci,bi,start:total,dur:b.dur}); total+=b.dur; }); c.len=total-c.start; });
+CH.forEach((c,ci)=>{ c.start=total; c.beats.forEach((b,bi)=>{ b.dur=VO_DUR[FLAT.length]||Math.max(4.5,Math.min(16,words(b.say)/2.55+1.6)); FLAT.push({ci,bi,start:total,dur:b.dur}); total+=b.dur; }); c.len=total-c.start; });
 const fmt=s=>{s=Math.max(0,Math.round(s)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
 $('totalLen').textContent=Math.round(total/60)+' min'; $('chCount').textContent=CH.length;
 const seek=$('seek'); seek.max=total.toFixed(1);
@@ -1748,7 +1747,7 @@ let last=performance.now();
 function frame(now){
   const dt=Math.min(.25,(now-last)/1000); last=now;
   if(playing && !quizOpen){ t+=dt*rate; const b=CH[ci].beats[bi];
-    const fin = narr ? (spoken && t>=Math.max(1.2,spokenAt+0.6)) || t>b.dur*2.6 : t>=b.dur;
+    const fin = narr ? (spoken && t>=Math.max(1.2,spokenAt+0.6)) || t>b.dur*2.6 : t>=b.dur && !(window.__voBusy&&window.__voBusy());
     if(fin){ spokenAt=0; advance(); } }
   const f=FLAT[flatIdx()]; const g=f?f.start+Math.min(t,f.dur):0;
   if(document.activeElement!==seek) seek.value=g.toFixed(1);
@@ -1868,13 +1867,20 @@ $('qCount').textContent=CH.filter(c=>c.quiz).length;
 renderChapters(); goTo(0,0); updateScore();
 /* ---------- recorded narration ---------- */
 (function(){
-  const LEAD=0.35; const au=new Audio(); au.preload='auto'; let vo=true, pend=null;
+  const LEAD=0.35; const GAP=0.45, STALL=8; const au=new Audio(); au.preload='auto'; let vo=true, pend=null;
+  window.__narration=au;
+  // busy = this step's clip has not finished; the clock waits for it (with a stall limit)
+  let clipKey=null, clipDone=true, doneAt=0;
+  window.__voBusy=function(){ if(!vo||clipKey!==ci+'.'+bi) return false; const b=CH[ci].beats[bi];
+    if(!clipDone) return t < b.dur + STALL*rate; return t < doneAt + GAP*rate; };
+  au.addEventListener('ended',()=>{ clipDone=true; doneAt=t; });
+  au.addEventListener('error',()=>{ clipDone=true; doneAt=t; });
   const idAt=(c,b)=>String(c+1).padStart(2,'0')+'-'+String(b+1).padStart(2,'0');
   const src=(c,b)=>'audio/'+idAt(c,b)+'.mp3';
   function prefetch(){ let c=ci,b=bi+1; if(b>=CH[c].beats.length){ c++; b=0; } if(c<CH.length){ const n=new Audio(); n.preload='auto'; n.src=src(c,b); } }
   function stopVO(){ clearTimeout(pend); pend=null; try{ au.pause(); }catch(e){} }
   function playVO(){ stopVO(); if(!vo||!playing||quizOpen) return;
-    const s=src(ci,bi); if(!au.src.endsWith(s)) au.src=s; au.playbackRate=rate;
+    const s=src(ci,bi); clipKey=ci+'.'+bi; clipDone=false; doneAt=0; if(!au.src.endsWith(s)) au.src=s; au.defaultPlaybackRate=rate; au.playbackRate=rate;
     const go=()=>{ try{ au.currentTime=Math.max(0,t-LEAD); }catch(e){} au.play().catch(()=>{}); };
     if(t<LEAD) pend=setTimeout(go,(LEAD-t)/rate*1000); else go();
     prefetch(); }
@@ -1883,7 +1889,7 @@ renderChapters(); goTo(0,0); updateScore();
   const old=$('bVoice'), btn=old.cloneNode(true); old.replaceWith(btn);
   btn.setAttribute('aria-pressed','true'); btn.textContent='Narration';
   btn.addEventListener('click',()=>{ vo=!vo; btn.setAttribute('aria-pressed',String(vo)); if(vo) playVO(); else stopVO(); });
-  $('speed').addEventListener('change',()=>{ au.playbackRate=rate; });
+  $('speed').addEventListener('change',()=>{ au.defaultPlaybackRate=rate; au.playbackRate=rate; });
   document.addEventListener('visibilitychange',()=>{ if(document.hidden&&playing) play(); });
 })();
 
