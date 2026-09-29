@@ -137,6 +137,7 @@ h1 span{color:var(--accent)}
 .pl-side ul{margin:0 0 12px;padding-left:18px;font-size:14.5px}
 .pl-side .never{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:14px;margin-bottom:12px}
 .tw2{overflow-x:auto}
+.tw2:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .sk-group h3{font:500 22px/1 var(--display);margin:6px 0 8px}
 .sk-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
 .sk{border:1px solid var(--line);border-radius:12px;padding:14px;background:var(--bg);display:flex;flex-direction:column;gap:8px;min-width:0}
@@ -1848,7 +1849,7 @@ $('qCount').textContent=CH.filter(c=>c.quiz).length;
     const rows=p.caps.map(c=>`<tr><td><b>${esc(c.n)}</b><small>${esc(c.d)}</small></td><td><span class="pill2 ${c.a==='opt-in'?'opt':'on'}">${c.a==='opt-in'?'Opt-in':c.a==='authorization'?'At sign-in':'On'}</span></td><td><span class="pill2">${c.w?'Write':'Read'}</span></td><td><small>${c.t.map(esc).join(', ')}</small></td></tr>`).join('');
     const skills=(p.skills||[]).join(', ');
     d.innerHTML=`<h3>${esc(p.name)}</h3><p class="meta2">v${esc(p.version)} · ${p.caps.length} abilities · ${nTools} tools · skills: ${esc(skills)}</p><p class="d">${esc(p.desc)}</p>
-    <div class="pl-grid"><div class="tw2"><table class="abil"><thead><tr><th scope="col">Ability</th><th scope="col">Starts</th><th scope="col">Type</th><th scope="col">Tools</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="pl-grid"><div class="tw2" tabindex="0" role="region" aria-label="${esc(p.name)} abilities"><table class="abil"><thead><tr><th scope="col">Ability</th><th scope="col">Starts</th><th scope="col">Type</th><th scope="col">Tools</th></tr></thead><tbody>${rows}</tbody></table></div>
     <div class="pl-side"><h4>Good for</h4><ul>${PLUG_USES[k].map(u=>'<li>'+esc(u)+'</li>').join('')}</ul><h4>Never</h4><div class="never">${esc(PLUG_NEVER[k])}</div></div></div>`;
     pp.appendChild(d); });
   const ps=$('panS');
