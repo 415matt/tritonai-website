@@ -80,6 +80,12 @@
       ],
       "lastModified": "2026-08-12"
     },
+    "/training/harness/index.html": {
+      "title": "TritonAI Harness Training",
+      "description": "A narrated, interactive training for TritonAI Harness at UC San Diego, with a practice kit and starter prompts.",
+      "robots": "noindex,nofollow",
+      "lastModified": "2026-09-29"
+    },
     "/presentations/managing-the-tritonai-website.html": {
       "title": "Editing and Publishing the TritonAI Website",
       "description": "See what TritonAI skills automate and how contributors prompt for stronger content, design, review, and publishing outcomes.",
