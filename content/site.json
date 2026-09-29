@@ -51,6 +51,88 @@
       ]
     },
     {
+      "label": "Learn",
+      "href": "/training-resources/index.html",
+      "items": [
+        {
+          "label": "Learning Paths",
+          "href": "/training-resources/pathways.html"
+        },
+        {
+          "label": "Learning Videos",
+          "href": "/training-resources/videos/index.html"
+        },
+        {
+          "label": "TritonGPT Guides",
+          "href": "/training-resources/tritongpt/index.html"
+        },
+        {
+          "label": "Prompting",
+          "href": "/training-resources/prompting/index.html"
+        },
+        {
+          "label": "AI Webinars",
+          "href": "/training-resources/webinars.html"
+        },
+        {
+          "label": "Faculty AI Symposium",
+          "href": "/training-resources/faculty-ai-symposium.html"
+        },
+        {
+          "label": "Certificate",
+          "href": "/training-resources/certificate.html"
+        },
+        {
+          "label": "FAQ",
+          "href": "/training-resources/faq.html"
+        }
+      ]
+    },
+    {
+      "label": "Connect",
+      "href": "/connect/index.html",
+      "items": []
+    },
+    {
+      "label": "Build",
+      "href": "/developer-apis/index.html",
+      "items": [
+        {
+          "label": "Build Overview",
+          "href": "/developer-apis/index.html"
+        },
+        {
+          "label": "DSMLP & DataHub",
+          "href": "/developer-apis/dsmlp-datahub.html"
+        },
+        {
+          "label": "Skills Library",
+          "href": "/skills/index.html"
+        },
+        {
+          "label": "Get Started",
+          "href": "/developer-apis/start.html"
+        },
+        {
+          "label": "Plan Your First Project",
+          "href": "/developer-apis/citizen-developer.html"
+        },
+        {
+          "label": "TritonAI Harness",
+          "href": "/developer-apis/harness.html"
+        },
+        {
+          "label": "Developer FAQs",
+          "href": "/developer-apis/faq.html"
+        }
+      ]
+    },
+    {
+      "label": "AI Tools",
+      "href": "/tools/index.html",
+      "items": []
+    },
+    {
       "label": "TritonGPT",
       "href": "/tritongpt/index.html",
       "items": [
@@ -91,75 +173,6 @@
     {
       "label": "Use Cases",
       "href": "/use-cases/index.html",
-      "items": []
-    },
-    {
-      "label": "Learn",
-      "href": "/training-resources/index.html",
-      "items": [
-        {
-          "label": "Learning Paths",
-          "href": "/training-resources/pathways.html"
-        },
-        {
-          "label": "TritonGPT Guides",
-          "href": "/training-resources/tritongpt/index.html"
-        },
-        {
-          "label": "Prompting",
-          "href": "/training-resources/prompting/index.html"
-        },
-        {
-          "label": "AI Webinars",
-          "href": "/training-resources/webinars.html"
-        },
-        {
-          "label": "Faculty AI Symposium",
-          "href": "/training-resources/faculty-ai-symposium.html"
-        },
-        {
-          "label": "DataHub & DSMLP",
-          "href": "/developer-apis/dsmlp-datahub.html"
-        },
-        {
-          "label": "FAQ",
-          "href": "/training-resources/faq.html"
-        }
-      ]
-    },
-    {
-      "label": "Build",
-      "href": "/developer-apis/index.html",
-      "items": [
-        {
-          "label": "Build Overview",
-          "href": "/developer-apis/index.html"
-        },
-        {
-          "label": "Get Started",
-          "href": "/developer-apis/start.html"
-        },
-        {
-          "label": "Plan Your First Project",
-          "href": "/developer-apis/citizen-developer.html"
-        },
-        {
-          "label": "TritonAI Harness",
-          "href": "/developer-apis/harness.html"
-        },
-        {
-          "label": "Skills Library",
-          "href": "/skills/index.html"
-        },
-        {
-          "label": "Developer FAQs",
-          "href": "/developer-apis/faq.html"
-        }
-      ]
-    },
-    {
-      "label": "AI Tools",
-      "href": "/tools/index.html",
       "items": []
     }
   ]

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "syncedAt": "2026-09-07T22:23:26.635Z",
+  "syncedAt": "2026-09-25T21:15:02.745Z",
   "source": {
     "repository": "UCSD/UCSD-Skills-Library",
     "url": "https://github.com/UCSD/UCSD-Skills-Library",
@@ -16,7 +16,12 @@
     {
       "id": "tritonai",
       "label": "TritonAI maintained",
-      "count": 9
+      "count": 10
+    },
+    {
+      "id": "community",
+      "label": "Community maintained",
+      "count": 0
     }
   ],
   "skills": [
@@ -83,6 +88,23 @@
       "directoryUrl": "https://github.com/UCSD/UCSD-Skills-Library/tree/43bc2695a2bf0bb70d34192f2292ba4de385260b/tritonai/ucsd-accessibility-compliance",
       "resources": {
         "references": 1,
+        "scripts": 0,
+        "assets": 0,
+        "other": 0
+      }
+    },
+    {
+      "name": "ucsd-branding",
+      "description": "Retired. Superseded by the ucsd-decorator skill, which covers the UC San Diego Decorator 5 page shell, kitchen-sink components, widgets, modules, accessibility, and security. Load ucsd-decorator instead for any UCSD web branding, campus page chrome, Decorator template, or kitchen-sink work.",
+      "collection": "tritonai",
+      "collectionLabel": "TritonAI maintained",
+      "maintainer": null,
+      "path": "tritonai/ucsd-branding/SKILL.md",
+      "directory": "tritonai/ucsd-branding",
+      "sourceUrl": "https://github.com/UCSD/UCSD-Skills-Library/blob/43bc2695a2bf0bb70d34192f2292ba4de385260b/tritonai/ucsd-branding/SKILL.md",
+      "directoryUrl": "https://github.com/UCSD/UCSD-Skills-Library/tree/43bc2695a2bf0bb70d34192f2292ba4de385260b/tritonai/ucsd-branding",
+      "resources": {
+        "references": 0,
         "scripts": 0,
         "assets": 0,
         "other": 0

@@ -2305,6 +2305,96 @@ main#main-content .skills-setup {
   }
 }
 
+/* Training video pages: covers list, resume button, timestamped transcript */
+.training-video-learn,
+.training-video-transcript {
+  margin-bottom: 54px;
+}
+
+.training-video-learn ul {
+  color: var(--triton-slate);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 760px;
+  padding-left: 22px;
+}
+
+.training-video-learn li {
+  margin-bottom: 6px;
+}
+
+.video-resume-button {
+  margin-top: 14px;
+}
+
+.training-video-transcript-details {
+  background: #f7f8f9;
+  border: 1px solid var(--triton-border);
+  border-left: 6px solid var(--triton-bright-blue);
+}
+
+.training-video-transcript-details summary {
+  color: var(--triton-navy);
+  cursor: pointer;
+  font-weight: 700;
+  padding: 16px 20px;
+}
+
+.training-video-transcript-details summary:hover,
+.training-video-transcript-details summary:focus {
+  color: var(--triton-blue);
+}
+
+.training-video-transcript-details > p {
+  padding: 0 20px;
+}
+
+.training-video-transcript-details > p:last-of-type {
+  padding-bottom: 16px;
+}
+
+.training-video-cue-list {
+  list-style: none;
+  margin: 0;
+  padding: 2px 20px 16px;
+}
+
+.training-video-cue {
+  border-top: 1px solid #e1e5e8;
+  display: flex;
+  gap: 16px;
+  padding: 10px 0;
+}
+
+.training-video-cue:first-child {
+  border-top: 0;
+}
+
+.training-video-cue-time {
+  background: none;
+  border: 0;
+  color: var(--triton-blue);
+  flex: 0 0 auto;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  line-height: inherit;
+  min-width: 44px;
+  padding: 0;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.training-video-cue-time:hover,
+.training-video-cue-time:focus {
+  color: var(--triton-navy);
+}
+
+.training-video-cue span {
+  color: var(--triton-slate);
+  line-height: 1.55;
+}
+
 /* Strategy page: principle icon badges */
 .agent-page .strategy-principle .panel-body {
   display: flex;
@@ -4861,3 +4951,1063 @@ a.developer-download-button:visited {
 }
 
 
+/* Training videos: follow-along transcript beneath the player */
+.training-video-follow-wrap {
+  max-width: 880px;
+  margin-top: 18px;
+}
+.training-video-follow-hint {
+  font-size: 14px;
+  color: #52616b;
+  margin-bottom: 10px;
+}
+.training-video-follow {
+  max-height: 260px;
+  overflow-y: auto;
+  border: 1px solid #d5d9de;
+  border-left: 4px solid #00c6d7;
+  border-radius: 0 8px 8px 0;
+  padding: 18px 22px;
+  font-size: 17px;
+  line-height: 1.85;
+  background: #fff;
+}
+.training-video-follow:focus-visible {
+  outline: 3px solid #ffcd00;
+  outline-offset: 2px;
+}
+.training-video-sentence {
+  display: inline;
+  border: 0;
+  background: none;
+  padding: 1px 2px;
+  margin: 0;
+  font: inherit;
+  color: #37474f;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.training-video-sentence:hover {
+  color: #00629b;
+  background: rgba(0, 98, 155, 0.08);
+}
+.training-video-sentence:focus-visible {
+  outline: 2px solid #00629b;
+  outline-offset: 1px;
+}
+.training-video-sentence.is-current {
+  background: rgba(255, 205, 0, 0.35);
+  color: #182b49;
+}
+
+/* Training videos: theater layout for individual watch pages */
+.video-theater-page .video-theater-breadcrumbs .breadcrumbs-list {
+  margin: 10px 0 6px;
+}
+.video-theater {
+  background: #182b49;
+  background-image: linear-gradient(150deg, #102b4e 0%, #182b49 55%, #1a3a5c 100%);
+  padding: 30px 24px 36px;
+}
+.video-theater-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.video-theater-kicker {
+  color: #ffcd00;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.video-theater-title {
+  color: #fff;
+  font-size: 30px;
+  margin: 0 0 18px;
+}
+.video-theater .use-case-demo {
+  margin: 0;
+}
+.video-theater .use-case-demo-frame {
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.video-theater .use-case-demo-frame video {
+  display: block;
+  width: 100%;
+  max-height: calc(100vh - 320px);
+  min-height: 320px;
+  object-fit: contain;
+  margin: 0 auto;
+  background: #000;
+}
+.video-theater .use-case-demo-caption {
+  color: rgba(255, 255, 255, 0.75);
+}
+.video-theater .video-play-overlay {
+  align-items: center;
+  background: rgba(0, 40, 70, 0.92);
+  border: 2px solid #fff;
+  border-radius: 999px;
+  color: #fff;
+  display: inline-flex;
+  font-size: 18px;
+  font-weight: 700;
+  gap: 9px;
+  left: 50%;
+  min-height: 50px;
+  padding: 10px 18px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+.video-theater .video-play-overlay[hidden] {
+  display: none;
+}
+.video-theater .video-play-overlay:hover,
+.video-theater .video-play-overlay:focus {
+  background: #00629b;
+  color: #fff;
+}
+.video-theater .video-play-overlay:focus-visible {
+  outline: 3px solid #ffcd00;
+  outline-offset: 3px;
+}
+.video-theater .video-resume-host {
+  margin-top: 10px;
+}
+.video-theater .training-video-follow-wrap {
+  max-width: none;
+  margin-top: 16px;
+}
+.video-theater .training-video-follow-hint {
+  color: rgba(255, 255, 255, 0.72);
+}
+.video-theater .training-video-follow {
+  background: rgba(255, 255, 255, 0.97);
+  border-color: rgba(255, 255, 255, 0.25);
+  max-height: 200px;
+}
+.video-theater-about {
+  background: #fff;
+  padding: 34px 24px 30px;
+}
+.video-theater-about-inner {
+  max-width: 880px;
+  margin: 0 auto;
+}
+.video-theater-about-covers h2 {
+  font-size: 24px;
+  margin: 18px 0 8px;
+}
+.video-theater-upnext {
+  display: block;
+  border-left: 4px solid #ffcd00;
+  background: rgba(255, 205, 0, 0.08);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 18px;
+  margin: 18px 0;
+  text-decoration: none;
+}
+.video-theater-upnext:hover,
+.video-theater-upnext:focus {
+  background: rgba(255, 205, 0, 0.16);
+  text-decoration: none;
+}
+.video-theater-upnext-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #52616b;
+}
+.video-theater-upnext-title {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  color: #00629b;
+  margin-top: 2px;
+}
+@media (max-width: 768px) {
+  .video-theater {
+    padding: 18px 12px 24px;
+  }
+  .video-theater-title {
+    font-size: 24px;
+  }
+  .video-theater .use-case-demo-frame video {
+    max-height: none;
+    min-height: 0;
+  }
+}
+
+/* Training videos: series progression bar */
+.video-theater-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  border-bottom: 1px solid #d5d9de;
+  flex-wrap: wrap;
+}
+.video-theater-nav-all {
+  font-weight: 700;
+  white-space: nowrap;
+}
+.video-theater-nav-position {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #37474f;
+  text-align: center;
+}
+.video-theater-nav-next {
+  text-align: right;
+  text-decoration: none;
+  max-width: 46%;
+}
+.video-theater-nav-next-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #37474f;
+}
+.video-theater-nav-next-title {
+  display: block;
+  font-weight: 700;
+  color: #00629b;
+}
+a.video-theater-nav-next:hover .video-theater-nav-next-title,
+a.video-theater-nav-next:focus .video-theater-nav-next-title {
+  text-decoration: underline;
+}
+@media (max-width: 768px) {
+  .video-theater-nav {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+  }
+  .video-theater-nav-next {
+    max-width: none;
+    text-align: left;
+  }
+}
+
+/* After the video ends, the next step presents itself without navigating */
+a.video-theater-nav-next.is-suggested {
+  border-right: 4px solid #ffcd00;
+  padding-right: 10px;
+}
+a.video-theater-nav-next.is-suggested .video-theater-nav-next-label {
+  color: #b89400;
+}
+
+/* Theater main region: neutralize grid float so sections stack and paint normally */
+.video-theater-page .video-theater-main {
+  float: none;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+.video-theater-nav {
+  background: #fff;
+  position: relative;
+}
+
+/* TED-style order inside the theater: player first, then title and meta */
+.video-theater .video-theater-title {
+  margin: 16px 0 2px;
+}
+.video-theater .video-theater-kicker {
+  margin-bottom: 12px;
+}
+
+/* Theater layout: dominant player with a watch-next rail on the right */
+.video-theater-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 28px;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+.video-theater-primary {
+  min-width: 0;
+}
+.video-theater .use-case-demo-frame video {
+  max-height: calc(100vh - 260px);
+}
+.video-theater-rail {
+  color: rgba(255, 255, 255, 0.85);
+}
+.video-theater-rail-heading {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 2px;
+}
+.video-theater-rail-position {
+  color: #ffcd00;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.video-rail-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  display: grid;
+  gap: 10px;
+}
+.video-rail-card {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  text-decoration: none;
+}
+.video-rail-card:hover,
+.video-rail-card:focus {
+  background: rgba(255, 255, 255, 0.14);
+  text-decoration: none;
+}
+.video-rail-card img {
+  width: 108px;
+  height: 62px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.video-rail-card-copy {
+  min-width: 0;
+}
+.video-rail-card-flag {
+  display: block;
+  color: #ffcd00;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.video-rail-card-title {
+  display: block;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.video-rail-card-meta {
+  display: block;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+  margin-top: 2px;
+}
+.video-rail-card-next.is-suggested {
+  outline: 2px solid #ffcd00;
+}
+.video-theater-rail-all {
+  color: #00c6d7;
+  font-weight: 700;
+}
+.video-theater-rail-all:hover,
+.video-theater-rail-all:focus {
+  color: #fff;
+}
+.video-theater-rail-done {
+  color: rgba(255, 255, 255, 0.75);
+}
+@media (max-width: 991px) {
+  .video-theater-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* TED-scale stage: player anchors near the left edge and dominates the row */
+.video-theater {
+  padding: 22px 28px 30px;
+}
+.video-theater-layout {
+  max-width: 1760px;
+  margin: 0;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 32px;
+}
+.video-theater .use-case-demo-frame video {
+  max-height: calc(100vh - 230px);
+  min-height: 380px;
+}
+@media (min-width: 1500px) {
+  .video-theater-layout {
+    grid-template-columns: minmax(0, 1fr) 340px;
+  }
+}
+@media (max-width: 991px) {
+  .video-theater {
+    padding: 16px 12px 22px;
+  }
+  /* Re-assert the single-column stack: the TED-scale block above re-sets
+     two columns unconditionally and would otherwise win by source order. */
+  .video-theater-layout {
+    grid-template-columns: 1fr;
+  }
+  .video-theater .use-case-demo-frame video {
+    min-height: 0;
+  }
+}
+
+/* Light stage: white background per the TED reference; navy retires to accents */
+.video-theater {
+  background: #fff;
+  background-image: none;
+  border-bottom: 1px solid #d5d9de;
+}
+.video-theater-title {
+  color: #182b49;
+}
+.video-theater-kicker {
+  color: #00629b;
+}
+.video-theater .use-case-demo-caption {
+  color: #52616b;
+}
+.video-theater .training-video-follow-hint {
+  color: #52616b;
+}
+.video-theater .training-video-follow {
+  background: #fff;
+  border-color: #d5d9de;
+  border-left-color: #00c6d7;
+}
+.video-theater-rail {
+  color: #37474f;
+}
+.video-theater-rail-heading {
+  color: #182b49;
+}
+.video-theater-rail-position {
+  color: #00629b;
+}
+.video-rail-card {
+  background: #f5f7f9;
+}
+.video-rail-card:hover,
+.video-rail-card:focus {
+  background: #e8eef3;
+}
+.video-rail-card-flag {
+  color: #b8000e;
+}
+.video-rail-card-flag {
+  color: #00629b;
+}
+.video-rail-card-title {
+  color: #182b49;
+}
+.video-rail-card-meta {
+  color: #52616b;
+}
+.video-rail-card-next.is-suggested {
+  outline: 2px solid #00629b;
+}
+.video-theater-rail-all {
+  color: #00629b;
+}
+.video-theater-rail-all:hover,
+.video-theater-rail-all:focus {
+  color: #182b49;
+}
+.video-theater-rail-done {
+  color: #52616b;
+}
+
+/* TED-style description directly under the title */
+.video-theater-description {
+  max-width: 76ch;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #37474f;
+  margin: 0 0 16px;
+}
+
+/* Bezel-less player: no frame chrome, square corners, natural aspect ratio */
+.video-theater .use-case-demo-frame {
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+}
+.video-theater .use-case-demo-frame video {
+  border-radius: 0;
+  background: transparent;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  min-height: 0;
+  object-fit: fill;
+}
+
+/* Resume overlays the player; title leads the page; transcript hugs the video */
+.video-theater .use-case-demo-frame {
+  position: relative;
+}
+.video-theater .video-resume-host {
+  position: absolute;
+  left: 14px;
+  bottom: 56px;
+  z-index: 2;
+  margin: 0;
+}
+.video-theater .video-resume-host .video-resume-button {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+.video-theater .video-theater-title {
+  margin: 0 0 2px;
+}
+.video-theater .video-theater-kicker {
+  margin-bottom: 12px;
+}
+.video-theater .training-video-follow-wrap {
+  margin-top: 12px;
+}
+.video-theater .training-video-follow-hint {
+  margin: 8px 0 0;
+  font-size: 13px;
+}
+.video-theater .video-theater-description {
+  margin-top: 16px;
+}
+
+/* Library: slim continue-watching bar; thumbnails lead the page */
+.training-video-continue-bar {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  padding: 12px 0 2px;
+  border-bottom: 1px solid #d5d9de;
+  margin-bottom: 8px;
+}
+.training-video-continue-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #37474f;
+}
+.training-video-continue-bar .training-video-continue-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.training-video-continue-bar .training-video-continue-list li {
+  border: 0;
+  padding: 0;
+}
+.training-video-continue-bar .training-video-continue-list a {
+  font-weight: 700;
+}
+
+/* Continue-watching strip: aligned with the series sections, quiet typography */
+.training-video-continue-strip {
+  padding-top: 10px;
+  padding-bottom: 0;
+}
+.training-video-continue-strip .training-video-continue-bar {
+  padding: 0 0 10px;
+  margin-bottom: 0;
+  align-items: center;
+}
+.training-video-continue-strip .training-video-continue-list a {
+  font-size: 14px;
+  font-weight: 600;
+}
+.training-video-continue-strip .training-video-continue-list li {
+  max-width: 46ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Watch page: description sits between meta line and player */
+.video-theater .video-theater-description {
+  margin: 6px 0 14px;
+}
+
+/* Continue strip: compact band; first series pulls up close behind it */
+.landing-section.training-video-continue-strip {
+  padding-top: 14px;
+  padding-bottom: 10px;
+}
+.training-video-continue-strip + .landing-section {
+  padding-top: 26px;
+}
+
+/* Training videos: knowledge check, discussion points, and team CTA */
+.video-quiz-section .video-theater-about-inner,
+.video-discussion-section .video-theater-about-inner,
+.video-training-cta .video-theater-about-inner {
+  max-width: 880px;
+}
+main#main-content .video-quiz-question {
+  min-width: 0;
+  border: 0;
+  border-radius: 8px;
+  background: #f3f5f7;
+  padding: 24px;
+  margin: 0 0 28px;
+}
+main#main-content .video-quiz-question legend {
+  float: left;
+  width: 100%;
+  border: 0;
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #182b49;
+  padding: 0;
+}
+main#main-content .video-quiz-options {
+  clear: both;
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+main#main-content .video-quiz-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-size: 16px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 6px;
+  background: #fff;
+  color: #37474f;
+  cursor: pointer;
+}
+main#main-content .video-quiz-option:hover:not(:disabled):not([aria-pressed="true"]) {
+  background: #e4edf4;
+}
+main#main-content .video-quiz-option:focus-visible {
+  outline: 3px solid #00629b;
+  outline-offset: 2px;
+}
+main#main-content .video-quiz-option[aria-pressed="true"] {
+  box-shadow: inset 4px 0 0 currentColor;
+  font-weight: 700;
+}
+main#main-content .video-quiz-option.is-correct {
+  background: #e8f5e9;
+  color: #14532d;
+  font-weight: 700;
+}
+main#main-content .video-quiz-option.is-incorrect {
+  background: #fde8e8;
+  color: #8a1c12;
+}
+.video-quiz-option.is-muted {
+  opacity: 0.55;
+}
+main#main-content .video-quiz-result:empty { display: none; }
+.video-quiz-result {
+  margin: 10px 0 0;
+  font-weight: 700;
+}
+.video-quiz-result.is-correct {
+  color: #1a7a3c;
+}
+.video-quiz-result.is-incorrect {
+  color: #b42318;
+}
+.video-quiz-explanation {
+  margin: 6px 0 0;
+  color: #37474f;
+}
+.video-quiz-score {
+  font-weight: 700;
+  color: #182b49;
+}
+.video-discussion-list {
+  font-size: 17px;
+  line-height: 1.65;
+  padding-left: 22px;
+}
+.video-discussion-list li {
+  margin-bottom: 10px;
+}
+.video-training-cta-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  border: 2px solid #00629b;
+  border-radius: 10px;
+  padding: 26px 30px;
+  flex-wrap: wrap;
+}
+.video-training-cta-panel h2 {
+  margin: 2px 0 6px;
+}
+.video-training-cta-panel p {
+  margin: 0;
+  max-width: 56ch;
+}
+.video-training-cta-panel .video-training-cta-meta {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #4a5560;
+}
+.video-training-cta-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.video-theater-presenter {
+  margin: -6px 0 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+.training-video-card-presenter {
+  margin: -4px 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #182b49;
+}
+.video-rail-card-presenter {
+  display: block;
+  color: #37474f;
+  font-size: 12px;
+  margin-top: 2px;
+}
+.training-video-journey-intro {
+  padding-bottom: 8px;
+}
+.training-video-journey-panel {
+  background: #f4f7fa;
+  border: 1px solid #d5d9de;
+  border-left: 5px solid #00c6d7;
+  border-radius: 8px;
+  box-shadow: 0 8px 22px rgba(24, 43, 73, 0.08);
+  padding: 30px 34px 26px;
+}
+.training-video-journey-panel .home-kicker,
+.training-video-journey-panel .landing-section-heading .home-kicker {
+  color: #00629b;
+}
+.training-video-journey-intro .training-video-journey-panel .landing-section-heading h2,
+.training-video-journey-intro .training-video-journey-panel .landing-section-heading > p:last-child,
+.training-video-journey-panel .landing-section-heading p {
+  color: #182b49;
+}
+.training-video-journey-panel .landing-section-heading {
+  margin-bottom: 22px;
+}
+@media (max-width: 640px) {
+  .training-video-journey-panel {
+    padding: 24px 20px;
+  }
+}
+
+.training-video-completion .video-training-cta-panel {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Pace list inside the journey panel */
+.training-video-pace-list {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+}
+.training-video-pace-list li {
+  margin: 10px 0;
+  padding-left: 28px;
+  position: relative;
+  color: #37474f;
+}
+.training-video-pace-list li::before {
+  content: "\2713";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #007a87;
+  font-weight: 700;
+}
+.training-video-pace-list strong {
+  color: #00629b;
+}
+
+/* Go further section */
+.training-video-go-further {
+  background: #f4f6f9;
+}
+.training-video-go-further .landing-section-heading {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+.training-video-go-further-links {
+  margin-top: 18px;
+}
+.training-video-go-further-links a {
+  font-weight: 700;
+}
+
+/* Post-video gated sections: smooth reveal */
+[data-post-video][hidden] {
+  display: none;
+}
+
+/* Transcript details in the theater context */
+.video-theater .training-video-follow-details {
+  margin-top: 16px;
+  background: transparent;
+  border: 0;
+}
+.video-theater .training-video-follow-details > summary {
+  list-style: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+  background: #2a4a73;
+  border: 1px solid #3d6ba3;
+  border-radius: 6px;
+  padding: 10px 18px;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+.video-theater .training-video-follow-details > summary::-webkit-details-marker {
+  display: none;
+}
+.video-theater .training-video-follow-details > summary:hover,
+.video-theater .training-video-follow-details > summary:focus-visible {
+  background: #355a8c;
+  border-color: #00c6d7;
+  outline: 3px solid #ffcd00;
+  outline-offset: 2px;
+}
+.video-theater .training-video-follow-details > summary::before {
+  content: "\25B8";
+  font-size: 14px;
+  color: #00c6d7;
+}
+.video-theater .training-video-follow-details[open] > summary::before {
+  content: "\25BE";
+}
+.training-video-follow-details .training-video-follow-wrap {
+  margin-top: 12px;
+  max-width: 880px;
+}
+.video-theater .training-video-follow-details .training-video-follow {
+  max-height: none;
+  overflow-y: visible;
+  background: #f7f8f9;
+  border: 1px solid #d5d9de;
+  border-radius: 8px;
+  padding: 18px 20px;
+}
+.video-theater .training-video-follow-details .training-video-sentence:hover {
+  background: transparent;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* Presenter photo bubble on cards */
+.training-video-card-presenter-bubble {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: -4px 0 8px;
+}
+.training-video-card-presenter-bubble img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.training-video-card-presenter-bubble .training-video-card-presenter-name {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #182b49;
+}
+.training-video-card-presenter-title,
+.training-video-card-presents {
+  display: block;
+  font-size: 13px;
+  line-height: 1.35;
+  color: #4a5560;
+}
+.training-video-card-presents {
+  margin-top: 2px;
+  font-style: italic;
+}
+
+/* Presenter photo bubble on watch pages */
+.video-theater-presenter-bubble {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: -6px 0 10px;
+}
+.video-theater-presenter-bubble img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.video-theater-presenter-bubble .video-theater-presenter-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #37474f;
+}
+
+
+/* Quiz, discussion, and CTA align to the theater's left edge */
+.video-quiz-section .video-theater-about-inner,
+.video-discussion-section .video-theater-about-inner,
+.video-training-cta .video-theater-about-inner {
+  margin-left: 0;
+  margin-right: auto;
+  padding-left: 28px;
+  max-width: 908px;
+  width: auto;
+}
+
+.video-quiz-section {
+  padding-top: 20px;
+}
+
+/* Discovery Series: content canvas only. Media arrives from the production team. */
+main#main-content .landing-hub-title .discovery-hero-description {
+  max-width: 760px;
+  margin-top: 16px;
+  font-size: 20px;
+  line-height: 1.5;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+  color: #fff;
+}
+/* Shared rows align the presenter band and lesson links to the tallest card in each row. */
+main#main-content .discovery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 30px;
+}
+main#main-content .discovery-card,
+main#main-content .discovery-card .panel-body {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+  min-width: 0;
+}
+main#main-content .discovery-card { margin: 0 0 30px; }
+main#main-content .discovery-card .panel-body::before,
+main#main-content .discovery-card .panel-body::after { content: none; }
+main#main-content .discovery-card .discovery-presenters { align-content: start; }
+main#main-content .discovery-card .discovery-presenter { align-items: flex-start; }
+main#main-content .discovery-card-intro > p:last-child,
+main#main-content .discovery-card-footer > p:last-child { margin: 0; padding: 0; }
+@media (max-width: 991px) {
+  main#main-content .discovery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  main#main-content .discovery-grid { display: block; }
+  main#main-content .discovery-card,
+  main#main-content .discovery-card .panel-body { display: block; }
+}
+main#main-content .discovery-card h3 { font-size: 23px; line-height: 1.25; }
+main#main-content .discovery-card-link { margin: 0; padding: 0; }
+main#main-content .discovery-presenters { display: grid; gap: 14px; margin: 20px 0; }
+main#main-content .discovery-presenter { display: flex; align-items: center; gap: 12px; }
+main#main-content .discovery-presenter img,
+main#main-content .discovery-photo-placeholder {
+  width: 64px; height: 64px; flex: 0 0 64px; border-radius: 50%; object-fit: cover;
+}
+main#main-content .discovery-photo-placeholder {
+  display: grid; place-content: center; text-align: center;
+  background: #edf2f6; border: 1px dashed #8494a7; color: #44576b;
+  font-size: 11px; line-height: 1.3;
+}
+main#main-content .discovery-presenter-name { display: block; font-size: 15px; font-weight: 700; color: #182b49; }
+main#main-content .discovery-presenter-title { display: block; font-size: 13px; line-height: 1.4; color: #44576b; }
+main#main-content .discovery-video-pending {
+  display: grid; align-content: center; justify-items: center; min-height: 300px;
+  padding: 32px; text-align: center; background: #edf2f6; border: 1px solid #c7d4e0; border-radius: 8px;
+}
+main#main-content .discovery-video-pending .glyphicon { font-size: 36px; color: #00629b; }
+main#main-content .discovery-video-pending h2 { font-size: 28px; margin: 18px 0 8px; color: #182b49; }
+main#main-content .discovery-video-pending p { color: #37474f; }
+main#main-content .discovery-rail-number { font-size: 24px; font-weight: 700; color: #00629b; padding: 8px; }
+main#main-content .discovery-quiz-state { color: #14532d; font-size: 14px; font-weight: 700; }
+main#main-content .discovery-storage-note { font-size: 14px; }
+main#main-content .video-quiz-dialog {
+  border: 2px solid #00629b; border-radius: 10px; padding: 28px;
+  width: min(540px, calc(100% - 32px)); max-height: calc(100dvh - 40px); overflow-y: auto;
+  color: #182b49; background: #fff; box-shadow: 0 16px 60px #182b4940;
+}
+main#main-content .video-quiz-dialog::backdrop { background: #182b4999; }
+main#main-content .video-quiz-dialog h2 { margin-top: 0; }
+main#main-content .video-quiz-dialog p { font-size: 18px; line-height: 1.5; }
+main#main-content .video-quiz-dialog :focus-visible { outline: 3px solid #00629b; outline-offset: 4px; }
+@media (max-width: 640px) {
+  main#main-content .discovery-video-pending { min-height: 240px; padding: 24px 16px; }
+  main#main-content .video-quiz-question { padding: 14px; min-width: 0; }
+  main#main-content .video-quiz-section .video-theater-about-inner,
+  main#main-content .video-discussion-section .video-theater-about-inner,
+  main#main-content .video-training-cta .video-theater-about-inner { padding: 0 16px; }
+}
+
+
+/* Compact lesson header keeps the player close to the title. */
+main#main-content .discovery-lesson-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, 28%);
+  align-items: center;
+  gap: 12px 24px;
+  margin-bottom: 14px;
+}
+main#main-content .discovery-lesson-copy { min-width: 0; }
+main#main-content .discovery-lesson-header .video-theater-kicker { margin: 0 0 5px; }
+main#main-content .discovery-lesson-header .video-theater-title { margin: 0; }
+main#main-content .discovery-lesson-header .video-theater-description { margin: 5px 0 0; }
+main#main-content .discovery-lesson-header .discovery-presenters { margin: 0; gap: 10px; }
+main#main-content .discovery-lesson-header .discovery-presenter { gap: 10px; }
+main#main-content .discovery-lesson-header .discovery-presenter img,
+main#main-content .discovery-lesson-header .discovery-photo-placeholder {
+  width: 44px; height: 44px; flex-basis: 44px;
+}
+main#main-content .discovery-lesson-header .discovery-photo-placeholder { font-size: 9px; }
+@media (max-width: 767px) {
+  main#main-content .discovery-lesson-header { grid-template-columns: minmax(0, 1fr); gap: 10px; margin-bottom: 12px; }
+  main#main-content .discovery-lesson-header .discovery-presenters { display: flex; flex-wrap: wrap; gap: 8px 16px; }
+  main#main-content .discovery-lesson-header .discovery-presenter { flex: 1 1 240px; }
+}

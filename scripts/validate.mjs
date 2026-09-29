@@ -24,6 +24,7 @@ const SITE_BASE_PATH = (process.env.SITE_BASE_PATH || "").replace(/^\/+|\/+$/g, 
 const OFFICIAL_ORIGIN = "https://tritonai.ucsd.edu";
 const inheritedProductionFailures = new Set();
 const standaloneRoutes = new Set([
+  "/training/harness/index.html",
   "/presentations/managing-the-tritonai-website.html",
   "/tritongpt/bgpt-chat-generator/index.html",
 ]);
@@ -749,10 +750,20 @@ for (const page of htmlFiles) {
   $("video").each((_, element) => {
     const video = $(element);
     if (video.attr("controls") === undefined) accessibility.push({ page: route, issue: "Video missing controls" });
-    if (video.attr("data-autoplay-when-visible") !== "true") accessibility.push({ page: route, issue: "Video must autoplay when visible" });
-    if (video.attr("muted") === undefined) accessibility.push({ page: route, issue: "Autoplay video must be muted" });
     if (video.attr("playsinline") === undefined) accessibility.push({ page: route, issue: "Autoplay video must play inline" });
     if (video.attr("autoplay") !== undefined) performance.push({ page: route, issue: "Video must not load through eager autoplay" });
+    if (video.attr("data-progress-slug") !== undefined) {
+      // Training-video players: user-initiated playback with sound. They must
+      // never autoplay, must keep captions, and may preload metadata.
+      if (video.attr("muted") !== undefined) accessibility.push({ page: route, issue: "Training video must not be muted by default" });
+      if (video.attr("data-autoplay-when-visible") === "true") accessibility.push({ page: route, issue: "Training video must not autoplay" });
+      if (!video.find("track[kind='captions']").length) accessibility.push({ page: route, issue: "Training video missing captions track" });
+      if (video.find("track[kind='captions'][default]").length) accessibility.push({ page: route, issue: "Training video captions must be opt-in" });
+      if (!video.siblings("[data-video-play]").length) accessibility.push({ page: route, issue: "Training video missing explicit play control" });
+      return;
+    }
+    if (video.attr("data-autoplay-when-visible") !== "true") accessibility.push({ page: route, issue: "Video must autoplay when visible" });
+    if (video.attr("muted") === undefined) accessibility.push({ page: route, issue: "Autoplay video must be muted" });
     if (video.attr("preload") !== "none") performance.push({ page: route, issue: "Deferred video must use preload=none" });
     if (video.attr("src") || video.find("source[src]").length) performance.push({ page: route, issue: "Video source must be deferred to data-src" });
     const descriptionId = video.attr("aria-describedby");
@@ -762,6 +773,9 @@ for (const page of htmlFiles) {
       accessibility.push({ page: route, issue: "Video needs captions or an identified silent-demo description" });
     }
   });
+  if ($("video[data-progress-slug]").length && !$("script[src*='/video-progress.js?v=']").length) {
+    accessibility.push({ page: route, issue: "Training video playback script must use a content version" });
+  }
 
   $("iframe[data-src*='youtube.com/embed']").each((_, element) => {
     const iframe = $(element);
@@ -1308,7 +1322,6 @@ for (const page of htmlFiles) {
   }
   if (route === "/training-resources/pathways.html") {
     const pathwayCards = $(".learning-pathway-card");
-    const programCards = $(".learning-program");
     if (pathwayCards.length !== 5) {
       contentFindings.push({ source: route, issue: `Expected 5 role pathways; found ${pathwayCards.length}` });
     }
@@ -1318,22 +1331,19 @@ for (const page of htmlFiles) {
       if (card.find("h3").length !== 1 || card.find(".learning-pathway-action").length !== 1) {
         accessibility.push({ page: route, issue: `${label} is missing a heading or next step` });
       }
-      if (card.find(".learning-pathway-steps li").length !== 3) {
-        contentFindings.push({ source: route, issue: `${label} does not contain 3 learning steps` });
+      const stepCount = card.find(".learning-pathway-steps li").length;
+      if (stepCount < 2 || stepCount > 4) {
+        contentFindings.push({ source: route, issue: `${label} does not contain 2-4 learning steps` });
+      }
+      if (card.find(".learning-pathway-action").attr("href") === "") {
+        accessibility.push({ page: route, issue: `${label} has an empty next-step destination` });
       }
     });
-    if (programCards.length !== 6) {
-      contentFindings.push({ source: route, issue: `Expected 6 training programs; found ${programCards.length}` });
+    if ($("#keep-going-heading").length !== 1 || $("#keep-going-heading").text().trim().length < 20) {
+      accessibility.push({ page: route, issue: "Closing guidance is incomplete" });
     }
-    programCards.each((_, element) => {
-      const card = $(element);
-      const label = card.find("h3").first().text().trim() || "Unnamed program";
-      if (card.find("h3").length !== 1 || card.find("a").length !== 1) {
-        accessibility.push({ page: route, issue: `${label} is missing a heading or destination` });
-      }
-    });
-    if ($(".learning-access-standard h2").length !== 1 || $(".learning-access-standard a").length !== 1) {
-      accessibility.push({ page: route, issue: "Accessible media guidance is incomplete" });
+    if ($(".learning-pathways").length !== 2) {
+      contentFindings.push({ source: route, issue: `Expected 2 pathway sections; found ${$(".learning-pathways").length}` });
     }
   }
   if (route === "/") {
