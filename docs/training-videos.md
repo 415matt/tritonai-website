@@ -1,67 +1,78 @@
-# Learning video library
+# TritonAI Discovery Series
 
-The AI learning video library lives at `/training-resources/videos/`. One markdown
-file in `content/training-videos/` describes each video; the build generates the
-library index, a page per video, and `transcripts.json` for TritonGPT ingestion.
+The library lives at `/training-resources/videos/`. Each Markdown file in
+`content/training-videos/` supplies a lesson page. `discoverySeries: true` selects
+lessons for the main sequence; `order` places them within Foundations, Using the
+Tools, and Building. Existing supplemental URLs remain available without being
+included in that sequence.
 
-## Add or publish a video
+## Content and media
 
-1. Copy any existing entry in `content/training-videos/` and fill the frontmatter.
-   `series` groups the library sections (current taxonomy: Foundations, Using the
-   tools, and Building; the index renders them in that order no
-   matter when videos arrive). `durationMinutes` shows on cards and the detail
-   page so people can judge the time commitment before pressing play.
-2. Keep `status: Draft` until the recording is ready. Draft entries never render.
-3. To publish, set `status: Published` and provide `videoSrc` (MP4), `videoPoster`,
-   and `videoCaptionsSrc` (WebVTT). Published entries without captions fail
-   validation; this is deliberate. Host media externally per AGENTS.md, or under
-   an approved `_resources` path. Optional: `videoChaptersSrc` (a chapters VTT)
-   adds in-player chapter markers for longer videos.
-4. The page's `## Transcript` section is the fallback transcript. When the
-   captions VTT is a repo-local file, the build replaces it with a timestamped
-   interactive transcript generated from the cues (each timestamp seeks the
-   video), so a separate prose transcript is only needed for externally hosted
-   captions.
-5. Run `npm test` plus the `SITE_BASE_PATH=/tritonai-website` build and validate,
-   then open a focused PR. Presenter names appear only with the presenter's
-   approval; keep production-planning details (scheduling, unconfirmed names) in
-   the planning sheet, not in this repo.
+- `status: Draft` keeps a lesson out of the generated site.
+- `status: Coming soon` publishes the lesson text and knowledge check with a
+  clearly labeled empty video area. It does not load sample footage or export a
+  placeholder transcript. Leave `durationMinutes: null` until the runtime is known.
+- `presenters` is a list of `name`, `title`, and optional `image` values. Missing
+  photos show a neutral placeholder. Add approved TritonAI-owned photos under
+  `_images/`; media-team hero images can use `videoPoster`.
+- `quiz` contains each `question`, an `options` array, the zero-based correct
+  `answer`, and an `explanation`. `discussionPoints` contains team prompts.
+- Supplied September 29 editorial content is the source for the 15 lessons and
+  47 questions. Final recordings still need to be checked against the copy.
 
-## Content guidance
+The recordings will be hosted on Kaltura. Kaltura entry/player URLs, final hero
+artwork, presenter photos, captions, and transcripts are still pending. The
+current player supports captioned MP4 sources. Connect and test the approved
+Kaltura player when its embed details arrive, including captions, keyboard
+controls, transcript access, and playback progress. Do not mark Kaltura playback
+or resume as verified before that integration is tested.
 
-Research on instructional video consistently favors short, single-topic videos —
-most learners prefer the 3–6 minute range, and completion drops sharply on long
-recordings. Where the production plan calls for longer videos, chapters and the
-interactive transcript keep them navigable.
+For the existing MP4 player, `status: Published` requires `videoSrc`,
+`videoCaptionsSrc`, and `durationMinutes`. Playback is user-initiated, with native
+controls and no autoplay or muting. A `## Transcript` section supplies a prose
+transcript; local WebVTT captions generate the interactive transcript. Published
+transcripts are exported to `transcripts.json` for ingestion.
 
-## Player behavior
+## Knowledge checks
 
-- No autoplay, no muting; playback is user-initiated with native controls
-  (speed, captions, keyboard shortcuts included).
-- Watch position is stored in `localStorage` on the viewer's device only. A
-  "Resume from mm:ss" button appears on return, and the library shows a
-  "Continue watching" strip plus per-card watched/in-progress states. No account,
-  no server-side tracking of position.
-- The validator enforces this contract: training players must not be muted, must
-  not autoplay, and must carry a captions track.
-- Knowledge checks, discussion points, and the next-video action stay hidden
-  until playback completes. Completed videos restore those sections on return.
+The quiz and discussion topics are available without waiting for a video to end,
+including while a recording is pending. Selecting an answer immediately opens a
+native dialog with Correct or Incorrect and the explanation. It stays open until
+Continue, Escape, or a click outside the dialog. Focus returns to the selected
+answer; the same feedback remains inline.
 
-## Analytics
+The score counts the first answer to each question. Learners may change answers
+and review explanations without inflating that score. Restart clears the current
+quiz. Answers survive reloads in this browser via `tritonai.discoveryQuiz.v1` in
+localStorage. A content hash invalidates saved answers when quiz content changes.
+Storage failures leave the quiz usable and display a notice that it cannot save.
+There is no quiz analytics, fetch, account, server-side grading, or result upload.
 
-`video-progress.js` emits GA4 events through the site's canonical Google
-Analytics tag, which only collects on the production domain:
+The existing MP4 playback script saves watch position separately and retains its
+existing playback analytics. Pending lessons ignore old sample-footage watch
+states. Quiz completion never marks a video watched.
 
-- `video_start` — first play per page view (params: slug, title, duration, whether the session resumed)
-- `video_progress` — 25/50/75 percent quartiles reached
-- `video_complete` — playback finished
-- `video_resume_click` — the resume button was used (resume position)
-- `video_transcript_seek` — a transcript timestamp was clicked (target position)
-- `video_captions_toggle` — captions turned on or off
+## Validation and release
 
-These support the core usage questions: plays per video, watch time and
-completion rates by quartile, where viewers drop off, how much resume and the
-interactive transcript are used, and caption usage. Standard GA dimensions add
-audience splits (device, referrer) and the search terms that led people to a
-video. Read them alongside `transcripts.json`-driven TritonGPT questions to see
-which topics need deeper coverage.
+Run `npm test`, `npm run test:video-quiz`, and the
+`SITE_BASE_PATH=/tritonai-website` build and validate commands. Review desktop,
+390px mobile, keyboard focus, dialog dismissal, and zoom/reflow. Human
+screen-reader review is still required before campus release.
+
+This revision is authorized for GitHub Pages through `playground` only. Follow
+AGENTS.md before any promotion to `preview` or `main`.
+
+## Static web-server hosting
+
+The generated `dist/` is a static website and does not require CMS processing,
+Node.js on the host, server-side APIs, a database, or a JavaScript bundler at
+runtime. Build with an empty `SITE_BASE_PATH` for a site root, or the actual
+mount path for subdirectory hosting. Publish the complete HTML, CSS, and JS
+output together so content and versioned asset URLs stay in sync. The web server
+must serve `.js` as JavaScript and `.css` as CSS over HTTPS. Existing campus CDN
+assets remain external as required by the site shell.
+
+Progress is local to the browser and origin. GitHub Pages progress does not
+transfer to a campus hostname. Actual server headers and the future Kaltura
+embed remain host-level checks for the eventual release; this work does not
+publish to that server or change its deployment configuration.

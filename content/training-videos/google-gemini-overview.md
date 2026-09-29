@@ -1,47 +1,51 @@
 ---
-title: "Google Gemini overview"
+title: 'Google Gemini: An overview'
 slug: google-gemini-overview
-summary: Create a Gem and use the specialized functions available in Gemini at UC San Diego.
-series: Using the tools
-status: Published
+summary: How to create a Gem and use the specialized functions available in Gemini at UC San Diego.
+series: Using the Tools
+status: Coming soon
 owner: TritonAI training program
-lastReviewed: 2026-08-03
-audiences: [faculty, staff]
-source: AI training video production plan, August 2026
+lastReviewed: '2026-09-29'
+audiences:
+  - faculty
+  - staff
+source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/google-gemini-overview.html
 relatedSlides: []
-videoSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo-v2.mp4
-videoPoster: /presentations/_resources/tritonai-harness-editing-demo-poster.jpg
-videoCaptionsSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo.vtt
-videoDescription: Placeholder footage while this video is in production.
-order: 14
-# Sample knowledge check and discussion prompts for the preview; the
-# production team replaces these when the recording is produced.
+order: 12
 quiz:
-  - question: "What is the main focus of this video?"
+  - question: What is a Gem?
     options:
-      - "Purchasing procedures for campus software"
-      - "Understanding creating a Gem and the specialized functions in Gemini"
-      - "Configuring your campus email account"
-    answer: 1
-    explanation: "This video centers on creating a Gem and the specialized functions in Gemini."
-  - question: "Who stays responsible for consequential decisions when AI supports campus work?"
+      - A type of hardware
+      - A data classification level
+      - A customized AI assistant built for a specific purpose
+      - A security policy
+    answer: 2
+    explanation: A Gem lets you tailor Gemini’s behavior for a defined task or workflow.
+  - question: What can you do with a Gem?
     options:
-      - "The AI tool that produced the output"
-      - "A person who reviews the output"
-      - "Nobody; reviewed output is automatic"
+      - Bypass university policy
+      - Reuse a tailored setup for recurring tasks
+      - Replace all AI tools
+      - Store passwords
     answer: 1
-    explanation: "Campus AI work keeps a person accountable for reviewing output before it matters."
+    explanation: Gems help standardize repeated work and reduce setup time.
+  - question: What should you keep in mind when creating one?
+    options:
+      - Include clear instructions and appropriate guardrails.
+      - Avoid documenting the setup.
+      - Use no constraints.
+      - Share sensitive data.
+    answer: 0
+    explanation: 'Clear instructions and boundaries help the Gem produce reliable, appropriate results.'
 discussionPoints:
-  - "Where does Gemini already show up in your team's work, and where could it help next?"
-  - "What would need to be true before your team relied on AI for this, and who would review the results?"
-  - "Pick one workflow from this discussion to try within two weeks, and name who owns the follow-up."
-durationMinutes: 10
+  - Discuss one recurring task a Gem could support.
+  - Identify what instructions would make a Gem useful for your team.
+  - Share how you would test whether a Gem is working as intended.
+durationMinutes: null
+discoverySeries: true
+presenters:
+  - name: Elizabeth Salaam
+    title: Senior Writer
 ---
-
-- Draft entry awaiting the produced recording; publishes when videoSrc, captions, and transcript land.
-
-## Transcript
-
-Recorded transcript lands here at production time.

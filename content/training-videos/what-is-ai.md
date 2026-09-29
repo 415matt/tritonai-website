@@ -1,47 +1,55 @@
 ---
-title: "What is AI?"
+title: What is AI?
 slug: what-is-ai
-summary: Which AI you will encounter day to day, what it does well, where it fails, and the key terms worth knowing.
+summary: 'The AI you will encounter day to day, what it does well, where it fails, and the key terms worth knowing.'
 series: Foundations
-status: Published
+status: Coming soon
 owner: TritonAI training program
-lastReviewed: 2026-08-03
-audiences: [faculty, staff]
-source: AI training video production plan, August 2026
+lastReviewed: '2026-09-29'
+audiences:
+  - faculty
+  - staff
+source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/what-is-ai.html
 relatedSlides: []
-videoSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo-v2.mp4
-videoPoster: /presentations/_resources/tritonai-harness-editing-demo-poster.jpg
-videoCaptionsSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo.vtt
-videoDescription: Placeholder footage while this video is in production.
 order: 2
-# Sample knowledge check and discussion prompts for the preview; the
-# production team replaces these when the recording is produced.
 quiz:
-  - question: "What is the main focus of this video?"
+  - question: What is one thing AI does well?
     options:
-      - "Purchasing procedures for campus software"
-      - "Understanding what AI does well, where it fails, and the key terms worth knowing"
-      - "Configuring your campus email account"
-    answer: 1
-    explanation: "This video centers on what AI does well, where it fails, and the key terms worth knowing."
-  - question: "Who stays responsible for consequential decisions when AI supports campus work?"
+      - It can find patterns in large amounts of information.
+      - It can guarantee truthful answers.
+      - It can understand ethics perfectly.
+      - It can replace expert judgment.
+    answer: 0
+    explanation: >-
+      AI is useful for identifying relationships and trends across large data sets that would be difficult to review
+      manually.
+  - question: What is one limitation of AI?
     options:
-      - "The AI tool that produced the output"
-      - "A person who reviews the output"
-      - "Nobody; reviewed output is automatic"
+      - It is always accurate.
+      - It can make mistakes or produce unreliable output.
+      - It cannot be reviewed.
+      - It only works on data from the internet
     answer: 1
-    explanation: "Campus AI work keeps a person accountable for reviewing output before it matters."
+    explanation: AI output is not automatically accurate. It should always be checked before it is used to support a decision.
+  - question: What should you do before relying on AI output?
+    options:
+      - Assume it is correct.
+      - Check the output with a more technical colleague
+      - Check it against a trusted source or your own judgment.
+      - Use it only for high-stakes decisions.
+    answer: 2
+    explanation: >-
+      Verification protects accuracy and accountability, especially when the output affects people, decisions, or
+      university work.
 discussionPoints:
-  - "Where does AI strengths and limits already show up in your team's work, and where could it help next?"
-  - "What would need to be true before your team relied on AI for this, and who would review the results?"
-  - "Pick one workflow from this discussion to try within two weeks, and name who owns the follow-up."
-durationMinutes: 8
+  - Discuss where AI is already part of your daily work.
+  - Identify one task where AI would not be a good fit.
+  - Share one AI term you want to understand better.
+durationMinutes: null
+discoverySeries: true
+presenters:
+  - name: Trevor Bonjour
+    title: 'Assistant Teaching Professor, Department of Computer Science and Engineering'
 ---
-
-- Draft entry awaiting the produced recording; publishes when videoSrc, captions, and transcript land.
-
-## Transcript
-
-Recorded transcript lands here at production time.

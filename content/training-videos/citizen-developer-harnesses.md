@@ -1,47 +1,61 @@
 ---
-title: Citizen developer harnesses and automation
+title: 'Citizen Developer: Harnesses and automation'
 slug: citizen-developer-harnesses
-summary: How to move from using AI to building with it, and where a harness fits safely in the campus ecosystem.
+summary: >-
+  How to move from using to creating: what a harness is, why you would use one, how we know it’s safe, and the ecosystem
+  it lives in.
 series: Building
-status: Published
+status: Coming soon
 owner: TritonAI training program
-lastReviewed: 2026-08-02
-audiences: [staff, developers]
-source: AI training video production plan, August 2026
+lastReviewed: '2026-09-29'
+audiences:
+  - staff
+  - developers
+source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/citizen-developer-harnesses.html
 relatedSlides: []
-videoSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo-v2.mp4
-videoPoster: /presentations/_resources/tritonai-harness-editing-demo-poster.jpg
-videoCaptionsSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo.vtt
-videoDescription: Placeholder footage while this video is in production.
-order: 18
-# Sample knowledge check and discussion prompts for the preview; the
-# production team replaces these when the recording is produced.
+order: 15
 quiz:
-  - question: "What is the main focus of this video?"
+  - question: What is a harness?
     options:
-      - "Purchasing procedures for campus software"
-      - "Understanding moving from using AI to building with it, and where a harness fits safely"
-      - "Configuring your campus email account"
-    answer: 1
-    explanation: "This video centers on moving from using AI to building with it, and where a harness fits safely."
-  - question: "Who stays responsible for consequential decisions when AI supports campus work?"
+      - A supported environment for building and running AI-powered workflows
+      - A type of password
+      - A data classification level
+      - A meeting summary tool
+    answer: 0
+    explanation: 'A harness provides the structure needed to build, test, and operate AI automations safely.'
+  - question: Why would you use one?
     options:
-      - "The AI tool that produced the output"
-      - "A person who reviews the output"
-      - "Nobody; reviewed output is automatic"
+      - To replace all human oversight
+      - To avoid documentation
+      - 'To turn a repeating task into a tested, manageable automation'
+      - To eliminate testing
+    answer: 2
+    explanation: 'Harnesses help teams move from manual work to repeatable, reliable processes.'
+  - question: How do we know it is safe?
+    options:
+      - 'Through review, controls, and a supported ecosystem'
+      - Because it is new
+      - Because it is internal
+      - Because it is automated
+    answer: 0
+    explanation: 'Safety comes from structured review, safeguards, and operating within a supported environment.'
+  - question: What should you have before building?
+    options:
+      - Only a general idea
+      - 'A clear use case, owner, and plan for testing and maintenance'
+      - No owner
+      - No testing plan
     answer: 1
-    explanation: "Campus AI work keeps a person accountable for reviewing output before it matters."
+    explanation: 'Preparation helps ensure the automation is useful, sustainable, and accountable.'
 discussionPoints:
-  - "Where does building with harnesses already show up in your team's work, and where could it help next?"
-  - "What would need to be true before your team relied on AI for this, and who would review the results?"
-  - "Pick one workflow from this discussion to try within two weeks, and name who owns the follow-up."
-durationMinutes: 15
+  - Discuss one process in your unit that could become a harness-supported workflow.
+  - Identify the risks you would need to manage before automating it.
+  - Share how you would measure whether the automation is working.
+durationMinutes: null
+discoverySeries: true
+presenters:
+  - name: Shawn Munro
+    title: TritonAI Service Offering Manager
 ---
-
-- Draft entry awaiting the produced recording; publishes when videoSrc, captions, and transcript land.
-
-## Transcript
-
-Recorded transcript lands here at production time.

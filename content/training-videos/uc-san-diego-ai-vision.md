@@ -1,47 +1,54 @@
 ---
 title: UC San Diego AI vision
 slug: uc-san-diego-ai-vision
-summary: Why UC San Diego encourages the campus community to explore AI, and where the strategy is headed.
+summary: 'Why UC San Diego encourages the campus community to explore AI, and where the strategy is headed.'
 series: Foundations
-status: Published
+status: Coming soon
 owner: TritonAI training program
-lastReviewed: 2026-08-02
-audiences: [leaders, faculty, staff]
-source: AI training video production plan, August 2026
+lastReviewed: '2026-09-29'
+audiences:
+  - leaders
+  - faculty
+  - staff
+source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/uc-san-diego-ai-vision.html
 relatedSlides: []
-videoSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo-v2.mp4
-videoPoster: /presentations/_resources/tritonai-harness-editing-demo-poster.jpg
-videoCaptionsSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo.vtt
-videoDescription: Placeholder footage while this video is in production.
 order: 1
-# Sample knowledge check and discussion prompts for the preview; the
-# production team replaces these when the recording is produced.
 quiz:
-  - question: "What is the main focus of this video?"
+  - question: Why does UC San Diego encourage the campus community to explore AI?
     options:
-      - "Purchasing procedures for campus software"
-      - "Understanding why UC San Diego encourages the campus community to explore AI"
-      - "Configuring your campus email account"
+      - To replace human judgment
+      - To support the university’s mission and prepare people to use AI responsibly
+      - To eliminate the need for AI training
+      - To reduce campus technology costs
     answer: 1
-    explanation: "This video centers on why UC San Diego encourages the campus community to explore AI."
-  - question: "Who stays responsible for consequential decisions when AI supports campus work?"
+    explanation: >-
+      AI can strengthen teaching, research, and operations when it is used responsibly. Exploring it helps the campus
+      community build practical judgment and avoid avoidable risks.
+  - question: What should guide how the campus approaches AI?
     options:
-      - "The AI tool that produced the output"
-      - "A person who reviews the output"
-      - "Nobody; reviewed output is automatic"
-    answer: 1
-    explanation: "Campus AI work keeps a person accountable for reviewing output before it matters."
+      - Individual preferences only
+      - Whatever tool is newest
+      - 'UC San Diego’s strategy, values, and commitments'
+      - Vendor marketing claims
+    answer: 2
+    explanation: 'Campus AI decisions should stay aligned with the university’s mission, ethical standards, and long-term goals.'
+  - question: How can AI support the university’s work?
+    options:
+      - 'By strengthening teaching, research, and operations when it is used responsibly'
+      - By replacing all staff workflows
+      - By guaranteeing error-free results
+      - By removing the need for human oversight
+    answer: 0
+    explanation: AI works best as a support tool that improves efficiency and insight while keeping human judgment at the center.
 discussionPoints:
-  - "Where does the campus AI strategy already show up in your team's work, and where could it help next?"
-  - "What would need to be true before your team relied on AI for this, and who would review the results?"
-  - "Pick one workflow from this discussion to try within two weeks, and name who owns the follow-up."
-durationMinutes: 2
+  - Discuss one way AI could support your unit’s mission.
+  - Identify one risk your team should watch for when using AI.
+  - Share one question you still have about UC San Diego’s AI strategy.
+durationMinutes: null
+discoverySeries: true
+presenters:
+  - name: Chancellor Khosla
+    title: Chancellor
 ---
-
-- Draft entry awaiting the produced recording; publishes when videoSrc, captions, and transcript land.
-
-## Transcript
-
-Recorded transcript lands here at production time.

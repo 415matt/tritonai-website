@@ -1,47 +1,55 @@
 ---
-title: "AI data, privacy, and security"
+title: 'AI data, privacy, and security'
 slug: ai-data-privacy-security
-summary: How clean data shapes AI output, and how the UC data classification system decides what you can share with which tool.
+summary: 'How clean data shapes AI output, and how the UC data classification system decides what you can share with which tool.'
 series: Foundations
-status: Published
+status: Coming soon
 owner: TritonAI training program
-lastReviewed: 2026-08-03
-audiences: [faculty, staff]
-source: AI training video production plan, August 2026
+lastReviewed: '2026-09-29'
+audiences:
+  - faculty
+  - staff
+source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/ai-data-privacy-security.html
 relatedSlides: []
-videoSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo-v2.mp4
-videoPoster: /presentations/_resources/tritonai-harness-editing-demo-poster.jpg
-videoCaptionsSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo.vtt
-videoDescription: Placeholder footage while this video is in production.
 order: 4
-# Sample knowledge check and discussion prompts for the preview; the
-# production team replaces these when the recording is produced.
 quiz:
-  - question: "What is the main focus of this video?"
+  - question: Why does data quality matter for AI?
     options:
-      - "Purchasing procedures for campus software"
-      - "Understanding how the UC data classification system decides what you can share with which tool"
-      - "Configuring your campus email account"
-    answer: 1
-    explanation: "This video centers on how the UC data classification system decides what you can share with which tool."
-  - question: "Who stays responsible for consequential decisions when AI supports campus work?"
+      - 'Clean, accurate data produces more reliable results.'
+      - It makes AI faster.
+      - It removes the need for privacy.
+      - It guarantees unbiased output.
+    answer: 0
+    explanation: >-
+      AI output depends on the quality of the information it uses. Clean data leads to more useful and trustworthy
+      results.
+  - question: What does the UC data classification system help you decide?
     options:
-      - "The AI tool that produced the output"
-      - "A person who reviews the output"
-      - "Nobody; reviewed output is automatic"
+      - Which AI tool is most popular
+      - How to write prompts
+      - What information can be shared with which AI tool
+      - How to design a website
+    answer: 2
+    explanation: Data classification identifies the sensitivity of information and helps determine which tools are appropriate.
+  - question: What should you do before using AI with university data?
+    options:
+      - Assume all data is public
+      - Check the data classification and follow UC privacy and security requirements
+      - No prior checks are required as long as you only use TritonGPT
+      - Ensure names are removed
     answer: 1
-    explanation: "Campus AI work keeps a person accountable for reviewing output before it matters."
+    explanation: >-
+      Reviewing classification first helps protect sensitive information and keeps AI use compliant with university
+      policy.
 discussionPoints:
-  - "Where does data classification already show up in your team's work, and where could it help next?"
-  - "What would need to be true before your team relied on AI for this, and who would review the results?"
-  - "Pick one workflow from this discussion to try within two weeks, and name who owns the follow-up."
-durationMinutes: 8
+  - Discuss the types of data your team uses and if you all agree which data classifications that data sits within
+  - Identify one way data quality affects your work.
+  - Share how your unit currently handles sensitive information.
+durationMinutes: null
+discoverySeries: true
+presenters:
+  - name: Pegah Parsi
+    title: Chief Privacy Officer
 ---
-
-- Draft entry awaiting the produced recording; publishes when videoSrc, captions, and transcript land.
-
-## Transcript
-
-Recorded transcript lands here at production time.

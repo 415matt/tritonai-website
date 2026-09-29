@@ -1,47 +1,51 @@
 ---
-title: "Ethics and responsible AI use"
+title: Ethics and responsible AI use
 slug: ethics-responsible-ai
-summary: Understand the eight UC responsible AI principles and how bias shows up in AI systems.
+summary: 'The eight UC responsible AI principles, and how bias shows up in AI systems.'
 series: Foundations
-status: Published
+status: Coming soon
 owner: TritonAI training program
-lastReviewed: 2026-08-03
-audiences: [faculty, staff]
-source: AI training video production plan, August 2026
+lastReviewed: '2026-09-29'
+audiences:
+  - faculty
+  - staff
+source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/ethics-responsible-ai.html
 relatedSlides: []
-videoSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo-v2.mp4
-videoPoster: /presentations/_resources/tritonai-harness-editing-demo-poster.jpg
-videoCaptionsSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo.vtt
-videoDescription: Placeholder footage while this video is in production.
 order: 5
-# Sample knowledge check and discussion prompts for the preview; the
-# production team replaces these when the recording is produced.
 quiz:
-  - question: "What is the main focus of this video?"
+  - question: What are the eight UC responsible AI principles designed to do?
     options:
-      - "Purchasing procedures for campus software"
-      - "Understanding the eight UC responsible AI principles and how bias shows up"
-      - "Configuring your campus email account"
+      - Restrict all AI use
+      - 'Guide safe, fair, and accountable AI use'
+      - Promote unrestricted experimentation
+      - Override campus policy
     answer: 1
-    explanation: "This video centers on the eight UC responsible AI principles and how bias shows up."
-  - question: "Who stays responsible for consequential decisions when AI supports campus work?"
+    explanation: 'The principles provide a shared framework for using AI in ways that are transparent, equitable, and responsible.'
+  - question: How can bias enter an AI system?
     options:
-      - "The AI tool that produced the output"
-      - "A person who reviews the output"
-      - "Nobody; reviewed output is automatic"
-    answer: 1
-    explanation: "Campus AI work keeps a person accountable for reviewing output before it matters."
+      - Through the data used to train it and the assumptions built into it
+      - Only through user prompts
+      - Only through hardware failure
+      - Only through random chance
+    answer: 0
+    explanation: Bias can enter through incomplete or unrepresentative data and through design choices made during development.
+  - question: What is one way to reduce the impact of bias?
+    options:
+      - Reduce human review
+      - Use AI only for personal tasks
+      - Review AI output carefully and include diverse perspectives
+      - Ensure you are using data classifications
+    answer: 2
+    explanation: Careful review and broader input help identify bias that might otherwise go unnoticed.
 discussionPoints:
-  - "Where does responsible AI principles already show up in your team's work, and where could it help next?"
-  - "What would need to be true before your team relied on AI for this, and who would review the results?"
-  - "Pick one workflow from this discussion to try within two weeks, and name who owns the follow-up."
-durationMinutes: 8
+  - Discuss how bias could affect an AI tool you use.
+  - Identify one responsible AI principle that is most relevant to your work.
+  - Share how your team could make AI decisions more transparent.
+durationMinutes: null
+discoverySeries: true
+presenters:
+  - name: Hortense Gerardo
+    title: 'Director of the Anthropology, Performance, and Technology (APT) Program'
 ---
-
-- Draft entry awaiting the produced recording; publishes when videoSrc, captions, and transcript land.
-
-## Transcript
-
-Recorded transcript lands here at production time.

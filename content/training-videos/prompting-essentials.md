@@ -1,47 +1,51 @@
 ---
-title: Prompting essentials
+title: Prompting
 slug: prompting-essentials
-summary: What a prompt is, why it drives most AI results, and what to include for the audience you have in mind.
-series: Using the tools
-status: Published
+summary: 'What a prompt is, why it sits at the core of most AI use, and what to include for the audience you have in mind.'
+series: Using the Tools
+status: Coming soon
 owner: TritonAI training program
-lastReviewed: 2026-08-02
-audiences: [faculty, staff]
-source: AI training video production plan, August 2026
+lastReviewed: '2026-09-29'
+audiences:
+  - faculty
+  - staff
+source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/prompting-essentials.html
 relatedSlides: []
-videoSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo-v2.mp4
-videoPoster: /presentations/_resources/tritonai-harness-editing-demo-poster.jpg
-videoCaptionsSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo.vtt
-videoDescription: Placeholder footage while this video is in production.
-order: 10
-# Sample knowledge check and discussion prompts for the preview; the
-# production team replaces these when the recording is produced.
+order: 9
 quiz:
-  - question: "What is the main focus of this video?"
+  - question: What is a prompt?
     options:
-      - "Purchasing procedures for campus software"
-      - "Understanding what a prompt is and what to include for the audience you have in mind"
-      - "Configuring your campus email account"
-    answer: 1
-    explanation: "This video centers on what a prompt is and what to include for the audience you have in mind."
-  - question: "Who stays responsible for consequential decisions when AI supports campus work?"
+      - A security password
+      - A type of data classification
+      - A hardware component
+      - The instruction or question you give an AI tool
+    answer: 3
+    explanation: A prompt is the input that tells the AI what you want it to do.
+  - question: Why does prompting matter?
     options:
-      - "The AI tool that produced the output"
-      - "A person who reviews the output"
-      - "Nobody; reviewed output is automatic"
+      - It replaces verification.
+      - It shapes the usefulness and relevance of the output.
+      - It guarantees accuracy.
+      - It eliminates the need for context.
     answer: 1
-    explanation: "Campus AI work keeps a person accountable for reviewing output before it matters."
+    explanation: 'Clearer prompts usually produce more accurate, useful, and relevant responses.'
+  - question: What should a strong prompt include?
+    options:
+      - 'Your goal, audience, context, and any needed constraints'
+      - Only one word
+      - No instructions
+      - Confidential data
+    answer: 0
+    explanation: Including these details helps the AI produce output that is better suited to the task.
 discussionPoints:
-  - "Where does writing prompts already show up in your team's work, and where could it help next?"
-  - "What would need to be true before your team relied on AI for this, and who would review the results?"
-  - "Pick one workflow from this discussion to try within two weeks, and name who owns the follow-up."
-durationMinutes: 8
+  - Discuss one task where a clearer prompt would improve your results.
+  - Identify the audience you most often need AI output for.
+  - Share one prompt you could reuse with small changes.
+durationMinutes: null
+discoverySeries: true
+presenters:
+  - name: Jeniffer Lapek
+    title: Senior Contracts and Grants Officer
 ---
-
-- Draft entry awaiting the produced recording; publishes when videoSrc, captions, and transcript land.
-
-## Transcript
-
-Recorded transcript lands here at production time.

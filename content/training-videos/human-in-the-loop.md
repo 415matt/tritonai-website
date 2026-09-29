@@ -1,49 +1,63 @@
 ---
-title: "Human in the loop"
+title: Human centricity and AI
 slug: human-in-the-loop
-summary: Why human review of AI output matters, how hallucinations happen, and where your judgment stays essential.
+summary: >-
+  What “human in the loop” means, why human review matters, how hallucinations happen, and where your judgment stays
+  essential.
 series: Foundations
-status: Published
+status: Coming soon
 owner: TritonAI training program
-lastReviewed: 2026-08-03
-audiences: [faculty, staff]
-presenter: Keefe Reuter
-presenterTitle: Assistant Teaching Professor, Department of Ecology
-source: AI training video production plan, August 2026
+lastReviewed: '2026-09-29'
+audiences:
+  - faculty
+  - staff
+source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/human-in-the-loop.html
 relatedSlides: []
-videoSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo-v2.mp4
-videoPoster: /presentations/_resources/tritonai-harness-editing-demo-poster.jpg
-videoCaptionsSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo.vtt
-videoDescription: Placeholder footage while this video is in production.
-order: 7
-# Sample knowledge check and discussion prompts for the preview; the
-# production team replaces these when the recording is produced.
+order: 6
 quiz:
-  - question: "What is the main focus of this video?"
+  - question: What does “human in the loop” mean?
     options:
-      - "Purchasing procedures for campus software"
-      - "Understanding why human review of AI output matters and where judgment stays essential"
-      - "Configuring your campus email account"
+      - AI replaces all human oversight.
+      - A person reviews and makes the final decision on AI output.
+      - A person can take the advice of an AI tool about level of review.
+      - Human review is optional.
     answer: 1
-    explanation: "This video centers on why human review of AI output matters and where judgment stays essential."
-  - question: "Who stays responsible for consequential decisions when AI supports campus work?"
+    explanation: 'Human oversight keeps people accountable for decisions, even when AI helps with the work.'
+  - question: Why does human review matter?
     options:
-      - "The AI tool that produced the output"
-      - "A person who reviews the output"
-      - "Nobody; reviewed output is automatic"
-    answer: 1
-    explanation: "Campus AI work keeps a person accountable for reviewing output before it matters."
+      - AI can make mistakes or invent information.
+      - Human review can be subjective.
+      - Human review slows work.
+      - AI is always objective.
+    answer: 0
+    explanation: Review helps catch errors and prevents unverified AI output from being treated as fact.
+  - question: What is a hallucination?
+    options:
+      - A software crash
+      - A security breach
+      - Output that sounds convincing but is not accurate
+      - A type of data classification
+    answer: 2
+    explanation: 'AI can generate confident-sounding content that is false or misleading, so verification is essential.'
+  - question: When should you rely on your own judgment?
+    options:
+      - 'Whenever accuracy, context, or accountability matter'
+      - Only when AI fails
+      - Only for creative work
+      - Only when using external tools
+    answer: 0
+    explanation: Human judgment is especially important when the stakes are high or the consequences affect people.
 discussionPoints:
-  - "Where does human review already show up in your team's work, and where could it help next?"
-  - "What would need to be true before your team relied on AI for this, and who would review the results?"
-  - "Pick one workflow from this discussion to try within two weeks, and name who owns the follow-up."
-durationMinutes: 8
+  - Discuss where human review is most important in your workflow.
+  - Identify one example where AI output should not be used without verification.
+  - Share how your team could build human review into AI-assisted work.
+durationMinutes: null
+discoverySeries: true
+presenters:
+  - name: Crystal Goldman
+    title: Writing Programs Librarian
+  - name: Keefe Reuter
+    title: 'Assistant Teaching Professor, Department of Ecology, Behavior & Evolution'
 ---
-
-- Draft entry awaiting the produced recording; publishes when videoSrc, captions, and transcript land.
-
-## Transcript
-
-Recorded transcript lands here at production time.

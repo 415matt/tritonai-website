@@ -1,47 +1,53 @@
 ---
-title: TritonGPT overview
+title: 'TritonGPT: An overview'
 slug: tritongpt-overview
-summary: What makes TritonGPT different from other assistants, and the specialized functions built for UC San Diego.
-series: Using the tools
-status: Published
+summary: >-
+  What makes TritonGPT different from other tools, and the specialized functions built for UC San Diego — models,
+  agents, memories, and projects.
+series: Using the Tools
+status: Coming soon
 owner: TritonAI training program
-lastReviewed: 2026-08-02
-audiences: [faculty, staff]
-source: AI training video production plan, August 2026
+lastReviewed: '2026-09-29'
+audiences:
+  - faculty
+  - staff
+source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/tritongpt-overview.html
 relatedSlides: []
-videoSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo-v2.mp4
-videoPoster: /presentations/_resources/tritonai-harness-editing-demo-poster.jpg
-videoCaptionsSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo.vtt
-videoDescription: Placeholder footage while this video is in production.
-order: 13
-# Sample knowledge check and discussion prompts for the preview; the
-# production team replaces these when the recording is produced.
+order: 11
 quiz:
-  - question: "What is the main focus of this video?"
+  - question: What makes TritonGPT different from other AI tools?
     options:
-      - "Purchasing procedures for campus software"
-      - "Understanding what makes TritonGPT different and its specialized campus functions"
-      - "Configuring your campus email account"
-    answer: 1
-    explanation: "This video centers on what makes TritonGPT different and its specialized campus functions."
-  - question: "Who stays responsible for consequential decisions when AI supports campus work?"
+      - It is built for the UC San Diego ecosystem.
+      - It is only available to students.
+      - It is not connected to campus systems.
+      - It is designed for personal use only.
+    answer: 0
+    explanation: 'TritonGPT is designed around campus systems, needs, and use cases.'
+  - question: What specialized functions does the video highlight?
     options:
-      - "The AI tool that produced the output"
-      - "A person who reviews the output"
-      - "Nobody; reviewed output is automatic"
+      - Only basic chat
+      - 'Models, agents, memories, and projects'
+      - Only file storage
+      - Only meeting notes
     answer: 1
-    explanation: "Campus AI work keeps a person accountable for reviewing output before it matters."
+    explanation: These functions extend TritonGPT beyond basic question-and-answer use.
+  - question: How should you choose which function to use?
+    options:
+      - Based on whichever is newest
+      - Based on popularity
+      - Based on the task you are trying to complete
+      - Based on cost only
+    answer: 2
+    explanation: The right function depends on the work you need to do and the outcome you want.
 discussionPoints:
-  - "Where does TritonGPT already show up in your team's work, and where could it help next?"
-  - "What would need to be true before your team relied on AI for this, and who would review the results?"
-  - "Pick one workflow from this discussion to try within two weeks, and name who owns the follow-up."
-durationMinutes: 10
+  - Discuss which TritonGPT function would help your work most.
+  - Identify one task where TritonGPT would be preferable to another tool.
+  - Share how your team could use projects or memories effectively.
+durationMinutes: null
+discoverySeries: true
+presenters:
+  - name: Kelsey Moon
+    title: Travel Program Manager
 ---
-
-- Draft entry awaiting the produced recording; publishes when videoSrc, captions, and transcript land.
-
-## Transcript
-
-Recorded transcript lands here at production time.

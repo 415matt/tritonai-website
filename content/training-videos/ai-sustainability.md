@@ -1,47 +1,55 @@
 ---
-title: "AI and sustainability"
+title: Sustainability and AI
 slug: ai-sustainability
-summary: What the environmental footprint of AI looks like and the choices UC San Diego makes to align AI infrastructure with sustainability commitments.
+summary: >-
+  The environmental footprint of AI, and the choices UC San Diego makes to align AI infrastructure with sustainability
+  commitments.
 series: Foundations
-status: Published
+status: Coming soon
 owner: TritonAI training program
-lastReviewed: 2026-08-03
-audiences: [faculty, staff]
-source: AI training video production plan, August 2026
+lastReviewed: '2026-09-29'
+audiences:
+  - faculty
+  - staff
+source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/ai-sustainability.html
 relatedSlides: []
-videoSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo-v2.mp4
-videoPoster: /presentations/_resources/tritonai-harness-editing-demo-poster.jpg
-videoCaptionsSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo.vtt
-videoDescription: Placeholder footage while this video is in production.
-order: 8
-# Sample knowledge check and discussion prompts for the preview; the
-# production team replaces these when the recording is produced.
+order: 7
 quiz:
-  - question: "What is the main focus of this video?"
+  - question: What environmental impact is connected to AI?
     options:
-      - "Purchasing procedures for campus software"
-      - "Understanding the environmental footprint of AI and the choices UC San Diego makes about it"
-      - "Configuring your campus email account"
+      - The reduction of paper-use
+      - Energy and resources used to run AI systems
+      - Travel emissions
+      - No environmental impact
     answer: 1
-    explanation: "This video centers on the environmental footprint of AI and the choices UC San Diego makes about it."
-  - question: "Who stays responsible for consequential decisions when AI supports campus work?"
+    explanation: 'AI systems require computing power, which consumes energy and resources.'
+  - question: How does UC San Diego approach AI and sustainability?
     options:
-      - "The AI tool that produced the output"
-      - "A person who reviews the output"
-      - "Nobody; reviewed output is automatic"
+      - By aligning AI infrastructure with the university’s sustainability commitments
+      - By re-writing sustainability goals
+      - By using only external data centers
+      - By prioritizing speed over impact
+    answer: 0
+    explanation: UC San Diego considers sustainability when making decisions about AI infrastructure and use.
+  - question: What does “right-sizing” mean in UC San Diego’s approach to AI?
+    options:
+      - Using the largest AI model available for every task
+      - Choosing an AI tool that matches the size and complexity of the task
+      - Avoiding AI use unless a project is very large
+      - Selecting tools based only on cost
     answer: 1
-    explanation: "Campus AI work keeps a person accountable for reviewing output before it matters."
+    explanation: >-
+      UC San Diego encourages right-sizing AI use: selecting the appropriate tool for the job rather than automatically
+      using a larger or more resource-intensive model than needed.
 discussionPoints:
-  - "Where does AI and sustainability already show up in your team's work, and where could it help next?"
-  - "What would need to be true before your team relied on AI for this, and who would review the results?"
-  - "Pick one workflow from this discussion to try within two weeks, and name who owns the follow-up."
-durationMinutes: 8
+  - Discuss how your team could use AI more efficiently.
+  - What would a simple right-sizing checklist for AI adoption include?
+  - Share how your team can balance innovation with responsible resource use.
+durationMinutes: null
+discoverySeries: true
+presenters:
+  - name: Michelle Perez
+    title: Energy and Sustainability Manager
 ---
-
-- Draft entry awaiting the produced recording; publishes when videoSrc, captions, and transcript land.
-
-## Transcript
-
-Recorded transcript lands here at production time.

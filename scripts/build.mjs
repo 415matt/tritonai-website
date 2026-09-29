@@ -33,6 +33,7 @@ const VIDEO_PROGRESS_JS_VERSION = createHash("sha256")
   .update(await readFile(path.join(SOURCE_DIR, "_resources/js/video-progress.js")))
   .digest("hex")
   .slice(0, 12);
+const VIDEO_QUIZ_JS_VERSION = createHash("sha256").update(await readFile(path.join(SOURCE_DIR, "_resources/js/video-quiz.js"))).digest("hex").slice(0, 12);
 const OFFICIAL_ORIGIN = "https://tritonai.ucsd.edu";
 const SITE_BASE_PATH = normalizeBasePath(process.env.SITE_BASE_PATH || "");
 // Cascade serves the site at a domain root, so a production build carries no
@@ -448,18 +449,18 @@ function formatCueTime(seconds) {
   return `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
 }
 
-const TRAINING_VIDEO_SERIES_ORDER = ["Foundations", "Using the tools", "Building"];
+const TRAINING_VIDEO_SERIES_ORDER = ["Foundations", "Using the Tools", "Building"];
 
 // Swap for the updated team-training intake form URL when it is ready.
 const TRAINING_INTAKE_URL = "/about/get-involved.html";
 
 const TRAINING_VIDEO_SERIES_DESCRIPTIONS = {
   Foundations:
-    "Start here for the shared ground: what AI is, the strategy behind it at UC San Diego, and the data, ethics, and governance guardrails that apply to every tool. Watch these first if you are new to campus AI.",
-  "Using the tools":
+    "Start here for shared ground. Before using AI tools, understand the vision and the concepts around data, privacy, and ethics of AI use.",
+  "Using the Tools":
     "Hands-on walkthroughs of the approved tools, from TritonGPT to Gemini, NotebookLM, Copilot, and Zoom. Each video pairs one tool with campus use cases you can repeat at your own desk.",
   Building:
-    "For people ready to move from using AI to creating with it. These videos cover harnesses, automation, and the review path that turns an idea into a supported service.",
+    "The move from using AI to building with it. These videos cover the strategy of when to build and how, from harnesses and automation to the review path that turns an idea into a supported service.",
 };
 
 function trainingVideoSeriesRank(name) {
@@ -497,115 +498,63 @@ function splitTrainingVideoBody(html) {
   return { learn: html.slice(0, index), transcript: html.slice(index + match[0].length) };
 }
 
+function videoAvailability(video) {
+  return video.status === "Coming soon" ? "Video coming soon" : `${escapeHtml(String(video.durationMinutes))} min`;
+}
+
+function renderVideoPresenters(video) {
+  const presenters = video.presenters || (video.presenter ? [{ name: video.presenter, title: video.presenterTitle, image: video.presenterImage }] : []);
+  return presenters.map((presenter) => `<div class="discovery-presenter">${presenter.image ? `<img src="${escapeHtml(presenter.image)}" alt="" loading="lazy">` : '<span class="discovery-photo-placeholder" aria-hidden="true">Photo<br>to come</span>'}<span><span class="discovery-presenter-name">${escapeHtml(presenter.name)}</span>${presenter.title ? `<span class="discovery-presenter-title">${escapeHtml(presenter.title)}</span>` : ""}</span></div>`).join("");
+}
+
 function renderTrainingVideoQuiz(video) {
-  if (!video.quiz || !video.quiz.length) return "";
-  const questions = video.quiz
-    .map((item, qIndex) => {
-      const options = item.options
-        .map(
-          (option, oIndex) =>
-            `<li><button type="button" class="video-quiz-option" data-quiz-question="${qIndex}" data-quiz-option="${oIndex}" data-quiz-correct="${oIndex === item.answer}">${escapeHtml(option)}</button></li>`,
-        )
-        .join("");
-      return `<fieldset class="video-quiz-question" data-quiz-block="${qIndex}"><legend>${escapeHtml(item.question)}</legend><ul class="video-quiz-options">${options}</ul><p class="video-quiz-result" data-quiz-result aria-live="polite"></p>${item.explanation ? `<p class="video-quiz-explanation" data-quiz-explanation hidden>${escapeHtml(item.explanation)}</p>` : ""}</fieldset>`;
-    })
-    .join("");
-  return `<section class="landing-section video-quiz-section" data-video-quiz="${escapeHtml(video.slug)}" data-post-video hidden aria-labelledby="${escapeHtml(video.slug)}-quiz-heading"><div class="container video-theater-about-inner"><div class="landing-section-heading"><h2 id="${escapeHtml(video.slug)}-quiz-heading">Test your knowledge</h2><p>Select an answer to see whether it is correct. Incorrect answers stay open so you can try again.</p></div>${questions}<p class="video-quiz-score" data-quiz-score aria-live="polite" hidden></p></div></section>`;
+  if (!video.quiz?.length) return "";
+  const version = createHash("sha256").update(JSON.stringify(video.quiz)).digest("hex").slice(0, 12);
+  const questions = video.quiz.map((item, qIndex) => {
+    const options = item.options.map((option, oIndex) => `<li><button type="button" class="video-quiz-option" data-quiz-question="${qIndex}" data-quiz-option="${oIndex}" data-quiz-correct="${oIndex === item.answer}" aria-pressed="false"><span aria-hidden="true">${String.fromCharCode(65 + oIndex)}. </span>${escapeHtml(option)}</button></li>`).join("");
+    return `<fieldset class="video-quiz-question" data-quiz-block="${qIndex}"><legend>${qIndex + 1}. ${escapeHtml(item.question)}</legend><ul class="video-quiz-options">${options}</ul><p class="video-quiz-result" data-quiz-result></p><p class="video-quiz-explanation" data-quiz-explanation hidden>${escapeHtml(item.explanation)}</p></fieldset>`;
+  }).join("");
+  return `<section class="landing-section video-quiz-section" data-video-quiz="${escapeHtml(video.slug)}" data-quiz-version="${version}" aria-labelledby="${escapeHtml(video.slug)}-quiz-heading"><div class="container video-theater-about-inner"><div class="landing-section-heading"><h2 id="${escapeHtml(video.slug)}-quiz-heading">Test your knowledge</h2><p>Select an answer to see Correct or Incorrect and an explanation. Dismiss the popup to continue. Your score counts your first answer to each question; you can try again.</p><p data-quiz-storage>Your answers and progress are saved only in this browser. Clearing browser data removes them.</p><noscript><p>Turn on JavaScript to take this quiz and see your results.</p></noscript></div>${questions}<p class="video-quiz-score" data-quiz-score role="status"></p><button type="button" class="btn btn-default" data-quiz-reset>Restart quiz</button><dialog class="video-quiz-dialog" aria-labelledby="quiz-feedback-heading" aria-describedby="quiz-feedback-explanation"><h2 id="quiz-feedback-heading" data-dialog-result tabindex="-1"></h2><p id="quiz-feedback-explanation" data-dialog-explanation></p><button type="button" class="btn btn-primary" data-dialog-close>Continue</button></dialog></div></section>`;
 }
 
 function renderTrainingVideoDiscussion(video) {
-  if (!video.discussionPoints || !video.discussionPoints.length) return "";
-  const points = video.discussionPoints.map((point) => `<li>${escapeHtml(point)}</li>`).join("");
-  return `<section class="landing-section landing-section-sand video-discussion-section" data-post-video hidden aria-labelledby="${escapeHtml(video.slug)}-discussion-heading"><div class="container video-theater-about-inner"><div class="landing-section-heading"><p class="home-kicker">For team meetings</p><h2 id="${escapeHtml(video.slug)}-discussion-heading">Suggested discussion points</h2><p>Leaders can use these prompts when a team watches together.</p></div><ul class="video-discussion-list">${points}</ul></div></section>`;
+  if (!video.discussionPoints?.length) return "";
+  return `<section class="landing-section landing-section-sand video-discussion-section" aria-labelledby="${escapeHtml(video.slug)}-discussion-heading"><div class="container video-theater-about-inner"><div class="landing-section-heading"><p class="home-kicker">For team meetings</p><h2 id="${escapeHtml(video.slug)}-discussion-heading">Discussion topics</h2></div><ul class="video-discussion-list">${video.discussionPoints.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul></div></section>`;
 }
 
 function renderTrainingVideoCta(video, { nextVideo } = {}) {
-  // The bottom of each watch page points to the next video so the journey
-  // carries itself; the team-training intake lives on the library page.
   const headingId = `${escapeHtml(video.slug)}-cta-heading`;
-  if (nextVideo) {
-    return `<section class="landing-section video-training-cta" data-post-video hidden aria-labelledby="${headingId}"><div class="container video-theater-about-inner"><div class="video-training-cta-panel"><div><p class="home-kicker">Up next</p><h2 id="${headingId}">${escapeHtml(nextVideo.title)}</h2><p>${escapeHtml(nextVideo.summary)}</p><p class="video-training-cta-meta">${escapeHtml(nextVideo.series)} · ${escapeHtml(String(nextVideo.durationMinutes))} min</p></div><a class="btn btn-primary btn-lg" href="${escapeHtml(nextVideo.canonicalUrl)}">Watch the next video</a></div></div></section>`;
-  }
-  return `<section class="landing-section video-training-cta" data-post-video hidden aria-labelledby="${headingId}"><div class="container video-theater-about-inner"><div class="video-training-cta-panel"><div><p class="home-kicker">Next step</p><h2 id="${headingId}">You finished the learning videos</h2><p>Tell us where to go deeper and we will design a session around your team. Revisiting topics from these videos is a normal request; now you know what to ask for.</p></div><a class="btn btn-primary btn-lg" href="${escapeHtml(TRAINING_INTAKE_URL)}">Start the team training intake</a></div></div></section>`;
+  if (nextVideo) return `<section class="landing-section video-training-cta" aria-labelledby="${headingId}"><div class="container video-theater-about-inner"><div class="video-training-cta-panel"><div><p class="home-kicker">Up next</p><h2 id="${headingId}">${escapeHtml(nextVideo.title)}</h2><p>${escapeHtml(nextVideo.summary)}</p><p class="video-training-cta-meta">${escapeHtml(nextVideo.series)} · ${videoAvailability(nextVideo)}</p></div><a class="btn btn-primary btn-lg" href="${escapeHtml(nextVideo.canonicalUrl)}">Go to next lesson</a></div></div></section>`;
+  return `<section class="landing-section video-training-cta" aria-labelledby="${headingId}"><div class="container video-theater-about-inner"><div class="video-training-cta-panel"><div><p class="home-kicker">Keep learning</p><h2 id="${headingId}">Explore more training</h2><p>Find learning paths and training for your team.</p></div><a class="btn btn-primary btn-lg" href="/training-resources/index.html">Explore TritonAI Learn</a></div></div></section>`;
 }
 
 async function renderTrainingVideoPage(video, siblings = []) {
-  const { learn, transcript } = splitTrainingVideoBody(video.html);
-  const cues = video.videoCaptionsSrc ? await parseVttCues(video.videoCaptionsSrc) : [];
-  const followHtml = cues.length
+  const pending = video.status === "Coming soon";
+  const { transcript } = splitTrainingVideoBody(video.html);
+  const cues = !pending && video.videoCaptionsSrc ? await parseVttCues(video.videoCaptionsSrc) : [];
+  const transcriptHtml = pending ? "" : cues.length
     ? `<details class="training-video-transcript-details training-video-follow-details"><summary>Show transcript</summary><div class="training-video-follow-wrap">${renderInteractiveTranscript(video, cues)}</div></details>`
-    : "";
-  const byOrder = (a, b) => (a.order ?? 999) - (b.order ?? 999);
-  const seriesSiblings = siblings.filter((entry) => entry.series === video.series).sort(byOrder);
-  const position = seriesSiblings.findIndex((entry) => entry.slug === video.slug);
-  const progression = [...siblings].sort(
-    (a, b) => trainingVideoSeriesRank(a.series) - trainingVideoSeriesRank(b.series) || byOrder(a, b),
-  );
-  const globalPosition = progression.findIndex((entry) => entry.slug === video.slug);
-  const upcoming = globalPosition >= 0 ? progression.slice(globalPosition + 1, globalPosition + 6) : [];
-  const railCards = upcoming
-    .map(
-      (entry, index) =>
-        `<li><a class="video-rail-card${index === 0 ? " video-rail-card-next" : ""}" href="${escapeHtml(entry.canonicalUrl)}"${index === 0 ? ' data-upnext-first="true"' : ""}><img alt="" src="${escapeHtml(entry.videoPoster)}" loading="lazy"><span class="video-rail-card-copy">${index === 0 ? '<span class="video-rail-card-flag">Up next</span>' : ""}<span class="video-rail-card-title">${escapeHtml(entry.title)}</span>${entry.presenter ? `<span class="video-rail-card-presenter">${escapeHtml(entry.presenter)}${entry.presenterTitle ? `, ${escapeHtml(entry.presenterTitle)}` : ""}</span>` : ""}<span class="video-rail-card-meta">${escapeHtml(entry.series)} · ${escapeHtml(String(entry.durationMinutes))} min</span></span></a></li>`,
-    )
-    .join("");
-  const railHtml = `<aside class="video-theater-rail" aria-label="Watch next"><p class="video-theater-rail-heading">Watch next</p><p class="video-theater-rail-position">Learning video ${position + 1} of ${seriesSiblings.length} in ${escapeHtml(video.series)}</p>${railCards ? `<ul class="video-rail-list">${railCards}</ul>` : `<p class="video-theater-rail-done">You have reached the final video.</p>`}<a class="video-theater-rail-all" href="/training-resources/videos/index.html">All learning videos <span aria-hidden="true">→</span></a></aside>`;
-  const transcriptFallbackHtml = !cues.length && transcript.trim()
-    ? `<details class="training-video-transcript-details"><summary>Full transcript</summary>${transcript}</details>`
-    : "";
-  const captionNoteHtml = "";
-  const presenterHtml = video.presenter
-    ? `<div class="video-theater-presenter-bubble">${video.presenterImage ? `<img src="${escapeHtml(video.presenterImage)}" alt="">` : ""}<span class="video-theater-presenter-name">${escapeHtml(video.presenter)}${video.presenterTitle ? `, ${escapeHtml(video.presenterTitle)}` : ""}</span></div>`
-    : "";
-  const theaterHtml = `<section class="video-theater" aria-label="${escapeHtml(video.title)} viewing area"><div class="video-theater-layout"><div class="video-theater-primary"><h1 class="video-theater-title">${escapeHtml(video.title)}</h1><p class="video-theater-kicker">${escapeHtml(video.series)} · ${escapeHtml(String(video.durationMinutes))} min · ${escapeHtml(formatAudiences(video.audiences))}</p>${presenterHtml}<p class="video-theater-description">${escapeHtml(video.summary)}</p>${renderTrainingVideoBlock(video)}${followHtml}${transcriptFallbackHtml}${captionNoteHtml}</div>${railHtml}</div></section>`;
-  const nextVideo = globalPosition >= 0 ? progression[globalPosition + 1] : undefined;
-  return `${theaterHtml}${renderTrainingVideoQuiz(video)}${renderTrainingVideoDiscussion(video)}${renderTrainingVideoCta(video, { nextVideo })}`;
+    : transcript.trim() ? `<details class="training-video-transcript-details"><summary>Full transcript</summary>${transcript}</details>` : "";
+  const progression = siblings.filter((entry) => entry.discoverySeries === true).sort((a, b) => a.order - b.order);
+  const position = progression.findIndex((entry) => entry.slug === video.slug);
+  const upcoming = position >= 0 ? progression.slice(position + 1, position + 6) : [];
+  const railCards = upcoming.map((entry, index) => `<li><a class="video-rail-card${index === 0 ? " video-rail-card-next" : ""}" href="${escapeHtml(entry.canonicalUrl)}"><span class="discovery-rail-number" aria-hidden="true">${String(entry.order).padStart(2, "0")}</span><span class="video-rail-card-copy">${index === 0 ? '<span class="video-rail-card-flag">Up next</span>' : ""}<span class="video-rail-card-title">${escapeHtml(entry.title)}</span><span class="video-rail-card-meta">${escapeHtml(entry.series)} · ${videoAvailability(entry)}</span></span></a></li>`).join("");
+  const railHtml = `<aside class="video-theater-rail" aria-label="Series navigation"><p class="video-theater-rail-heading">In this series</p>${position >= 0 ? `<p class="video-theater-rail-position">Lesson ${position + 1} of ${progression.length}</p>` : ""}${railCards ? `<ul class="video-rail-list">${railCards}</ul>` : ""}<a class="video-theater-rail-all" href="/training-resources/videos/index.html">TritonAI Discovery Series <span aria-hidden="true">→</span></a></aside>`;
+  const media = pending ? `<div class="discovery-video-pending"><span class="glyphicon glyphicon-film" aria-hidden="true"></span><h2>Video coming soon</h2><p>The recording, captions, and transcript will be added when available.</p><a href="#${escapeHtml(video.slug)}-quiz-heading">Explore the knowledge check</a></div>` : renderTrainingVideoBlock(video);
+  const theaterHtml = `<section class="video-theater" aria-label="${escapeHtml(video.title)} viewing area"><div class="video-theater-layout"><div class="video-theater-primary"><p class="video-theater-kicker">${escapeHtml(video.series)} · ${videoAvailability(video)}</p><h1 class="video-theater-title">${escapeHtml(video.title)}</h1><p class="video-theater-description">${escapeHtml(video.summary)}</p><div class="discovery-presenters">${renderVideoPresenters(video)}</div>${media}${transcriptHtml}</div>${railHtml}</div></section>`;
+  return `${theaterHtml}${renderTrainingVideoQuiz(video)}${renderTrainingVideoDiscussion(video)}${renderTrainingVideoCta(video, { nextVideo: position >= 0 ? progression[position + 1] : undefined })}`;
 }
 
-function renderTrainingVideoIndex(videos) {
-  const seriesNames = [...new Set(videos.map((video) => video.series))].sort(
-    (a, b) => trainingVideoSeriesRank(a) - trainingVideoSeriesRank(b),
-  );
-  const byOrder = (a, b) => (a.order ?? 999) - (b.order ?? 999);
-  // The general journey is every series before the faculty stream, watched in
-  // one sequence; faculty videos branch off at the end rather than continuing it.
-  const generalJourney = [...videos]
-    .filter((video) => video.series !== "Faculty stream")
-    .sort((a, b) => trainingVideoSeriesRank(a.series) - trainingVideoSeriesRank(b.series) || byOrder(a, b));
-  const journeyNumber = new Map(generalJourney.map((video, index) => [video.slug, index + 1]));
-  const seriesHtml = seriesNames
-    .map((series, index) => {
-      const cards = videos
-        .filter((video) => video.series === series)
-        .sort(byOrder)
-        .map((video) => {
-          const number = journeyNumber.get(video.slug);
-          const sequence = number ? `Video ${number} of ${generalJourney.length} · ` : "";
-          const presenter = video.presenter
-            ? `<div class="training-video-card-presenter-bubble">${video.presenterImage ? `<img src="${escapeHtml(video.presenterImage)}" alt="">` : ""}<span><span class="training-video-card-presenter-name">${escapeHtml(video.presenter)}</span>${video.presenterTitle ? `<span class="training-video-card-presenter-title">${escapeHtml(video.presenterTitle)}</span>` : ""}<span class="training-video-card-presents">presents</span></span></div>`
-            : "";
-          return `<div class="col-sm-6 col-md-4"><article class="panel panel-default cms-news-card cms-use-case-card" data-video-card="${escapeHtml(video.slug)}"><a class="cms-news-image" href="${escapeHtml(video.canonicalUrl)}"><img alt="${escapeHtml(video.posterAlt || `${video.title} video poster`)}" class="img-responsive" src="${escapeHtml(video.videoPoster)}"></a><div class="panel-body"><p class="training-video-card-meta">${sequence}${escapeHtml(String(video.durationMinutes))} min · ${escapeHtml(formatAudiences(video.audiences))}<span class="training-video-card-state" data-video-state hidden></span></p>${presenter}<h3><a href="${escapeHtml(video.canonicalUrl)}">${escapeHtml(video.title)}</a></h3><p>${escapeHtml(video.summary)}</p><p><a class="text-link" href="${escapeHtml(video.canonicalUrl)}">Watch ${escapeHtml(video.title)}</a></p></div></article></div>`;
-        })
-        .join("");
-      const sectionId = `series-${series.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
-      const sand = index % 2 === 1 ? " landing-section-sand" : "";
-      return `<section aria-labelledby="${sectionId}" class="landing-section cms-news-module${sand}"><div class="container"><div class="landing-section-heading"><p class="home-kicker">Series</p><h2 id="${sectionId}">${escapeHtml(series)}</h2>${TRAINING_VIDEO_SERIES_DESCRIPTIONS[series] ? `<p>${escapeHtml(TRAINING_VIDEO_SERIES_DESCRIPTIONS[series])}</p>` : ""}</div><div class="row cms-news-grid">${cards}</div></div></section>`;
-    })
-    .join("");
+function renderTrainingVideoIndex(allVideos) {
+  const videos = allVideos.filter((video) => video.discoverySeries === true).sort((a, b) => a.order - b.order);
+  const seriesHtml = TRAINING_VIDEO_SERIES_ORDER.map((series, index) => {
+    const cards = videos.filter((video) => video.series === series).map((video) => `<div class="col-sm-6 col-md-4"><article class="panel panel-default cms-news-card cms-use-case-card discovery-card" data-video-card="${escapeHtml(video.slug)}" data-video-available="${video.status === "Published"}" data-quiz-version="${createHash("sha256").update(JSON.stringify(video.quiz)).digest("hex").slice(0, 12)}"><div class="panel-body"><p class="training-video-card-meta">${String(video.order).padStart(2, "0")} · ${videoAvailability(video)}<span class="training-video-card-state" data-video-state hidden></span></p>${video.videoPoster ? `<a class="cms-news-image" href="${escapeHtml(video.canonicalUrl)}"><img src="${escapeHtml(video.videoPoster)}" alt="${escapeHtml(video.title)} video poster" loading="lazy"></a>` : ""}<h3><a href="${escapeHtml(video.canonicalUrl)}">${escapeHtml(video.title)}</a></h3><p>${escapeHtml(video.summary)}</p><div class="discovery-presenters">${renderVideoPresenters(video)}</div><p class="discovery-card-link"><a class="text-link" href="${escapeHtml(video.canonicalUrl)}">Explore lesson <span class="sr-only">${String(video.order)}: ${escapeHtml(video.title)}</span><span aria-hidden="true">→</span></a></p><p class="discovery-quiz-state" data-quiz-card-state hidden></p></div></article></div>`).join("");
+    const sectionId = `series-${series.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+    return `<section aria-labelledby="${sectionId}" class="landing-section cms-news-module${index % 2 ? " landing-section-sand" : ""}"><div class="container"><div class="landing-section-heading"><p class="home-kicker">Series</p><h2 id="${sectionId}">${escapeHtml(series)}</h2><p>${escapeHtml(TRAINING_VIDEO_SERIES_DESCRIPTIONS[series])}</p></div><div class="row cms-news-grid">${cards}</div></div></section>`;
+  }).join("");
   const continueHtml = `<section class="landing-section training-video-continue-strip" data-continue-watching data-video-progress hidden aria-label="Continue watching"><div class="container"><div class="training-video-continue-bar"><span class="training-video-continue-label" data-continue-label>Continue watching</span><ul class="training-video-continue-list"></ul></div></div></section>`;
-  const journeyIntroHtml = videos.length
-    ? `<section class="landing-section training-video-journey-intro" aria-labelledby="video-journey-heading"><div class="container"><div class="training-video-journey-panel"><div class="landing-section-heading"><p class="home-kicker">How to use this series</p><h2 id="video-journey-heading">The TritonAI Learning Journey</h2><p>A guided path that moves from understanding AI, to using the campus tools, to building with them. Start with video 1 and progress in order.</p><ul class="training-video-pace-list"><li><strong>Learn at your own pace:</strong> The full series takes about 3 hours.</li><li><strong>Learn together:</strong> This series works well as a team activity too. Watch one video per meeting and use the discussion points beneath each one to spark a group discussion.</li><li><strong>Pick up where you left off:</strong> Your progress is saved automatically in your browser, so you can leave and come back anytime.</li></ul></div></div></div></section>`
-    : "";
-  const goFurtherHtml = videos.length
-    ? `<section class="landing-section training-video-go-further" aria-labelledby="go-further-heading"><div class="container"><div class="landing-section-heading"><p class="home-kicker">Go further</p><h2 id="go-further-heading">Digital Education Council: Generative AI Course for Higher Education Institutions</h2><p>For a deeper dive into AI across higher education, UC San Diego offers access to the Digital Education Council's Generative AI Course for Higher Education Institutions. The course is organized into three streams, one each for staff, faculty, and students, so everyone on campus has a path suited to their role.</p><p>You can work through it independently, or set up a learning community with your team or a cross-functional group and meet regularly to discuss the videos together. Communities can appoint one lead for the whole course, or rotate the lead so a different person heads up the discussion for each section of chapters. Most learning communities take about three months to complete the course.</p><p class="training-video-go-further-links"><strong>Access:</strong> Staff, faculty, and student stream links will be added after availability is confirmed.</p></div></div></section>`
-    : "";
-  const completionHtml = videos.length
-    ? `<section class="landing-section video-training-cta training-video-completion" aria-labelledby="video-completion-heading"><div class="container"><div class="video-training-cta-panel"><div><p class="home-kicker">After the videos</p><h2 id="video-completion-heading">Design what comes next</h2><p>Once you have been through the series, tell us where your team wants to go deeper and we will design a session around your work. Asking us to revisit topics from these videos is a normal request; the point is that now you know what to ask for.</p></div><div class="video-training-cta-actions"><a class="btn btn-primary btn-lg" href="${escapeHtml(TRAINING_INTAKE_URL)}">Start the team training intake</a></div></div></div></section>`
-    : "";
-  const emptyHtml = videos.length
-    ? ""
-    : `<section class="landing-section" aria-label="Videos coming soon"><div class="container"><p class="lead">The first videos are in production now. Check back soon, or explore the <a href="/training-resources/pathways.html">learning pathways</a> in the meantime.</p></div></section>`;
-  return `${continueHtml}${journeyIntroHtml}${seriesHtml}${goFurtherHtml}${completionHtml}${emptyHtml}`;
+  const intro = `<section class="landing-section training-video-journey-intro" aria-labelledby="video-journey-heading"><div class="container"><div class="training-video-journey-panel"><div class="landing-section-heading"><p class="home-kicker">How to use this series</p><h2 id="video-journey-heading">Learn your way</h2><ul class="training-video-pace-list"><li><strong>Learn at your own pace</strong><p>Work through the videos in order, and test your knowledge with the questions at the end of each video.</p></li><li><strong>Learn together</strong><p>The series works well as a team activity. Watch one video per meeting and use each video’s discussion points to spark a wider conversation.</p></li><li><strong>Pick up where you left off</strong><p>Your progress is saved automatically in your browser, so you can leave and come back at any time.</p></li></ul><p class="discovery-storage-note">Progress stays in this browser on this device. Private browsing or blocked storage may prevent saving.</p></div></div></div></section>`;
+  return `${continueHtml}${intro}${seriesHtml}<section class="landing-section training-video-completion" aria-labelledby="video-completion-heading"><div class="container"><div class="video-training-cta-panel"><div><p class="home-kicker">After the series</p><h2 id="video-completion-heading">Continue learning with your team</h2><p>Explore the <a href="/training-resources/certificate.html">certificate</a> or request a session around your team’s work.</p></div><a class="btn btn-primary btn-lg" href="${escapeHtml(TRAINING_INTAKE_URL)}">Start the team training intake</a></div></div></section>`;
 }
 
 function renderRoadmap(roadmap) {
@@ -923,6 +872,7 @@ function relativePathForRoute(route) {
 }
 
 function breadcrumbFor(page) {
+  if (page.path === "/training-resources/videos/index.html") return `<li><a href="/">TritonAI</a></li><li><a href="/training-resources/index.html">Learn</a></li><li aria-current="page">${escapeHtml(page.title)}</li>`;
   const pieces = page.path.split("/").filter(Boolean);
   if (pieces.length <= 1) return "";
   if (pieces.at(-1) === "index.html") {
@@ -964,7 +914,7 @@ function renderGeneratedPage(shellHtml, page, bodyHtml, homeHero) {
       : videoTheater
         ? `<section aria-label="Main Content" class="col-xs-12 main-section video-theater-main">${bodyHtml}</section>`
       : landingHub
-        ? `<div class="jumbotron jumbotron-fluid intro-banner landing-hub-hero${bannerClass}" style="background-image:url('${escapeHtml(bannerImage)}');background-position:${escapeHtml(bannerPosition)};"><div class="container"><div class="cr-item-container"><div class="row"><div class="col-sm-12"><div class="landing-hub-title animated fadeInUp">${page.eyebrow ? `<p>${escapeHtml(page.eyebrow)}</p>` : ""}<h1 class="intro-banner-heading">${escapeHtml(page.title)}</h1></div></div></div></div></div></div><div class="container landing-hub-breadcrumbs"><div class="row"><ol aria-label="Breadcrumb" class="breadcrumb breadcrumbs-list">${breadcrumbFor(page)}</ol></div></div><section aria-label="Main Content" class="col-xs-12 main-section landing-hub-content">${bodyHtml}</section>${renderLandingMobileSectionNav(site.navigation, page.path)}`
+        ? `<div class="jumbotron jumbotron-fluid intro-banner landing-hub-hero${bannerClass}" style="background-image:url('${escapeHtml(bannerImage)}');background-position:${escapeHtml(bannerPosition)};"><div class="container"><div class="cr-item-container"><div class="row"><div class="col-sm-12"><div class="landing-hub-title animated fadeInUp">${page.eyebrow ? `<p>${escapeHtml(page.eyebrow)}</p>` : ""}<h1 class="intro-banner-heading">${escapeHtml(page.title)}</h1>${page.heroDescription ? `<p class="discovery-hero-description">${escapeHtml(page.heroDescription)}</p>` : ""}</div></div></div></div></div></div><div class="container landing-hub-breadcrumbs"><div class="row"><ol aria-label="Breadcrumb" class="breadcrumb breadcrumbs-list">${breadcrumbFor(page)}</ol></div></div><section aria-label="Main Content" class="col-xs-12 main-section landing-hub-content">${bodyHtml}</section>${renderLandingMobileSectionNav(site.navigation, page.path)}`
       : `${subpageHero}<div class="container"><div class="row"><ol aria-label="Breadcrumb" class="breadcrumb breadcrumbs-list">${breadcrumbFor(page)}</ol></div><div class="row${subpageLayoutClass}">${mobileAboutNav}<section aria-label="Main Content" class="col-xs-9 main-section pull-right">${bodyHtml}</section>${renderSidebar(site.navigation, page.path)}</div></div>`;
   $("main#main-content").html(mainContent);
   if (!$("#datatable-ns").length) $("script[src*='datatables']").remove();
@@ -1378,8 +1328,8 @@ function transformHtml(html, relativePath, context) {
   if ($("[data-video-progress]").length && !$("script[src*='/video-progress.js']").length) {
     $("body").append(`<script defer src="/_resources/js/video-progress.js?v=${VIDEO_PROGRESS_JS_VERSION}"></script>`);
   }
-  if ($("[data-video-quiz]").length && !$("script[src$='video-quiz.js']").length) {
-    $("body").append('<script defer src="/_resources/js/video-quiz.js"></script>');
+  if ($("[data-video-quiz], [data-quiz-card-state]").length && !$("script[src*='/video-quiz.js']").length) {
+    $("body").append(`<script defer src="/_resources/js/video-quiz.js?v=${VIDEO_QUIZ_JS_VERSION}"></script>`);
   }
 
   $("a[href^='/cdn-cgi/l/email-protection#']").each((_, element) => {
@@ -1529,8 +1479,17 @@ for (const [index, month] of gatewayUsage.monthly.entries()) {
 
 const pages = await loadMarkdownDirectory(PAGE_DIR, ["title", "path", "description", "lastReviewed", "audiences", "source", "canonicalUrl", "relatedSlides"]);
 const useCases = await loadMarkdownDirectory(USE_CASE_DIR, ["title", "slug", "summary", "status", "owner", "lastReviewed", "audiences", "source", "measurementPeriod", "dataClassification", "canonicalUrl", "relatedSlides", "humanOversight", "measurableOutcome"]);
-const trainingVideosAll = await loadMarkdownDirectory(TRAINING_VIDEO_DIR, ["title", "slug", "summary", "series", "status", "owner", "lastReviewed", "audiences", "source", "dataClassification", "canonicalUrl", "relatedSlides", "durationMinutes"]);
-const trainingVideos = trainingVideosAll.filter((video) => video.status === "Published");
+const trainingVideosAll = await loadMarkdownDirectory(TRAINING_VIDEO_DIR, ["title", "slug", "summary", "series", "status", "owner", "lastReviewed", "audiences", "source", "dataClassification", "canonicalUrl", "relatedSlides"]);
+const trainingVideos = trainingVideosAll.filter((video) => ["Published", "Coming soon"].includes(video.status));
+for (const video of trainingVideos) {
+  if (video.status === "Published") requireFields(video, ["videoSrc", "videoCaptionsSrc", "durationMinutes"], video.filename);
+  for (const question of video.quiz || []) {
+    if (!question.question || !Array.isArray(question.options) || question.options.length < 2 || !Number.isInteger(question.answer) || question.answer < 0 || question.answer >= question.options.length || !question.explanation) {
+      throw new Error(`${video.filename}: invalid quiz question or answer key`);
+    }
+  }
+}
+
 const newsletters = await loadNewsletters();
 // Generated pages can live at any directory depth, so parent-relative asset
 // references in the shell must be site-absolute before reuse.
@@ -1570,10 +1529,11 @@ for (const useCase of useCases) {
 }
 
 const trainingVideoIndex = {
-  title: "AI Learning Videos",
+  title: "TritonAI Discovery Series",
   path: "/training-resources/videos/index.html",
-  description: "Short AI learning videos for UC San Diego faculty, staff, and students, with captions, transcripts, and no sign-in required.",
-  eyebrow: "Learn",
+  description: "Explore the TritonAI ecosystem, use campus tools, and build with AI through short lessons and browser-based knowledge checks.",
+  heroDescription: "Where many TritonAI learning journeys begin. The series builds from understanding the TritonAI ecosystem, to using campus tools, to creating with them, and each short video is designed to be watched in order.",
+  eyebrow: "Start here",
   lastReviewed: site.lastReviewed,
   canonicalUrl: "/training-resources/videos/index.html",
   landingHub: true,
@@ -1585,7 +1545,7 @@ await writeGeneratedPage(shellHtml, trainingVideoIndex, renderTrainingVideoIndex
 for (const video of trainingVideos) {
   await writeGeneratedPage(
     shellHtml,
-    { ...video, path: video.canonicalUrl, eyebrow: "AI learning video", description: video.summary, videoTheater: true },
+    { ...video, path: video.canonicalUrl, eyebrow: "AI learning video", description: video.description || video.summary, videoTheater: true },
     await renderTrainingVideoPage(video, trainingVideos),
     generatedByPath,
   );
@@ -1594,7 +1554,7 @@ await mkdir(path.join(OUTPUT_DIR, "training-resources/videos"), { recursive: tru
 await writeFile(
   path.join(OUTPUT_DIR, "training-resources/videos/transcripts.json"),
   `${JSON.stringify(
-    trainingVideos.map((video) => ({
+    trainingVideos.filter((video) => video.status === "Published").map((video) => ({
       slug: video.slug,
       title: video.title,
       canonicalUrl: video.canonicalUrl,

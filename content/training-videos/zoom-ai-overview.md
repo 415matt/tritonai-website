@@ -1,47 +1,51 @@
 ---
-title: "Zoom AI overview"
+title: 'ZoomAI: An overview'
 slug: zoom-ai-overview
-summary: Practical campus use cases for Zoom's AI features, from meeting summaries to follow-ups.
-series: Using the tools
-status: Published
+summary: 'Practical campus use cases for Zoom’s AI features, from meeting summaries to follow-ups.'
+series: Using the Tools
+status: Coming soon
 owner: TritonAI training program
-lastReviewed: 2026-08-03
-audiences: [faculty, staff]
-source: AI training video production plan, August 2026
+lastReviewed: '2026-09-29'
+audiences:
+  - faculty
+  - staff
+source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/zoom-ai-overview.html
 relatedSlides: []
-videoSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo-v2.mp4
-videoPoster: /presentations/_resources/tritonai-harness-editing-demo-poster.jpg
-videoCaptionsSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo.vtt
-videoDescription: Placeholder footage while this video is in production.
-order: 17
-# Sample knowledge check and discussion prompts for the preview; the
-# production team replaces these when the recording is produced.
+order: 10
 quiz:
-  - question: "What is the main focus of this video?"
+  - question: What kinds of tasks can Zoom AI help with?
     options:
-      - "Purchasing procedures for campus software"
-      - "Understanding campus use cases for Zoom's AI features"
-      - "Configuring your campus email account"
-    answer: 1
-    explanation: "This video centers on campus use cases for Zoom's AI features."
-  - question: "Who stays responsible for consequential decisions when AI supports campus work?"
+      - Summarizing meetings and drafting follow-ups
+      - Replacing all meeting participants
+      - Guaranteeing accurate minutes
+      - Preventing all privacy risks
+    answer: 0
+    explanation: Zoom AI is designed to reduce routine meeting documentation work.
+  - question: What should you check before sharing an AI-generated meeting summary?
     options:
-      - "The AI tool that produced the output"
-      - "A person who reviews the output"
-      - "Nobody; reviewed output is automatic"
-    answer: 1
-    explanation: "Campus AI work keeps a person accountable for reviewing output before it matters."
+      - Assume it is correct.
+      - Remove all context.
+      - Check that it is accurate and appropriate for the audience.
+      - Share it without review.
+    answer: 2
+    explanation: Review helps prevent errors or sensitive details from being shared unnecessarily.
+  - question: How can Zoom AI support everyday work?
+    options:
+      - By reducing time spent on routine meeting documentation
+      - By eliminating the need for meetings
+      - By replacing human judgment
+      - By guaranteeing perfect notes
+    answer: 0
+    explanation: Automating summaries and follow-ups can free time for more substantive work.
 discussionPoints:
-  - "Where does Zoom AI already show up in your team's work, and where could it help next?"
-  - "What would need to be true before your team relied on AI for this, and who would review the results?"
-  - "Pick one workflow from this discussion to try within two weeks, and name who owns the follow-up."
-durationMinutes: 10
+  - Discuss where meeting summaries would save your team time.
+  - Identify one privacy consideration before using AI meeting features.
+  - Share how you would verify an AI-generated summary.
+durationMinutes: null
+discoverySeries: true
+presenters:
+  - name: Cherry Park
+    title: 'Lead HCM Trainer and Analyst, HR'
 ---
-
-- Draft entry awaiting the produced recording; publishes when videoSrc, captions, and transcript land.
-
-## Transcript
-
-Recorded transcript lands here at production time.

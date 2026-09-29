@@ -1,47 +1,51 @@
 ---
-title: "Look at the process before the AI"
+title: Process prior to AI implementation
 slug: process-before-ai
-summary: "Examine the process first: how to map what actually happens before deciding where AI helps, and the support available for that work."
+summary: How to map what actually happens in a process — and the support available — before deciding where AI helps.
 series: Foundations
-status: Published
+status: Coming soon
 owner: TritonAI training program
-lastReviewed: 2026-08-03
-audiences: [faculty, staff]
-source: AI training video production plan, August 2026
+lastReviewed: '2026-09-29'
+audiences:
+  - faculty
+  - staff
+source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/process-before-ai.html
 relatedSlides: []
-videoSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo-v2.mp4
-videoPoster: /presentations/_resources/tritonai-harness-editing-demo-poster.jpg
-videoCaptionsSrc: /presentations/_resources/tritonai-harness-editing-publishing-demo.vtt
-videoDescription: Placeholder footage while this video is in production.
-order: 9
-# Sample knowledge check and discussion prompts for the preview; the
-# production team replaces these when the recording is produced.
+order: 8
 quiz:
-  - question: "What is the main focus of this video?"
+  - question: What should you do before choosing an AI solution?
     options:
-      - "Purchasing procedures for campus software"
-      - "Understanding mapping the process first before deciding where AI helps"
-      - "Configuring your campus email account"
-    answer: 1
-    explanation: "This video centers on mapping the process first before deciding where AI helps."
-  - question: "Who stays responsible for consequential decisions when AI supports campus work?"
+      - Choose the newest tool
+      - Start with the most complex task
+      - Map the process you want to improve
+      - Skip process review
+    answer: 2
+    explanation: Understanding the current process helps identify where AI can add real value.
+  - question: Why does understanding the current process matter?
     options:
-      - "The AI tool that produced the output"
-      - "A person who reviews the output"
-      - "Nobody; reviewed output is automatic"
+      - It guarantees success.
+      - It shows where AI can genuinely help and where it may not.
+      - It removes the need for support.
+      - It makes AI unnecessary.
     answer: 1
-    explanation: "Campus AI work keeps a person accountable for reviewing output before it matters."
+    explanation: Process mapping separates genuine opportunities from assumptions about what AI can fix.
+  - question: Where can you get help with process improvement?
+    options:
+      - 'Through campus support, including OSI'
+      - Only from vendors
+      - Only from online forums
+      - No support is available
+    answer: 0
+    explanation: OSI and related campus support can help teams assess and improve processes before implementing AI.
 discussionPoints:
-  - "Where does process before AI already show up in your team's work, and where could it help next?"
-  - "What would need to be true before your team relied on AI for this, and who would review the results?"
-  - "Pick one workflow from this discussion to try within two weeks, and name who owns the follow-up."
-durationMinutes: 8
+  - Discuss one process in your unit that could benefit from review before AI is added.
+  - Identify where a current workflow creates unnecessary friction.
+  - Share who should be involved in mapping that process.
+durationMinutes: null
+discoverySeries: true
+presenters:
+  - name: Antonio Nava
+    title: 'Program Director, OSI'
 ---
-
-- Draft entry awaiting the produced recording; publishes when videoSrc, captions, and transcript land.
-
-## Transcript
-
-Recorded transcript lands here at production time.

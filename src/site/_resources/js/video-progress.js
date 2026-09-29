@@ -203,9 +203,10 @@
   const store = read();
   const strip = document.querySelector("[data-continue-watching]");
   if (strip) {
+    const availableSlugs = new Set(Array.from(document.querySelectorAll('[data-video-card][data-video-available="true"]')).map((card) => card.dataset.videoCard));
     const items = Object.entries(store)
       .map(([slug, entry]) => ({ slug, ...entry }))
-      .filter((entry) => !entry.completed && entry.seconds > 15 && entry.href && entry.title)
+      .filter((entry) => availableSlugs.has(entry.slug) && !entry.completed && entry.seconds > 15 && entry.href && entry.title)
       .sort((a, b) => b.updated - a.updated)
       .slice(0, 4);
     const list = strip.querySelector("ul");
@@ -222,7 +223,7 @@
     } else {
       // Nothing mid-play, but a returning viewer who finished their last
       // video should land on the next unwatched one, not back at square one.
-      const cards = Array.from(document.querySelectorAll("[data-video-card]"));
+      const cards = Array.from(document.querySelectorAll('[data-video-card][data-video-available="true"]'));
       const finishedAny = cards.some((card) => store[card.dataset.videoCard] && store[card.dataset.videoCard].completed);
       const nextCard = finishedAny
         ? cards.find((card) => !store[card.dataset.videoCard] || !store[card.dataset.videoCard].completed)
@@ -246,7 +247,7 @@
   document.querySelectorAll("[data-video-card]").forEach((card) => {
     const entry = store[card.dataset.videoCard];
     const chip = card.querySelector("[data-video-state]");
-    if (!entry || !chip) return;
+    if (!entry || !chip || card.dataset.videoAvailable === "false") return;
     if (entry.completed) {
       chip.textContent = " · Watched";
       chip.hidden = false;
