@@ -761,6 +761,15 @@ const SKILL_PRESENTATION = {
     outcome: "An organized memory folder with starter files and instructions for using it. Background updates and connected sources need your approval.",
     setup: "Choose a local folder. If you already have project memory, ask the agent to inspect it before creating another setup.",
   },
+  "ucsd-branding": {
+    title: "UC San Diego page branding",
+    category: "Retired skill",
+    icon: "glyphicon-wrench",
+    summary: "Retired. Use the ucsd-decorator skill for UC San Diego Decorator 5 page work.",
+    example: "explain which skill replaced ucsd-branding and what it covers for UC San Diego Decorator 5 page work.",
+    outcome: "A pointer to the ucsd-decorator skill, which covers the page shell, components, accessibility, and security rules.",
+    setup: "No setup needed. Load the ucsd-decorator skill for current UC San Diego web branding work.",
+  },
 };
 
 function defaultSkillPresentation(skill) {
