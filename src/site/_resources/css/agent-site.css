@@ -4557,7 +4557,7 @@ main#main-content .video-quiz-result:empty { display: none; }
 }
 .training-video-journey-description {
   max-width: 760px;
-  margin: 14px 0 0;
+  margin: 0 0 24px;
   font-size: 20px;
   line-height: 1.5;
 }
