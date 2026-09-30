@@ -509,7 +509,7 @@ function videoAvailability(video) {
 
 function renderVideoPresenters(video) {
   const presenters = video.presenters || (video.presenter ? [{ name: video.presenter, title: video.presenterTitle, image: video.presenterImage }] : []);
-  return presenters.map((presenter) => `<div class="discovery-presenter">${presenter.image ? `<img src="${escapeHtml(presenter.image)}" alt="" loading="lazy">` : '<span class="discovery-photo-placeholder" aria-hidden="true">Photo<br>to come</span>'}<span><span class="discovery-presenter-name">${escapeHtml(presenter.name)}</span>${presenter.title ? `<span class="discovery-presenter-title">${escapeHtml(presenter.title)}</span>` : ""}</span></div>`).join("");
+  return presenters.map((presenter) => `<div class="discovery-presenter">${presenter.image ? `<img src="${escapeHtml(presenter.image)}" alt="" loading="lazy">` : ""}<span><span class="discovery-presenter-name">${escapeHtml(presenter.name)}</span>${presenter.title ? `<span class="discovery-presenter-title">${escapeHtml(presenter.title)}</span>` : ""}</span></div>`).join("");
 }
 
 function renderTrainingVideoQuiz(video) {
