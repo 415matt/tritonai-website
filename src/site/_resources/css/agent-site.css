@@ -4740,6 +4740,9 @@ main#main-content .video-quiz-result:empty { display: none; }
   max-width: 908px;
   width: auto;
 }
+main#main-content .video-discussion-section .landing-section-heading .home-kicker {
+  margin-bottom: 4px;
+}
 
 .video-quiz-section {
   padding-top: 20px;
