@@ -3867,6 +3867,15 @@
 .video-theater .use-case-demo-caption {
   color: rgba(255, 255, 255, 0.75);
 }
+.video-theater .use-case-demo-frame iframe {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
+  border: 0;
+}
 .video-theater .video-play-overlay {
   align-items: center;
   background: rgba(0, 40, 70, 0.92);

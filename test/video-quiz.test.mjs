@@ -28,7 +28,7 @@ test('Discovery lessons and browser-only grading', async () => {
     await page.addInitScript(() => { window.quizEvents=[]; window.gtag=(...args)=>window.quizEvents.push(args); });
     for (const lesson of lessons) {
       await page.goto(server.origin+lesson.canonicalUrl);
-      assert.equal(await page.locator('video, iframe').count(),0);
+      assert.equal(await page.locator('video, iframe').count(), lesson.videoEmbedSrc ? 1 : 0);
       assert.equal(await page.locator('[data-quiz-block]').count(),lesson.quiz.length);
       for (let i=0;i<lesson.quiz.length;i++) {
         const block = page.locator('[data-quiz-block]').nth(i);

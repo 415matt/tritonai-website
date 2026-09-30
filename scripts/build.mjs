@@ -488,6 +488,9 @@ function renderInteractiveTranscript(video, cues) {
 }
 
 function renderTrainingVideoBlock(video) {
+  if (video.videoEmbedSrc) {
+    return `<div class="use-case-demo"><div class="use-case-demo-frame training-video-embed-frame"><iframe id="kaltura_player" type="text/javascript" src="${escapeHtml(video.videoEmbedSrc)}" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" title="${escapeHtml(video.videoEmbedTitle || video.title)}"></iframe></div></div>`;
+  }
   return `<div class="use-case-demo" data-video-progress><div class="use-case-demo-frame"><video class="img-responsive" controls playsinline preload="metadata" data-progress-slug="${escapeHtml(video.slug)}" data-progress-title="${escapeHtml(video.title)}"${video.videoPoster ? ` poster="${escapeHtml(video.videoPoster)}"` : ""} aria-label="${escapeHtml(video.videoLabel || video.title)}"><source src="${escapeHtml(video.videoSrc)}" type="video/mp4">${video.videoCaptionsSrc ? `<track kind="captions" src="${escapeHtml(video.videoCaptionsSrc)}" srclang="en" label="${escapeHtml(video.videoCaptionsLabel || "English")}">` : ""}${video.videoChaptersSrc ? `<track kind="chapters" src="${escapeHtml(video.videoChaptersSrc)}" srclang="en" label="Chapters">` : ""}Your browser does not support the video element.</video><button type="button" class="video-play-overlay" data-video-play hidden><span class="glyphicon glyphicon-play" aria-hidden="true"></span><span data-video-play-label>Play video</span></button><div class="video-resume-host" data-resume-for="${escapeHtml(video.slug)}"></div></div></div>`;
 }
 
@@ -500,6 +503,7 @@ function splitTrainingVideoBody(html) {
 }
 
 function videoAvailability(video) {
+  if (video.videoEmbedSrc && !video.durationMinutes) return "Video available";
   return video.status === "Coming soon" ? "Video coming soon" : `${escapeHtml(String(video.durationMinutes))} min`;
 }
 
@@ -1483,7 +1487,13 @@ const useCases = await loadMarkdownDirectory(USE_CASE_DIR, ["title", "slug", "su
 const trainingVideosAll = await loadMarkdownDirectory(TRAINING_VIDEO_DIR, ["title", "slug", "summary", "series", "status", "owner", "lastReviewed", "audiences", "source", "dataClassification", "canonicalUrl", "relatedSlides"]);
 const trainingVideos = trainingVideosAll.filter((video) => ["Published", "Coming soon"].includes(video.status));
 for (const video of trainingVideos) {
-  if (video.status === "Published") requireFields(video, ["videoSrc", "videoCaptionsSrc", "durationMinutes"], video.filename);
+  if (video.status === "Published") {
+    requireFields(
+      video,
+      video.videoEmbedSrc ? ["videoEmbedSrc", "videoEmbedTitle"] : ["videoSrc", "videoCaptionsSrc", "durationMinutes"],
+      video.filename,
+    );
+  }
   for (const question of video.quiz || []) {
     if (!question.question || !Array.isArray(question.options) || question.options.length < 2 || !Number.isInteger(question.answer) || question.answer < 0 || question.answer >= question.options.length || !question.explanation) {
       throw new Error(`${video.filename}: invalid quiz question or answer key`);

@@ -3,7 +3,7 @@ title: UC San Diego AI vision
 slug: uc-san-diego-ai-vision
 summary: 'Why UC San Diego encourages the campus community to explore AI, and where the strategy is headed.'
 series: Foundations
-status: Coming soon
+status: Published
 owner: TritonAI training program
 lastReviewed: '2026-09-29'
 audiences:
@@ -11,6 +11,8 @@ audiences:
   - faculty
   - staff
 source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
+videoEmbedSrc: 'https://cdnapisec.kaltura.com/p/2323111/embedPlaykitJs/uiconf_id/52706832?iframeembed=true&entry_id=1_547xgupc&config[provider]={"widgetId":"1_tvzwmdw6"}'
+videoEmbedTitle: 'TritonAI Discovery Series-01-Chancellor Khosla'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/uc-san-diego-ai-vision.html
 relatedSlides: []
