@@ -4172,8 +4172,11 @@ a.video-theater-nav-next.is-suggested .video-theater-nav-next-label {
 }
 
 /* TED-scale stage: centered theater with a dominant player and rail */
+.video-theater-page {
+  --video-theater-side-padding: 28px;
+}
 .video-theater {
-  padding: 22px 28px 30px;
+  padding: 22px var(--video-theater-side-padding) 30px;
 }
 .video-theater-layout {
   max-width: 1360px;
@@ -4191,8 +4194,11 @@ a.video-theater-nav-next.is-suggested .video-theater-nav-next-label {
   }
 }
 @media (max-width: 991px) {
+  .video-theater-page {
+    --video-theater-side-padding: 12px;
+  }
   .video-theater {
-    padding: 16px 12px 22px;
+    padding: 16px var(--video-theater-side-padding) 22px;
   }
   /* Re-assert the single-column stack: the TED-scale block above re-sets
      two columns unconditionally and would otherwise win by source order. */
@@ -4730,13 +4736,13 @@ main#main-content .video-quiz-result:empty { display: none; }
 }
 
 
-/* Quiz, discussion, and CTA share the centered reading column */
+/* Quiz, discussion, and CTA align to the theater's reading column */
 .video-quiz-section .video-theater-about-inner,
 .video-discussion-section .video-theater-about-inner,
 .video-training-cta .video-theater-about-inner {
-  margin-left: auto;
+  margin-left: max(0px, calc((100% - 1360px) / 2 - var(--video-theater-side-padding)));
   margin-right: auto;
-  padding-left: 28px;
+  padding-left: var(--video-theater-side-padding);
   max-width: 908px;
   width: auto;
 }
@@ -4810,7 +4816,7 @@ main#main-content .video-quiz-dialog :focus-visible { outline: 3px solid #00629b
   main#main-content .video-quiz-question { padding: 14px; min-width: 0; }
   main#main-content .video-quiz-section .video-theater-about-inner,
   main#main-content .video-discussion-section .video-theater-about-inner,
-  main#main-content .video-training-cta .video-theater-about-inner { padding: 0 16px; }
+  main#main-content .video-training-cta .video-theater-about-inner { padding: 0 var(--video-theater-side-padding); }
 }
 
 
