@@ -442,6 +442,22 @@
   width: 100%;
 }
 
+main#main-content .home-feature-compact {
+  margin: 36px 0 0;
+}
+
+main#main-content .home-feature-compact .hub-split {
+  min-height: 280px;
+}
+
+main#main-content .home-feature-compact .hub-split-copy {
+  padding: 32px;
+}
+
+main#main-content .home-starting-points {
+  padding-top: 40px;
+}
+
 .home-feature-actions,
 .about-feature-actions {
   align-items: center;

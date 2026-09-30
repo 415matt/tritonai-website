@@ -10,16 +10,16 @@ canonicalUrl: /tritongpt/integrations.html
 relatedSlides: [video-tritongpt-mobile-app, scaling-engagement-the-tritongpt-widget, ai-driven-search-blink-integration]
 ---
 
-<p class="lead">TritonGPT uses one campus AI platform across several channels. Choose the entry point that fits where you are working and the kind of help you need.</p>
+<p class="lead">You can use TritonGPT in its workspace, the UC San Diego app, Blink search, and approved campus websites. Choose the option that fits where you are working and the help you need.</p>
 
 <!-- AGENT_SECTION: ux-tritongpt-integrations -->
 ## Choose an entry point
 
 <div class="row agent-card-grid">
 <div class="col-sm-6"><div class="panel panel-default agent-card"><div class="panel-heading"><h3 class="panel-title">TritonGPT workspace</h3></div><div class="panel-body"><p>The signed-in workspace provides model choice, document uploads, conversation history, and purpose-built campus assistants.</p><p><a href="https://tritongpt.ucsd.edu/">Open TritonGPT</a></p></div></div></div>
-<div class="col-sm-6"><div class="panel panel-default agent-card"><div class="panel-heading"><h3 class="panel-title">UC San Diego mobile app</h3></div><div class="panel-body"><p>The UC San Diego Assistant brings the campus AI service into the official app with text, voice, and mobile-aware context.</p><p><a href="https://mobile.ucsd.edu/">Learn about the UC San Diego app</a></p></div></div></div>
-<div class="col-sm-6"><div class="panel panel-default agent-card"><div class="panel-heading"><h3 class="panel-title">Blink AI overview</h3></div><div class="panel-body"><p>Supported Blink searches can synthesize relevant campus policies and procedures into a grounded overview with source links.</p><p><a href="https://blink.ucsd.edu/">Search Blink</a></p></div></div></div>
-<div class="col-sm-6"><div class="panel panel-default agent-card"><div class="panel-heading"><h3 class="panel-title">Campus website widget</h3></div><div class="panel-body"><p>Approved public sites can add a site-grounded assistant that people use without signing in. The site owner maintains its sources and support path.</p><p><a href="/tritongpt/chatbot-widget.html">Explore the website widget</a></p></div></div></div>
+<div class="col-sm-6"><div class="panel panel-default agent-card"><div class="panel-heading"><h3 class="panel-title">UC San Diego mobile app</h3></div><div class="panel-body"><p>Ask the UC San Diego Assistant questions by text or voice in the official app. Answers can use campus information relevant to mobile use.</p><p><a href="https://mobile.ucsd.edu/">Learn about the UC San Diego app</a></p></div></div></div>
+<div class="col-sm-6"><div class="panel panel-default agent-card"><div class="panel-heading"><h3 class="panel-title">Blink AI overview</h3></div><div class="panel-body"><p>Supported Blink searches can combine relevant campus policies and procedures into an overview with source links.</p><p><a href="https://blink.ucsd.edu/">Search Blink</a></p></div></div></div>
+<div class="col-sm-6"><div class="panel panel-default agent-card"><div class="panel-heading"><h3 class="panel-title">Campus website widget</h3></div><div class="panel-body"><p>Approved public sites can add an assistant that answers from their public content without requiring sign-in. The site owner maintains its sources and support path.</p><p><a href="/tritongpt/chatbot-widget.html">Explore the website widget</a></p></div></div></div>
 </div>
 
 ## Mobile assistant
@@ -64,7 +64,7 @@ Your browser does not support the video element.
 <h3>What the widget provides</h3>
 <ul>
 <li><strong>Public access:</strong> Visitors can ask questions without a campus sign-in.</li>
-<li><strong>Grounded answers:</strong> Responses use the approved public content selected for that service.</li>
+<li><strong>Approved sources:</strong> Responses use the approved public content selected for that service.</li>
 <li><strong>Lightweight integration:</strong> A standard JavaScript embed connects the site to the shared service.</li>
 <li><strong>Local ownership:</strong> Each site maintains its source content, accessibility review, support contact, and escalation path.</li>
 </ul>

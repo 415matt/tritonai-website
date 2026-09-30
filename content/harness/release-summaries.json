@@ -8,10 +8,10 @@
       "lastReviewed": "2026-10-01",
       "highlights": [
         "Review proposed file changes in the app: browse them, read feedback, edit comments, and ask the agent about specific changed lines.",
-        "A redesigned sidebar keeps tasks organized, lets you reorder pinned tasks, and helps you find tasks and project files faster.",
+        "The redesigned sidebar lets you organize tasks, reorder pinned tasks, and find tasks and project files faster.",
         "Attach general files and images more easily, preview images and videos, and save unfinished prompts with their attachments for later.",
         "New plugins connect to UC San Diego Kuali Build and n8n, using your own sign-in or API key and only the permissions you authorize.",
-        "Opt-in computer use lets the app work on your desktop with visible setup and activity, and updates install more reliably."
+        "If you enable computer use, the app can work on your desktop with visible setup and activity. App updates also install more reliably."
       ],
       "reviewStatus": "reviewed",
       "generatedBy": {
@@ -32,7 +32,7 @@
         "Each model now uses the correct account key, and you can replace or remove keys without restarting the app.",
         "Signing in to add-ons such as GitHub, Google Workspace, and Microsoft 365 is easier and more flexible.",
         "When the app asks you to approve work, you now see complete details, including full proposed file changes.",
-        "Many small fixes make the app more stable and polished, including a refreshed look and better voice input on Mac."
+        "Small fixes improve app stability and voice input on Mac. The app's appearance has also been updated."
       ],
       "reviewStatus": "reviewed",
       "generatedBy": {

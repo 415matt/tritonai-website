@@ -29,7 +29,7 @@ bannerMode: abstract
 <div class="tritongpt-capability-grid">
 <article class="tritongpt-capability-card"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span><div><h3>Ask an assistant</h3><p>Pick an assistant built for the question you have, from benefits to job-description drafting.</p><a href="/training-resources/tritongpt/assistants.html">Explore assistants</a></div></article>
 <article class="tritongpt-capability-card"><span class="glyphicon glyphicon-file" aria-hidden="true"></span><div><h3>Work with documents</h3><p>Upload your own files and ask about them. You still decide what to do with the answer.</p><a href="/training-resources/tritongpt/index.html">Read the guides</a></div></article>
-<article class="tritongpt-capability-card"><span class="glyphicon glyphicon-random" aria-hidden="true"></span><div><h3>Choose a model</h3><p>Switch between the models UC San Diego has approved without leaving the conversation.</p><a href="/about/trust-architecture.html">How routing works</a></div></article>
+<article class="tritongpt-capability-card"><span class="glyphicon glyphicon-random" aria-hidden="true"></span><div><h3>Choose a model</h3><p>Switch between the models UC San Diego has approved without leaving the conversation.</p><a href="/training-resources/tritongpt/index.html#getting-started">Read the interface guide</a></div></article>
 <article class="tritongpt-capability-card"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span><div><h3>Use campus context</h3><p>Answers can draw from approved campus sources at the time of your question.</p><a href="/tritongpt/integrations.html">Where TritonGPT appears</a></div></article>
 </div>
 </div>
@@ -37,7 +37,7 @@ bannerMode: abstract
 
 <section class="landing-section tritongpt-assistant-ecosystem" aria-labelledby="assistant-breadth-heading">
 <div class="container">
-<div class="landing-section-heading"><p class="home-kicker">Assistants</p><h2 id="assistant-breadth-heading">Choose an assistant by the work</h2><p>TritonGPT includes assistants for common campus questions and more specialized work. What you see depends on your role and access.</p></div>
+<div class="landing-section-heading"><h2 id="assistant-breadth-heading">Find an assistant for your task</h2><p>TritonGPT includes assistants for common campus questions and more specialized work. What you see depends on your role and access.</p></div>
 <div class="assistant-overview-grid">
 <article class="assistant-overview-guide"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span><h3>Find the right assistant</h3><ol><li>Start with the task.</li><li>Check which sources it uses.</li><li>Review the answer before acting.</li></ol><a href="/training-resources/tritongpt/assistants.html">Compare assistants and prompts</a></article>
 <article class="assistant-overview-card"><span class="glyphicon glyphicon-home" aria-hidden="true"></span><h3>Campus and employee information</h3><p>Find campus services, benefits, and shared data definitions.</p><p class="assistant-overview-examples"><strong>Examples</strong> UC San Diego Assistant, UCSD Benefit Assistant, Data Dictionary Assistant</p></article>

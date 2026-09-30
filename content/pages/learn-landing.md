@@ -19,23 +19,23 @@ bannerMode: abstract
 </section>
 
 <section class="hub-section hub-section-dark hub-full-bleed" aria-labelledby="role-pathways-heading">
-<div class="container"><div class="hub-heading"><p class="home-kicker">Start with your role</p><h2 id="role-pathways-heading">Different work, different practice</h2></div>
+<div class="container"><div class="hub-heading"><h2 id="role-pathways-heading">Learning paths by role</h2></div>
 <div class="row hub-number-grid">
 <div class="col-md-4"><article><span>01</span><h3>Students</h3><p>Writing prompts, checking answers, and knowing what your instructor allows in each course.</p></article></div>
 <div class="col-md-4"><article><span>02</span><h3>Faculty and instructors</h3><p>Setting expectations for your class, trying instructional patterns, and seeing what students actually learned.</p></article></div>
-<div class="col-md-4"><article><span>03</span><h3>Staff, builders, and leaders</h3><p>Pointing the tools at work that repeats, and knowing what a supported service has to have.</p></article></div>
+<div class="col-md-4"><article><span>03</span><h3>Staff, builders, and leaders</h3><p>Using approved tools for recurring work and understanding what a supported service needs.</p></article></div>
 </div><p class="hub-section-action"><a class="btn btn-default" href="/training-resources/pathways.html">See all pathways</a></p></div>
 </section>
 
 <section class="hub-section" aria-labelledby="foundations-heading">
-<div class="row hub-split hub-split-align-center"><div class="col-md-6 hub-split-media"><figure class="hub-photo-frame"><img alt="Abstract learning pathway connecting core concepts with review and verification" class="img-responsive" src="/_images/editorial/ai-foundations-learning.webp"></figure></div><div class="col-md-6 hub-split-copy"><p class="home-kicker">A common foundation</p><h2 id="foundations-heading">Begin with AI Foundations</h2><p>The core concepts, what UC policy says, and where AI genuinely helps in higher education. It is self-paced, runs in UC Learning, and anyone on campus can take it.</p><p><a class="btn btn-primary" href="https://go.ucsd.edu/3FvH9Hf">Take AI Foundations</a></p></div></div>
+<div class="row hub-split hub-split-align-center"><div class="col-md-6 hub-split-media"><figure class="hub-photo-frame"><img alt="Abstract learning pathway connecting core concepts with review and verification" class="img-responsive" src="/_images/editorial/ai-foundations-learning.webp"></figure></div><div class="col-md-6 hub-split-copy"><p class="home-kicker">A common foundation</p><h2 id="foundations-heading">Begin with AI Foundations</h2><p>Learn core AI concepts, UC policy, and uses of AI in higher education. The course is self-paced, runs in UC Learning, and anyone on campus can take it.</p><p><a class="btn btn-primary" href="https://go.ucsd.edu/3FvH9Hf">Take AI Foundations</a></p></div></div>
 </section>
 
 <section class="hub-section hub-section-sand hub-full-bleed" aria-labelledby="practice-heading">
-<div class="container"><div class="hub-heading"><p class="home-kicker">Put the foundation to work</p><h2 id="practice-heading">Keep building</h2></div>
+<div class="container"><div class="hub-heading"><h2 id="practice-heading">Guides, recordings, and symposium sessions</h2></div>
 <div class="row hub-story-grid">
 <div class="col-md-4"><article class="panel panel-default hub-story-card"><a href="/training-resources/prompting/index.html"><img alt="Abstract blue and gold TritonAI pattern" class="img-responsive" src="/_images/homepage/TritonAI_Hero_2500.webp"></a><div class="hub-story-body"><h3><a href="/training-resources/prompting/index.html">Prompt with START</a></h3><p>Use the five-part START framework to structure a request.</p></div></article></div>
-<div class="col-md-4"><article class="panel panel-default hub-story-card"><a href="/training-resources/webinars.html"><img alt="TritonGPT interface used in an AI webinar" class="img-responsive" src="/_images/TritonGPT_zoom_light.jpg"></a><div class="hub-story-body"><h3><a href="/training-resources/webinars.html">Watch someone do it</a></h3><p>Recorded sessions showing the tools used on actual campus work.</p></div></article></div>
+<div class="col-md-4"><article class="panel panel-default hub-story-card"><a href="/training-resources/webinars.html"><img alt="TritonGPT interface used in an AI webinar" class="img-responsive" src="/_images/TritonGPT_zoom_light.jpg"></a><div class="hub-story-body"><h3><a href="/training-resources/webinars.html">Watch recorded webinars</a></h3><p>Recorded sessions showing the tools used on actual campus work.</p></div></article></div>
 <div class="col-md-4"><article class="panel panel-default hub-story-card"><a href="/training-resources/faculty-ai-symposium.html"><img alt="UC San Diego campus building framed by tree branches" class="img-responsive" src="/_images/building-branch-hero.webp"></a><div class="hub-story-body"><h3><a href="/training-resources/faculty-ai-symposium.html">Explore the Faculty AI Symposium</a></h3><p>Sessions and materials on AI in teaching, research, and academic practice.</p></div></article></div>
 </div></div>
 </section>

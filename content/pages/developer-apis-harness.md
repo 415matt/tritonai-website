@@ -55,7 +55,7 @@ bannerMode: abstract
 <track kind="captions" src="/_files/harness/tritonai-harness-capabilities-2026-10-01.vtt" srclang="en" label="English" default>
 Your browser does not support embedded video.
 </video>
-<p id="harness-in-action-description" class="small">The video plays muted with captions. Turn on sound to hear the narration. It shows a survey summary, an Excel dashboard, a briefing deck on the UC San Diego template, an n8n workflow explained step by step, a GitHub code review, and a sign-up app built on the campus design system.</p>
+<p id="harness-in-action-description" class="small">The video plays muted with captions. Turn on sound to hear the narration. It shows a survey summary, an Excel dashboard, and a briefing deck on the UC San Diego template. Other examples explain an n8n workflow step by step, review a GitHub code change, and build a sign-up app on the campus design system.</p>
 <section class="sr-only" id="harness-in-action-transcript" aria-label="Video transcript">
 <h3>Introduction (0:00)</h3>
 <p>TritonAI Harness is UC San Diego's AI workspace on your desktop. You hand it real work, and it delivers finished results, using your files and campus systems.</p>

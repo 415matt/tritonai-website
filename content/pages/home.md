@@ -11,10 +11,9 @@ relatedSlides: [uc-san-diego-ai-strategy-2026, citizen-developer-ecosystem, plat
 ---
 
 <!-- AGENT_SECTION: homepage-feature -->
-<section class="hub-section hub-section-intro home-feature" aria-labelledby="home-feature-heading">
+<section class="hub-section hub-section-intro home-feature home-feature-compact" aria-labelledby="home-feature-heading">
 <div class="row hub-split hub-split-align-center">
 <div class="col-md-6 hub-split-copy">
-<p class="home-kicker">For students, faculty, and staff</p>
 <h1 id="home-feature-heading">AI tools, training, and support for UC San Diego</h1>
 <p class="hub-lede">TritonAI is UC San Diego's campus artificial intelligence program. We run TritonGPT, review which generative AI tools can be used with university data, train people to use them well, and help teams build their own.</p>
 <div class="home-feature-actions"><a class="btn btn-primary btn-lg" href="https://tritongpt.ucsd.edu/">Open TritonGPT</a><a class="home-feature-link" href="/about/strategy.html">See the strategy <span aria-hidden="true">→</span></a></div>
@@ -25,38 +24,12 @@ relatedSlides: [uc-san-diego-ai-strategy-2026, citizen-developer-ecosystem, plat
 <!-- END_AGENT_SECTION -->
 
 <!-- AGENT_SECTION: ux-home-starting-points -->
-<section class="hub-section" aria-labelledby="starting-point-heading">
-<div class="hub-heading"><p class="home-kicker">Start where you are</p><h2 id="starting-point-heading">What do you want to do?</h2><p>Pick the one that matches your work.</p></div>
-<div class="row hub-action-grid">
-<div class="col-sm-6 col-lg-3"><article class="panel panel-default hub-action-card"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span><h3>Use AI</h3><p>Ask questions, work with your own documents, and pick which model answers.</p><a href="/tritongpt/index.html">Explore TritonGPT <span aria-hidden="true">→</span></a></article></div>
-<div class="col-sm-6 col-lg-3"><article class="panel panel-default hub-action-card"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span><h3>Find a tool</h3><p>See which AI tools are approved for meetings, research, teaching, and office work.</p><a href="/tools/index.html">Browse AI tools <span aria-hidden="true">→</span></a></article></div>
-<div class="col-sm-6 col-lg-3"><article class="panel panel-default hub-action-card"><span class="glyphicon glyphicon-console" aria-hidden="true"></span><h3>Build a service</h3><p>Use the TritonAI Harness, n8n, shared APIs, and campus skills to move a bounded idea toward a supported service.</p><a href="/developer-apis/index.html">Build with TritonAI <span aria-hidden="true">→</span></a></article></div>
-<div class="col-sm-6 col-lg-3"><article class="panel panel-default hub-action-card"><span class="glyphicon glyphicon-education" aria-hidden="true"></span><h3>Learn the basics</h3><p>Training on writing prompts, checking what you get back, and using AI responsibly.</p><a href="/training-resources/index.html">See the training <span aria-hidden="true">→</span></a></article></div>
-</div>
-</section>
-<!-- END_AGENT_SECTION -->
-
-<!-- AGENT_SECTION: ux-home-ecosystem -->
-<section class="hub-section hub-section-dark hub-full-bleed" aria-labelledby="ecosystem-heading">
-<div class="container">
-<div class="row hub-split hub-split-align-center">
-<div class="col-md-6 hub-split-copy"><p class="home-kicker">Shared foundation</p><h2 id="ecosystem-heading">Start with chat, grow into a supported service</h2><p>Every TritonAI service draws on the same approved model access, campus data, and shared components. Most teams start by chatting, then add AI to a system they already run, then automate the parts that repeat.</p><div class="home-feature-actions"><a class="btn btn-primary" href="/developer-apis/index.html">Explore the Build path</a><a class="btn btn-default" href="/about/trust-architecture.html">See the trust architecture</a></div></div>
-<div class="col-md-6"><ol class="hub-path-list"><li><strong>Ask</strong><span>Start in TritonGPT.</span></li><li><strong>Embed</strong><span>Add an approved capability to a system people already use.</span></li><li><strong>Automate</strong><span>Automate the steps that repeat, with someone reviewing the result.</span></li></ol></div>
-</div>
-</div>
-</section>
-<!-- END_AGENT_SECTION -->
-
-<!-- AGENT_SECTION: home-build-paths -->
-<section class="hub-section hub-section-sand hub-full-bleed" aria-labelledby="home-build-heading">
-<div class="container">
-<div class="hub-heading"><p class="home-kicker">Build with TritonAI</p><h2 id="home-build-heading">Move from an idea to a supported workflow</h2><p>Start with the TritonAI Harness for interactive agent work, use n8n for repeatable workflow automation, or connect through shared APIs and campus skills. The Build guide brings these paths together with access, hosting, review, and ownership guidance.</p></div>
-<div class="row hub-action-grid">
-<div class="col-md-4"><article class="panel panel-default hub-action-card"><span class="glyphicon glyphicon-console" aria-hidden="true"></span><h3>TritonAI Harness</h3><p>Work interactively across files, browser tasks, and connected tools.</p><a href="/developer-apis/index.html#tritonai-harness">Explore the Harness <span aria-hidden="true">→</span></a></article></div>
-<div class="col-md-4"><article class="panel panel-default hub-action-card"><span class="glyphicon glyphicon-random" aria-hidden="true"></span><h3>n8n workflow automation</h3><p>Run repeatable steps from schedules, webhooks, messages, or file events.</p><a href="/developer-apis/index.html#workflow-automation">Explore workflow automation <span aria-hidden="true">→</span></a></article></div>
-<div class="col-md-4"><article class="panel panel-default hub-action-card"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span><h3>APIs and shared skills</h3><p>Add approved models and reusable campus capabilities to an application.</p><a href="/developer-apis/index.html#api-gateway">Explore APIs and skills <span aria-hidden="true">→</span></a></article></div>
-</div>
-<div class="home-feature-actions"><a class="btn btn-primary" href="/developer-apis/index.html">Explore Build resources</a><a class="btn btn-default" href="/developer-apis/start.html">Start the access process</a></div>
+<section class="hub-section home-starting-points" aria-labelledby="starting-point-heading">
+<div class="hub-heading"><h2 id="starting-point-heading">What do you want to do?</h2></div>
+<div class="row hub-action-grid hub-action-grid-three">
+<div class="col-md-4"><article class="panel panel-default hub-action-card"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span><h3 id="home-use-heading">Use AI</h3><p>Ask questions and work with your documents in TritonGPT, or find an approved tool for meetings, research, teaching, and office work.</p><p><a href="/tritongpt/index.html">Explore TritonGPT <span aria-hidden="true">→</span></a></p><a href="/tools/index.html">Browse AI tools <span aria-hidden="true">→</span></a></article></div>
+<div class="col-md-4"><article class="panel panel-default hub-action-card"><span class="glyphicon glyphicon-education" aria-hidden="true"></span><h3 id="home-learn-heading">Learn AI</h3><p>Learn to write prompts, check answers, and use AI responsibly. Start with a course or choose training for your role.</p><p><a href="/training-resources/index.html">Explore training <span aria-hidden="true">→</span></a></p><a href="/training-resources/pathways.html">Find your learning path <span aria-hidden="true">→</span></a></article></div>
+<div class="col-md-4"><article class="panel panel-default hub-action-card"><span class="glyphicon glyphicon-console" aria-hidden="true"></span><h3 id="home-build-path-heading">Build with AI</h3><p>Use TritonAI Harness, n8n automation, or campus APIs and skills to build a supported service. Begin with a bounded task and someone who reviews the result.</p><p><a href="/developer-apis/index.html">Explore Build resources <span aria-hidden="true">→</span></a></p><a href="/developer-apis/citizen-developer.html">Plan a first project <span aria-hidden="true">→</span></a></article></div>
 </div>
 </section>
 <!-- END_AGENT_SECTION -->
@@ -70,6 +43,17 @@ relatedSlides: [uc-san-diego-ai-strategy-2026, citizen-developer-ecosystem, plat
 </div>
 <p class="hub-section-action"><a class="btn btn-default" href="/use-cases/index.html">View all use cases</a></p>
 </section>
+
+<!-- AGENT_SECTION: ux-home-ecosystem -->
+<section class="hub-section hub-section-dark hub-full-bleed" aria-labelledby="ecosystem-heading">
+<div class="container">
+<div class="row hub-split hub-split-align-center">
+<div class="col-md-6 hub-split-copy"><h2 id="ecosystem-heading">How TritonAI services connect</h2><p>Every TritonAI service draws on the same approved model access, campus data, and shared components. Most teams start by chatting, then add AI to a system they already run, then automate the parts that repeat.</p><div class="home-feature-actions"><a class="btn btn-primary" href="/about/strategy.html">See the strategy</a><a class="btn btn-default" href="/about/trust-architecture.html">See the trust architecture</a></div></div>
+<div class="col-md-6"><ol class="hub-path-list"><li><strong>Ask</strong><span>Start in TritonGPT.</span></li><li><strong>Embed</strong><span>Add an approved capability to a system people already use.</span></li><li><strong>Automate</strong><span>Automate the steps that repeat, with someone reviewing the result.</span></li></ol></div>
+</div>
+</div>
+</section>
+<!-- END_AGENT_SECTION -->
 
 <section class="hub-section hub-section-sand hub-full-bleed home-updates" aria-labelledby="latest-updates-heading">
 <div class="container">
