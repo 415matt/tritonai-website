@@ -3,13 +3,15 @@ title: UC San Diego AI tools and when to use them
 slug: ai-tools-at-uc-san-diego
 summary: 'The UC San Diego AI ecosystem, a simple framework for picking the right tool, and the four categories of AI work.'
 series: Foundations
-status: Coming soon
+status: Published
 owner: TritonAI training program
 lastReviewed: '2026-09-29'
 audiences:
   - faculty
   - staff
 source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
+videoEmbedSrc: 'https://cdnapisec.kaltura.com/p/2323111/embedPlaykitJs/uiconf_id/52706832?iframeembed=true&entry_id=1_ha92f1f2&config[provider]={"widgetId":"1_9gy9mxku"}'
+videoEmbedTitle: 'TritonAI Discovery Series-03-Kevin Chou'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/ai-tools-at-uc-san-diego.html
 relatedSlides: []

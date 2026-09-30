@@ -3,13 +3,15 @@ title: Process prior to AI implementation
 slug: process-before-ai
 summary: How to map what actually happens in a process — and the support available — before deciding where AI helps.
 series: Foundations
-status: Coming soon
+status: Published
 owner: TritonAI training program
 lastReviewed: '2026-09-29'
 audiences:
   - faculty
   - staff
 source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
+videoEmbedSrc: 'https://cdnapisec.kaltura.com/p/2323111/embedPlaykitJs/uiconf_id/52706832?iframeembed=true&entry_id=1_xkmxiheh&config[provider]={"widgetId":"1_d91szug8"}'
+videoEmbedTitle: 'TritonAI Discovery Series-08-Antonio Nava'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/process-before-ai.html
 relatedSlides: []

@@ -3,13 +3,15 @@ title: 'AI data, privacy, and security'
 slug: ai-data-privacy-security
 summary: 'How clean data shapes AI output, and how the UC data classification system decides what you can share with which tool.'
 series: Foundations
-status: Coming soon
+status: Published
 owner: TritonAI training program
 lastReviewed: '2026-09-29'
 audiences:
   - faculty
   - staff
 source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
+videoEmbedSrc: 'https://cdnapisec.kaltura.com/p/2323111/embedPlaykitJs/uiconf_id/52706832?iframeembed=true&entry_id=1_x9t9lqns&config[provider]={"widgetId":"1_xm96bb0c"}'
+videoEmbedTitle: 'TritonAI Discovery Series-04-Pegah Parsi'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/ai-data-privacy-security.html
 relatedSlides: []

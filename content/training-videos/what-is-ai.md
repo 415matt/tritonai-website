@@ -3,13 +3,15 @@ title: What is AI?
 slug: what-is-ai
 summary: 'The AI you will encounter day to day, what it does well, where it fails, and the key terms worth knowing.'
 series: Foundations
-status: Coming soon
+status: Published
 owner: TritonAI training program
 lastReviewed: '2026-09-29'
 audiences:
   - faculty
   - staff
 source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
+videoEmbedSrc: 'https://cdnapisec.kaltura.com/p/2323111/embedPlaykitJs/uiconf_id/52706832?iframeembed=true&entry_id=1_zszuzm6h&config[provider]={"widgetId":"1_1xx60314"}'
+videoEmbedTitle: 'TritonAI Discovery Series-02-Trevor Bonjour'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/what-is-ai.html
 relatedSlides: []

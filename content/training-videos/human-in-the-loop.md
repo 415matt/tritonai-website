@@ -5,13 +5,15 @@ summary: >-
   What “human in the loop” means, why human review matters, how hallucinations happen, and where your judgment stays
   essential.
 series: Foundations
-status: Coming soon
+status: Published
 owner: TritonAI training program
 lastReviewed: '2026-09-29'
 audiences:
   - faculty
   - staff
 source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
+videoEmbedSrc: 'https://cdnapisec.kaltura.com/p/2323111/embedPlaykitJs/uiconf_id/52706832?iframeembed=true&entry_id=1_4p1dc27p&config[provider]={"widgetId":"1_1cdmz1mp"}'
+videoEmbedTitle: 'TritonAI Discovery Series-06-Crystal and Keefe'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/human-in-the-loop.html
 relatedSlides: []

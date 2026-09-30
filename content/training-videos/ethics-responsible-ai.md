@@ -3,13 +3,15 @@ title: Ethics and responsible AI use
 slug: ethics-responsible-ai
 summary: 'The eight UC responsible AI principles, and how bias shows up in AI systems.'
 series: Foundations
-status: Coming soon
+status: Published
 owner: TritonAI training program
 lastReviewed: '2026-09-29'
 audiences:
   - faculty
   - staff
 source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
+videoEmbedSrc: 'https://cdnapisec.kaltura.com/p/2323111/embedPlaykitJs/uiconf_id/52706832?iframeembed=true&entry_id=1_qziagizc&config[provider]={"widgetId":"1_6usf7veg"}'
+videoEmbedTitle: 'TritonAI Discovery Series-05-Hortense Gerardo'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/ethics-responsible-ai.html
 relatedSlides: []

@@ -5,13 +5,15 @@ summary: >-
   The environmental footprint of AI, and the choices UC San Diego makes to align AI infrastructure with sustainability
   commitments.
 series: Foundations
-status: Coming soon
+status: Published
 owner: TritonAI training program
 lastReviewed: '2026-09-29'
 audiences:
   - faculty
   - staff
 source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
+videoEmbedSrc: 'https://cdnapisec.kaltura.com/p/2323111/embedPlaykitJs/uiconf_id/52706832?iframeembed=true&entry_id=1_28xnrwm2&config[provider]={"widgetId":"1_5rv8rjp3"}'
+videoEmbedTitle: 'TritonAI Discovery Series-07-Michelle Perez'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/ai-sustainability.html
 relatedSlides: []
