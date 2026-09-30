@@ -4171,13 +4171,13 @@ a.video-theater-nav-next.is-suggested .video-theater-nav-next-label {
   }
 }
 
-/* TED-scale stage: player anchors near the left edge and dominates the row */
+/* TED-scale stage: centered theater with a dominant player and rail */
 .video-theater {
   padding: 22px 28px 30px;
 }
 .video-theater-layout {
-  max-width: 1760px;
-  margin: 0;
+  max-width: 1360px;
+  margin: 0 auto;
   grid-template-columns: minmax(0, 1fr) 300px;
   gap: 32px;
 }
@@ -4730,11 +4730,11 @@ main#main-content .video-quiz-result:empty { display: none; }
 }
 
 
-/* Quiz, discussion, and CTA align to the theater's left edge */
+/* Quiz, discussion, and CTA share the centered reading column */
 .video-quiz-section .video-theater-about-inner,
 .video-discussion-section .video-theater-about-inner,
 .video-training-cta .video-theater-about-inner {
-  margin-left: 0;
+  margin-left: auto;
   margin-right: auto;
   padding-left: 28px;
   max-width: 908px;
