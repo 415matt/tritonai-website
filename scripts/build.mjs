@@ -514,7 +514,12 @@ function videoAvailability(video) {
 
 function renderVideoPresenters(video) {
   const presenters = video.presenters || (video.presenter ? [{ name: video.presenter, title: video.presenterTitle, image: video.presenterImage }] : []);
-  return presenters.map((presenter) => `<div class="discovery-presenter">${presenter.image ? `<img src="${escapeHtml(presenter.image)}" alt="" loading="lazy">` : ""}<span><span class="discovery-presenter-name">${escapeHtml(presenter.name)}</span>${presenter.title ? `<span class="discovery-presenter-title">${escapeHtml(presenter.title)}</span>` : ""}</span></div>`).join("");
+  return presenters.map((presenter) => {
+    const presenterClass = presenter.image && !presenter.name && !presenter.title ? " discovery-presenter-banner" : "";
+    const image = presenter.image ? `<img src="${escapeHtml(presenter.image)}" alt="${escapeHtml(presenter.imageAlt || "")}" loading="lazy">` : "";
+    const text = presenter.name || presenter.title ? `<span><span class="discovery-presenter-name">${escapeHtml(presenter.name || "")}</span>${presenter.title ? `<span class="discovery-presenter-title">${escapeHtml(presenter.title)}</span>` : ""}</span>` : "";
+    return `<div class="discovery-presenter${presenterClass}">${image}${text}</div>`;
+  }).join("");
 }
 
 function renderTrainingVideoKeyLinks(video) {
