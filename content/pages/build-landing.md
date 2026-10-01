@@ -115,7 +115,7 @@ bannerMode: abstract
 
 <section class="hub-section hub-section-sand hub-full-bleed api-gateway-section" id="api-gateway" aria-labelledby="api-gateway-heading">
 <div class="container">
-<div class="hub-heading"><p class="home-kicker">One API for approved models</p><h2 id="api-gateway-heading">Connect through the TritonAI LLM Gateway</h2><p>Every request from TritonAI Harness, an n8n workflow, or your own code goes through this one endpoint. The Gateway routes each approved key to the models in its approval, and the approval defines access, limits, and billing treatment. The <a href="/developer-apis/start.html">Get Started page</a> covers client setup.</p></div>
+<div class="hub-heading"><p class="home-kicker">One API for approved models</p><h2 id="api-gateway-heading">Connect through the TritonAI LLM Gateway</h2><p>Every request from TritonAI Harness, an n8n workflow, or your own code goes through this one endpoint. The Gateway routes each approved key to the models in its approval, and the approval defines access, limits, and billing treatment. The <a href="/developer-apis/start.html">Get Started page</a> covers access and installation. See the <a href="https://docs.tritonai.ucsd.edu/llm-api/api-reference">API reference</a> for endpoints and request details.</p></div>
 <figure class="api-gateway-workflow" aria-describedby="api-gateway-caption">
 <div class="api-gateway-map">
 <div class="api-gateway-source-cluster">
