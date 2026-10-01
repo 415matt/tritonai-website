@@ -528,9 +528,15 @@ function videoAvailability(video) {
   return video.status === "Coming soon" ? "Video coming soon" : `${escapeHtml(String(video.durationMinutes))} min`;
 }
 
-function renderVideoPresenters(video) {
+function renderVideoPresenters(video, variant = "theater") {
   const presenters = video.presenters || (video.presenter ? [{ name: video.presenter, title: video.presenterTitle, image: video.presenterImage }] : []);
-  return presenters.map((presenter) => `<div class="discovery-presenter">${presenter.image ? `<img src="${escapeHtml(presenter.image)}" alt="" loading="lazy">` : ""}<span><span class="discovery-presenter-name">${escapeHtml(presenter.name)}</span>${presenter.title ? `<span class="discovery-presenter-title">${escapeHtml(presenter.title)}</span>` : ""}</span></div>`).join("");
+  return presenters.map((presenter) => {
+    if (variant === "card" && presenter.cardImage) {
+      const altText = presenter.title ? `${presenter.name}, ${presenter.title}` : presenter.name;
+      return `<div class="discovery-presenter"><img class="discovery-presenter-card-image" src="${escapeHtml(presenter.cardImage)}" alt="${escapeHtml(altText)}" loading="lazy"></div>`;
+    }
+    return `<div class="discovery-presenter">${presenter.image ? `<img src="${escapeHtml(presenter.image)}" alt="" loading="lazy">` : ""}<span><span class="discovery-presenter-name">${escapeHtml(presenter.name)}</span>${presenter.title ? `<span class="discovery-presenter-title">${escapeHtml(presenter.title)}</span>` : ""}</span></div>`;
+  }).join("");
 }
 
 function renderTrainingVideoKeyLinks(video) {
@@ -593,7 +599,7 @@ function renderTrainingVideoIndex(allVideos) {
         : `<a href="${escapeHtml(video.canonicalUrl)}">${escapeHtml(video.title)}</a>`;
       const exploreHtml = isStaticCard ? "" : `<p class="discovery-card-link"><a class="text-link" href="${escapeHtml(video.canonicalUrl)}">Explore lesson <span class="sr-only">${String(video.order)}: ${escapeHtml(video.title)}</span><span aria-hidden="true">→</span></a></p>`;
       const availabilityLabel = video.availabilityLabel || videoAvailability(video);
-      return `<article class="panel panel-default cms-news-card cms-use-case-card discovery-card" data-video-card="${escapeHtml(video.slug)}" data-video-available="${video.status === "Published"}" data-quiz-version="${createHash("sha256").update(JSON.stringify(video.quiz)).digest("hex").slice(0, 12)}"><div class="panel-body"><div class="discovery-card-intro"><p class="training-video-card-meta">${String(video.order).padStart(2, "0")} · ${escapeHtml(availabilityLabel)}<span class="training-video-card-state" data-video-state hidden></span></p>${video.videoPoster ? `<a class="cms-news-image" href="${escapeHtml(video.canonicalUrl)}"><img src="${escapeHtml(video.videoPoster)}" alt="${escapeHtml(video.title)} video poster" loading="lazy"></a>` : ""}<h3>${titleHtml}</h3><p>${escapeHtml(video.summary)}</p></div><div class="discovery-presenters">${renderVideoPresenters(video)}</div><div class="discovery-card-footer">${exploreHtml}<p class="discovery-quiz-state" data-quiz-card-state hidden></p></div></div></article>`;
+      return `<article class="panel panel-default cms-news-card cms-use-case-card discovery-card" data-video-card="${escapeHtml(video.slug)}" data-video-available="${video.status === "Published"}" data-quiz-version="${createHash("sha256").update(JSON.stringify(video.quiz)).digest("hex").slice(0, 12)}"><div class="panel-body"><div class="discovery-card-intro"><p class="training-video-card-meta">${String(video.order).padStart(2, "0")} · ${escapeHtml(availabilityLabel)}<span class="training-video-card-state" data-video-state hidden></span></p>${video.videoPoster ? `<a class="cms-news-image" href="${escapeHtml(video.canonicalUrl)}"><img src="${escapeHtml(video.videoPoster)}" alt="${escapeHtml(video.title)} video poster" loading="lazy"></a>` : ""}<h3>${titleHtml}</h3><p>${escapeHtml(video.summary)}</p></div><div class="discovery-presenters">${renderVideoPresenters(video, "card")}</div><div class="discovery-card-footer">${exploreHtml}<p class="discovery-quiz-state" data-quiz-card-state hidden></p></div></div></article>`;
     }).join("");
     const sectionId = `series-${series.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
     return `<section aria-labelledby="${sectionId}" class="landing-section cms-news-module${index % 2 ? " landing-section-sand" : ""}"><div class="container"><div class="landing-section-heading"><p class="home-kicker">Series</p><h2 id="${sectionId}">${escapeHtml(series)}</h2><p>${escapeHtml(TRAINING_VIDEO_SERIES_DESCRIPTIONS[series])}</p></div><div class="discovery-grid">${cards}</div></div></section>`;

@@ -64,4 +64,5 @@ discoverySeries: true
 presenters:
   - name: Kevin Chou
     title: Chief Information Officer
+    cardImage: /_images/training-resources/videos/kevin-chou-presenter-card.png
 ---

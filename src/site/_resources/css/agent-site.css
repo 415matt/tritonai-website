@@ -5991,6 +5991,9 @@ main#main-content .discovery-presenter { display: flex; align-items: center; gap
 main#main-content .discovery-presenter img {
   width: 64px; height: 64px; flex: 0 0 64px; border-radius: 50%; object-fit: cover;
 }
+main#main-content .discovery-presenter img.discovery-presenter-card-image {
+  width: 100%; height: auto; flex: 1 1 100%; border-radius: 8px; object-fit: contain;
+}
 main#main-content .discovery-presenter-name { display: block; font-size: 15px; font-weight: 700; color: #182b49; }
 main#main-content .discovery-presenter-title { display: block; font-size: 13px; line-height: 1.4; color: #44576b; }
 main#main-content .discovery-video-pending {
