@@ -16,7 +16,8 @@ included in that sequence.
   text and knowledge check are ready for review.
 - `presenters` is a list of `name`, `title`, and optional `image` values. Missing
   photos show a neutral placeholder. A presenter `cardImage` replaces the
-  presenter text with that image on the series index; lesson pages keep the
+  presenter text with that image on the series index, and the image links to
+  the lesson page when the card links from the index; lesson pages keep the
   text. A lesson-level `presenterCardImage` replaces the whole presenter block
   with one image on the series index; use it when several presenters share a
   single card image. Add approved TritonAI-owned photos under `_images/`;
