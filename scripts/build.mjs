@@ -539,6 +539,12 @@ function renderTrainingVideoKeyLinks(video) {
   return `<section class="landing-section video-key-links-section" aria-labelledby="${escapeHtml(video.slug)}-key-links-heading"><div class="container video-theater-about-inner"><div class="landing-section-heading"><h2 id="${escapeHtml(video.slug)}-key-links-heading">Key links</h2></div><ul class="video-key-links-list">${links}</ul></div></section>`;
 }
 
+function renderTrainingVideoKeyTerms(video) {
+  if (!video.keyTerms?.length) return "";
+  const terms = video.keyTerms.map((term) => `<li><strong>${escapeHtml(term.term)}:</strong> ${escapeHtml(term.description)}</li>`).join("");
+  return `<section class="landing-section video-key-terms-section" aria-labelledby="${escapeHtml(video.slug)}-key-terms-heading"><div class="container video-theater-about-inner"><div class="landing-section-heading"><h2 id="${escapeHtml(video.slug)}-key-terms-heading">Key terms</h2></div><ul class="video-key-terms-list">${terms}</ul></div></section>`;
+}
+
 function renderTrainingVideoQuiz(video) {
   if (!video.quiz?.length) return "";
   const version = createHash("sha256").update(JSON.stringify(video.quiz)).digest("hex").slice(0, 12);
@@ -574,7 +580,7 @@ async function renderTrainingVideoPage(video, siblings = []) {
   const railHtml = `<aside class="video-theater-rail" aria-label="Series navigation"><p class="video-theater-rail-heading">In this series</p>${position >= 0 ? `<p class="video-theater-rail-position">Lesson ${position + 1} of ${progression.length}</p>` : ""}${railCards ? `<ul class="video-rail-list">${railCards}</ul>` : ""}<a class="video-theater-rail-all" href="/training-resources/videos/index.html">TritonAI Discovery Series <span aria-hidden="true">→</span></a></aside>`;
   const media = pending ? `<div class="discovery-video-pending"><span class="glyphicon glyphicon-film" aria-hidden="true"></span><h2>Video coming soon</h2><p>The recording, captions, and transcript will be added when available.</p><a href="#${escapeHtml(video.slug)}-quiz-heading">Explore the knowledge check</a></div>` : renderTrainingVideoBlock(video);
   const theaterHtml = `<section class="video-theater" aria-label="${escapeHtml(video.title)} viewing area"><div class="video-theater-layout"><div class="video-theater-primary"><div class="discovery-lesson-header"><div class="discovery-lesson-copy"><p class="video-theater-kicker">${escapeHtml(video.series)} · ${videoAvailability(video)}</p><h1 class="video-theater-title">${escapeHtml(video.title)}</h1><p class="video-theater-description">${escapeHtml(video.summary)}</p></div><div class="discovery-presenters">${renderVideoPresenters(video)}</div></div>${media}${transcriptHtml}</div>${railHtml}</div></section>`;
-  return `${theaterHtml}${renderTrainingVideoKeyLinks(video)}${renderTrainingVideoQuiz(video)}${renderTrainingVideoDiscussion(video)}${renderTrainingVideoCta(video, { nextVideo: position >= 0 ? progression[position + 1] : undefined })}`;
+  return `${theaterHtml}${renderTrainingVideoKeyTerms(video)}${renderTrainingVideoKeyLinks(video)}${renderTrainingVideoQuiz(video)}${renderTrainingVideoDiscussion(video)}${renderTrainingVideoCta(video, { nextVideo: position >= 0 ? progression[position + 1] : undefined })}`;
 }
 
 function renderTrainingVideoIndex(allVideos) {
