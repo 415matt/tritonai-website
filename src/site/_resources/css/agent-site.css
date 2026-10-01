@@ -5948,7 +5948,7 @@ main#main-content .video-quiz-result:empty { display: none; }
   width: auto;
 }
 main#main-content .video-discussion-section .landing-section-heading .home-kicker {
-  margin-bottom: 4px;
+  margin: 10px 0;
 }
 
 .video-quiz-section {
