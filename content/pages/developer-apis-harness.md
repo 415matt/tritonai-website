@@ -45,6 +45,33 @@ bannerMode: abstract
 </div>
 </section>
 
+<section class="hub-section" id="harness-in-action" aria-labelledby="harness-in-action-heading">
+<div class="hub-heading">
+<h2 id="harness-in-action-heading">See the Harness in action</h2>
+<p>This narrated video runs just under two minutes and shows results from the Harness app. It was recorded with fictional workshop files.</p>
+</div>
+<video class="img-responsive center-block" width="1920" height="1080" controls controlslist="nodownload" muted playsinline preload="metadata" poster="/_images/harness/tritonai-harness-capabilities-2026-10-01.jpg" aria-label="TritonAI Harness in action" aria-describedby="harness-in-action-description" aria-details="harness-in-action-transcript">
+<source src="/_files/harness/tritonai-harness-capabilities-2026-10-01.mp4" type="video/mp4">
+<track kind="captions" src="/_files/harness/tritonai-harness-capabilities-2026-10-01.vtt" srclang="en" label="English" default>
+Your browser does not support embedded video.
+</video>
+<p id="harness-in-action-description" class="small">The video plays muted with captions. Turn on sound to hear the narration. It shows a survey summary, an Excel dashboard, a briefing deck on the UC San Diego template, an n8n workflow explained step by step, a GitHub code review, and a sign-up app built on the campus design system.</p>
+<section class="sr-only" id="harness-in-action-transcript" aria-label="Video transcript">
+<h3>Introduction (0:00)</h3>
+<p>TritonAI Harness is UC San Diego's AI workspace on your desktop. You hand it real work, and it delivers finished results, using your files and campus systems.</p>
+<h3>Summarize a survey (0:11)</h3>
+<p>Here it is, live. I hand it a raw workshop survey and ask for a summary. Fourteen seconds later: averages for every question, the top comments, the missing data flagged, and a takeaway for the planning team, saved as a file.</p>
+<h3>Build an Excel dashboard (0:29)</h3>
+<p>Same data, bigger ask: a presentation-ready Excel dashboard. It builds the workbook, and a few quick follow-ups polish the layout. Headline numbers up top, three charts in campus colors, and a one-line insight under each.</p>
+<h3>Create a briefing deck (0:46)</h3>
+<p>Next, the meeting notes and the survey together, turned into a briefing deck on the official UC San Diego template. Nine slides with live charts, an owners table, a timeline to the next session, and speaker notes, all built from the source files.</p>
+<h3>Work with campus systems (1:04)</h3>
+<p>It works inside campus systems, too. Here it reads an n8n workflow, explains each step in plain language, and confirms the last run succeeded. With GitHub, it reviews a code change: what changed, which files, and whether the build passed.</p>
+<h3>Build a web app (1:26)</h3>
+<p>And it builds software. Here, a sign-up app on the official campus design system, accessible and ready to try. Coming soon: self-service hosting, so the apps you build in the Harness can go live for campus. That's TritonAI Harness: real work, finished on your desktop, with campus tools built in.</p>
+</section>
+</section>
+
 <section class="hub-section" id="harness-walkthrough" aria-labelledby="harness-walkthrough-heading">
 <div class="hub-heading">
 <h2 id="harness-walkthrough-heading">Watch the Harness walkthrough</h2>
