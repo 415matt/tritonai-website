@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "owner": "TritonAI service team",
+  "source": "https://github.com/dbalders/TritonAI-Harness/releases",
+  "canonicalUrl": "/developer-apis/harness-release-notes.html",
+  "dataClassification": "Public",
+  "lastReviewed": "2026-10-01",
+  "latestTag": "v0.3.4",
+  "releases": [
+    {
+      "tag": "v0.3.4",
+      "publishedAt": "2026-09-23T02:59:43Z",
+      "notesUrl": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.4",
+      "notesDigest": "77ae84e47ac5fe5cbb696b5bd5d57aaf2d0cc3c970672767633f3be11d12f014"
+    },
+    {
+      "tag": "v0.3.3",
+      "publishedAt": "2026-08-13T17:54:12Z",
+      "notesUrl": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.3",
+      "notesDigest": "333a92e2c6dc89f482de26a631fa76e3b94eaa787b337a373a8db30326c1ca93"
+    },
+    {
+      "tag": "v0.3.2",
+      "publishedAt": "2026-07-25T04:48:12Z",
+      "notesUrl": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.2",
+      "notesDigest": "a9a32509117521f10ffa8fa7a91d91011d9d9574869829d0b537678357f199ad"
+    },
+    {
+      "tag": "v0.3.1",
+      "publishedAt": "2026-07-24T15:37:10Z",
+      "notesUrl": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.1",
+      "notesDigest": "e4b8217cc80f881e4d3be92caa76e20726fa3f50eb57871e0981fd5a126862af"
+    },
+    {
+      "tag": "v0.3.0",
+      "publishedAt": "2026-07-23T20:15:39Z",
+      "notesUrl": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.0",
+      "notesDigest": "90dc6beca1b3070e11ccac91fc94c969dd5f703156496e6279b45b0513915e17"
+    },
+    {
+      "tag": "v0.2.8",
+      "publishedAt": "2026-07-15T19:40:15Z",
+      "notesUrl": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.2.8",
+      "notesDigest": "b80a3faed3df2c593512979a903352b8dc22ac6251f1e6ce9bc7090e1b0c3c58"
+    },
+    {
+      "tag": "v0.2.7",
+      "publishedAt": "2026-07-13T18:36:22Z",
+      "notesUrl": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.2.7",
+      "notesDigest": "38220d6f5fb05fb500b0706ed9f4f05607a07952969efb2e991817408df6eb75"
+    },
+    {
+      "tag": "v0.2.5",
+      "publishedAt": "2026-07-13T05:27:53Z",
+      "notesUrl": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.2.5",
+      "notesDigest": "90b152133f87f2a64c01059dad5c038728ab42d160ac79905a49cae75efc295a"
+    },
+    {
+      "tag": "v0.2.4",
+      "publishedAt": "2026-07-11T00:36:50Z",
+      "notesUrl": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.2.4",
+      "notesDigest": "0bab243ae58f04cb7a10dd354dbb02a21a6482738c941ef5026d7b84da283926"
+    },
+    {
+      "tag": "v0.2.1",
+      "publishedAt": "2026-07-10T14:52:10Z",
+      "notesUrl": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.2.1",
+      "notesDigest": "48eec196ee8f196f1cfb7991f7464467bdde0eb103be8f948afe9ffaff6a0cf9"
+    },
+    {
+      "tag": "v0.2.0",
+      "publishedAt": "2026-07-09T19:11:29Z",
+      "notesUrl": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.2.0",
+      "notesDigest": "a6baf0e9674ff80ca5fdd1e5c09b478ca797d059bb66a5b0c1ac1c4cfe316603"
+    },
+    {
+      "tag": "v0.1.22",
+      "publishedAt": "2026-07-08T20:22:26Z",
+      "notesUrl": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.1.22",
+      "notesDigest": "17315a48f692ea2a80146d12fb4f4b5e6c8d8d2551ed824a50c555413d432c7a"
+    }
+  ]
+}

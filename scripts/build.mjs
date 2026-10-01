@@ -4,6 +4,7 @@ import path from "node:path";
 import { load } from "cheerio";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
+import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues } from "./lib/harness-releases.mjs";
 
 const SOURCE_DIR = path.resolve("src/site");
 const CONTENT_DIR = path.resolve("content");
@@ -166,42 +167,30 @@ function renderNewsletter(newsletter) {
 }
 
 function renderDeliveryPathway(current) {
-  const views = [
-    {
-      id: "roadmap",
-      label: "Roadmap",
-      scope: "Strategic horizon",
-      icon: "calendar",
-      href: "/about/roadmap.html",
-      description: "Approved direction and delivery commitments across campus AI",
-    },
-    {
-      id: "updates",
-      label: "TritonAI Updates",
-      scope: "Program milestones",
-      icon: "bullhorn",
-      href: "/about/tritonai-updates.html",
-      description: "Verified launches, infrastructure, and tool updates across UC San Diego",
-    },
-    {
-      id: "features",
-      label: "TritonGPT Feature Updates",
-      scope: "Platform releases",
-      icon: "flash",
-      href: "/tritongpt/release-notes/index.html",
-      description: "Deployed capabilities, assistants, and release notes for TritonGPT",
-    },
+  const steps = [
+    { id: "roadmap", label: "Roadmap", href: "/about/roadmap.html", description: "Approved direction and delivery status" },
+    { id: "updates", label: "TritonAI Updates", href: "/about/tritonai-updates.html", description: "Verified program launches and milestones" },
+    { id: "features", label: "TritonGPT Feature Updates", href: "/tritongpt/release-notes/index.html", description: "Deployed product changes for users" },
+    { id: "harness", label: "Harness Release Notes", href: HARNESS_RELEASE_PAGE, description: "Stable desktop releases and downloads" },
   ];
-  const items = views
-    .map((view) => {
-      const isCurrent = view.id === current;
-      const currentClass = isCurrent ? ' class="delivery-pathway-current"' : "";
-      const currentAttr = isCurrent ? ' aria-current="page"' : "";
-      const currentBadge = isCurrent ? '<span class="delivery-pathway-current-badge" aria-hidden="true">Current view</span>' : "";
-      return `<li${currentClass}><a href="${view.href}"${currentAttr}><div class="delivery-pathway-header"><span class="delivery-pathway-icon glyphicon glyphicon-${escapeHtml(view.icon)}" aria-hidden="true"></span><span class="delivery-pathway-scope">${escapeHtml(view.scope)}</span>${currentBadge}</div><div class="delivery-pathway-body"><strong>${escapeHtml(view.label)}</strong><p>${escapeHtml(view.description)}</p></div></a></li>`;
-    })
+  const items = steps
+    .map((step, index) => `<li${step.id === current ? ' class="delivery-pathway-current"' : ""}><a href="${step.href}"${step.id === current ? ' aria-current="page"' : ""}><span class="delivery-pathway-number" aria-hidden="true">${index + 1}</span><span><strong>${escapeHtml(step.label)}</strong><small>${escapeHtml(step.description)}</small></span></a></li>`)
     .join("");
-  return `<nav class="delivery-pathway" aria-labelledby="delivery-pathway-heading"><div class="delivery-pathway-heading"><p class="home-kicker">Updates and planning</p><h2 id="delivery-pathway-heading">Roadmap and update views</h2><p>Browse planned commitments across TritonAI, track verified campus-wide program milestones, or review release notes for TritonGPT.</p></div><ul class="delivery-pathway-grid">${items}</ul></nav>`;
+  return `<nav class="delivery-pathway" aria-labelledby="delivery-pathway-heading"><div class="delivery-pathway-heading"><p class="home-kicker">Updates and planning</p><h2 id="delivery-pathway-heading">Release notes and program updates</h2><p>Browse planned work, verified program milestones, and releases for TritonGPT and TritonAI Harness.</p></div><ol>${items}</ol></nav>`;
+}
+
+function renderHarnessReleases(snapshot, summaries, installer) {
+  const date = (value) => new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(value));
+  const detailed = snapshot.releases.filter((release) => summaries.releases[release.tag]);
+  const archive = snapshot.releases.filter((release) => !summaries.releases[release.tag]);
+  const notes = detailed.map((release) => {
+    const summary = summaries.releases[release.tag];
+    const latest = release.tag === snapshot.latestTag;
+    const downloads = latest ? `<p><a class="btn btn-primary" href="${escapeHtml(installer.platforms.mac.downloadUrl)}">Download ${escapeHtml(release.tag)} for Mac</a> <a class="btn btn-primary" href="${escapeHtml(installer.platforms.windows.downloadUrl)}">Download ${escapeHtml(release.tag)} for Windows</a></p>` : "";
+    return `<article class="harness-release-card" id="${releaseFragment(release.tag)}"><p class="home-kicker">${latest ? "Current stable release" : "Previous release"}</p><h2>TritonAI Harness ${escapeHtml(release.tag)}</h2><p>Published <time datetime="${escapeHtml(release.publishedAt)}">${escapeHtml(date(release.publishedAt))}</time></p><ul>${summary.highlights.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>${downloads}<p><a href="${escapeHtml(release.notesUrl)}">Full ${escapeHtml(release.tag)} release notes on GitHub</a></p></article>`;
+  }).join("");
+  const history = archive.map((release) => `<li><a href="${escapeHtml(release.notesUrl)}">TritonAI Harness ${escapeHtml(release.tag)}</a> <time datetime="${escapeHtml(release.publishedAt)}">${escapeHtml(date(release.publishedAt))}</time></li>`).join("");
+  return `${renderDeliveryPathway("harness")}<div class="container harness-release-notes"><section aria-labelledby="harness-release-intro"><h2 id="harness-release-intro">What changed in TritonAI Harness</h2><p>Summaries of stable desktop releases published by the TritonAI Harness project. Access to models and connected services depends on your approved setup and account permissions.</p><p><a href="/developer-apis/start.html">Installation and Gateway setup</a> · <a href="/developer-apis/harness.html">TritonAI Harness overview</a></p></section>${notes}${history ? `<section aria-labelledby="harness-release-archive"><h2 id="harness-release-archive">Earlier releases</h2><p>Original release details remain available on GitHub.</p><ul class="harness-release-archive">${history}</ul></section>` : ""}</div>`;
 }
 
 function renderTritonAiUpdates(feed, streamId) {
@@ -1082,7 +1071,7 @@ function applyHarnessInstallerMetadata($, installer) {
       .find("[data-harness-download-detail]")
       .text(`Version ${installer.version} · ${platform.architecture} · ${platform.format}`);
   }
-  $("[data-harness-release]").attr("href", installer.releaseUrl);
+  $("[data-harness-release]").attr("href", `${HARNESS_RELEASE_PAGE}#${releaseFragment(`v${installer.version}`)}`);
 }
 
 function transformHtml(html, relativePath, context) {
@@ -1219,6 +1208,8 @@ function transformHtml(html, relativePath, context) {
   if (route === "/developer-apis/start.html" || route === "/tools/harness.html" || route === "/developer-apis/harness.html") {
     applyHarnessInstallerMetadata($, context.harnessInstaller);
   }
+  $("[data-harness-release-notes]").html(renderHarnessReleases(context.harnessReleases, context.harnessReleaseSummaries, context.harnessInstaller));
+
   $("[data-tritonai-updates]").each((_, element) => {
     const target = $(element);
     target.html(renderTritonAiUpdates(context.tritonAiUpdates, target.attr("data-tritonai-updates")));
@@ -1350,6 +1341,10 @@ const skills = await readJson(SKILLS_FILE);
 const homeHero = await readJson(HOME_HERO_FILE);
 const gatewayUsage = await readJson(GATEWAY_USAGE_FILE);
 const harnessInstaller = await readJson(HARNESS_INSTALLER_FILE);
+const harnessReleases = await readJson(path.join(CONTENT_DIR, "harness/releases.json"));
+const harnessReleaseSummaries = await readJson(path.join(CONTENT_DIR, "harness/release-summaries.json"));
+const harnessReleaseIssues = releaseSummaryIssues(harnessReleases, harnessReleaseSummaries, harnessInstaller);
+if (harnessReleaseIssues.length) throw new Error(harnessReleaseIssues.join("\n"));
 const seo = await readJson(SEO_FILE);
 const tritonAiUpdates = await readJson(TRITONAI_UPDATES_FILE);
 requireFields(roadmap, ["title", "description", "owner", "lastReviewed", "source", "canonicalUrl", "items"], "content/roadmap/milestones.json");
@@ -1488,7 +1483,7 @@ const optimizedImages = new Set(
     .filter((file) => file.endsWith(".webp"))
     .map((file) => `/_images/${file.replaceAll(path.sep, "/")}`),
 );
-const context = { site, newsletters, useCases, facts, gatewayUsage, harnessInstaller, skills, seo, tritonAiUpdates, generatedByPath, optimizedImages };
+const context = { site, newsletters, useCases, facts, gatewayUsage, harnessInstaller, harnessReleases, harnessReleaseSummaries, skills, seo, tritonAiUpdates, generatedByPath, optimizedImages };
 for (const relativePath of htmlFiles) {
   const filename = path.join(OUTPUT_DIR, relativePath);
   await writeFile(filename, transformHtml(await readFile(filename, "utf8"), relativePath, context));

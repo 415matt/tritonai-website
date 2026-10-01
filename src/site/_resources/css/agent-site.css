@@ -3785,13 +3785,11 @@ a.developer-download-button:visited {
   margin: 0;
 }
 
-.delivery-pathway ol,
-.delivery-pathway ul,
-.delivery-pathway-grid {
+.delivery-pathway ol {
   counter-reset: none;
   display: grid;
-  gap: 18px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   list-style: none;
   margin: 0;
   padding: 0;
@@ -3802,113 +3800,74 @@ a.developer-download-button:visited {
   position: relative;
 }
 
+.delivery-pathway li:not(:last-child)::after {
+  color: #84929d;
+  content: "\2192";
+  font-size: 22px;
+  position: absolute;
+  right: -13px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
 .delivery-pathway a {
+  align-items: flex-start;
   background: #f5f7f8;
-  border: 1px solid #d9e1e8;
-  border-top: 3px solid transparent;
+  border: 2px solid transparent;
   color: var(--triton-navy);
   display: flex;
-  flex-direction: column;
   gap: 12px;
   height: 100%;
-  padding: 18px 20px 20px;
+  padding: 17px;
   text-decoration: none;
-  transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
 }
 
 .delivery-pathway a:hover,
 .delivery-pathway a:focus {
   background: #fff;
   border-color: var(--triton-bright-blue);
-  border-top-color: var(--triton-bright-blue);
-  box-shadow: 0 6px 18px rgba(24, 43, 73, .12);
-  color: var(--triton-navy);
   text-decoration: none;
 }
 
-.delivery-pathway-current a,
-.delivery-pathway-current a:hover,
-.delivery-pathway-current a:focus {
+.delivery-pathway-current a {
   background: var(--triton-navy);
   border-color: var(--triton-navy);
-  border-top: 3px solid var(--triton-gold);
-  box-shadow: 0 6px 18px rgba(24, 43, 73, .18);
   color: #fff;
-  text-decoration: none;
 }
 
-.delivery-pathway-header {
+.delivery-pathway-number {
   align-items: center;
-  display: flex;
-  gap: 8px;
-}
-
-.delivery-pathway-icon {
-  color: var(--triton-bright-blue);
-  font-size: 15px;
-  line-height: 1;
-}
-
-.delivery-pathway-current .delivery-pathway-icon {
-  color: var(--triton-gold);
-}
-
-.delivery-pathway-scope {
-  color: #52616b;
-  font-size: 11px;
+  background: var(--triton-gold);
+  border-radius: 50%;
+  color: var(--triton-navy);
+  display: inline-flex;
+  flex: 0 0 30px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-}
-
-.delivery-pathway-current .delivery-pathway-scope {
-  color: #93c5fd;
-}
-
-.delivery-pathway-current-badge {
-  background: rgba(255, 205, 0, .2);
-  border: 1px solid rgba(255, 205, 0, .45);
-  border-radius: 10px;
-  color: var(--triton-gold);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .04em;
-  margin-left: auto;
-  padding: 1px 7px;
-  text-transform: uppercase;
+  height: 30px;
+  justify-content: center;
+  width: 30px;
 }
 
 .delivery-pathway strong,
-.delivery-pathway .delivery-pathway-body strong {
-  color: inherit;
+.delivery-pathway small {
   display: block;
+}
+
+.delivery-pathway strong {
   font-size: 16px;
   line-height: 1.3;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 
-.delivery-pathway small,
-.delivery-pathway .delivery-pathway-body p {
+.delivery-pathway small {
   color: #52616b;
-  display: block;
   font-size: 13px;
-  line-height: 1.45;
-  margin: 0;
+  line-height: 1.4;
 }
 
-.delivery-pathway a:hover .delivery-pathway-body p,
-.delivery-pathway a:focus .delivery-pathway-body p,
-.delivery-pathway a:hover small,
-.delivery-pathway a:focus small {
-  color: #334155;
-}
-
-.delivery-pathway-current small,
-.delivery-pathway-current .delivery-pathway-body p,
-.delivery-pathway-current a:hover .delivery-pathway-body p,
-.delivery-pathway-current a:focus .delivery-pathway-body p,
-.delivery-pathway-current a:hover small,
-.delivery-pathway-current a:focus small {
+.delivery-pathway-current small {
   color: #dceaf0;
 }
 
@@ -4895,3 +4854,12 @@ a.developer-download-button:visited {
 }
 
 
+
+/* Related update views and Harness release content remain inside the canvas. */
+main#main-content .delivery-pathway li::after { display: none; }
+main#main-content .harness-release-notes { padding-top: 20px; padding-bottom: 45px; }
+main#main-content .harness-release-card { border-top: 1px solid #d6dde2; margin-top: 30px; padding-top: 20px; scroll-margin-top: 20px; }
+main#main-content .harness-release-card li { margin-bottom: 10px; }
+main#main-content .harness-release-archive li { margin-bottom: 12px; }
+main#main-content .harness-release-archive time { display: block; color: #53616c; }
+main#main-content .harness-release-card .btn { margin-bottom: 8px; }

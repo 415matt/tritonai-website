@@ -27,6 +27,7 @@ bannerMode: abstract
 <p class="hub-section-action">
 <a class="btn btn-primary" href="/developer-apis/start.html">Get started</a>
 <a class="btn btn-default" href="/skills/index.html">Browse Skills Library</a>
+<a class="btn btn-default" href="/developer-apis/harness-release-notes.html">Release notes</a>
 </p>
 <p>Already have a key? <a href="/developer-apis/start.html#harness">Download and set up</a>.</p>
 </div>
