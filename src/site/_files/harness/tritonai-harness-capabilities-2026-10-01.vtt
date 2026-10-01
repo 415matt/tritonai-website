@@ -1,0 +1,121 @@
+WEBVTT
+
+1
+00:00:00.350 --> 00:00:04.728
+TritonAI Harness is UC San Diego's AI workspace on your desktop.
+
+2
+00:00:05.546 --> 00:00:08.420
+You hand it real work, and it delivers finished results,
+
+3
+00:00:08.679 --> 00:00:10.773
+using your files and campus systems.
+
+4
+00:00:11.623 --> 00:00:13.064
+Here it is, live.
+
+5
+00:00:14.100 --> 00:00:16.966
+I hand it a raw workshop survey and ask for a summary.
+
+6
+00:00:17.816 --> 00:00:20.885
+Fourteen seconds later: averages for every question, the top comments,
+
+7
+00:00:21.246 --> 00:00:25.871
+the missing data flagged, and a takeaway for the planning team,
+
+8
+00:00:26.303 --> 00:00:27.278
+saved as a file.
+
+9
+00:00:28.928 --> 00:00:32.630
+Same data, bigger ask: a presentation-ready Excel dashboard.
+
+10
+00:00:32.650 --> 00:00:38.542
+It builds the workbook, and a few quick follow-ups polish the layout.
+
+11
+00:00:39.392 --> 00:00:42.996
+Headline numbers up top, three charts in campus colors,
+
+12
+00:00:43.094 --> 00:00:45.506
+and a one-line insight under each.
+
+13
+00:00:46.356 --> 00:00:50.012
+Next, the meeting notes and the survey together,
+
+14
+00:00:50.097 --> 00:00:54.381
+turned into a briefing deck on the official UC San Diego template.
+
+15
+00:00:55.231 --> 00:00:57.776
+Nine slides with live charts, an owners table,
+
+16
+00:00:57.870 --> 00:01:02.054
+a timeline to the next session, and speaker notes,
+
+17
+00:01:02.074 --> 00:01:03.857
+all built from the source files.
+
+18
+00:01:04.707 --> 00:01:06.957
+It works inside campus systems, too.
+
+19
+00:01:07.565 --> 00:01:12.654
+Here it reads an n8n workflow, explains each step in plain language,
+
+20
+00:01:12.674 --> 00:01:15.121
+and confirms the last run succeeded.
+
+21
+00:01:17.371 --> 00:01:21.334
+With GitHub, it reviews a code change: what changed, which files,
+
+22
+00:01:21.354 --> 00:01:24.017
+and whether the build passed.
+
+23
+00:01:26.267 --> 00:01:28.222
+And it builds software.
+
+24
+00:01:28.805 --> 00:01:32.442
+Here, a sign-up app on the official campus design system,
+
+25
+00:01:32.649 --> 00:01:34.451
+accessible and ready to try.
+
+26
+00:01:36.101 --> 00:01:37.501
+Coming soon: self-service hosting,
+
+27
+00:01:37.521 --> 00:01:39.987
+so the apps you build
+
+28
+00:01:40.007 --> 00:01:42.287
+in the Harness can go live for campus.
+
+29
+00:01:43.137 --> 00:01:46.321
+That's TritonAI Harness: real work, finished on your desktop,
+
+30
+00:01:46.447 --> 00:01:49.344
+with campus tools built in.

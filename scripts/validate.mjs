@@ -16,6 +16,7 @@ import {
 import { collectTokens } from "./lib/chrome-styling.mjs";
 import { collectStyling } from "./chrome-contract.mjs";
 import { loadSkillsSource } from "./lib/skills-source.mjs";
+import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues, guidedInstallerIssues } from "./lib/harness-releases.mjs";
 
 const DIST_DIR = path.resolve("dist");
 const REPORT_DIR = path.resolve("reports");
@@ -225,6 +226,8 @@ const roadmapContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "roadmap
 const factsContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "facts/public-facts.json"), "utf8"));
 const gatewayUsageContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "facts/gateway-usage.json"), "utf8"));
 const harnessInstallerContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "harness/installer.json"), "utf8"));
+const harnessReleasesContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "harness/releases.json"), "utf8"));
+const harnessReleaseSummaries = JSON.parse(await readFile(path.join(CONTENT_DIR, "harness/release-summaries.json"), "utf8"));
 const modelCatalogContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "models/catalog.json"), "utf8"));
 const skillsContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "skills/library.json"), "utf8"));
 const homeHeroContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "home/hero.json"), "utf8"));
@@ -249,22 +252,33 @@ const gatewayMissing = missingFields(gatewayUsageContent, gatewayRequired);
 if (gatewayMissing.length) contentFindings.push({ source: "facts/gateway-usage.json", issue: `Missing fields: ${gatewayMissing.join(", ")}` });
 const gatewayPeriodMissing = missingFields(gatewayUsageContent.measurementPeriod || {}, ["start", "end", "label"]);
 if (gatewayPeriodMissing.length) contentFindings.push({ source: "facts/gateway-usage.json#measurementPeriod", issue: `Missing fields: ${gatewayPeriodMissing.join(", ")}` });
-const harnessInstallerMissing = missingFields(harnessInstallerContent, ["schemaVersion", "product", "version", "publishedAt", "owner", "source", "lastReviewed", "dataClassification", "canonicalUrl", "releaseUrl", "checksumsUrl", "platforms"]);
+const harnessInstallerMissing = missingFields(harnessInstallerContent, ["schemaVersion", "product", "version", "publishedAt", "owner", "source", "lastReviewed", "dataClassification", "canonicalUrl", "releaseUrl", "platforms"]);
 if (harnessInstallerMissing.length) contentFindings.push({ source: "harness/installer.json", issue: `Missing fields: ${harnessInstallerMissing.join(", ")}` });
+if (
+  harnessInstallerContent.schemaVersion !== 2 ||
+  harnessInstallerContent.releaseUrl !== "https://github.com/dbalders/TritonAI-Harness/releases/latest" ||
+  harnessInstallerContent.source !== harnessInstallerContent.releaseUrl
+) {
+  contentFindings.push({ source: "harness/installer.json", issue: "Harness installer metadata must use the latest Harness release page" });
+}
 for (const platformId of ["mac", "windows"]) {
   const platform = harnessInstallerContent.platforms?.[platformId] || {};
-  const platformMissing = missingFields(platform, ["label", "architecture", "format", "filename", "displaySize", "sizeBytes", "sha256", "downloadUrl", "signing"]);
+  const platformMissing = missingFields(platform, ["label", "architecture", "format", "filename", "sizeBytes", "sha256", "downloadUrl"]);
   if (platformMissing.length) contentFindings.push({ source: `harness/installer.json#${platformId}`, issue: `Missing fields: ${platformMissing.join(", ")}` });
+  const expectedFilename = `TritonAI-Harness-${harnessInstallerContent.version}-${platformId === "mac" ? "arm64.dmg" : "x64.exe"}`;
+  const expectedDownloadUrl = `https://github.com/dbalders/TritonAI-Harness/releases/download/v${harnessInstallerContent.version}/${expectedFilename}`;
+  if (platform.filename !== expectedFilename || platform.downloadUrl !== expectedDownloadUrl) {
+    contentFindings.push({ source: `harness/installer.json#${platformId}`, issue: "Harness downloads must point directly to the matching platform installer" });
+  }
   if (!Number.isInteger(platform.sizeBytes) || platform.sizeBytes <= 0 || !/^[a-f0-9]{64}$/.test(platform.sha256 || "")) {
     contentFindings.push({ source: `harness/installer.json#${platformId}`, issue: "Installer size and SHA-256 must identify the published artifact" });
   }
-  if (
-    !platform.filename?.includes(harnessInstallerContent.version) ||
-    !platform.downloadUrl?.endsWith(`/${platform.filename}`) ||
-    platform.downloadUrl?.includes("portable")
-  ) {
-    contentFindings.push({ source: `harness/installer.json#${platformId}`, issue: "Installer filename, version, and direct download URL do not match" });
-  }
+}
+for (const issue of guidedInstallerIssues(harnessInstallerContent.guided)) {
+  contentFindings.push({ source: "harness/installer.json#guided", issue });
+}
+for (const issue of releaseSummaryIssues(harnessReleasesContent, harnessReleaseSummaries, harnessInstallerContent)) {
+  contentFindings.push({ source: "harness/releases.json", issue });
 }
 const updateFeedRequired = ["schemaVersion", "title", "description", "owner", "source", "lastReviewed", "streams", "areas", "updates"];
 const updateFeedMissing = missingFields(tritonAiUpdatesContent, updateFeedRequired);
@@ -1164,6 +1178,7 @@ for (const page of htmlFiles) {
     }
   }
   if (route === "/developer-apis/start.html") {
+    const guidedInstaller = harnessInstallerContent.guided;
     const setupPage = $(".developer-start-page");
     const setupText = setupPage.text().replace(/\s+/g, " ").trim();
     const setupSteps = setupPage.find(".developer-start-step, .workbench-card");
@@ -1181,20 +1196,20 @@ for (const page of htmlFiles) {
     if (
       macDownload.length !== 1 ||
       windowsDownload.length !== 1 ||
-      macDownload.attr("href") !== harnessInstallerContent.platforms.mac.downloadUrl ||
-      windowsDownload.attr("href") !== harnessInstallerContent.platforms.windows.downloadUrl ||
+      macDownload.attr("href") !== guidedInstaller.platforms.mac.downloadUrl ||
+      windowsDownload.attr("href") !== guidedInstaller.platforms.windows.downloadUrl ||
       macDownload.attr("href") === harnessInstallerContent.releaseUrl ||
       windowsDownload.attr("href") === harnessInstallerContent.releaseUrl ||
-      setupPage.find("[data-harness-release]").attr("href") !== harnessInstallerContent.releaseUrl ||
-      setupPage.find("[data-harness-checksums]").attr("href") !== harnessInstallerContent.checksumsUrl
+      setupPage.find("[data-harness-release]").attr("href") !== `${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}${HARNESS_RELEASE_PAGE}`
     ) {
-      contentFindings.push({ source: route, issue: "Harness setup downloads must match the versioned Mac and Windows release metadata" });
+      contentFindings.push({ source: route, issue: "Harness setup buttons must download the platform installers directly and link to the matching website release notes" });
     }
     if (
-      setupText.includes(harnessInstallerContent.platforms.mac.filename) === false ||
-      setupText.includes(harnessInstallerContent.platforms.windows.filename) === false
+      macDownload.find("[data-harness-download-detail]").text() !== `${guidedInstaller.platforms.mac.architecture} · ${guidedInstaller.platforms.mac.format}` ||
+      windowsDownload.find("[data-harness-download-detail]").text() !== `${guidedInstaller.platforms.windows.architecture} · ${guidedInstaller.platforms.windows.format}` ||
+      setupText.includes("Choose the installer for your operating system under Assets on GitHub")
     ) {
-      contentFindings.push({ source: route, issue: "Harness setup page is missing platform or guided Installer instructions" });
+      contentFindings.push({ source: route, issue: "Harness setup buttons must identify the platform and file format without directing users to select release assets" });
     }
     if (
       setupPage.find("a[href='mailto:tritonai@ucsd.edu']").length < 1 ||
@@ -1215,6 +1230,10 @@ for (const page of htmlFiles) {
       if (setupText.includes(requiredTerm) === false) {
         contentFindings.push({ source: route, issue: `Harness setup intake guidance is missing: ${requiredTerm}` });
       }
+    }
+    const orderedSteps = setupPage.find(".developer-start-flow > .developer-start-step").slice(0, 3).map((_, element) => $(element).attr("id")).get();
+    if (orderedSteps.join(",") !== "harness,request-access,verify" || !setupText.includes("one-time link") || !setupText.includes("key itself is not in the email") || !setupPage.find("#verify").text().includes("Check access & install")) {
+      contentFindings.push({ source: route, issue: "Setup must follow download, retrieve key, and finish installation in that order" });
     }
     const catalogIds = new Set((modelCatalogContent.models || []).map((model) => model.id));
     setupPage.find("code").each((_, element) => {
@@ -1276,10 +1295,21 @@ for (const page of htmlFiles) {
       accessibility.push({ page: route, issue: `${updateStreamId} updates need unique fragment targets` });
     }
   }
-  if (["/about/roadmap.html", "/about/tritonai-updates.html", "/tritongpt/release-notes/index.html"].includes(route)) {
-    if ($(".delivery-pathway a").length !== 3 || $(".delivery-pathway a[aria-current='page']").length !== 1) {
+  if (["/about/roadmap.html", "/about/tritonai-updates.html", "/tritongpt/release-notes/index.html", HARNESS_RELEASE_PAGE].includes(route)) {
+    if ($(".delivery-pathway a").length !== 4 || $(".delivery-pathway a[aria-current='page']").length !== 1) {
       accessibility.push({ page: route, issue: "Delivery pathway links or current-page context are incomplete" });
     }
+  }
+  if (route === HARNESS_RELEASE_PAGE) {
+    const latestId = releaseFragment(harnessReleasesContent.latestTag);
+    const latest = $(`main #${latestId}`);
+    if (latest.length !== 1 || latest.find("a").filter((_, el) => $(el).attr("href") === harnessInstallerContent.platforms.mac.downloadUrl).length !== 1 || latest.find("a").filter((_, el) => $(el).attr("href") === harnessInstallerContent.platforms.windows.downloadUrl).length !== 1) {
+      contentFindings.push({ source: route, issue: "Harness release notes must show the current stable release and matching direct installers" });
+    }
+    for (const release of harnessReleasesContent.releases) {
+      if ($(`main a[href='${release.notesUrl}']`).length !== 1) contentFindings.push({ source: route, issue: `Missing original release notes link for ${release.tag}` });
+    }
+    if ($("main").text().includes("nightly")) contentFindings.push({ source: route, issue: "Harness release notes must exclude nightly releases" });
   }
   if (route === "/skills/index.html") {
     const renderedSkills = $("[data-skill-card]");

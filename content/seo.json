@@ -82,14 +82,14 @@
     },
     "/developer-apis/start.html": {
       "title": "Get Started with TritonAI",
-      "description": "Request a Gateway key, connect TritonAI Harness or another client, run a first test, and request n8n access separately.",
+      "description": "Download the TritonAI Installer, retrieve your access key if needed, finish setup, and try TritonAI Harness. API-client and n8n guidance is also available.",
       "schemaAbout": [
         "TritonAI Harness",
         "TritonAI LLM Gateway",
         "AI access keys",
         "Desktop application installation"
       ],
-      "lastModified": "2026-08-22"
+      "lastModified": "2026-10-01"
     },
     "/presentations/managing-the-tritonai-website.html": {
       "title": "Editing and Publishing the TritonAI Website",
@@ -252,6 +252,17 @@
         "UC IS-3 compliance"
       ],
       "lastModified": "2026-09-03"
+    },
+    "/developer-apis/harness-release-notes.html": {
+      "title": "TritonAI Harness Release Notes",
+      "description": "Review stable TritonAI Harness releases, find direct Mac and Windows installers, and read the original release details.",
+      "keywords": [
+        "TritonAI Harness release notes",
+        "TritonAI Harness updates",
+        "Mac installer",
+        "Windows installer"
+      ],
+      "lastModified": "2026-10-01"
     }
   }
 }

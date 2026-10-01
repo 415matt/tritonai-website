@@ -28,7 +28,7 @@
     "test:models": "node --test test/model-catalog.test.mjs",
     "test:chrome": "node --test test/chrome-contract.test.mjs test/chrome-styling.test.mjs",
     "test:cascade-release": "node --test test/cascade-release-workflow.test.mjs",
-    "test": "npm run test:ux && npm run test:webmcp && npm run test:ai-news && npm run test:media && npm run test:skills-release && npm run test:models && npm run test:chrome && npm run test:cascade-release && npm run test:indexing && npm run build && npm run validate && npm run test:a11y && npm run test:language",
+    "test": "npm run test:ux && npm run test:webmcp && npm run test:ai-news && npm run test:media && npm run test:skills-release && npm run test:harness && npm run test:models && npm run test:chrome && npm run test:cascade-release && npm run test:indexing && npm run build && npm run validate && npm run test:a11y && npm run test:language",
     "test:webmcp": "node --test test/webmcp.test.mjs",
     "sync:models": "node scripts/sync-model-hub.mjs",
     "check:models": "node scripts/sync-model-hub.mjs --check",
@@ -36,7 +36,10 @@
     "check:media": "node scripts/sync-media-coverage.mjs --check",
     "render:media": "node --input-type=module -e \"import{loadArticles,renderAndWriteAll}from'./scripts/lib/media-articles.mjs';await renderAndWriteAll(await loadArticles())\"",
     "test:media": "node --test test/sync-media-coverage.test.mjs",
-    "test:indexing": "node --test test/playground-indexing.test.mjs"
+    "test:indexing": "node --test test/playground-indexing.test.mjs",
+    "sync:harness": "node scripts/sync-harness-releases.mjs",
+    "check:harness": "node scripts/sync-harness-releases.mjs --check",
+    "test:harness": "node --test test/harness-releases.test.mjs && python3 -m unittest discover -s test -p harness_release_job_test.py"
   },
   "engines": {
     "node": ">=22"
