@@ -6,6 +6,7 @@ summary: >-
   it lives in.
 series: Building
 status: Coming soon
+availabilityLabel: 'Coming October 15th'
 owner: TritonAI training program
 lastReviewed: '2026-09-29'
 audiences:
