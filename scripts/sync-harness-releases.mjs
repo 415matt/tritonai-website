@@ -1,7 +1,12 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import path from "node:path";
 import { HARNESS_REPOSITORY, installerFromRelease, releaseSnapshot, releaseSummaryIssues } from "./lib/harness-releases.mjs";
 
 const check = process.argv.includes("--check");
+const candidateIndex = process.argv.indexOf("--candidate-dir");
+const candidateDir = candidateIndex < 0 ? null : process.argv[candidateIndex + 1];
+if (candidateIndex >= 0 && (!candidateDir || candidateDir.startsWith("--"))) throw new Error("--candidate-dir requires a directory.");
+if (candidateDir && check) throw new Error("Choose --check or --candidate-dir.");
 const token = process.env.HARNESS_GITHUB_TOKEN || process.env.GITHUB_TOKEN;
 const headers = { Accept: "application/vnd.github+json", "User-Agent": "tritonai-website-harness-sync", "X-GitHub-Api-Version": "2026-03-10" };
 if (token) headers.Authorization = `Bearer ${token}`;
@@ -34,7 +39,14 @@ let nextInstaller = installerFromRelease(latest, installer, installer.lastReview
 const installerChanged = JSON.stringify(installer) !== JSON.stringify(nextInstaller);
 if (installerChanged) nextInstaller.lastReviewed = date;
 const issues = releaseSummaryIssues(snapshot, summaries, nextInstaller);
-if (check) {
+if (candidateDir) {
+  // The local Harness job stages candidates away from the website checkout.
+  const directory = path.resolve(candidateDir);
+  await mkdir(directory, { recursive: true, mode: 0o700 });
+  const files = { "releases.json": snapshot, "installer.json": nextInstaller, "release-summaries.json": summaries, "source-notes.json": releases.filter((release) => snapshot.releases.some((saved) => saved.tag === release.tag_name)).map((release) => ({ tag: release.tag_name, body: release.body || "" })) };
+  for (const [filename, value] of Object.entries(files)) await writeFile(path.join(directory, filename), `${JSON.stringify(value, null, 2)}\n`, { mode: 0o600 });
+  console.log(JSON.stringify({ latestTag: snapshot.latestTag, stableReleases: snapshot.releases.length, changed, installerChanged, reviewIssues: issues }));
+} else if (check) {
   console.log(JSON.stringify({ latestTag: snapshot.latestTag, stableReleases: snapshot.releases.length, changed, installerChanged, reviewIssues: issues }, null, 2));
   if (changed || installerChanged || issues.length) process.exitCode = 1;
 } else {

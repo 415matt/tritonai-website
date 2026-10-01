@@ -66,6 +66,12 @@ export function releaseSummaryIssues(snapshot, summaries, installer) {
     const release = byTag.get(tag);
     if (!release || summary.source !== release.notesUrl || summary.sourceDigest !== release.notesDigest) issues.push(`Source notes changed or are missing for ${tag}; review its public summary.`);
     if (!Array.isArray(summary.highlights) || !summary.highlights.length || summary.highlights.some((text) => typeof text !== "string" || !text.trim()) || !/^\d{4}-\d{2}-\d{2}$/.test(summary.lastReviewed || "")) issues.push(`Incomplete public summary: ${tag}`);
+    if (summary.reviewStatus === "pending") issues.push(`Review the generated public summary for ${tag} before publishing.`);
+    if (summary.generatedBy) {
+      const generation = summary.generatedBy;
+      const traceable = generation.method === "gateway-api" ? Boolean(generation.responseId) : generation.method === "harness-task" && Boolean(generation.threadId);
+      if (generation.kind !== "on-premises-llm" || generation.providerInstance !== "tritonai_onprem" || generation.model !== "api-glm-5.3" || !traceable || !Number.isFinite(Date.parse(generation.generatedAt))) issues.push(`Invalid on-premises summary provenance: ${tag}`);
+    }
   }
   return issues;
 }

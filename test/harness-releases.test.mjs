@@ -42,3 +42,14 @@ test("committed notes, summaries, and direct downloads agree", async () => {
   const read = async (name) => JSON.parse(await readFile(new URL(`../content/harness/${name}.json`, import.meta.url), "utf8"));
   assert.deepEqual(releaseSummaryIssues(await read("releases"), await read("release-summaries"), await read("installer")), []);
 });
+test("generated summaries require review and verified on-premises provenance", () => {
+  const release = fixture();
+  const snapshot = releaseSnapshot([release], release.tag_name, "2026-10-01");
+  const installer = installerFromRelease(release, previous, "2026-10-01");
+  const summary = { source: release.html_url, sourceDigest: snapshot.releases[0].notesDigest, lastReviewed: "2026-10-01", reviewStatus: "reviewed", highlights: ["Find saved work."], generatedBy: { kind: "on-premises-llm", method: "harness-task", providerInstance: "tritonai_onprem", model: "api-glm-5.3", threadId: "test-thread", generatedAt: "2026-10-01T00:00:00Z" } };
+  const check = (entry) => releaseSummaryIssues(snapshot, { schemaVersion: 1, owner: "TritonAI service team", releases: { [release.tag_name]: entry } }, installer).join(" ");
+  assert.equal(check(summary), "");
+  assert.match(check({ ...summary, reviewStatus: "pending" }), /Review the generated/);
+  assert.match(check({ ...summary, generatedBy: { ...summary.generatedBy, providerInstance: "codex" } }), /Invalid on-premises/);
+  assert.equal(check({ ...summary, generatedBy: { ...summary.generatedBy, method: "gateway-api", threadId: undefined, responseId: "gateway-test-response" } }), "");
+});
