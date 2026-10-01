@@ -5926,6 +5926,7 @@ main#main-content .video-quiz-result:empty { display: none; }
 
 
 /* Quiz, discussion, and CTA align to the theater's reading column */
+.video-key-links-section .video-theater-about-inner,
 .video-quiz-section .video-theater-about-inner,
 .video-discussion-section .video-theater-about-inner,
 .video-training-cta .video-theater-about-inner {
