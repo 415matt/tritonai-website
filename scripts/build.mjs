@@ -186,7 +186,7 @@ function renderHarnessReleases(snapshot, summaries, installer) {
   const notes = detailed.map((release) => {
     const summary = summaries.releases[release.tag];
     const latest = release.tag === snapshot.latestTag;
-    const downloads = latest ? `<p><a class="btn btn-primary" href="${escapeHtml(installer.platforms.mac.downloadUrl)}">Download ${escapeHtml(release.tag)} for Mac</a> <a class="btn btn-primary" href="${escapeHtml(installer.platforms.windows.downloadUrl)}">Download ${escapeHtml(release.tag)} for Windows</a></p>` : "";
+    const downloads = latest ? `<p><a class="btn btn-primary" href="${escapeHtml(installer.platforms.mac.downloadUrl)}">Download for Mac</a> <a class="btn btn-primary" href="${escapeHtml(installer.platforms.windows.downloadUrl)}">Download for Windows</a></p>` : "";
     return `<article class="harness-release-card" id="${releaseFragment(release.tag)}"><p class="home-kicker">${latest ? "Current stable release" : "Previous release"}</p><h2>TritonAI Harness ${escapeHtml(release.tag)}</h2><p>Published <time datetime="${escapeHtml(release.publishedAt)}">${escapeHtml(date(release.publishedAt))}</time></p><ul>${summary.highlights.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>${downloads}<p><a href="${escapeHtml(release.notesUrl)}">Full ${escapeHtml(release.tag)} release notes on GitHub</a></p></article>`;
   }).join("");
   const history = archive.map((release) => `<li><a href="${escapeHtml(release.notesUrl)}">TritonAI Harness ${escapeHtml(release.tag)}</a> <time datetime="${escapeHtml(release.publishedAt)}">${escapeHtml(date(release.publishedAt))}</time></li>`).join("");
@@ -1064,12 +1064,12 @@ function applyHarnessInstallerMetadata($, installer) {
     if (!download.length) continue;
     download.attr({
       href: platform.downloadUrl,
-      "aria-label": `${platform.label}, version ${installer.version}, ${platform.architecture}, ${platform.format}`,
+      "aria-label": `${platform.label}, ${platform.architecture}, ${platform.format}`,
     });
     download.find("[data-harness-download-label]").text(platform.label);
     download
       .find("[data-harness-download-detail]")
-      .text(`Version ${installer.version} · ${platform.architecture} · ${platform.format}`);
+      .text(`${platform.architecture} · ${platform.format}`);
   }
   $("[data-harness-release]").attr("href", `${HARNESS_RELEASE_PAGE}#${releaseFragment(`v${installer.version}`)}`);
 }

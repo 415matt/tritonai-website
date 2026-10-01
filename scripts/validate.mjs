@@ -1201,11 +1201,11 @@ for (const page of htmlFiles) {
       contentFindings.push({ source: route, issue: "Harness setup buttons must download the platform installers directly and link to the matching website release notes" });
     }
     if (
-      !macDownload.find("[data-harness-download-detail]").text().includes(`Version ${harnessInstallerContent.version}`) ||
-      !windowsDownload.find("[data-harness-download-detail]").text().includes(`Version ${harnessInstallerContent.version}`) ||
+      macDownload.find("[data-harness-download-detail]").text() !== `${harnessInstallerContent.platforms.mac.architecture} · ${harnessInstallerContent.platforms.mac.format}` ||
+      windowsDownload.find("[data-harness-download-detail]").text() !== `${harnessInstallerContent.platforms.windows.architecture} · ${harnessInstallerContent.platforms.windows.format}` ||
       setupText.includes("Choose the installer for your operating system under Assets on GitHub")
     ) {
-      contentFindings.push({ source: route, issue: "Harness setup page must identify the installer version without directing users to select release assets" });
+      contentFindings.push({ source: route, issue: "Harness setup buttons must identify the platform and file format without directing users to select release assets" });
     }
     if (
       setupPage.find("a[href='mailto:tritonai@ucsd.edu']").length < 1 ||
