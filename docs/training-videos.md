@@ -15,8 +15,10 @@ included in that sequence.
 - `presenters` is a list of `name`, `title`, and optional `image` values. Missing
   photos show a neutral placeholder. A presenter `cardImage` replaces the
   presenter text with that image on the series index; lesson pages keep the
-  text. Add approved TritonAI-owned photos under `_images/`; media-team hero
-  images can use `videoPoster`.
+  text. A lesson-level `presenterCardImage` replaces the whole presenter block
+  with one image on the series index; use it when several presenters share a
+  single card image. Add approved TritonAI-owned photos under `_images/`;
+  media-team hero images can use `videoPoster`.
 - `quiz` contains each `question`, an `options` array, the zero-based correct
   `answer`, and an `explanation`. `discussionPoints` contains team prompts.
 - Supplied September 29 editorial content is the source for the 15 lessons and

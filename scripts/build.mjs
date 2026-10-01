@@ -530,6 +530,10 @@ function videoAvailability(video) {
 
 function renderVideoPresenters(video, variant = "theater") {
   const presenters = video.presenters || (video.presenter ? [{ name: video.presenter, title: video.presenterTitle, image: video.presenterImage }] : []);
+  if (variant === "card" && video.presenterCardImage) {
+    const altText = presenters.map((presenter) => presenter.title ? `${presenter.name}, ${presenter.title}` : presenter.name).join(" and ");
+    return `<div class="discovery-presenter"><img class="discovery-presenter-card-image" src="${escapeHtml(video.presenterCardImage)}" alt="${escapeHtml(altText)}" loading="lazy"></div>`;
+  }
   return presenters.map((presenter) => {
     if (variant === "card" && presenter.cardImage) {
       const altText = presenter.title ? `${presenter.name}, ${presenter.title}` : presenter.name;
