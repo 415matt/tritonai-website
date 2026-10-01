@@ -250,7 +250,7 @@ const gatewayMissing = missingFields(gatewayUsageContent, gatewayRequired);
 if (gatewayMissing.length) contentFindings.push({ source: "facts/gateway-usage.json", issue: `Missing fields: ${gatewayMissing.join(", ")}` });
 const gatewayPeriodMissing = missingFields(gatewayUsageContent.measurementPeriod || {}, ["start", "end", "label"]);
 if (gatewayPeriodMissing.length) contentFindings.push({ source: "facts/gateway-usage.json#measurementPeriod", issue: `Missing fields: ${gatewayPeriodMissing.join(", ")}` });
-const harnessInstallerMissing = missingFields(harnessInstallerContent, ["schemaVersion", "product", "owner", "source", "lastReviewed", "dataClassification", "canonicalUrl", "releaseUrl", "platforms"]);
+const harnessInstallerMissing = missingFields(harnessInstallerContent, ["schemaVersion", "product", "version", "publishedAt", "owner", "source", "lastReviewed", "dataClassification", "canonicalUrl", "releaseUrl", "platforms"]);
 if (harnessInstallerMissing.length) contentFindings.push({ source: "harness/installer.json", issue: `Missing fields: ${harnessInstallerMissing.join(", ")}` });
 if (
   harnessInstallerContent.schemaVersion !== 2 ||
@@ -261,10 +261,15 @@ if (
 }
 for (const platformId of ["mac", "windows"]) {
   const platform = harnessInstallerContent.platforms?.[platformId] || {};
-  const platformMissing = missingFields(platform, ["label", "architecture", "format", "downloadUrl"]);
+  const platformMissing = missingFields(platform, ["label", "architecture", "format", "filename", "sizeBytes", "sha256", "downloadUrl"]);
   if (platformMissing.length) contentFindings.push({ source: `harness/installer.json#${platformId}`, issue: `Missing fields: ${platformMissing.join(", ")}` });
-  if (platform.downloadUrl !== harnessInstallerContent.releaseUrl) {
-    contentFindings.push({ source: `harness/installer.json#${platformId}`, issue: "Harness downloads must point to the latest release page" });
+  const expectedFilename = `TritonAI-Harness-${harnessInstallerContent.version}-${platformId === "mac" ? "arm64.dmg" : "x64.exe"}`;
+  const expectedDownloadUrl = `https://github.com/dbalders/TritonAI-Harness/releases/download/v${harnessInstallerContent.version}/${expectedFilename}`;
+  if (platform.filename !== expectedFilename || platform.downloadUrl !== expectedDownloadUrl) {
+    contentFindings.push({ source: `harness/installer.json#${platformId}`, issue: "Harness downloads must point directly to the matching platform installer" });
+  }
+  if (!Number.isInteger(platform.sizeBytes) || platform.sizeBytes <= 0 || !/^[a-f0-9]{64}$/.test(platform.sha256 || "")) {
+    contentFindings.push({ source: `harness/installer.json#${platformId}`, issue: "Installer size and SHA-256 must identify the published artifact" });
   }
 }
 const updateFeedRequired = ["schemaVersion", "title", "description", "owner", "source", "lastReviewed", "streams", "areas", "updates"];
@@ -1197,16 +1202,18 @@ for (const page of htmlFiles) {
       windowsDownload.length !== 1 ||
       macDownload.attr("href") !== harnessInstallerContent.platforms.mac.downloadUrl ||
       windowsDownload.attr("href") !== harnessInstallerContent.platforms.windows.downloadUrl ||
+      macDownload.attr("href") === harnessInstallerContent.releaseUrl ||
+      windowsDownload.attr("href") === harnessInstallerContent.releaseUrl ||
       setupPage.find("[data-harness-release]").attr("href") !== harnessInstallerContent.releaseUrl
     ) {
-      contentFindings.push({ source: route, issue: "Harness setup downloads and release notes must use the latest Harness release page" });
+      contentFindings.push({ source: route, issue: "Harness setup buttons must download the platform installers directly and preserve the latest release notes link" });
     }
     if (
-      setupPage.find("[data-harness-filename], [data-harness-version], [data-harness-checksums]").length !== 0 ||
-      setupPage.find("a[href*='/releases/download/'], a[href*='/releases/tag/']").length !== 0 ||
-      setupText.includes("Choose the installer for your operating system under Assets on GitHub") === false
+      !macDownload.find("[data-harness-download-detail]").text().includes(`Version ${harnessInstallerContent.version}`) ||
+      !windowsDownload.find("[data-harness-download-detail]").text().includes(`Version ${harnessInstallerContent.version}`) ||
+      setupText.includes("Choose the installer for your operating system under Assets on GitHub")
     ) {
-      contentFindings.push({ source: route, issue: "Harness setup page must guide users to release assets without stale version or artifact details" });
+      contentFindings.push({ source: route, issue: "Harness setup page must identify the installer version without directing users to select release assets" });
     }
     if (
       setupPage.find("a[href='mailto:tritonai@ucsd.edu']").length < 1 ||
