@@ -39,7 +39,7 @@
     "test:indexing": "node --test test/playground-indexing.test.mjs",
     "sync:harness": "node scripts/sync-harness-releases.mjs",
     "check:harness": "node scripts/sync-harness-releases.mjs --check",
-    "test:harness": "node --test test/harness-releases.test.mjs"
+    "test:harness": "node --test test/harness-releases.test.mjs && python3 -m unittest discover -s test -p harness_release_job_test.py"
   },
   "engines": {
     "node": ">=22"
