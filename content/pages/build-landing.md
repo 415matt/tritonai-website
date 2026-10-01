@@ -49,6 +49,7 @@ bannerMode: abstract
 </div>
 <div class="hub-action-card-footer builder-track-footer">
 <p><a class="btn btn-primary btn-block" href="/developer-apis/harness.html">Explore TritonAI Harness <span aria-hidden="true">→</span></a></p>
+<p class="builder-track-sublink"><a href="/developer-apis/harness-release-notes.html">Harness release notes</a></p>
 <p class="builder-track-sublink"><small>Prefer Claude Code, Codex, or Hermes? <a href="#tritonai-harness">Any compatible client works</a></small></p>
 </div>
 </article>

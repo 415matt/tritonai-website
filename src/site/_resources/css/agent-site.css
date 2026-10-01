@@ -3827,7 +3827,13 @@ a.developer-download-button:visited {
 .delivery-pathway a:focus {
   background: #fff;
   border-color: var(--triton-bright-blue);
+  color: var(--triton-navy);
   text-decoration: none;
+}
+
+.delivery-pathway a:hover small,
+.delivery-pathway a:focus small {
+  color: #52616b;
 }
 
 .delivery-pathway-current a {

@@ -139,7 +139,7 @@ bannerMode: abstract
 <article><span class="glyphicon glyphicon-random" aria-hidden="true"></span><p class="build-tool-label">Repeatable workflow</p><h3>n8n</h3><p>Run a process you already understand. n8n starts the steps on a schedule, when a message or file arrives, or when another system sends a request. It fits best once you know the process and how it should handle exceptions.</p></article>
 <article><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span><p class="build-tool-label">Application or shared capability</p><h3>APIs and skills</h3><p>Add approved AI models to software you already run, or package instructions and reference material into a skill that others can review and reuse.</p></article>
 </div>
-<p class="hub-section-action"><a class="btn btn-primary" href="/developer-apis/harness.html">Get TritonAI Harness</a> <a class="btn btn-default" href="/developer-apis/index.html">Compare build paths</a> <a class="btn btn-default" href="/skills/index.html">Browse the Skills Library</a></p>
+<p class="hub-section-action"><a class="btn btn-primary" href="/developer-apis/harness.html">Get TritonAI Harness</a> <a class="btn btn-default" href="/developer-apis/harness-release-notes.html">Harness release notes</a> <a class="btn btn-default" href="/developer-apis/index.html">Compare build paths</a> <a class="btn btn-default" href="/skills/index.html">Browse the Skills Library</a></p>
 </div>
 </section>
 
