@@ -5048,6 +5048,15 @@ a.developer-download-button:visited {
 .video-theater .use-case-demo-caption {
   color: rgba(255, 255, 255, 0.75);
 }
+.video-theater .use-case-demo-frame iframe {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
+  border: 0;
+}
 .video-theater .video-play-overlay {
   align-items: center;
   background: rgba(0, 40, 70, 0.92);
@@ -5721,6 +5730,12 @@ main#main-content .video-quiz-result:empty { display: none; }
 .training-video-journey-panel .landing-section-heading {
   margin-bottom: 22px;
 }
+.training-video-journey-description {
+  max-width: 760px;
+  margin: 14px 0 0;
+  font-size: 20px;
+  line-height: 1.5;
+}
 @media (max-width: 640px) {
   .training-video-journey-panel {
     padding: 24px 20px;
@@ -5900,22 +5915,15 @@ main#main-content .video-quiz-result:empty { display: none; }
   max-width: 908px;
   width: auto;
 }
+main#main-content .video-discussion-section .landing-section-heading .home-kicker {
+  margin-bottom: 4px;
+}
 
 .video-quiz-section {
   padding-top: 20px;
 }
 
 /* Discovery Series: content canvas only. Media arrives from the production team. */
-main#main-content .landing-hub-title .discovery-hero-description {
-  max-width: 760px;
-  margin-top: 16px;
-  font-size: 20px;
-  line-height: 1.5;
-  text-transform: none;
-  letter-spacing: normal;
-  font-weight: 400;
-  color: #fff;
-}
 /* Shared rows align the presenter band and lesson links to the tallest card in each row. */
 main#main-content .discovery-grid {
   display: grid;

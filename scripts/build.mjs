@@ -493,6 +493,9 @@ function renderInteractiveTranscript(video, cues) {
 }
 
 function renderTrainingVideoBlock(video) {
+  if (video.videoEmbedSrc) {
+    return `<div class="use-case-demo"><div class="use-case-demo-frame training-video-embed-frame"><iframe id="kaltura_player" type="text/javascript" src="${escapeHtml(video.videoEmbedSrc)}" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" title="${escapeHtml(video.videoEmbedTitle || video.title)}"></iframe></div></div>`;
+  }
   return `<div class="use-case-demo" data-video-progress><div class="use-case-demo-frame"><video class="img-responsive" controls playsinline preload="metadata" data-progress-slug="${escapeHtml(video.slug)}" data-progress-title="${escapeHtml(video.title)}"${video.videoPoster ? ` poster="${escapeHtml(video.videoPoster)}"` : ""} aria-label="${escapeHtml(video.videoLabel || video.title)}"><source src="${escapeHtml(video.videoSrc)}" type="video/mp4">${video.videoCaptionsSrc ? `<track kind="captions" src="${escapeHtml(video.videoCaptionsSrc)}" srclang="en" label="${escapeHtml(video.videoCaptionsLabel || "English")}">` : ""}${video.videoChaptersSrc ? `<track kind="chapters" src="${escapeHtml(video.videoChaptersSrc)}" srclang="en" label="Chapters">` : ""}Your browser does not support the video element.</video><button type="button" class="video-play-overlay" data-video-play hidden><span class="glyphicon glyphicon-play" aria-hidden="true"></span><span data-video-play-label>Play video</span></button><div class="video-resume-host" data-resume-for="${escapeHtml(video.slug)}"></div></div></div>`;
 }
 
@@ -505,6 +508,7 @@ function splitTrainingVideoBody(html) {
 }
 
 function videoAvailability(video) {
+  if (video.videoEmbedSrc && !video.durationMinutes) return "Video available";
   return video.status === "Coming soon" ? "Video coming soon" : `${escapeHtml(String(video.durationMinutes))} min`;
 }
 
@@ -520,7 +524,7 @@ function renderTrainingVideoQuiz(video) {
     const options = item.options.map((option, oIndex) => `<li><button type="button" class="video-quiz-option" data-quiz-question="${qIndex}" data-quiz-option="${oIndex}" data-quiz-correct="${oIndex === item.answer}" aria-pressed="false"><span aria-hidden="true">${String.fromCharCode(65 + oIndex)}. </span>${escapeHtml(option)}</button></li>`).join("");
     return `<fieldset class="video-quiz-question" data-quiz-block="${qIndex}"><legend>${qIndex + 1}. ${escapeHtml(item.question)}</legend><ul class="video-quiz-options">${options}</ul><p class="video-quiz-result" data-quiz-result></p><p class="video-quiz-explanation" data-quiz-explanation hidden>${escapeHtml(item.explanation)}</p></fieldset>`;
   }).join("");
-  return `<section class="landing-section video-quiz-section" data-video-quiz="${escapeHtml(video.slug)}" data-quiz-version="${version}" aria-labelledby="${escapeHtml(video.slug)}-quiz-heading"><div class="container video-theater-about-inner"><div class="landing-section-heading"><h2 id="${escapeHtml(video.slug)}-quiz-heading">Test your knowledge</h2><p>Select an answer to see Correct or Incorrect and an explanation. Dismiss the popup to continue. Your score counts your first answer to each question; you can try again.</p><p data-quiz-storage>Your answers and progress are saved only in this browser. Clearing browser data removes them.</p><noscript><p>Turn on JavaScript to take this quiz and see your results.</p></noscript></div>${questions}<p class="video-quiz-score" data-quiz-score role="status"></p><button type="button" class="btn btn-default" data-quiz-reset>Restart quiz</button><dialog class="video-quiz-dialog" aria-labelledby="quiz-feedback-heading" aria-describedby="quiz-feedback-explanation"><h2 id="quiz-feedback-heading" data-dialog-result tabindex="-1"></h2><p id="quiz-feedback-explanation" data-dialog-explanation></p><button type="button" class="btn btn-primary" data-dialog-close>Continue</button></dialog></div></section>`;
+  return `<section class="landing-section video-quiz-section" data-video-quiz="${escapeHtml(video.slug)}" data-quiz-version="${version}" aria-labelledby="${escapeHtml(video.slug)}-quiz-heading"><div class="container video-theater-about-inner"><div class="landing-section-heading"><h2 id="${escapeHtml(video.slug)}-quiz-heading">Test your knowledge</h2><p>Select an answer to see Correct or Incorrect and an explanation. Dismiss the popup to continue. Your score counts your first answer to each question; you can try again.</p><p data-quiz-storage>Your answers and progress are saved only in this browser. Clearing browser data removes them.</p><noscript><p>Turn on JavaScript to take this quiz and see your results.</p></noscript></div>${questions}<p class="video-quiz-score" data-quiz-score role="status"></p><button type="button" class="btn btn-default" data-quiz-reset>Reset Quiz</button><dialog class="video-quiz-dialog" aria-labelledby="quiz-feedback-heading" aria-describedby="quiz-feedback-explanation"><h2 id="quiz-feedback-heading" data-dialog-result tabindex="-1"></h2><p id="quiz-feedback-explanation" data-dialog-explanation></p><button type="button" class="btn btn-primary" data-dialog-close>Continue</button></dialog></div></section>`;
 }
 
 function renderTrainingVideoDiscussion(video) {
@@ -559,7 +563,7 @@ function renderTrainingVideoIndex(allVideos) {
     return `<section aria-labelledby="${sectionId}" class="landing-section cms-news-module${index % 2 ? " landing-section-sand" : ""}"><div class="container"><div class="landing-section-heading"><p class="home-kicker">Series</p><h2 id="${sectionId}">${escapeHtml(series)}</h2><p>${escapeHtml(TRAINING_VIDEO_SERIES_DESCRIPTIONS[series])}</p></div><div class="discovery-grid">${cards}</div></div></section>`;
   }).join("");
   const continueHtml = `<section class="landing-section training-video-continue-strip" data-continue-watching data-video-progress hidden aria-label="Continue watching"><div class="container"><div class="training-video-continue-bar"><span class="training-video-continue-label" data-continue-label>Continue watching</span><ul class="training-video-continue-list"></ul></div></div></section>`;
-  const intro = `<section class="landing-section training-video-journey-intro" aria-labelledby="video-journey-heading"><div class="container"><div class="training-video-journey-panel"><div class="landing-section-heading"><p class="home-kicker">How to use this series</p><h2 id="video-journey-heading">Learn your way</h2><ul class="training-video-pace-list"><li><strong>Learn at your own pace</strong><p>Work through the videos in order, and test your knowledge with the questions at the end of each video.</p></li><li><strong>Learn together</strong><p>The series works well as a team activity. Watch one video per meeting and use each video’s discussion points to spark a wider conversation.</p></li><li><strong>Pick up where you left off</strong><p>Your progress is saved automatically in your browser, so you can leave and come back at any time.</p></li></ul><p class="discovery-storage-note">Progress stays in this browser on this device. Private browsing or blocked storage may prevent saving.</p></div></div></div></section>`;
+  const intro = `<section class="landing-section training-video-journey-intro" aria-labelledby="video-journey-heading"><div class="container"><div class="training-video-journey-panel"><div class="landing-section-heading"><p class="home-kicker">How to use this series</p><h2 id="video-journey-heading">Learn your way</h2><p class="training-video-journey-description">Where many TritonAI learning journeys begin. The series builds from understanding the TritonAI ecosystem, to using campus tools, to creating with them, and each short video is designed to be watched in order.</p><ul class="training-video-pace-list"><li><strong>Learn at your own pace</strong><p>Work through the videos in order, and test your knowledge with the questions at the end of each video.</p></li><li><strong>Learn together</strong><p>The series works well as a team activity. Watch one video per meeting and use each video’s discussion points to spark a wider conversation.</p></li><li><strong>Pick up where you left off</strong><p>Your progress is saved automatically in your browser, so you can leave and come back at any time.</p></li></ul><p class="discovery-storage-note">Progress stays in this browser on this device. Private browsing or blocked storage may prevent saving.</p></div></div></div></section>`;
   return `${continueHtml}${intro}${seriesHtml}<section class="landing-section training-video-completion" aria-labelledby="video-completion-heading"><div class="container"><div class="video-training-cta-panel"><div><p class="home-kicker">After the series</p><h2 id="video-completion-heading">Continue learning with your team</h2><p>Explore the <a href="/training-resources/certificate.html">certificate</a> or request a session around your team’s work.</p></div><a class="btn btn-primary btn-lg" href="${escapeHtml(TRAINING_INTAKE_URL)}">Start the team training intake</a></div></div></section>`;
 }
 
@@ -1581,7 +1585,13 @@ for (const useCase of useCases) {
 const trainingVideosAll = await loadMarkdownDirectory(TRAINING_VIDEO_DIR, ["title", "slug", "summary", "series", "status", "owner", "lastReviewed", "audiences", "source", "dataClassification", "canonicalUrl", "relatedSlides"]);
 const trainingVideos = trainingVideosAll.filter((video) => ["Published", "Coming soon"].includes(video.status));
 for (const video of trainingVideos) {
-  if (video.status === "Published") requireFields(video, ["videoSrc", "videoCaptionsSrc", "durationMinutes"], video.filename);
+  if (video.status === "Published") {
+    requireFields(
+      video,
+      video.videoEmbedSrc ? ["videoEmbedSrc", "videoEmbedTitle"] : ["videoSrc", "videoCaptionsSrc", "durationMinutes"],
+      video.filename,
+    );
+  }
   for (const question of video.quiz || []) {
     if (!question.question || !Array.isArray(question.options) || question.options.length < 2 || !Number.isInteger(question.answer) || question.answer < 0 || question.answer >= question.options.length || !question.explanation) {
       throw new Error(`${video.filename}: invalid quiz question or answer key`);
@@ -1630,7 +1640,6 @@ const trainingVideoIndex = {
   title: "TritonAI Discovery Series",
   path: "/training-resources/videos/index.html",
   description: "Explore the TritonAI ecosystem, use campus tools, and build with AI through short lessons and browser-based knowledge checks.",
-  heroDescription: "Where many TritonAI learning journeys begin. The series builds from understanding the TritonAI ecosystem, to using campus tools, to creating with them, and each short video is designed to be watched in order.",
   eyebrow: "Start here",
   lastReviewed: site.lastReviewed,
   canonicalUrl: "/training-resources/videos/index.html",
