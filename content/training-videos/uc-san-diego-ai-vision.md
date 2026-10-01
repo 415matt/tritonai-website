@@ -20,7 +20,7 @@ order: 1
 quiz:
   - question: Why does UC San Diego encourage the campus community to explore AI?
     options:
-      - To replace human judgment
+      - To lead in AI
       - To support the university’s mission and prepare people to use AI responsibly
       - To eliminate the need for AI training
       - To reduce campus technology costs
@@ -39,7 +39,7 @@ quiz:
   - question: How can AI support the university’s work?
     options:
       - 'By strengthening teaching, research, and operations when it is used responsibly'
-      - By replacing all staff workflows
+      - By replacing the wide variety of workflows
       - By guaranteeing error-free results
       - By removing the need for human oversight
     answer: 0
