@@ -166,6 +166,16 @@ async function scan(directory, type) {
       checkText("summary", summary, source, raw, suppressed, { checkLists: true, checkEmDash: true });
     }
 
+    const primaryGuidance = parsed.data.primaryGuidance;
+    if (primaryGuidance) {
+      checkText("kicker", primaryGuidance.kicker, source, raw, suppressed);
+      checkText("heading", primaryGuidance.title, source, raw, suppressed);
+      checkText("lede", primaryGuidance.description, source, raw, suppressed, { checkLists: true, checkEmDash: true });
+      for (const link of primaryGuidance.links || []) {
+        checkText("link", link.label, source, raw, suppressed);
+      }
+    }
+
     const rendered = markdown.render(parsed.content);
     const $ = load(`<div data-language-check>${rendered}</div>`, { decodeEntities: false });
     $("[data-language-check] h1, [data-language-check] h2, [data-language-check] h3, [data-language-check] h4").each((_, element) => {

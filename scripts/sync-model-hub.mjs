@@ -1,6 +1,7 @@
 import { writeFile } from "node:fs/promises";
 import {
   CATALOG_JSON,
+  MODELS_ENDPOINT,
   fetchCatalog,
   loadCatalog,
   renderAndWrite,
@@ -41,7 +42,7 @@ if (checkOnly) {
   process.exit(0);
 }
 
-const catalog = { lastSynced: new Date().toISOString(), source: "tritonai-api.ucsd.edu /v1/models", models };
+const catalog = { lastSynced: new Date().toISOString(), source: MODELS_ENDPOINT, models };
 await writeFile(CATALOG_JSON, `${JSON.stringify(catalog, null, 2)}\n`);
 await renderAndWrite(catalog);
 console.log(

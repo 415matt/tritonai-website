@@ -2,9 +2,37 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  isVisiblePublicModel,
   modelPublisher,
   sortModelsByPublisherAndRecency,
 } from "../scripts/lib/model-catalog.mjs";
+
+test("includes only Model Hub registrations marked public and visible", () => {
+  assert.equal(
+    isVisiblePublicModel({
+      model_group: "gpt-5.6-terra",
+      is_public_model_group: true,
+      visible: true,
+    }),
+    true,
+  );
+  assert.equal(
+    isVisiblePublicModel({
+      model_group: "tgpt-embeddings",
+      is_public_model_group: false,
+      visible: false,
+    }),
+    false,
+  );
+  assert.equal(
+    isVisiblePublicModel({
+      model_group: "onyx-gpt-5.4",
+      is_public_model_group: true,
+      visible: true,
+    }),
+    false,
+  );
+});
 
 test("identifies publishers from public model ids", () => {
   assert.equal(modelPublisher("claude-opus-5"), "Anthropic");

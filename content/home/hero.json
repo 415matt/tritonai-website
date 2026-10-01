@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "owner": "TritonAI",
   "source": "https://tritonai.ucsd.edu/",
-  "lastReviewed": "2026-07-22",
+  "lastReviewed": "2026-08-22",
   "rotationIntervalMs": 7000,
   "slides": [
     {
@@ -16,6 +16,16 @@
       "imageAlt": "Colorful blue and gold grit pattern",
       "link": "/tritongpt/index.html",
       "linkLabel": "Start with TritonGPT"
+    },
+    {
+      "id": "build-with-tritonai",
+      "title": "Build with TritonAI",
+      "accent": "Harness, workflows, APIs and skills",
+      "description": "Use the TritonAI Harness for your own work, automate a recurring process with n8n, or build an AI service with approved models and campus skills.",
+      "image": "/_images/hero-abstract/build.webp",
+      "imageAlt": "Abstract blue circles, layers, and connecting lines on a navy background",
+      "link": "/developer-apis/index.html",
+      "linkLabel": "Explore Build resources"
     }
   ]
 }

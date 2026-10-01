@@ -1,0 +1,15 @@
+{
+  "$schema": "https://github.com/UCSD/decorator-kit/contracts/decorator-kit.schema.json",
+  "kitVersion": "1.1.0",
+  "canvas": "main#main-content",
+  "decorator": {
+    "package": "ucsd-decorator-v5",
+    "readFrom": "node_modules/ucsd-decorator-v5/dist"
+  },
+  "manages": [
+    "CLAUDE.md",
+    ".cursorrules",
+    ".github/copilot-instructions.md",
+    ".claude/skills/ucsd-decorator"
+  ]
+}

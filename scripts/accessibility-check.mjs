@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { chromium } from "playwright";
 import { ROOT, listDistRoutes } from "./ux-agent/lib.mjs";
-import { axeResults, interactionChecks, startDistServer, visit } from "./ux-agent/browser.mjs";
+import { axeResults, interactionChecks, interactionChecksWithRetry, startDistServer, visit } from "./ux-agent/browser.mjs";
 
 const VIEWPORTS = [390, 1440];
 const reportFile = path.join(ROOT, "reports", "accessibility.json");
@@ -24,10 +24,43 @@ try {
     for (const width of VIEWPORTS) {
       await page.setViewportSize({ width, height: 1000 });
       try {
-        await visit(page, `${server.origin}${route}`, { settleMs: 150 });
-        result.viewports.push({
+        const url = `${server.origin}${route}`;
+        await visit(page, url, { settleMs: 150 });
+        const viewportResult = {
           width,
           horizontalOverflow: await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1),
+          comparisonTableIssues: await page.evaluate(() => {
+            const issues = [];
+            for (const table of document.querySelectorAll("main .comparison-table")) {
+              const wrapper = table.closest(".comparison-table-wrapper");
+              if (!wrapper) continue;
+              const bounds = wrapper.getBoundingClientRect();
+              if (wrapper.scrollWidth > wrapper.clientWidth + 1) issues.push("clipped table content");
+              for (const cell of table.querySelectorAll("tbody th, tbody td")) {
+                const rect = cell.getBoundingClientRect();
+                if (!rect.width || !rect.height) continue;
+                if (rect.left < bounds.left - 1 || rect.right > bounds.right + 1
+                  || cell.scrollWidth > cell.clientWidth + 1) {
+                  issues.push(`clipped cell: ${cell.textContent.trim().replace(/\s+/g, " ").slice(0, 60)}`);
+                }
+              }
+              if (window.innerWidth <= 991) {
+                for (const row of table.querySelectorAll("tbody tr:not(.comparison-table-action-row)")) {
+                  const cells = [...row.querySelectorAll("td")];
+                  const labels = cells.map((cell) => cell.querySelector(".comparison-mobile-label"));
+                  if (labels.length !== 2 || labels.some((label) => !label || !label.getBoundingClientRect().height)
+                    || labels[0]?.textContent.trim() !== "TritonGPT"
+                    || labels[1]?.textContent.trim() !== "TritonAI Harness") {
+                    issues.push("missing mobile product labels");
+                  }
+                  if (cells.length === 2 && cells[1].getBoundingClientRect().top < cells[0].getBoundingClientRect().bottom - 1) {
+                    issues.push("mobile product values are not stacked");
+                  }
+                }
+              }
+            }
+            return issues;
+          }),
           collapsedHubMedia: width <= 991
             ? await page.evaluate(() => Array.from(document.querySelectorAll(".hub-split-media")).filter((media) => {
               const mediaRect = media.getBoundingClientRect();
@@ -93,7 +126,16 @@ try {
             return findings;
           }),
           axe: await axeResults(page),
-          interactions: await interactionChecks(page, width),
+        };
+        const interactionResult = await interactionChecksWithRetry(
+          () => interactionChecks(page, width),
+          () => visit(page, url),
+        );
+        result.viewports.push({
+          ...viewportResult,
+          interactions: interactionResult.interactions,
+          interactionAttempts: interactionResult.attempts,
+          initialInteractionFailures: interactionResult.initialFailures,
         });
       } catch (error) {
         result.viewports.push({ width, error: error.message });
@@ -113,6 +155,7 @@ for (const result of pages) {
     const label = `${result.route} at ${viewport.width}px`;
     if (viewport.error) failures.push(`${label}: browser check failed: ${viewport.error}`);
     if (viewport.horizontalOverflow) failures.push(`${label}: horizontal overflow`);
+    for (const issue of viewport.comparisonTableIssues || []) failures.push(`${label}: comparison table ${issue}`);
     if (viewport.collapsedHubMedia) failures.push(`${label}: collapsed split media (${viewport.collapsedHubMedia} ${viewport.collapsedHubMedia === 1 ? "node" : "nodes"})`);
     for (const mismatch of viewport.adjacentButtonSizeMismatches || []) {
       failures.push(`${label}: adjacent button size mismatch (${mismatch.map((button) => `${button.text}: ${button.height}px, ${button.fontSize}, ${button.paddingBlock}`).join("; ")})`);

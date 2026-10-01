@@ -3,14 +3,14 @@
   "title": "Gateway usage at a glance",
   "summary": "Aggregate TritonAI LLM Gateway activity shows the scale of shared model access across UC San Diego.",
   "owner": "TritonAI platform team",
-  "source": "TritonAI Statistics run 20260810T112319-0700-27a039, raw gateway usage export and reviewed V3 route classification",
+  "source": "TritonAI Statistics runs 20260810T112319-0700-27a039 (January-July) and 20260902T152700-0700-e87f94 (August), raw gateway usage exports and reviewed route classification with the September 2 hosting-audit correction",
   "measurementPeriod": {
     "start": "2026-01-01",
-    "end": "2026-07-31",
-    "label": "January 1–July 31, 2026"
+    "end": "2026-08-31",
+    "label": "January 1–August 31, 2026"
   },
-  "generatedAt": "2026-08-10",
-  "lastReviewed": "2026-08-10",
+  "generatedAt": "2026-09-02",
+  "lastReviewed": "2026-09-03",
   "dataClassification": "Public aggregate; no user-level records",
   "canonicalUrl": "/developer-apis/index.html#gateway-usage",
   "relatedSlides": [
@@ -19,31 +19,31 @@
   "metrics": [
     {
       "id": "tokens-processed",
-      "displayValue": "376.4B",
+      "displayValue": "455.3B",
       "label": "tokens processed",
       "definition": "Total input and output tokens recorded by the gateway during the measurement period.",
-      "value": 376433425278
+      "value": 455295685475
     },
     {
       "id": "api-requests",
-      "displayValue": "124.9M",
+      "displayValue": "143.9M",
       "label": "API requests",
-      "definition": "Completed gateway request records during the measurement period.",
-      "value": 124937969
+      "definition": "Gateway request records during the measurement period, including successful and failed requests.",
+      "value": 143909714
     },
     {
       "id": "self-hosted-share",
-      "displayValue": "94.8%",
+      "displayValue": "92.6%",
       "label": "self-hosted and internal routes",
       "definition": "Share of recorded tokens not classified as commercial cloud, including internal TritonAI routes.",
-      "value": 94.8480646933312
+      "value": 92.5939227561928
     },
     {
       "id": "latest-month",
-      "displayValue": "67.1B",
-      "label": "tokens in July",
+      "displayValue": "78.9B",
+      "label": "tokens in August",
       "definition": "Total token volume recorded in the latest complete month.",
-      "value": 67074520328
+      "value": 78862260197
     }
   ],
   "monthly": [
@@ -87,7 +87,7 @@
       "label": "June",
       "selfHostedTokens": 68314520505,
       "cloudTokens": 4877858185,
-      "note": "June reached the highest volume in the reporting period, driven by broad growth across production applications, embeddings, and automated services."
+      "note": "June reached 73.2 billion tokens, driven by broad growth across production applications, embeddings, and automated services."
     },
     {
       "month": "2026-07",
@@ -95,13 +95,20 @@
       "selfHostedTokens": 61460517438,
       "cloudTokens": 5614002890,
       "note": "Usage remained elevated but declined from June as application requests, embeddings, and background processing slowed. Growth through newer model routes offset part of the reduction. Lower summer instructional activity accounted for approximately 0.8B tokens, or 12.7% of the decline, so most of the reduction came from application and platform workloads."
+    },
+    {
+      "month": "2026-08",
+      "label": "August",
+      "selfHostedTokens": 64536316586,
+      "cloudTokens": 14325943611,
+      "note": "August reached the highest monthly volume of the year to date at 78.9 billion tokens, up 17.6% from July. Cloud usage increased to 14.3 billion tokens, while self-hosted and internal routes accounted for 64.5 billion tokens."
     }
   ],
   "notes": [
-    "Cloud follows the reviewed V3 model-route classification. Self-hosted and internal includes all remaining recorded tokens, including internal TritonAI routes.",
-    "The monthly series reconciles to 376,433,425,278 tokens and 124,937,969 request records for January through July 2026.",
-    "The export does not expose cache-read or cache-write token fields, so an upstream token-definition change cannot be completely ruled out.",
-    "July token volume was 6.1 billion tokens, or 8.4%, below June. Gateway requests declined 13.0%. The data-quality review found no meaningful evidence that July excluded token-bearing actions."
+    "January through July retains the reviewed V3 model-route classification. August uses the reviewed classification with the September 2 hosting-audit correction, moving 8,340,260 tokens from self-hosted to cloud. Self-hosted and internal includes all remaining recorded tokens, including internal TritonAI routes.",
+    "The monthly series reconciles to 455,295,685,475 tokens and 143,909,714 request records for January through August 2026.",
+    "Token totals use the gateway's recorded input plus output tokens. August cache-read and cache-creation fields are not added separately. The earlier January-July export did not expose those fields, so an upstream token-definition change cannot be completely ruled out.",
+    "August includes all 31 days and 18,971,745 request records. Daily token and request totals reconcile exactly between the supplied normalized export and raw gateway response."
   ],
   "monthlyDriversIntro": "Month-to-month changes reflect the mix of campus applications, automated services, model routing, and instructional activity using the TritonAI Gateway."
 }

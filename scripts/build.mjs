@@ -15,6 +15,7 @@ const NEWSLETTER_DIR = path.join(CONTENT_DIR, "newsletters");
 const SKILLS_FILE = path.join(CONTENT_DIR, "skills/library.json");
 const HOME_HERO_FILE = path.join(CONTENT_DIR, "home/hero.json");
 const GATEWAY_USAGE_FILE = path.join(CONTENT_DIR, "facts/gateway-usage.json");
+const HARNESS_INSTALLER_FILE = path.join(CONTENT_DIR, "harness/installer.json");
 const SEO_FILE = path.join(CONTENT_DIR, "seo.json");
 const TRITONAI_UPDATES_FILE = path.join(CONTENT_DIR, "updates/tritonai-updates.json");
 const PRESENTATION_DIR = path.resolve("presentations");
@@ -42,6 +43,7 @@ const SITE_BASE_PATH = normalizeBasePath(process.env.SITE_BASE_PATH || "");
 const IS_PRODUCTION_BUILD = SITE_BASE_PATH === "";
 const UNLISTED_ROUTES = new Set([
   "/presentations/managing-the-tritonai-website.html",
+  "/tritongpt/bgpt-chat-generator/index.html",
   "/training/harness/index.html",
 ]);
 const AFTER_RENDER_SCRIPTS = new Set([
@@ -346,8 +348,8 @@ function renderUseCaseCards(useCases) {
 
 const FEATURED_USE_CASE_SLUGS = ["contract-review", "transcript-matching", "instructional-ai"];
 
-function featuredUseCases(useCases) {
-  return FEATURED_USE_CASE_SLUGS.map((slug) => useCases.find((entry) => entry.slug === slug)).filter(Boolean);
+function featuredUseCases(useCases, slugs = FEATURED_USE_CASE_SLUGS) {
+  return slugs.map((slug) => useCases.find((entry) => entry.slug === slug)).filter(Boolean);
 }
 
 function useCaseCardSource(source) {
@@ -395,6 +397,9 @@ function renderUseCaseNarrative(html, slug) {
 
 function renderUseCasePage(useCase) {
   const useCaseIcon = USE_CASE_ICON_MAP[useCase.slug] || "star";
+  const primaryGuidanceHtml = useCase.primaryGuidance
+    ? `<section class="use-case-primary-guidance" aria-labelledby="${escapeHtml(useCase.slug)}-primary-guidance-heading"><span class="glyphicon glyphicon-education" aria-hidden="true"></span><div><p class="home-kicker">${escapeHtml(useCase.primaryGuidance.kicker)}</p><h2 id="${escapeHtml(useCase.slug)}-primary-guidance-heading">${escapeHtml(useCase.primaryGuidance.title)}</h2><p>${escapeHtml(useCase.primaryGuidance.description)}</p><nav aria-label="${escapeHtml(useCase.primaryGuidance.title)} resources">${useCase.primaryGuidance.links.map((link, index) => `<a class="btn ${index === 0 ? "btn-primary" : "btn-default"}" href="${escapeHtml(link.href)}">${escapeHtml(link.label)}</a>`).join("")}</nav></div></section>`
+    : "";
   const statsHtml = useCase.stats && useCase.stats.length
     ? `<ul class="use-case-stats" aria-label="${escapeHtml(useCase.title)} impact at a glance">${useCase.stats.map((stat) => `<li><strong class="use-case-stat-value">${escapeHtml(stat.value)}</strong><span class="use-case-stat-label">${escapeHtml(stat.label)}</span>${stat.sub ? `<span class="use-case-stat-sub">${escapeHtml(stat.sub)}</span>` : ""}</li>`).join("")}</ul>`
     : "";
@@ -410,14 +415,14 @@ function renderUseCasePage(useCase) {
   const resourcesHtml = useCase.resourceLinks && useCase.resourceLinks.length
     ? `<div class="row agent-card-grid">${useCase.resourceLinks.map((resource) => `<div class="col-sm-6"><article class="panel panel-default agent-card"><div class="panel-body"><h3 class="h4"><a href="${escapeHtml(resource.href)}">${escapeHtml(resource.label)}</a></h3>${resource.description ? `<p>${escapeHtml(resource.description)}</p>` : ""}</div></article></div>`).join("")}</div>`
     : "";
-  const governanceHtml = `<section class="use-case-governance" aria-labelledby="${escapeHtml(useCase.slug)}-governance-heading"><div class="use-case-section-heading"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span><div><p class="home-kicker">Accountability</p><h2 id="${escapeHtml(useCase.slug)}-governance-heading">How this use case is governed</h2></div></div><dl class="use-case-governance-grid"><div><dt>Service owner</dt><dd>${escapeHtml(useCase.owner)}</dd></div><div><dt>Human oversight</dt><dd>${escapeHtml(useCase.humanOversight)}</dd></div><div><dt>Measurement plan</dt><dd>${escapeHtml(useCase.measurableOutcome)}</dd></div><div><dt>Data boundary</dt><dd>${escapeHtml(useCase.dataClassification)}</dd></div></dl><p class="use-case-governance-meta"><span><strong>Measurement period</strong> ${escapeHtml(useCase.measurementPeriod)}</span><span><strong>Last reviewed</strong> ${escapeHtml(useCase.lastReviewed)}</span></p></section>`;
+  const governanceHtml = `<section class="use-case-governance" aria-labelledby="${escapeHtml(useCase.slug)}-governance-heading"><div class="use-case-section-heading"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span><div><p class="home-kicker">Accountability</p><h2 id="${escapeHtml(useCase.slug)}-governance-heading">How this use case is governed</h2></div></div><dl class="use-case-governance-grid"><div><dt>Service owner</dt><dd>${escapeHtml(useCase.owner)}</dd></div><div><dt>Human oversight</dt><dd>${escapeHtml(useCase.humanOversight)}</dd></div><div><dt>Measurement plan</dt><dd>${escapeHtml(useCase.measurableOutcome)}</dd></div><div><dt>Data boundary</dt><dd>${escapeHtml(useCase.dataClassification)}</dd></div></dl><p class="use-case-governance-meta">${useCase.buildPath ? `<span><strong>Built as</strong> ${escapeHtml(useCase.buildPath)}</span>` : ""}<span><strong>Measurement period</strong> ${escapeHtml(useCase.measurementPeriod)}</span><span><strong>Last reviewed</strong> ${escapeHtml(useCase.lastReviewed)}</span></p></section>`;
   const overviewHtml = `<section class="use-case-overview" aria-label="${escapeHtml(useCase.title)} overview"><div class="use-case-overview-copy"><span class="glyphicon glyphicon-${escapeHtml(useCaseIcon)}" aria-hidden="true"></span><div><p class="home-kicker">Campus AI workflow</p>${renderStatus(useCase.status)}<p class="lead">${escapeHtml(useCase.summary)}</p></div></div>${statsHtml}</section>`;
   const mediaHtml = `${videoHtml}${screenshotsHtml}`;
   const evidenceHtml = mediaHtml || resourcesHtml || toolsHtml
     ? `<section class="use-case-evidence" aria-labelledby="${escapeHtml(useCase.slug)}-demo-heading"><div class="use-case-section-heading"><p class="home-kicker">${mediaHtml ? "Product media" : resourcesHtml ? "Related service" : "Workflow elements"}</p><h2 id="${escapeHtml(useCase.slug)}-demo-heading">${mediaHtml ? "See the workflow in action" : resourcesHtml ? "Where to read more" : "What the workflow uses"}</h2></div>${mediaHtml}${toolsHtml}${resourcesHtml}</section>`
     : "";
   const actionsHtml = `<nav class="use-case-actions" aria-label="Use case next steps"><a href="/use-cases/index.html"><span aria-hidden="true">←</span> Explore all use cases</a><a href="/about/get-involved.html">Start a use-case conversation <span aria-hidden="true">→</span></a></nav>`;
-  return `${overviewHtml}${governanceHtml}${evidenceHtml}${renderUseCaseNarrative(useCase.html, useCase.slug)}${actionsHtml}`;
+  return `${primaryGuidanceHtml}${overviewHtml}${governanceHtml}${evidenceHtml}${renderUseCaseNarrative(useCase.html, useCase.slug)}${actionsHtml}`;
 }
 
 async function parseVttCues(sitePath) {
@@ -565,7 +570,7 @@ function renderTrainingVideoIndex(allVideos) {
     return `<section aria-labelledby="${sectionId}" class="landing-section cms-news-module${index % 2 ? " landing-section-sand" : ""}"><div class="container"><div class="landing-section-heading"><p class="home-kicker">Series</p><h2 id="${sectionId}">${escapeHtml(series)}</h2><p>${escapeHtml(TRAINING_VIDEO_SERIES_DESCRIPTIONS[series])}</p></div><div class="discovery-grid">${cards}</div></div></section>`;
   }).join("");
   const continueHtml = `<section class="landing-section training-video-continue-strip" data-continue-watching data-video-progress hidden aria-label="Continue watching"><div class="container"><div class="training-video-continue-bar"><span class="training-video-continue-label" data-continue-label>Continue watching</span><ul class="training-video-continue-list"></ul></div></div></section>`;
-  const intro = `<section class="landing-section training-video-journey-intro" aria-labelledby="video-journey-heading"><div class="container"><p class="training-video-journey-description">Where many TritonAI learning journeys begin. The series builds from understanding the TritonAI ecosystem, to using campus tools, to creating with them, and each short video is designed to be watched in order.</p><div class="training-video-journey-panel"><div class="landing-section-heading"><p class="home-kicker">How to use this series</p><h2 id="video-journey-heading">Learn your way</h2><ul class="training-video-pace-list"><li><strong>Learn at your own pace</strong><p>Work through the videos in order, and test your knowledge with the questions at the end of each video.</p></li><li><strong>Learn together</strong><p>The series works well as a team activity. Watch one video per meeting and use each video’s discussion points to spark a wider conversation.</p></li><li><strong>Pick up where you left off</strong><p>Your progress is saved automatically in your browser, so you can leave and come back at any time.</p></li></ul><p class="discovery-storage-note">Progress stays in this browser on this device. Private browsing or blocked storage may prevent saving.</p></div></div></div></section>`;
+  const intro = `<section class="landing-section training-video-journey-intro" aria-labelledby="video-journey-heading"><div class="container"><div class="training-video-journey-panel"><div class="landing-section-heading"><p class="home-kicker">How to use this series</p><h2 id="video-journey-heading">Learn your way</h2><p class="training-video-journey-description">Where many TritonAI learning journeys begin. The series builds from understanding the TritonAI ecosystem, to using campus tools, to creating with them, and each short video is designed to be watched in order.</p><ul class="training-video-pace-list"><li><strong>Learn at your own pace</strong><p>Work through the videos in order, and test your knowledge with the questions at the end of each video.</p></li><li><strong>Learn together</strong><p>The series works well as a team activity. Watch one video per meeting and use each video’s discussion points to spark a wider conversation.</p></li><li><strong>Pick up where you left off</strong><p>Your progress is saved automatically in your browser, so you can leave and come back at any time.</p></li></ul><p class="discovery-storage-note">Progress stays in this browser on this device. Private browsing or blocked storage may prevent saving.</p></div></div></div></section>`;
   return `${continueHtml}${intro}${seriesHtml}<section class="landing-section training-video-completion" aria-labelledby="video-completion-heading"><div class="container"><div class="video-training-cta-panel"><div><p class="home-kicker">After the series</p><h2 id="video-completion-heading">Continue learning with your team</h2><p>Explore the <a href="/training-resources/certificate.html">certificate</a> or request a session around your team’s work.</p></div><a class="btn btn-primary btn-lg" href="${escapeHtml(TRAINING_INTAKE_URL)}">Start the team training intake</a></div></div></section>`;
 }
 
@@ -577,14 +582,19 @@ function renderRoadmap(roadmap) {
     : "";
   const currentHtml = currentItems.map((item, index) => {
     const headingId = `roadmap-current-${index + 1}`;
+    const icon = item.icon ? `<span class="roadmap-item-icon glyphicon glyphicon-${escapeHtml(item.icon)}" aria-hidden="true"></span>` : "";
+    const highlights = item.highlights?.length
+      ? `<ul class="roadmap-highlights" aria-label="${escapeHtml(item.title)} outcomes at a glance">${item.highlights.map((highlight) => `<li><strong class="roadmap-highlight-value">${escapeHtml(highlight.value)}</strong><span class="roadmap-highlight-label">${escapeHtml(highlight.label)}</span></li>`).join("")}</ul>`
+      : "";
     const details = item.details?.length
       ? `<ul class="roadmap-detail-list">${item.details.map((detail) => `<li>${escapeHtml(detail)}</li>`).join("")}</ul>`
       : "";
-    return `<article class="agent-roadmap-item agent-roadmap-item-current" aria-labelledby="${headingId}"><header><p class="roadmap-period">${escapeHtml(item.period)}</p>${renderStatus(item.status)}</header><h3 id="${headingId}">${escapeHtml(item.title)}</h3><p class="roadmap-summary">${escapeHtml(item.summary)}</p>${details}${renderLinks(item.links)}<p class="roadmap-item-meta"><span><strong>Owner</strong> ${escapeHtml(item.owner)}</span><span><strong>Reviewed</strong> ${escapeHtml(item.lastReviewed)}</span></p></article>`;
+    return `<article class="agent-roadmap-item agent-roadmap-item-current" aria-labelledby="${headingId}"><header>${icon}<div class="roadmap-item-topline"><p class="roadmap-period">${escapeHtml(item.period)}</p>${renderStatus(item.status)}</div></header><h3 id="${headingId}">${escapeHtml(item.title)}</h3><p class="roadmap-summary">${escapeHtml(item.summary)}</p>${highlights}${details}${renderLinks(item.links)}<p class="roadmap-item-meta"><span><strong>Owner</strong> ${escapeHtml(item.owner)}</span><span><strong>Reviewed</strong> ${escapeHtml(item.lastReviewed)}</span></p></article>`;
   }).join("");
   const historyHtml = historyItems.map((item, index) => {
     const headingId = `roadmap-history-${index + 1}`;
-    return `<article class="agent-roadmap-item agent-roadmap-item-history" aria-labelledby="${headingId}"><div><p class="roadmap-period">${escapeHtml(item.period)}</p>${renderStatus(item.status)}</div><h3 id="${headingId}">${escapeHtml(item.title)}</h3><p>${escapeHtml(item.summary)}</p>${renderLinks(item.links)}<p class="roadmap-item-meta"><strong>Owner</strong> ${escapeHtml(item.owner)}</p></article>`;
+    const icon = item.icon ? `<span class="roadmap-item-icon roadmap-item-icon-history glyphicon glyphicon-${escapeHtml(item.icon)}" aria-hidden="true"></span>` : "";
+    return `<article class="agent-roadmap-item agent-roadmap-item-history" aria-labelledby="${headingId}"><div>${icon}<div class="roadmap-item-topline roadmap-item-topline-history"><p class="roadmap-period">${escapeHtml(item.period)}</p>${renderStatus(item.status)}</div></div><h3 id="${headingId}">${escapeHtml(item.title)}</h3><p>${escapeHtml(item.summary)}</p>${renderLinks(item.links)}<p class="roadmap-item-meta"><strong>Owner</strong> ${escapeHtml(item.owner)}</p></article>`;
   }).join("");
   return `<p class="lead roadmap-lead">${escapeHtml(roadmap.description)}</p>${renderDeliveryPathway("roadmap")}<section class="roadmap-status-key" aria-labelledby="roadmap-status-heading"><div><p class="home-kicker">How to read this page</p><h2 id="roadmap-status-heading">What each status means</h2></div><ul><li>${renderStatus("Shipped")}<span>Publicly available</span></li><li>${renderStatus("Pilot")}<span>Bounded testing with oversight</span></li><li>${renderStatus("In development")}<span>Active work without a committed launch date</span></li><li>${renderStatus("Exploring")}<span>Discovery only; no delivery commitment</span></li></ul></section><section class="roadmap-current" aria-labelledby="roadmap-current-heading"><div class="roadmap-section-heading"><p class="home-kicker">Current horizon</p><h2 id="roadmap-current-heading">2026 delivery detail</h2><p>Each quarter groups supervised solutions, the reusable pieces underneath them, and the work of getting prototypes to supported services. A quarter's status covers the group as a whole, so an individual service linked below may be further along.</p></div><div class="roadmap-current-list">${currentHtml}</div></section><section class="roadmap-history" aria-labelledby="roadmap-history-heading"><div class="roadmap-section-heading"><p class="home-kicker">Foundation</p><h2 id="roadmap-history-heading">How we got here</h2><p>Earlier milestones, from opening up broad access to building the shared infrastructure and the first focused campus workflows.</p></div><div class="roadmap-history-grid">${historyHtml}</div></section><nav class="roadmap-actions" aria-label="Roadmap next steps"><a class="btn btn-primary" href="/about/tritonai-updates.html">View delivered updates</a><a class="btn btn-default" href="/use-cases/index.html">Explore current use cases</a><a class="btn btn-default" href="/about/get-involved.html">Bring a campus workflow</a></nav>`;
 }
@@ -637,7 +647,10 @@ function renderGatewayUsage(usage) {
         })
         .join("")}</ul></div>`
     : "";
-  return `<div class="hub-heading gateway-usage-heading"><p class="home-kicker">Gateway usage</p><h2 id="gateway-usage-heading">${escapeHtml(usage.title)}</h2><p>${escapeHtml(usage.summary)}</p></div><ul class="gateway-usage-metrics" aria-label="Gateway usage summary">${metrics}</ul><div class="gateway-usage-trend"><div class="gateway-usage-trend-heading"><div><h3>Monthly token volume</h3><p>${escapeHtml(peakMonth.label)} was the highest-volume month through ${escapeHtml(latestMonth.label)}.</p></div><ul class="gateway-usage-legend" aria-label="Chart legend"><li><span class="gateway-usage-key-self-hosted" aria-hidden="true"></span>Self-hosted and internal</li><li><span class="gateway-usage-key-cloud" aria-hidden="true"></span>Cloud</li></ul></div><ol class="gateway-usage-months">${monthRows}</ol></div><details class="gateway-usage-details"><summary>View monthly data and measurement notes</summary><div class="table-responsive"><table class="table"><caption>Gateway token volume by model route, ${escapeHtml(usage.measurementPeriod.label)}</caption><thead><tr><th scope="col">Month</th><th scope="col">Self-hosted and internal</th><th scope="col">Cloud</th><th scope="col">Total tokens</th></tr></thead><tbody>${tableRows}</tbody></table></div>${monthlyDrivers}<dl class="gateway-usage-meta"><div><dt>Measurement period</dt><dd>${escapeHtml(usage.measurementPeriod.label)}</dd></div><div><dt>Owner</dt><dd>${escapeHtml(usage.owner)}</dd></div><div><dt>Data classification</dt><dd>${escapeHtml(usage.dataClassification)}</dd></div><div><dt>Last reviewed</dt><dd>${escapeHtml(usage.lastReviewed)}</dd></div></dl><ul class="gateway-usage-notes">${usage.notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}</ul></details>`;
+  const volumeSummary = peakMonth.month === latestMonth.month
+    ? `${escapeHtml(peakMonth.label)} was the highest-volume month to date.`
+    : `${escapeHtml(peakMonth.label)} was the highest-volume month through ${escapeHtml(latestMonth.label)}.`;
+  return `<div class="hub-heading gateway-usage-heading"><p class="home-kicker">Gateway usage</p><h2 id="gateway-usage-heading">${escapeHtml(usage.title)}</h2><p>${escapeHtml(usage.summary)}</p></div><ul class="gateway-usage-metrics" aria-label="Gateway usage summary">${metrics}</ul><div class="gateway-usage-trend"><div class="gateway-usage-trend-heading"><div><h3>Monthly token volume</h3><p>${volumeSummary}</p></div><ul class="gateway-usage-legend" aria-label="Chart legend"><li><span class="gateway-usage-key-self-hosted" aria-hidden="true"></span>Self-hosted and internal</li><li><span class="gateway-usage-key-cloud" aria-hidden="true"></span>Cloud</li></ul></div><ol class="gateway-usage-months">${monthRows}</ol></div><details class="gateway-usage-details"><summary>View monthly data and measurement notes</summary><div class="table-responsive"><table class="table"><caption>Gateway token volume by model route, ${escapeHtml(usage.measurementPeriod.label)}</caption><thead><tr><th scope="col">Month</th><th scope="col">Self-hosted and internal</th><th scope="col">Cloud</th><th scope="col">Total tokens</th></tr></thead><tbody>${tableRows}</tbody></table></div>${monthlyDrivers}<dl class="gateway-usage-meta"><div><dt>Measurement period</dt><dd>${escapeHtml(usage.measurementPeriod.label)}</dd></div><div><dt>Owner</dt><dd>${escapeHtml(usage.owner)}</dd></div><div><dt>Data classification</dt><dd>${escapeHtml(usage.dataClassification)}</dd></div><div><dt>Last reviewed</dt><dd>${escapeHtml(usage.lastReviewed)}</dd></div></dl><ul class="gateway-usage-notes">${usage.notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}</ul></details>`;
 }
 
 function renderHomeHero(hero) {
@@ -676,60 +689,97 @@ function renderHomeHero(hero) {
   return `<div class="carousel slide jumbotron jumbotron-hero hm"${carouselAttributes} id="heroslider"><div aria-label="${multipleSlides ? `Revolving Banners with ${hero.slides.length} items` : "TritonAI introduction"}" class="carousel-inner" role="region" tabindex="0">${controls}${slides}</div></div>${multipleSlides ? '<script defer src="/_resources/js/home-hero.js"></script>' : ""}`;
 }
 
+// Public-facing guidance is separate from the agent trigger descriptions synced upstream.
 const SKILL_PRESENTATION = {
   "tritonai-autoreview": {
-    title: "TritonAI Auto Review",
-    category: "Quality and review",
+    title: "Review code changes",
+    category: "Code review",
     icon: "glyphicon-check",
-    summary: "Run a second-model code review and test closeout before a commit, merge, release, or ship.",
+    summary: "Check changes to a software project for bugs and test failures before sharing them with others.",
+    example: "review the changes in this project, run the relevant tests, and explain any problems you find.",
+    outcome: "A summary of the checks, confirmed problems, and fixes made or still needed. You decide when the changes are ready to release.",
+    setup: "Open the software project you want reviewed. The skill uses the project's review tools when available, or performs a structured review.",
   },
   "tritonai-feedback": {
-    title: "TritonAI Feedback",
-    category: "Support and feedback",
+    title: "Report a problem or suggest an improvement",
+    category: "Feedback",
     icon: "glyphicon-comment",
-    summary: "Send feedback, bug reports, support requests, or improvement ideas to the TritonAI team.",
+    summary: "Turn a problem or idea into a clear message for the TritonAI team.",
+    example: "draft feedback about this issue: my task stopped before creating the file I requested. Help me explain what happened and what I expected.",
+    outcome: "A short email draft with a subject, the problem, and useful context. You review it before anything is sent.",
+    setup: "Describe what happened. If an email-sending tool is unavailable, you receive a draft you can send yourself.",
   },
   "tritonai-harness-config": {
-    title: "TritonAI Harness Configuration",
-    category: "Platform operations",
+    title: "Understand your Harness setup",
+    category: "Harness help",
     icon: "glyphicon-cog",
-    summary: "Investigate the live TritonAI Harness environment using sanitized runtime and source evidence.",
+    summary: "Get help understanding your current Harness settings and investigating setup problems.",
+    example: "check which model my Harness session is using and which skills are available. Explain what you can confirm and what you cannot check.",
+    outcome: "An explanation based on the setup it can inspect, with any missing information identified. Settings stay unchanged unless you request a change.",
+    setup: "Use this with the Harness environment you want checked. A project folder alone may not reveal the running app's settings.",
   },
   "ucsd-accessibility-compliance": {
-    title: "UC San Diego Accessibility Compliance",
+    title: "Check content for accessibility",
     category: "Accessibility",
     icon: "glyphicon-eye-open",
-    summary: "Audit and remediate UC San Diego websites, documents, media, and communications for digital accessibility.",
-  },
-  "ucsd-branding": {
-    title: "UC San Diego Branding",
-    category: "Web and design",
-    icon: "glyphicon-picture",
-    summary: "Apply the UC San Diego Developer and Decorator 5 visual system to web pages.",
+    summary: "Find accessibility issues in documents, presentations, and webpages, and get help fixing them.",
+    example: "review this workshop handout for accessibility. Check its headings, links, and image descriptions, then explain what needs fixing.",
+    outcome: "Specific issues and suggested fixes, plus checks that still need a person. The review helps improve the content; it does not certify compliance.",
+    setup: "Provide the file or page you want reviewed and tell the agent who will use it.",
   },
   "ucsd-cms": {
-    title: "UC San Diego CMS",
-    category: "Content publishing",
+    title: "Get help with the campus website editor",
+    category: "Website editing",
     icon: "glyphicon-edit",
-    summary: "Author, review, and publish Cascade CMS content with the right templates, metadata, accessibility, and SEO practices.",
+    summary: "Get guidance for editing a UC San Diego website in Cascade, the campus content management system.",
+    example: "walk me through updating an existing department page in Cascade. Explain how to preview it and check headings and links before publication.",
+    outcome: "Steps grounded in UC San Diego's CMS training, with guidance on what to review before publishing.",
+    setup: "You need the appropriate CMS access to make changes. The skill provides guidance; installing it does not connect your agent to Cascade.",
   },
   "ucsd-data-classification": {
-    title: "UC San Diego Data Classification",
-    category: "Data governance",
+    title: "Understand how to handle your data",
+    category: "Data handling",
     icon: "glyphicon-lock",
-    summary: "Classify application data under UC IS-3 Protection Levels and apply the appropriate handling controls.",
+    summary: "Identify how sensitive the information in a planned project may be and which handling requirements to check.",
+    example: "review this proposed workshop signup form using only its field names. Explain the likely UC Protection Levels and which handling questions need a campus decision.",
+    outcome: "An initial classification with reasons, relevant handling requirements, and questions for the responsible campus owner. This does not approve a storage service or use of the data.",
+    setup: "Start with a description or sample field names. You do not need to provide real personal records for this example.",
+  },
+  "ucsd-decorator": {
+    title: "Follow UC San Diego webpage standards",
+    category: "Website development",
+    icon: "glyphicon-th-large",
+    summary: "Help a website developer keep a page consistent with UC San Diego's standard layout and navigation.",
+    example: "review the department webpage source in this project. Check that it follows the UC San Diego template and identify any changes needed.",
+    outcome: "A review of the page source against the campus template, with specific corrections and checks for the developer to follow.",
+    setup: "This is for work on website source files. Provide the project and its UC San Diego template files; CMS editors can use the campus website editor skill.",
   },
   "ucsd-memory": {
-    title: "UC San Diego Memory",
-    category: "Agent memory",
+    title: "Find and reuse saved project notes",
+    category: "Project memory",
     icon: "glyphicon-book",
-    summary: "Search, use, and maintain an existing local TritonAI memory vault.",
+    summary: "Look up earlier decisions and keep useful notes for future work with your AI assistant.",
+    example: "find our saved decisions about the workshop agenda. Summarize what we agreed, cite the notes, and flag anything that may be out of date.",
+    outcome: "A summary tied to the notes it found, with gaps and uncertainty identified. You can also ask it to save or correct a specific note.",
+    setup: "Requires an existing local memory folder. It searches saved material; email and calendar access require their own connections and permission.",
   },
   "ucsd-memory-create": {
-    title: "UC San Diego Memory Setup",
-    category: "Agent memory",
+    title: "Set up project memory",
+    category: "Project memory",
     icon: "glyphicon-plus-sign",
-    summary: "Create a local TritonAI memory vault with conversation sync and maintenance workflows.",
+    summary: "Create a place on your computer to keep project notes and decisions for later conversations.",
+    example: "set up a local memory folder for my workshop planning. Show me where the notes will live and ask before enabling background updates or importing connected sources.",
+    outcome: "An organized memory folder with starter files and instructions for using it. Background updates and connected sources need your approval.",
+    setup: "Choose a local folder. If you already have project memory, ask the agent to inspect it before creating another setup.",
+  },
+  "ucsd-branding": {
+    title: "UC San Diego page branding",
+    category: "Retired skill",
+    icon: "glyphicon-wrench",
+    summary: "Retired. Use the ucsd-decorator skill for UC San Diego Decorator 5 page work.",
+    example: "explain which skill replaced ucsd-branding and what it covers for UC San Diego Decorator 5 page work.",
+    outcome: "A pointer to the ucsd-decorator skill, which covers the page shell, components, accessibility, and security rules.",
+    setup: "No setup needed. Load the ucsd-decorator skill for current UC San Diego web branding work.",
   },
 };
 
@@ -739,14 +789,10 @@ function defaultSkillPresentation(skill) {
     .map((part) => ({ ucsd: "UC San Diego", tritonai: "TritonAI", cms: "CMS" })[part] || `${part.charAt(0).toUpperCase()}${part.slice(1)}`)
     .join(" ");
   const firstSentence = skill.description.match(/^.*?[.!?](?:\s|$)/)?.[0]?.trim() || skill.description;
-  return { title, category: "Agent capability", icon: "glyphicon-wrench", summary: firstSentence };
+  return { title, category: "Additional skill", icon: "glyphicon-wrench", summary: firstSentence, example: "explain what you can help me do and what you need from me.", outcome: "An explanation of the supported tasks and the information needed to get started.", setup: "Read the skill instructions for any required tools or setup." };
 }
 
 function renderSkillsLibrary(library) {
-  const collectionOptions = library.collections
-    .map((collection) => `<option value="${escapeHtml(collection.id)}">${escapeHtml(collection.label)} (${collection.count})</option>`)
-    .join("");
-  const activeCollectionCount = library.collections.filter((collection) => collection.count > 0).length;
   const cards = library.skills
     .map((skill) => {
       const presentation = SKILL_PRESENTATION[skill.name] || defaultSkillPresentation(skill);
@@ -754,21 +800,23 @@ function renderSkillsLibrary(library) {
         .filter(([, count]) => count > 0)
         .map(([type, count]) => `${count} ${count === 1 ? type.replace(/s$/, "") : type}`);
       const resourceLabel = resourceParts.length ? resourceParts.join(" · ") : "Self-contained";
-      const searchable = `${skill.name} ${presentation.title} ${presentation.category} ${presentation.summary} ${skill.description} ${skill.collectionLabel} ${skill.maintainer || ""}`.toLowerCase();
-      return `<div class="col-xs-12" data-skill-card data-skill-collection="${escapeHtml(skill.collection)}" data-skill-search="${escapeHtml(searchable)}"><article class="skills-entry"><div class="skills-entry-icon"><span class="glyphicon ${escapeHtml(presentation.icon)}" aria-hidden="true"></span></div><div class="skills-entry-main"><span class="skills-collection">${escapeHtml(skill.collectionLabel)}</span><h3>${escapeHtml(presentation.title)}</h3><p class="skills-entry-id"><code>${escapeHtml(skill.name)}</code></p><p class="skills-entry-summary">${escapeHtml(presentation.summary)}</p><div class="skills-entry-meta"><span>${escapeHtml(presentation.category)}</span><span>${escapeHtml(resourceLabel)}</span>${skill.maintainer ? `<span>Maintained by ${escapeHtml(skill.maintainer)}</span>` : ""}</div><details class="skills-details"><summary>When to use this skill</summary><p>${escapeHtml(skill.description)}</p><p class="skills-path"><code>${escapeHtml(skill.directory)}</code></p><p><a href="${escapeHtml(skill.directoryUrl)}">Browse source files</a></p></details></div><div class="skills-entry-action"><a href="${escapeHtml(skill.sourceUrl)}" aria-label="Open instructions for ${escapeHtml(presentation.title)}">Open instructions <span aria-hidden="true">→</span></a></div></article></div>`;
+      const searchable = `${skill.name} ${presentation.title} ${presentation.category} ${presentation.summary} ${presentation.example} ${presentation.outcome} ${presentation.setup} ${skill.description} ${skill.collectionLabel} ${skill.maintainer || ""}`.toLowerCase();
+      return `<div class="col-xs-12" data-skill-card data-skill-collection="${escapeHtml(skill.collection)}" data-skill-search="${escapeHtml(searchable)}"><article class="skills-entry" id="skill-${escapeHtml(skill.name)}"><div class="skills-entry-icon"><span class="glyphicon ${escapeHtml(presentation.icon)}" aria-hidden="true"></span></div><div class="skills-entry-main"><span class="skills-collection">${escapeHtml(skill.collectionLabel)}</span><h3>${escapeHtml(presentation.title)}</h3><p class="skills-entry-summary">${escapeHtml(presentation.summary)}</p><div class="skills-example"><p><strong>Try asking</strong></p><blockquote><p>${escapeHtml(presentation.example.charAt(0).toUpperCase() + presentation.example.slice(1))}</p></blockquote></div><p class="skills-outcome"><strong>What you’ll get:</strong> ${escapeHtml(presentation.outcome)}</p><p class="skills-setup"><strong>Before you start:</strong> ${escapeHtml(presentation.setup)}</p><div class="skills-entry-meta"><span>${escapeHtml(presentation.category)}</span>${skill.maintainer ? `<span>Maintained by ${escapeHtml(skill.maintainer)}</span>` : ""}</div><details class="skills-details"><summary>Technical details</summary><p class="skills-entry-id"><strong>Skill name:</strong> <code>${escapeHtml(skill.name)}</code></p><p>${escapeHtml(skill.description)}</p><p>Supporting files: ${escapeHtml(resourceLabel)}</p><p class="skills-path"><code>${escapeHtml(skill.directory)}</code></p><p><a href="${escapeHtml(skill.directoryUrl)}">Browse source files</a></p></details></div><div class="skills-entry-action"><a href="${escapeHtml(skill.sourceUrl)}" aria-label="Read instructions for ${escapeHtml(presentation.title)}">Read instructions <span aria-hidden="true">→</span></a></div></article></div>`;
     })
     .join("");
-  return `<div data-skills-catalog><ul class="skills-summary" aria-label="Skills Library summary"><li><strong>${library.skills.length}</strong><span>skills ready to use</span></li><li><strong>${activeCollectionCount}</strong><span>active ${activeCollectionCount === 1 ? "collection" : "collections"}</span></li><li><strong>Automated</strong><span>source refresh</span></li></ul><div class="skills-sync-notice"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><p><strong>Live from <a href="${escapeHtml(library.source.url)}">${escapeHtml(library.source.repository)}</a>.</strong> Synced at commit <a href="${escapeHtml(library.source.commitUrl)}"><code>${escapeHtml(library.source.commitSha.slice(0, 12))}</code></a>, committed ${escapeHtml(library.source.commitDate.slice(0, 10))}.</p></div><div class="skills-section-heading"><p class="home-kicker">Available now</p><h2>Find a skill for the work in front of you</h2><p>Search by outcome or browse the maintained collection. Open a skill when you are ready to give its instructions to an agent.</p></div><form class="skills-filter" role="search" aria-label="Filter skills" onsubmit="return false"><div class="row"><div class="col-sm-7"><label for="skills-search">What do you need help with?</label><div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span><input class="form-control" id="skills-search" type="search" autocomplete="off" placeholder="Try accessibility, data, review, or memory" data-skills-search></div></div><div class="col-sm-5"><label for="skills-collection">Collection</label><select class="form-control" id="skills-collection" data-skills-collection><option value="">All collections (${library.skills.length})</option>${collectionOptions}</select></div></div><p class="skills-status" data-skills-status aria-live="polite"></p></form><div class="row skills-grid">${cards}</div><div class="panel panel-default skills-install"><div class="panel-heading"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span><h2 class="panel-title">Install a skill</h2></div><div class="panel-body"><p>Clone the source repository, then copy an individual skill directory—not its <code>tritonai/</code> or <code>community/</code> wrapper—into the skills directory used by your agent.</p><pre><code>git clone https://github.com/${escapeHtml(library.source.repository)}.git
+  return `<div data-skills-catalog><ul class="skills-summary" aria-label="Skills Library summary"><li><strong>${library.skills.length}</strong><span>skills to explore</span></li><li><strong>TritonAI</strong><span>maintained</span></li><li><strong>Automated</strong><span>source refresh</span></li></ul><div class="skills-sync-notice"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span><p><strong>Live from <a href="${escapeHtml(library.source.url)}">${escapeHtml(library.source.repository)}</a>.</strong> Synced at commit <a href="${escapeHtml(library.source.commitUrl)}"><code>${escapeHtml(library.source.commitSha.slice(0, 12))}</code></a>, committed ${escapeHtml(library.source.commitDate.slice(0, 10))}.</p></div><div class="skills-section-heading"><p class="home-kicker">Available now</p><h2>Find a skill for the work in front of you</h2><p>Choose a task below, then try the example request in an AI workspace where the skill is available.</p></div><form class="skills-filter" role="search" aria-label="Filter skills" onsubmit="return false"><div class="row"><div class="col-sm-12"><label for="skills-search">What do you need help with?</label><div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span><input class="form-control" id="skills-search" type="search" autocomplete="off" placeholder="Try accessibility, data, review, or memory" data-skills-search></div></div></div><p class="skills-status" data-skills-status aria-live="polite"></p></form><div class="row skills-grid">${cards}</div><div class="panel panel-default skills-install"><div class="panel-heading"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span><h2 class="panel-title">Make a skill available</h2></div><div class="panel-body"><p>First ask your agent whether the named skill is available in your current workspace. If it is missing, follow the setup instructions for your agent. TritonAI Harness users can start with <a href="/developer-apis/start.html">access and setup</a>.</p><details class="skills-details"><summary>Manual installation for other compatible agents</summary><p>Clone the source repository, then copy an individual skill directory from <code>tritonai/</code> into the skills directory used by your agent.</p><pre><code>git clone https://github.com/${escapeHtml(library.source.repository)}.git
 mkdir -p ~/.agents/skills
-cp -R UCSD-Skills-Library/tritonai/skill-name ~/.agents/skills/</code></pre><p>Review the skill and its supporting files before installation. The public library excludes restricted operational procedures and credentials.</p><p><a class="btn btn-default" href="${escapeHtml(library.source.url)}#installing-a-skill">Read the repository instructions</a></p></div></div></div>`;
+cp -R UCSD-Skills-Library/tritonai/skill-name ~/.agents/skills/</code></pre><p>Review the skill and its supporting files before installation. The public library excludes restricted operational procedures and credentials.</p><p><a class="btn btn-default" href="${escapeHtml(library.source.url)}#installing-a-skill">Read the repository instructions</a></p></details></div></div></div>`;
 }
 
 function navigationOwner(items, route) {
+  // The navigation data decides which section a page belongs to. The URL
+  // prefix is only a fallback for pages that no menu lists.
+  const listed = items.find((item) => item.href === route || item.items?.some((child) => child.href === route));
+  if (listed) return listed;
   const section = route.split("/").filter(Boolean)[0] || "";
   if (!section) return null;
-  const sectionOwner = items.find((item) => (item.href.split("/").filter(Boolean)[0] || "") === section);
-  if (sectionOwner) return sectionOwner;
-  return items.find((item) => item.items?.some((child) => child.href === route)) || null;
+  return items.find((item) => (item.href.split("/").filter(Boolean)[0] || "") === section) || null;
 }
 
 function renderNavigation(items, route, mobile = false) {
@@ -899,8 +947,10 @@ function breadcrumbFor(page) {
     "use-cases": "Use Cases",
     skills: "Skills Library",
   };
-  const sectionHref = section === "use-cases" ? "/use-cases/index.html" : `/${section}/index.html`;
-  return `<li><a href="/">TritonAI</a></li><li><a href="${sectionHref}">${escapeHtml(sectionLabels[section] || section)}</a></li><li aria-current="page">${escapeHtml(page.title)}</li>`;
+  const owner = navigationOwner(site.navigation || [], page.path);
+  const sectionHref = owner?.href || (section === "use-cases" ? "/use-cases/index.html" : `/${section}/index.html`);
+  const sectionLabel = owner?.label || sectionLabels[section] || section;
+  return `<li><a href="/">TritonAI</a></li><li><a href="${sectionHref}">${escapeHtml(sectionLabel)}</a></li><li aria-current="page">${escapeHtml(page.title)}</li>`;
 }
 
 function renderGeneratedPage(shellHtml, page, bodyHtml, homeHero) {
@@ -1163,6 +1213,25 @@ function normalizeNavigationMarkup($) {
   }
 }
 
+function applyHarnessInstallerMetadata($, installer) {
+  for (const [platformId, platform] of Object.entries(installer.platforms)) {
+    const download = $(`[data-harness-download='${platformId}']`).first();
+    if (!download.length) continue;
+    download.attr({
+      href: platform.downloadUrl,
+      "aria-label": `${platform.label}, ${platform.architecture}, ${platform.format}, ${platform.displaySize}`,
+    });
+    download.find("[data-harness-download-label]").text(platform.label);
+    download
+      .find("[data-harness-download-detail]")
+      .text(`Version ${installer.version} · ${platform.architecture} · ${platform.format} · ${platform.displaySize}`);
+    $(`[data-harness-filename='${platformId}']`).text(platform.filename);
+  }
+  $("[data-harness-release]").attr("href", installer.releaseUrl);
+  $("[data-harness-checksums]").attr("href", installer.checksumsUrl);
+  $("[data-harness-version]").text(`Version ${installer.version}`);
+}
+
 function transformHtml(html, relativePath, context) {
   const $ = load(html, { decodeEntities: false });
   const route = routeForRelativePath(relativePath);
@@ -1213,7 +1282,9 @@ function transformHtml(html, relativePath, context) {
     $("head").append(`<meta http-equiv="refresh" content="0; url=${escapeHtml(redirectTarget)}">`);
     upsertMeta($, "meta[name='robots']", { name: "robots", content: "noindex,follow" });
   }
-  if (!$("link[rel~='icon']").length) $("head").append('<link rel="icon" href="https://www.ucsd.edu/favicon.ico">');
+  $("link[href*='agent-site.css']").each((_, element) => {
+    $(element).attr("href", `/_resources/css/agent-site.css?v=${AGENT_SITE_CSS_VERSION}`);
+  });
   if (!$("link[href*='/agent-site.css']").length) {
     $("head").append(`<link rel="stylesheet" href="/_resources/css/agent-site.css?v=${AGENT_SITE_CSS_VERSION}">`);
   }
@@ -1283,10 +1354,20 @@ function transformHtml(html, relativePath, context) {
   $("[data-newsletters='all']").html(context.newsletters.map(renderNewsletter).join(""));
   const legacyNewsletterContainer = $(".space-y-12.md\\:space-y-14").first();
   if (legacyNewsletterContainer.length) legacyNewsletterContainer.html(context.newsletters.map(renderNewsletter).join(""));
-  $("[data-featured-use-cases='true']").html(renderUseCaseCards(featuredUseCases(context.useCases)));
+  // data-featured-use-cases="true" renders the site-wide featured trio; a
+  // comma-separated slug list renders that page's own selection.
+  $("[data-featured-use-cases]").each((_, element) => {
+    const target = $(element);
+    const value = (target.attr("data-featured-use-cases") || "").trim();
+    const slugs = value && value !== "true" ? value.split(",").map((slug) => slug.trim()).filter(Boolean) : FEATURED_USE_CASE_SLUGS;
+    target.html(renderUseCaseCards(featuredUseCases(context.useCases, slugs)));
+  });
   $("[data-public-facts='true']").html(renderPublicFacts(context.facts.facts));
   $("[data-gateway-usage='true']").html(renderGatewayUsage(context.gatewayUsage));
   $("[data-skills-library='true']").html(renderSkillsLibrary(context.skills));
+  if (route === "/developer-apis/start.html" || route === "/tools/harness.html" || route === "/developer-apis/harness.html") {
+    applyHarnessInstallerMetadata($, context.harnessInstaller);
+  }
   $("[data-tritonai-updates]").each((_, element) => {
     const target = $(element);
     target.html(renderTritonAiUpdates(context.tritonAiUpdates, target.attr("data-tritonai-updates")));
@@ -1336,6 +1417,7 @@ function transformHtml(html, relativePath, context) {
   if ($("[data-updates-results]").length && !$("script[src$='tritonai-updates.js']").length) {
     $("body").append('<script defer src="/_resources/js/tritonai-updates.js"></script>');
   }
+  if (!$("script[src$='webmcp.js']").length) $("body").append('<script defer src="/_resources/js/webmcp.js"></script>');
   if (!$("script[src$='site-performance.js']").length) $("body").append('<script defer src="/_resources/js/site-performance.js"></script>');
   if ($("[data-video-progress]").length && !$("script[src*='/video-progress.js']").length) {
     $("body").append(`<script defer src="/_resources/js/video-progress.js?v=${VIDEO_PROGRESS_JS_VERSION}"></script>`);
@@ -1425,6 +1507,7 @@ const facts = await readJson(path.join(CONTENT_DIR, "facts/public-facts.json"));
 const skills = await readJson(SKILLS_FILE);
 const homeHero = await readJson(HOME_HERO_FILE);
 const gatewayUsage = await readJson(GATEWAY_USAGE_FILE);
+const harnessInstaller = await readJson(HARNESS_INSTALLER_FILE);
 const seo = await readJson(SEO_FILE);
 const tritonAiUpdates = await readJson(TRITONAI_UPDATES_FILE);
 requireFields(roadmap, ["title", "description", "owner", "lastReviewed", "source", "canonicalUrl", "items"], "content/roadmap/milestones.json");
@@ -1457,6 +1540,11 @@ for (const [route, entry] of Object.entries(seo.routes)) {
 }
 requireFields(tritonAiUpdates, ["schemaVersion", "title", "description", "owner", "source", "lastReviewed", "streams", "areas", "updates"], "content/updates/tritonai-updates.json");
 tritonAiUpdates.lastReviewed = isoDate(tritonAiUpdates.lastReviewed);
+requireFields(harnessInstaller, ["schemaVersion", "product", "version", "publishedAt", "owner", "source", "lastReviewed", "dataClassification", "canonicalUrl", "releaseUrl", "checksumsUrl", "platforms"], "content/harness/installer.json");
+harnessInstaller.lastReviewed = isoDate(harnessInstaller.lastReviewed);
+for (const platformId of ["mac", "windows"]) {
+  requireFields(harnessInstaller.platforms[platformId] || {}, ["label", "architecture", "format", "filename", "displaySize", "sizeBytes", "sha256", "downloadUrl", "signing"], `Harness installer platform ${platformId}`);
+}
 const updateStreamIds = new Set();
 for (const [index, stream] of tritonAiUpdates.streams.entries()) {
   requireFields(stream, ["id", "title", "introKicker", "introHeading", "introDescription", "feedKicker", "feedHeading", "feedDescription", "searchPlaceholder"], `TritonAI update stream ${index + 1}`);
@@ -1491,6 +1579,16 @@ for (const [index, month] of gatewayUsage.monthly.entries()) {
 
 const pages = await loadMarkdownDirectory(PAGE_DIR, ["title", "path", "description", "lastReviewed", "audiences", "source", "canonicalUrl", "relatedSlides"]);
 const useCases = await loadMarkdownDirectory(USE_CASE_DIR, ["title", "slug", "summary", "status", "owner", "lastReviewed", "audiences", "source", "measurementPeriod", "dataClassification", "canonicalUrl", "relatedSlides", "humanOversight", "measurableOutcome"]);
+for (const useCase of useCases) {
+  if (!useCase.primaryGuidance) continue;
+  requireFields(useCase.primaryGuidance, ["kicker", "title", "description", "links"], `primary guidance for ${useCase.slug}`);
+  if (!Array.isArray(useCase.primaryGuidance.links) || !useCase.primaryGuidance.links.length) {
+    throw new Error(`primary guidance for ${useCase.slug} needs at least one resource link`);
+  }
+  for (const [index, link] of useCase.primaryGuidance.links.entries()) {
+    requireFields(link, ["label", "href"], `primary guidance link ${index + 1} for ${useCase.slug}`);
+  }
+}
 const trainingVideosAll = await loadMarkdownDirectory(TRAINING_VIDEO_DIR, ["title", "slug", "summary", "series", "status", "owner", "lastReviewed", "audiences", "source", "dataClassification", "canonicalUrl", "relatedSlides"]);
 const trainingVideos = trainingVideosAll.filter((video) => ["Published", "Coming soon"].includes(video.status));
 for (const video of trainingVideos) {
@@ -1507,7 +1605,6 @@ for (const video of trainingVideos) {
     }
   }
 }
-
 const newsletters = await loadNewsletters();
 // Generated pages can live at any directory depth, so parent-relative asset
 // references in the shell must be site-absolute before reuse.
@@ -1607,7 +1704,7 @@ const optimizedImages = new Set(
     .filter((file) => file.endsWith(".webp"))
     .map((file) => `/_images/${file.replaceAll(path.sep, "/")}`),
 );
-const context = { site, newsletters, useCases, facts, gatewayUsage, skills, seo, tritonAiUpdates, generatedByPath, optimizedImages };
+const context = { site, newsletters, useCases, facts, gatewayUsage, harnessInstaller, skills, seo, tritonAiUpdates, generatedByPath, optimizedImages };
 for (const relativePath of htmlFiles) {
   const filename = path.join(OUTPUT_DIR, relativePath);
   await writeFile(filename, transformHtml(await readFile(filename, "utf8"), relativePath, context));
@@ -1641,6 +1738,7 @@ await writeFile(
       lastReviewed: site.lastReviewed,
       facts: facts.facts.filter((fact) => fact.status === "public"),
       gatewayUsage,
+      harnessInstaller,
       roadmap,
       useCases: useCases.map(({ html, body, filename, ...entry }) => entry),
       skillsLibrary: skills,

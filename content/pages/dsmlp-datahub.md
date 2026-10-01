@@ -2,7 +2,7 @@
 title: DSMLP and DataHub
 path: /developer-apis/dsmlp-datahub.html
 description: DataHub is the browser route into DSMLP, the shared computing platform behind coursework and some TritonAI workloads.
-eyebrow: Shared campus infrastructure
+eyebrow: Teaching and course compute
 lastReviewed: 2026-07-26
 audiences: [students, faculty, researchers, staff, developers, leaders]
 source: UC San Diego DataHub and Research Platform, Blink DSMLP guidance, IT Services DSMLP documentation, and TritonAI platform architecture
@@ -18,7 +18,7 @@ bannerPosition: center 44%
 <div class="col-md-6 hub-split-copy">
 <p class="home-kicker">One shared computing foundation</p>
 <h2 id="dsmlp-intro-heading">Use DataHub to reach the DSMLP computing platform</h2>
-<p class="hub-lede">DataHub is UC San Diego’s browser-based way to use DSMLP for coursework, formal independent study, eligible student projects, and selected TritonAI workloads.</p>
+<p class="hub-lede">DataHub is UC San Diego’s browser-based way to use DSMLP for coursework, formal independent study, eligible student projects, and selected TritonAI workloads. It is a teaching platform. Research computing outside a course uses the Research Cluster request path, and model access for any workload goes through the TritonAI LLM Gateway.</p>
 <p>DSMLP combines managed containers, CPU and GPU resources, storage, and reusable software environments. DataHub provides Jupyter and RStudio in the browser, while command-line tools support advanced machine-learning work.</p>
 <p class="dsmlp-intro-actions"><a class="btn btn-primary" href="https://datahub.ucsd.edu/hub/login?next=%2Fhub%2F">Open DataHub</a> <a class="btn btn-default" href="https://support.ucsd.edu/its?id=kb_article_view&amp;sys_kb_id=b096442e9718f650992771611153afed">Read the official FAQ</a></p>
 </div>
@@ -84,9 +84,9 @@ bannerPosition: center 44%
 <ol>
 <li><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span><div><small>Shared compute</small><strong>DSMLP</strong><p>Containerized CPU/GPU capacity, storage, and platform operations</p></div></li>
 <li><span class="glyphicon glyphicon-cog" aria-hidden="true"></span><div><small>Selected workloads</small><strong>TritonAI services</strong><p>Applications, evaluation, automation, and supporting processes</p></div></li>
-<li><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span><div><small>Approved model access</small><strong>TritonAI LLM Gateway</strong><p>Managed routes to enterprise cloud and SDSC-hosted models</p></div></li>
+<li><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span><div><small>Approved model access</small><strong>TritonAI LLM Gateway</strong><p>Managed routes to enterprise cloud and UC-hosted models</p></div></li>
 </ol>
-<figcaption id="dsmlp-tritonai-caption">DSMLP provides shared compute for selected TritonAI workloads. Model requests continue through the TritonAI LLM Gateway to approved enterprise or SDSC-hosted model routes.</figcaption>
+<figcaption id="dsmlp-tritonai-caption">DSMLP provides shared compute for selected TritonAI workloads. Model requests continue through the TritonAI LLM Gateway to approved enterprise or UC-hosted model routes.</figcaption>
 </figure>
 <div class="dsmlp-distinction"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><p><strong>Related, but not the same service:</strong> DataHub is the web interface for authorized notebook and computational work. TritonAI users work through TritonGPT, the TritonAI Harness, APIs, or department applications. <a href="/developer-apis/index.html#api-gateway">See the TritonAI gateway architecture.</a></p></div>
 </div>

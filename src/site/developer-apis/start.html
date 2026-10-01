@@ -14,12 +14,12 @@
     <meta content="initial-scale=1.0" name="viewport"/>
     <meta content="7MiYjX2ZghMOWvtKRWlar--c6mD2ose5EcbQFQ6szFA" name="google-site-verification"/>
     
-    <title>Get Started</title>
+    <title>Get Started with TritonAI</title>
     <meta content="University of California San Diego" name="ORGANIZATION"/>
     <meta content="index,follow,noarchive" name="robots"/>
     <meta content="TritonAI" name="SITE"/>
-    <meta content="Get Started" name="PAGETITLE"/>
-    <meta content="Choose a TritonAI Harness or developer path, build a bounded prototype, and prepare a supported service." name="DESCRIPTION"/>
+    <meta content="Get TritonAI LLM Access via API" name="PAGETITLE"/>
+    <meta content="Request access to the TritonAI Gateway, then use TritonAI Harness, UC San Diego's primary supported client, or connect another compatible client." name="DESCRIPTION"/>
     <meta content="06c3212a0a0000951f1253b111b3dac0" name="id"/>
 
    
@@ -52,8 +52,8 @@
 
 
 <!-- Site-specific CSS files -->
-    
-    
+<link href="/_resources/css/agent-site.css" rel="stylesheet"/>
+<link href="/_resources/css/landing-hubs.css" rel="stylesheet"/>
     
 <!-- Other CSS files -->
 <!--[if lt IE 9]>
@@ -85,7 +85,7 @@
 
 
 	</head>
-	<body>
+	<body class="developer-start-page">
 	    
 
 
@@ -345,139 +345,167 @@
         
     
 
-                            <div class="developer-start-intro">
-<p class="home-kicker">Choose the path for the work</p>
-<h2>Start with one task and the people it affects</h2>
-<p class="lead">TritonAI can support work that stays with you in Harness or a service that other people rely on. Begin with the task, the sources it needs, the person who reviews the result, and the audience that will use it.</p>
+<div class="developer-start-intro">
+<p class="home-kicker">Build with TritonAI</p>
+<h2>Get started with the TritonAI Gateway</h2>
+<p class="lead">Request a Gateway key, connect a client, and run a first test. n8n access is a separate request, covered at the end of this page.</p>
 </div>
 
 <div class="developer-start-flow">
-<section aria-labelledby="developer-start-step-one" class="developer-start-step">
+
+<section aria-labelledby="developer-start-step-one" class="developer-start-step" id="request-access">
 <header class="developer-start-step-header">
 <span aria-hidden="true">01</span>
 <div>
-<p class="home-kicker">Describe the work</p>
-<h2 id="developer-start-step-one">Step 1: Define the task</h2>
+<h2 id="developer-start-step-one">Request Gateway access</h2>
 </div>
 </header>
-<p>The access request gives the service team enough context to identify the right starting point. You can describe personal work in Harness or an application that will serve a wider audience.</p>
-<div class="developer-start-paths">
-<article>
-<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-<h3>Work in Harness</h3>
-<p>Use Harness when you want an AI workspace for your own work. It can help you work across selected files, approved browser sources, and productivity connections you choose to use.</p>
-<p><strong>Examples:</strong> a morning briefing, meeting preparation, document comparison, or a repeatable reporting workflow.</p>
-</article>
-<article>
-<span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
-<h3>Build a shared service</h3>
-<p>Choose a developer path when a department needs an application, integration, or workflow that other people will use.</p>
-<ul>
-<li>The intended audience and task</li>
-<li>Data and system connections</li>
-<li>Business and technical owners</li>
-<li>Review and support responsibilities</li>
+<p>Submit the access form to receive your approved Gateway key and the models available to it. The approval records the access, limits, and billing treatment for the key.</p>
+
+<div class="row" style="margin-top: 16px;">
+<div class="col-sm-7">
+<p>UC-hosted models carry <strong>no recharge</strong> for campus administrative work. Cloud models and sponsored research require a departmental or project chartstring. Recharge is the campus term for internal billing to a chartstring.</p>
+<p><a class="btn btn-primary" href="https://ucsd.kualibuild.com/app/6979392e4f46f40289d22645/run">Request Gateway access (Kuali Build) <span aria-hidden="true">→</span></a></p>
+</div>
+<div class="col-sm-5">
+<aside class="hub-note-card" style="margin-top:0;">
+<strong>Approved data levels</strong>
+<span>Approved for UC Protection Levels 1 through 3 (P1 through P3). Protection Level 4 (P4) is prohibited.</span>
+</aside>
+</div>
+</div>
+
+<div class="workbench-policy-box" style="background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid var(--triton-navy,#182b49);border-radius:4px;padding:16px 20px;margin-top:20px;">
+<h3 style="margin:0 0 10px;font-size:16px;font-weight:700;color:var(--triton-navy,#182b49);">Eligibility and recharge details</h3>
+<ul style="margin:0;padding-left:18px;font-size:14px;color:#334155;line-height:1.6;">
+<li><strong>Faculty and staff:</strong> Campus and Health Sciences personnel may use UC-hosted models for administrative work under monthly caps.</li>
+<li><strong>Research projects:</strong> Sponsored research charges model usage to an approved grant or project chartstring.</li>
+<li><strong>Other UC campuses:</strong> Intercampus recharge agreements are arranged via <a href="mailto:tritonai@ucsd.edu">tritonai@ucsd.edu</a>.</li>
+<li><strong>Health System patient care:</strong> Clinical operations must use <a href="https://pulse.ucsd.edu/departments/is/AI/Pages/default.aspx" target="_blank" rel="noopener noreferrer">approved Medical Center AI platforms on Pulse</a>.</li>
 </ul>
-</article>
-</div>
-<div class="developer-start-request">
-<div>
-<h3>Submit the access request</h3>
-<p>Include your UC San Diego credentials, department or sponsor, intended outcome, and the data the task requires. Review timing depends on the use case and any privacy, security, accessibility, or service-owner review.</p>
-</div>
-<a class="btn btn-primary" href="https://ucsd.kualibuild.com/app/6979392e4f46f40289d22645/run">Request Developer Access</a>
 </div>
 </section>
 
-<section aria-labelledby="developer-start-step-two" class="developer-start-step">
+<section aria-labelledby="developer-start-step-two" class="developer-start-step" id="harness">
 <header class="developer-start-step-header">
 <span aria-hidden="true">02</span>
 <div>
-<p class="home-kicker">Confirm the route</p>
-<h2 id="developer-start-step-two">Step 2: Confirm the access path</h2>
+<h2 id="developer-start-step-two">Choose your client or integration</h2>
 </div>
 </header>
-<p>The service team will confirm which workspace, model routes, skills, and integrations fit the reviewed task. The decision also covers data handling, usage allocations, and any additional review.</p>
-<dl class="developer-start-confirmation">
-<div>
-<dt>Harness path</dt>
-<dd>Confirm the installer, approved models, available skills, and connections you may use for the task.</dd>
+<p>Connect your approved key to TritonAI Harness, another compatible client, or your own code.</p>
+
+<div class="workbench-card workbench-card-primary" id="download-installer" style="margin-bottom: 20px;">
+<div class="workbench-card-header">
+<span class="comparison-badge comparison-badge-preferred">Primary Supported Client</span>
+<h3 style="font-size: 20px; font-weight: 700; margin: 6px 0 4px; color: var(--triton-navy, #182b49);">TritonAI Harness</h3>
+<p style="color: #64748b; font-size: 14px; margin-bottom: 16px;">Native desktop app for local coding, file editing, terminal execution, and Microsoft 365 connections. In pilot for Mac (Apple Silicon) and Windows. Anyone with a Gateway key can request it.</p>
 </div>
-<div>
-<dt>Shared service path</dt>
-<dd>Confirm API access, hosting needs, service ownership, and the support plan for the intended audience.</dd>
+<div class="developer-start-platforms">
+<article>
+<span class="glyphicon glyphicon-apple" aria-hidden="true"></span>
+<h4>Mac (Apple Silicon)</h4>
+<p>Requires Apple M1 or newer. Signed by the developer and checked by Apple.</p>
+<a class="btn btn-primary developer-download-button" data-harness-download="mac" href="https://github.com/dbalders/TritonAI-Installer/releases/latest"><span data-harness-download-label>Download for Mac</span><small data-harness-download-detail>Current Apple Silicon DMG</small></a>
+<p style="margin-top:6px;font-size:12px;color:#64748b;"><span data-harness-filename="mac"></span></p>
+</article>
+<article>
+<span class="glyphicon glyphicon-modal-window" aria-hidden="true"></span>
+<h4>Windows (x64)</h4>
+<p>Requires an x64 processor. Run setup and accept SmartScreen if prompted.</p>
+<a class="btn btn-primary developer-download-button" data-harness-download="windows" href="https://github.com/dbalders/TritonAI-Installer/releases/latest"><span data-harness-download-label>Download for Windows</span><small data-harness-download-detail>Current x64 Setup EXE</small></a>
+<p style="margin-top:6px;font-size:12px;color:#64748b;"><span data-harness-filename="windows"></span></p>
+</article>
 </div>
-</dl>
-<p class="developer-start-note">The <a href="https://tritonai-api.ucsd.edu/ui/model_hub_table/">Model Hub</a> is the source for the current model catalog and published rates. Harness is an early pilot, so available capabilities depend on the approved service path.</p>
+<p class="developer-start-release-links"><span data-harness-version>Current version</span>. <a data-harness-release href="https://github.com/dbalders/TritonAI-Installer/releases/latest">Read release notes</a> or <a data-harness-checksums href="https://github.com/dbalders/TritonAI-Installer/releases/latest">view checksums</a>.</p>
+</div>
+
+<div class="row">
+<div class="col-sm-6">
+<div class="workbench-card" style="height: 100%;">
+<span class="comparison-badge">CLI Coding Agents</span>
+<h4 style="font-size: 16px; font-weight: 700; margin: 6px 0 4px; color: var(--triton-navy, #182b49);">Claude Code, Codex, Hermes, and other clients</h4>
+<p style="font-size: 13px; color: #64748b; margin-bottom: 10px;">Claude Code and Codex are supported alternatives. Hermes, OpenCode, and any client that accepts a base URL and API key connect the same way.</p>
+<ul style="font-size: 13px; padding-left: 18px; margin-bottom: 0;">
+<li>Base URL: <code>https://tritonai-api.ucsd.edu/v1</code></li>
+<li>Default Model: <code>api-glm-5.3</code></li>
+<li>Store your API key in your shell profile.</li>
+</ul>
+</div>
+</div>
+<div class="col-sm-6">
+<div class="workbench-card" style="height: 100%;">
+<span class="comparison-badge">API &amp; Pipelines</span>
+<h4 style="font-size: 16px; font-weight: 700; margin: 6px 0 4px; color: var(--triton-navy, #182b49);">Direct Code Integration</h4>
+<p style="font-size: 13px; color: #64748b; margin-bottom: 8px;">Use the OpenAI Python SDK.</p>
+<pre style="background:#0f172a;color:#f8fafc;padding:10px 12px;border-radius:4px;font-size:12px;line-height:1.35;margin-bottom:6px;"><code>from openai import OpenAI
+client = OpenAI(
+  base_url="https://tritonai-api.ucsd.edu/v1",
+  api_key="YOUR_KEY"
+)
+resp = client.chat.completions.create(
+  model="api-glm-5.3",
+  messages=[{"role":"user","content":"Hi"}]
+)</code></pre>
+<small style="color: #64748b;">See <a href="https://tritonai-api.ucsd.edu/ui/model_hub_table/" target="_blank" rel="noopener noreferrer">Model Hub</a> for available routes.</small>
+</div>
+</div>
+</div>
 </section>
 
-<section aria-labelledby="developer-start-step-three" class="developer-start-step">
+<section aria-labelledby="developer-start-step-three" class="developer-start-step" id="verify">
 <header class="developer-start-step-header">
 <span aria-hidden="true">03</span>
 <div>
-<p class="home-kicker">Try one workflow</p>
-<h2 id="developer-start-step-three">Step 3: Build a bounded prototype</h2>
+<h2 id="developer-start-step-three">Launch and verify</h2>
 </div>
 </header>
-<p>Start with one repeatable task, a narrow set of sources, and a visible review point. Harness can support work such as:</p>
-<div class="developer-harness-examples">
-<article>
-<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-<h3>Plan the day</h3>
-<p>Turn selected calendar events, messages, and notes into a source-linked briefing that you check before acting.</p>
-</article>
-<article>
-<span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-<h3>Prepare working materials</h3>
-<p>Compare selected files, summarize a long document, or draft a meeting brief with links back to the source.</p>
-</article>
-<article>
-<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
-<h3>Analyze and create</h3>
-<p>Clean a spreadsheet, build a chart, prepare slides, or assemble a status report from approved data.</p>
-</article>
-<article>
-<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
-<h3>Reuse a campus skill</h3>
-<p>Run a documented checklist, collect evidence, and produce the same review package each time the task returns.</p>
-</article>
-<article>
-<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-<h3>Research in the browser</h3>
-<p>Gather information from approved sites, compare source claims, and save citations for a person to review.</p>
-</article>
-<article>
-<span class="glyphicon glyphicon-console" aria-hidden="true"></span>
-<h3>Prototype a tool</h3>
-<p>Turn a validated workflow into a small local tool, then plan hosting and support if other people will depend on it.</p>
-</article>
-</div>
-<h3 class="developer-start-cycle-heading">Run the prototype in a reviewable cycle</h3>
-<ol class="developer-start-cycle">
-<li><span>1</span><strong>Choose one task</strong><small>Write down the input, output, and intended user.</small></li>
-<li><span>2</span><strong>Connect what it needs</strong><small>Use only the approved sources and permissions required for the task.</small></li>
-<li><span>3</span><strong>Run and inspect</strong><small>Check sources, test failure cases, and review consequential actions.</small></li>
-<li><span>4</span><strong>Save the evidence</strong><small>Record quality, accessibility, cost, and limitations before expanding the scope.</small></li>
+<p>Enter your key and verify your connection with a low-risk test prompt.</p>
+
+<div class="row">
+<div class="col-sm-7">
+<ol class="developer-start-actions">
+<li><span>1</span><div><strong>Enter your key</strong><p>Paste the approved key into your client settings.</p></div></li>
+<li><span>2</span><div><strong>Choose an approved model</strong><p>Select <code>api-glm-5.3</code> (UC-hosted, 320K context) or an approved cloud route.</p></div></li>
+<li><span>3</span><div><strong>Run a test request</strong><p>Confirm the model responds and check results.</p></div></li>
 </ol>
+</div>
+<div class="col-sm-5">
+<div class="developer-start-help" style="margin-top:0;">
+<h4>Need setup help?</h4>
+<p>If your key is rejected or models do not appear, remove extra spaces around your key. Keep the key private; support will never ask for your secret key.</p>
+<p>Email <a href="mailto:tritonai@ucsd.edu">tritonai@ucsd.edu</a> with your operating system and error details. Never include the secret key in email.</p>
+</div>
+</div>
+</div>
 </section>
 
-<section aria-labelledby="developer-start-step-four" class="developer-start-step">
+<section aria-labelledby="developer-start-step-n8n" class="developer-start-step" id="n8n">
 <header class="developer-start-step-header">
 <span aria-hidden="true">04</span>
 <div>
-<p class="home-kicker">Prepare for use</p>
-<h2 id="developer-start-step-four">Step 4: Plan for operation</h2>
+<h2 id="developer-start-step-n8n">Request n8n access</h2>
 </div>
 </header>
-<p>Before more people depend on the workflow or you connect additional data and systems, confirm:</p>
-<ul class="developer-start-operation-list">
-<li>Named business and technical owners</li>
-<li>Accessibility, security, privacy, and support responsibilities</li>
-<li>Monitoring, escalation, and incident handling</li>
-<li>An approved allocation or billing arrangement for expected usage</li>
-</ul>
-<p class="developer-start-final">Bring the prototype evidence back to the service team. They can help identify the approved hosting, integration, and support path for the next audience.</p>
+<p>n8n is the campus-hosted workflow platform. Access is granted separately from a Gateway key, and workflows that call a model use your key through the Gateway.</p>
+<div class="row">
+<div class="col-sm-7">
+<ol class="developer-start-actions">
+<li><span>1</span><div><strong>Submit a support request</strong><p>Ask the ITS-TritonAI team for access to the n8n platform.</p></div></li>
+<li><span>2</span><div><strong>Describe the intended workflow</strong><p>Include your AD username, department, intended use case, and whether you need a testing environment.</p></div></li>
+<li><span>3</span><div><strong>Sign in after approval</strong><p>Use your UC San Diego SSO credentials at n8n.tritonai.ucsd.edu.</p></div></li>
+</ol>
+<p><a class="btn btn-primary" href="https://support.ucsd.edu/">Request n8n access</a> <a class="btn btn-default" href="https://n8n.tritonai.ucsd.edu/">Open n8n</a></p>
+</div>
+<div class="col-sm-5">
+<div class="developer-start-help" style="margin-top:0;">
+<h4>When n8n fits</h4>
+<p>You know the process and how it should handle exceptions. It runs on a schedule or when a message, file, or request arrives. For work that changes shape every time, start in TritonAI Harness instead.</p>
+</div>
+</div>
+</div>
 </section>
+
 </div>
                     </section>
 				    
@@ -518,34 +546,16 @@
                             <article aria-label="Sidebar Nav" class="main-content-nav" role="navigation">
                                                                                                                                             
         
-            <h2>
-                                    <a href="index.html">Developer APIs</a>
-                    </h2>
-    
-                                        
-        
-                    
-        
-    <ul class="navbar-list">
-                
-             
-                                                            
-                                                                                                                                                            
-                                                                
-                                                                                                                                <li class="active">
-                    Get Started
-            </li>
-                                                                                                                
-             
-                                                            
-                                                                                                                                    
-                                                                
-                                                                                                                                <li class="">
-                    <a href="faq.html">
-                FAQs
-            </a>
-            </li>
-                                                                                                            </ul>
+            <h2><a href="/developer-apis/index.html">Build</a></h2>
+            <ul class="navbar-list">
+                <li class="active">Get Started</li>
+                <li><a href="/developer-apis/citizen-developer.html">Citizen Developer Guide</a></li>
+                <li><a href="/developer-apis/harness.html">TritonAI Harness</a></li>
+                <li><a href="/developer-apis/dsmlp-datahub.html">DSMLP &amp; DataHub</a></li>
+                <li><a href="/skills/index.html">Skills Library</a></li>
+                <li><a href="/developer-apis/faq.html">Developer FAQs</a></li>
+                <li><a href="/developer-apis/harness-privacy.html">Harness Privacy Statement</a></li>
+            </ul>
                 
             </article>
             

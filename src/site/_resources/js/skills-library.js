@@ -12,7 +12,7 @@
 
     function update() {
       var query = search.value.trim().toLowerCase();
-      var selectedCollection = collection.value;
+      var selectedCollection = collection ? collection.value : "";
       var visible = 0;
 
       cards.forEach(function (card) {
@@ -26,7 +26,7 @@
     }
 
     search.addEventListener("input", update);
-    collection.addEventListener("change", update);
+    if (collection) collection.addEventListener("change", update);
     update();
   }
 

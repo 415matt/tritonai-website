@@ -347,16 +347,25 @@
 
                             <h2><strong>Frequently Asked Questions</strong></h2>
 <h3><strong>Who can request TritonAI Developer API access?</strong></h3>
-<p>UC San Diego faculty, staff, researchers, and sponsored student projects may submit a request. Eligibility and the appropriate access path are confirmed from the use case, sponsorship, data, and intended audience.</p>
+<p>UC San Diego faculty, staff, researchers, and sponsored student projects may submit a request. Other UC campuses may request Gateway access through an inter-campus recharge agreement. CSU, affiliate, and partner requests may also be reviewed. Eligibility and the appropriate access path are confirmed from the purpose, funding, affiliation, data, owner, and intended audience. Medical Center clinical and patient-care operations use the Medical Center's platform.</p>
 
 <h3><strong>What data can I use?</strong></h3>
-<p>Do not assume that a data classification is approved for every model or project. Describe the data in your request so the service team can identify the appropriate route, controls, and any required privacy, security, or service-owner review. Restricted or health information requires a separately approved service path.</p>
+<p>The Gateway, TritonGPT, and TritonAI Harness are approved for UC information classified from Protection Level 1 through Protection Level 3 (P1 through P3) when the work is within an approved setup. P4 data is not approved. That approval covers the platform. The person or office responsible for the information still decides its classification and permitted use. Describe the data in your request so the service team can identify the appropriate hosting choice, controls, and any required privacy, security, or service-owner review. Restricted or health information requires a separately approved service path. <a href="https://security.ucop.edu/policies/institutional-information-and-it-resource-classification.html" rel="noopener noreferrer" target="_blank">Review the UC Protection Levels</a>.</p>
+
+<h3><strong>Do I have to use TritonAI Harness?</strong></h3>
+<p>No. TritonAI Harness is the primary supported client, and Claude Code and Codex are supported alternatives. Hermes, OpenCode, and any other client that accepts a base URL and API key can connect to the Gateway with the key from your approval. Features, extensions, and setup differ by client, and support for those clients comes from their own documentation.</p>
 
 <h3><strong>What's the difference between UC-hosted and enterprise cloud models?</strong></h3>
-<p>Both may be available through the common gateway. They differ in capability, hosting, rate, and approved controls. The right choice depends on the task and data—not a universal model ranking. Review the <a href="https://tritonai-api.ucsd.edu/ui/model_hub_table/">Model Hub</a> for the current catalog and published rates, then confirm the project route during intake.</p>
+<p>Both may be available through the common gateway. They differ in capability, hosting, rate, and approved controls. Cloud and UC-hosted access are approved separately. Review the <a href="https://tritonai-api.ucsd.edu/ui/model_hub_table/">Model Hub</a> for the current catalog and published rates, then confirm the approved access and limits during intake.</p>
 
-<h3><strong>Does access include a fixed credit allocation?</strong></h3>
-<p>Allocations, rates, and recharge requirements can change. The access response and Model Hub are the authoritative sources for the allocation and cost rules that apply to your project. Usage should not continue beyond an approved allocation or billing arrangement.</p>
+<h3><strong>How do purpose and funding affect charges?</strong></h3>
+<p>The intake classifies campus administration, instruction, sponsored research, non-sponsored research or faculty exploration, clinical or patient-care operations, and external partner work separately. For campus administrative work, UC-hosted token use is covered and not recharged. Cloud use is charged from the first token at the current market rate published in the Model Hub. Research projects charge both UC-hosted and cloud model use to a grant or approved research project chartstring. Other UC campuses may use the Gateway through an inter-campus recharge agreement and are recharged for both UC-hosted and cloud model use. Your approval response records the access, limits, and billing treatment assigned to your key.</p>
+
+<h3><strong>What does a cloud access request require?</strong></h3>
+<p>Cloud access requires a chartstring, named budget owner, and spend limit when the key is issued. Chargeable requests also require the appropriate budget-owner or principal-investigator acknowledgment. ITS cloud requests follow the TritonAI budget-manager approval path and use the designated program funding process.</p>
+
+<h3><strong>How are Health Sciences requests classified?</strong></h3>
+<p>Health Sciences teaching, research-support, and administrative requests are evaluated by purpose like their campus equivalents. Medical Center clinical and patient-care operations use the Medical Center's platform. Incidental TritonAI use for that work requires case-by-case review.</p>
 
 <h3><strong>Can I use the API for a production application?</strong></h3>
 <p>A working prototype does not by itself authorize production use. Production readiness is reviewed from the application's audience, data, integrations, accessibility, security, support model, monitoring, and accountable owners.</p>
@@ -497,34 +506,16 @@
                             <article aria-label="Sidebar Nav" class="main-content-nav" role="navigation">
                                                                                                                                             
         
-            <h2>
-                                    <a href="index.html">Developer APIs</a>
-                    </h2>
-    
-                                        
-        
-                    
-        
-    <ul class="navbar-list">
-                
-             
-                                                            
-                                                                                                                                    
-                                                                
-                                                                                                                                <li class="">
-                    <a href="start.html">
-                Get Started
-            </a>
-            </li>
-                                                                                                                
-             
-                                                            
-                                                                                                                                                            
-                                                                
-                                                                                                                                <li class="active">
-                    FAQs
-            </li>
-                                                                                                            </ul>
+            <h2><a href="/developer-apis/index.html">Build</a></h2>
+            <ul class="navbar-list">
+                <li><a href="/developer-apis/start.html">Get Started</a></li>
+                <li><a href="/developer-apis/citizen-developer.html">Citizen Developer Guide</a></li>
+                <li><a href="/developer-apis/harness.html">TritonAI Harness</a></li>
+                <li><a href="/developer-apis/dsmlp-datahub.html">DSMLP &amp; DataHub</a></li>
+                <li><a href="/skills/index.html">Skills Library</a></li>
+                <li class="active">Developer FAQs</li>
+                <li><a href="/developer-apis/harness-privacy.html">Harness Privacy Statement</a></li>
+            </ul>
                 
             </article>
             

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "product": "TritonAI Installer",
+  "version": "0.3.3",
+  "publishedAt": "2026-08-13T18:04:06Z",
+  "owner": "TritonAI service team",
+  "source": "https://github.com/dbalders/TritonAI-Installer/releases/tag/v0.3.3",
+  "lastReviewed": "2026-08-21",
+  "dataClassification": "Public",
+  "canonicalUrl": "/developer-apis/start.html",
+  "releaseUrl": "https://github.com/dbalders/TritonAI-Installer/releases/tag/v0.3.3",
+  "checksumsUrl": "https://github.com/dbalders/TritonAI-Installer/releases/download/v0.3.3/SHA256SUMS.txt",
+  "platforms": {
+    "mac": {
+      "label": "Download for Mac",
+      "architecture": "Apple Silicon",
+      "format": "DMG",
+      "filename": "TritonAI-Installer-0.3.3-arm64.dmg",
+      "displaySize": "441 MB",
+      "sizeBytes": 461975177,
+      "sha256": "9427d2c97d8d67a474e7422962f084bde197654a07976b70e48cc5549109b2c2",
+      "downloadUrl": "https://github.com/dbalders/TritonAI-Installer/releases/download/v0.3.3/TritonAI-Installer-0.3.3-arm64.dmg",
+      "signing": "Developer ID signed, Apple notarized, and stapled"
+    },
+    "windows": {
+      "label": "Download for Windows",
+      "architecture": "x64",
+      "format": "Setup EXE",
+      "filename": "TritonAI-Installer-Setup-0.3.3-x64.exe",
+      "displaySize": "390 MB",
+      "sizeBytes": 408978444,
+      "sha256": "4179faa2cd33550b07130e85cd70c5a2a2f75866a27b08f7acf3c624903804b5",
+      "downloadUrl": "https://github.com/dbalders/TritonAI-Installer/releases/download/v0.3.3/TritonAI-Installer-Setup-0.3.3-x64.exe",
+      "signing": "Unsigned; Microsoft Defender SmartScreen may appear"
+    }
+  }
+}

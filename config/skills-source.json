@@ -1,11 +1,10 @@
 {
   "schemaVersion": 1,
-  "note": "Single source of truth for the public Skills Library repository. scripts/sync-skills.mjs pulls from it, scripts/validate.mjs asserts the synced snapshot came from it, and scripts/skills-release-gate.mjs looks for its commit link on the live page. Migrating the library to a different repository is an edit to this file plus one sync run. SKILLS_REPOSITORY_OWNER and SKILLS_REPOSITORY_NAME still override at runtime for testing against a fork.",
+  "note": "Single source of truth for the public TritonAI Skills Library repository and collection. scripts/sync-skills.mjs pulls from it, scripts/validate.mjs asserts the synced snapshot came from it, and scripts/skills-release-gate.mjs looks for its commit link on the live page. SKILLS_REPOSITORY_OWNER and SKILLS_REPOSITORY_NAME still override at runtime for testing against a fork.",
   "owner": "UCSD",
   "repository": "UCSD-Skills-Library",
   "liveUrl": "https://tritonai.ucsd.edu/skills/index.html",
   "collections": [
-    "tritonai",
-    "community"
+    "tritonai"
   ]
 }

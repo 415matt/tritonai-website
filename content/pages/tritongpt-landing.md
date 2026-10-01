@@ -3,9 +3,9 @@ title: "TritonGPT: UC San Diego AI Assistant"
 path: /tritongpt/index.html
 description: Use TritonGPT, UC San Diego's generative AI platform, to chat with approved models, work with documents, and open campus assistants.
 eyebrow: The platform at the center of TritonAI
-lastReviewed: 2026-08-12
+lastReviewed: 2026-08-25
 audiences: [students, faculty, staff, developers]
-source: TritonGPT public service, guide pages, current public platform presentation, CIO, and Gartner
+source: TritonGPT public service, guide pages, current public platform presentation, UC Protection Level Classification, CIO, and Gartner
 canonicalUrl: /tritongpt/index.html
 relatedSlides: [tritongpt-platform, tritongpt-secure-scalable-ai-platform, instructional-ai-socratic-tutor-faculty-assistant]
 landingHub: true
@@ -17,7 +17,7 @@ bannerMode: abstract
 <section class="tritongpt-intro" aria-labelledby="access-tritongpt-heading">
 <div class="container">
 <div class="tritongpt-intro-card row">
-<div class="col-md-7 tritongpt-intro-copy"><p class="home-kicker">Available to eligible campus users</p><h2 id="access-tritongpt-heading">Start in TritonGPT</h2><p class="tritongpt-intro-lede">TritonGPT is UC San Diego's generative AI platform for eligible campus users. Sign in to chat, work with your own documents, choose a model, or open an assistant built for a campus task.</p><ul class="tritongpt-intro-points"><li><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>Campus sign-in</li><li><span class="glyphicon glyphicon-file" aria-hidden="true"></span>Your own documents</li><li><span class="glyphicon glyphicon-random" aria-hidden="true"></span>Approved models</li></ul><div class="tritongpt-intro-actions"><a class="btn btn-primary btn-lg" href="https://tritongpt.ucsd.edu/">Open TritonGPT</a><a class="btn btn-default btn-lg" href="/training-resources/tritongpt/index.html">Read the getting-started guide</a></div></div>
+<div class="col-md-7 tritongpt-intro-copy"><p class="home-kicker">Available to eligible campus users</p><h2 id="access-tritongpt-heading">Start in TritonGPT</h2><p class="tritongpt-intro-lede">TritonGPT is UC San Diego's generative AI platform for eligible campus users. Sign in to chat, work with your own documents, choose a model, or open an assistant built for a campus task.</p><p><strong>Data protection:</strong> UC San Diego has approved TritonGPT for use with UC information classified up to Protection Level 3 (P3) when the use is within an approved service. P4 data is not approved. <a href="https://security.ucop.edu/policies/institutional-information-and-it-resource-classification.html" rel="noopener noreferrer" target="_blank">Review the UC Protection Levels</a>.</p><ul class="tritongpt-intro-points"><li><span class="glyphicon glyphicon-lock" aria-hidden="true"></span>Campus sign-in</li><li><span class="glyphicon glyphicon-file" aria-hidden="true"></span>Your own documents</li><li><span class="glyphicon glyphicon-random" aria-hidden="true"></span>Approved models</li></ul><div class="tritongpt-intro-actions"><a class="btn btn-primary btn-lg" href="https://tritongpt.ucsd.edu/">Open TritonGPT</a><a class="btn btn-default btn-lg" href="/training-resources/tritongpt/index.html">Read the getting-started guide</a></div></div>
 <div class="col-md-5 tritongpt-intro-media"><img alt="Abstract TritonGPT platform connecting chat, documents, approved models, and campus knowledge" class="img-responsive" src="/_images/editorial/tritongpt-platform-intro.webp"></div>
 </div>
 </div>

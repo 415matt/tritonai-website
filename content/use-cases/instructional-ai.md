@@ -2,6 +2,7 @@
 title: Instructional AI
 slug: instructional-ai
 summary: Course assistants that answer from the material an instructor approved, inside the limits that instructor sets.
+buildPath: TritonGPT course assistants
 status: Pilot
 owner: Participating instructors and the TritonAI instructional AI team
 lastReviewed: 2026-07-25

@@ -4,8 +4,6 @@ date: 2026-04-20
 source: "ucsd-ai-newsletter-2026-04-20.md"
 items: 8
 ---
-_Week of April 20, 2026 — your roundup of what's new with UC San Diego's supported AI services._
-
 ## What's New in Your AI Tools
 
 ### TritonGPT

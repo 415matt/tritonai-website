@@ -3,7 +3,7 @@ title: TritonAI Updates
 path: /about/tritonai-updates.html
 description: Follow verified launches and milestones across campus AI services, developer tools, infrastructure, and UC San Diego AI applications.
 eyebrow: About TritonAI
-lastReviewed: 2026-08-12
+lastReviewed: 2026-08-30
 audiences: [students, faculty, staff, developers, leaders]
 source: Approved TritonAI service updates and public program milestones
 canonicalUrl: /about/tritonai-updates.html

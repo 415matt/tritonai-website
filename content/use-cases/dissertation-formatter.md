@@ -2,6 +2,7 @@
 title: Dissertation Formatter
 slug: dissertation-formatter
 summary: Checks a dissertation against the graduate formatting rules, fixes what it safely can, and flags the rest for the student to decide.
+buildPath: TritonAI solutions team build
 status: Pilot
 owner: TritonAI solutions team and the sponsoring graduate-education service owner
 lastReviewed: 2026-07-24

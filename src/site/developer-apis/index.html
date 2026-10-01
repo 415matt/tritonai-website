@@ -344,8 +344,29 @@
 
 <img src="../_images/tritonai-architecture-public.svg" alt="Public TritonAI architecture showing a campus need moving through an approved gateway to models, knowledge, tools, and human review" class="img-responsive" style="width: 100%; margin: 20px 0;"/>
 
-<h3>TritonAI Harness pilot</h3>
-<p>The TritonAI Harness is being piloted as a workspace for bounded, tool-using AI workflows. It can coordinate model requests, approved tools, reusable skills, and multi-step work. Availability and supported capabilities are confirmed during project review.</p>
+<h3>TritonAI Harness</h3>
+<p>The TritonAI Harness is UC San Diego's primary supported desktop workspace for building and running AI agents. The installer sets up the managed runtime and campus skills. Your approved service path determines the cloud or on-prem model routes, plugins, connections, and data you may use. The Harness is in active pilot and changes quickly.</p>
+
+<h4>What the Harness includes</h4>
+<ul>
+<li><strong>Managed installer:</strong> sets up the selected Harness release, its managed runtime, campus configuration, and secure skills.</li>
+<li><strong>Approved model routes:</strong> cloud and on-prem access are granted separately for the reviewed task. The Model Hub remains the source for hosting and capabilities.</li>
+<li><strong>Reviewed skills and plugins:</strong> the current release includes managed GitHub, Google Workspace, and Microsoft 365 providers alongside secure campus skills.</li>
+<li><strong>Permission boundaries:</strong> connection tokens remain outside the agent context, and users choose the permissions granted to each connection.</li>
+<li><strong>Supervised execution:</strong> start new workflows in supervised mode. Increase autonomy only for bounded, reversible work with approved permissions.</li>
+<li><strong>Desktop work in one place:</strong> use chat, files, images, voice input, diffs, and a built-in browser from the same workspace.</li>
+</ul>
+
+<h4>Download and install</h4>
+<p>Supported packages cover macOS for Apple Silicon and Windows for x64. The macOS package is Developer ID signed, Apple notarized, and stapled. The current Windows packages are unsigned and may trigger Microsoft Defender SmartScreen. Linux and Intel Mac packages are unavailable. The release page provides the current version, verification notes, and SHA-256 checksums.</p>
+<p>Installation and access are separate steps. Harness eligibility, cloud model routes, on-prem model routes, plugins, and campus data permissions are approved for the intended work. Enter access keys through the managed setup and keep them out of prompts and project files.</p>
+<p><a class="btn btn-primary" href="../developer-apis/start.html">Request Harness access</a> <a class="btn btn-default" href="https://github.com/dbalders/TritonAI-Installer/releases/latest">Download the current installer <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></a></p>
+
+<h4>Supported alternatives</h4>
+<p>If you already prefer a different environment, Claude Code and the Codex desktop app are also supported. The Harness is the recommended starting point because it comes pre-configured for campus.</p>
+
+<h4>How the Harness fits with n8n</h4>
+<p>The Harness supports interactive agent work across files, browsers, and connected tools. <a href="https://n8n.tritonai.ucsd.edu/">n8n</a> supports processes that begin from a known trigger and follow a repeatable path. Projects can use the Harness for interactive work and n8n for recurring execution.</p>
 
 <h3>Shared responsibility</h3>
 <div class="row">

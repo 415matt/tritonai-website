@@ -2,6 +2,7 @@
 title: Transcript Matching
 slug: transcript-matching
 summary: Matches incoming transcripts to student records, scores its own confidence, and sends the uncertain ones to staff.
+buildPath: TritonAI solutions team build
 status: Production
 owner: TritonAI solutions team and the sponsoring student-services owner
 lastReviewed: 2026-07-25

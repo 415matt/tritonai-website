@@ -36,5 +36,5 @@ _Monday, August 10, 2026_
 
 ## TritonAI News
 
--   **[Puppy Bots and Bot Tour Guides: Inside a Human-Robot Interaction Class at UC San Diego](https://today.ucsd.edu/news/puppy-bots-and-bot-tour-guides-inside-a-human-robot-interaction-class-at-uc-san-diego)** — A UC San Diego course gives students hands-on experience building and interacting with robots, exploring how humans and machines work together.
--   **[With ARPA-H Award, UC San Diego Engineers Will Develop a Soft, Autonomous Robot for Stroke Care](https://today.ucsd.edu/news/with-arpa-h-award-uc-san-diego-engineers-will-develop-a-soft-autonomous-robot-for-stroke-care)** — Federal funding supports a new soft robot designed to assist with stroke rehabilitation autonomously.
+-   **[Puppy Bots and Bot Tour Guides: Inside a Human-Robot Interaction Class at UC San Diego](https://today.ucsd.edu/photo-essays/puppy-bots-and-bot-tour-guides-inside-a-human-robot-interaction-class-at-uc-san-diego)** — A UC San Diego course gives students hands-on experience building and interacting with robots, exploring how humans and machines work together.
+-   **[With ARPA-H Award, UC San Diego Engineers Will Develop a Soft, Autonomous Robot for Stroke Care](https://today.ucsd.edu/story/with-arpa-h-award-uc-san-diego-engineers-will-develop-a-soft-autonomous-robot-for-stroke-care)** — Federal funding supports a new soft robot designed to assist with stroke rehabilitation autonomously.

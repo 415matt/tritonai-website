@@ -2,6 +2,7 @@
 title: BioBib
 slug: biobib
 summary: Faculty pull approved activity data into a BioBib draft, then check every section before it goes anywhere.
+buildPath: TritonAI solutions team build
 status: Pilot
 owner: TritonAI solutions team and the sponsoring academic service owner
 lastReviewed: 2026-07-25

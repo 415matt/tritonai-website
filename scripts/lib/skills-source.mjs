@@ -30,3 +30,7 @@ export async function loadSkillsSource() {
 export function skillPathPattern(collections) {
   return new RegExp(`^(?:${collections.join("|")})/[^/]+/SKILL\\.md$`);
 }
+
+export function isRetiredSkillDescription(description) {
+  return /^retired(?:[.:\s]|$)/i.test(String(description || "").trim());
+}

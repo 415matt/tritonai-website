@@ -191,6 +191,30 @@ export async function interactionChecks(page, width) {
   return outcome;
 }
 
+export function failedInteractionNames(outcome) {
+  return Object.entries(outcome)
+    .filter(([, status]) => status === "fail")
+    .map(([name]) => name);
+}
+
+// Decorator behavior depends on remote CDN scripts. A single clean reload lets
+// the gate distinguish a transient dependency delay from a persistent shell
+// defect without weakening the final interaction result.
+export async function interactionChecksWithRetry(check, reload) {
+  const initial = await check();
+  const initialFailures = failedInteractionNames(initial);
+  if (!initialFailures.length) {
+    return { interactions: initial, attempts: 1, initialFailures };
+  }
+
+  await reload();
+  return {
+    interactions: await check(),
+    attempts: 2,
+    initialFailures,
+  };
+}
+
 export async function axeResults(page) {
   const result = await new AxeBuilder({ page }).withTags(AXE_TAGS).analyze();
   return result.violations.map((violation) => ({

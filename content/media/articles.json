@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "lastReviewed": "2026-07-30",
+  "lastReviewed": "2026-08-30",
   "owner": "TritonAI program",
   "source": "Curated archive plus automated web search via scripts/sync-media-coverage.mjs",
   "queries": [
@@ -16,10 +16,26 @@
       "description": "Recent writing about adoption and the choices behind shared institutional AI.",
       "articles": [
         {
-          "date": "2026-07-13",
+          "date": "2026-08-03",
           "source": "Higher Ed AI Playbook",
-          "title": "Adoption Without Authority: What 50,000 Students and Faculty Just Revealed",
-          "url": "https://higheredaiplaybook.substack.com/p/adoption-without-authority-what-50000",
+          "title": "2.5 Hours to 11 Minutes, 60,000 Transcripts at 98%, 17 Models Under One Roof: Inside UC San Diego’s Build-It-Yourself AI Strategy",
+          "url": "https://www.higheredaiplaybook.com/p/25-hours-to-11-minutes-60000-transcripts",
+          "kind": "Article",
+          "curated": true
+        },
+        {
+          "date": "2026-08-03",
+          "source": "Higher Ed AI Playbook",
+          "title": "Use Case Lab Live #4 with Brett Pollak of UCSD",
+          "url": "https://www.higheredaiplaybook.com/p/use-case-lab-live-4-with-brett-pollak",
+          "kind": "Video interview",
+          "curated": true
+        },
+        {
+          "date": "2026-07-08",
+          "source": "Higher Ed AI Playbook",
+          "title": "UC San Diego Built Its Own AI — and Now Sells It to Berkeley",
+          "url": "https://www.higheredaiplaybook.com/p/uc-san-diego-built-its-own-ai-and",
           "kind": "Article",
           "curated": true
         }

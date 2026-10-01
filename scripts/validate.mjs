@@ -26,6 +26,7 @@ const inheritedProductionFailures = new Set();
 const standaloneRoutes = new Set([
   "/training/harness/index.html",
   "/presentations/managing-the-tritonai-website.html",
+  "/tritongpt/bgpt-chat-generator/index.html",
 ]);
 const renderedProvenancePatterns = [
   { pattern: /\bSource:\s*[^<\n]*\.md\b/i, label: "internal content filename" },
@@ -104,11 +105,13 @@ function normalizeRoute(route) {
 }
 
 function navigationOwner(items, route) {
+  // The navigation data decides which section a page belongs to. The URL
+  // prefix is only a fallback for pages that no menu lists.
+  const listed = items.find((item) => item.href === route || item.items?.some((child) => child.href === route));
+  if (listed) return listed;
   const section = route.split("/").filter(Boolean)[0] || "";
   if (!section) return null;
-  const sectionOwner = items.find((item) => (item.href.split("/").filter(Boolean)[0] || "") === section);
-  if (sectionOwner) return sectionOwner;
-  return items.find((item) => item.items?.some((child) => child.href === route)) || null;
+  return items.find((item) => (item.href.split("/").filter(Boolean)[0] || "") === section) || null;
 }
 
 function sidebarChildren(item) {
@@ -173,6 +176,7 @@ const performance = [];
 const navigation = [];
 const decorator = [];
 const analytics = [];
+const webMcp = [];
 
 // Page chrome integrity. `decorator` holds stylistic conformance findings;
 // these are shaped differently (rule, diff, markup, remedy) and pin the shared
@@ -221,6 +225,8 @@ for (const asset of files.filter((file) => file.endsWith(".svg"))) {
 const roadmapContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "roadmap/milestones.json"), "utf8"));
 const factsContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "facts/public-facts.json"), "utf8"));
 const gatewayUsageContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "facts/gateway-usage.json"), "utf8"));
+const harnessInstallerContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "harness/installer.json"), "utf8"));
+const modelCatalogContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "models/catalog.json"), "utf8"));
 const skillsContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "skills/library.json"), "utf8"));
 const homeHeroContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "home/hero.json"), "utf8"));
 const siteContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "site.json"), "utf8"));
@@ -244,6 +250,23 @@ const gatewayMissing = missingFields(gatewayUsageContent, gatewayRequired);
 if (gatewayMissing.length) contentFindings.push({ source: "facts/gateway-usage.json", issue: `Missing fields: ${gatewayMissing.join(", ")}` });
 const gatewayPeriodMissing = missingFields(gatewayUsageContent.measurementPeriod || {}, ["start", "end", "label"]);
 if (gatewayPeriodMissing.length) contentFindings.push({ source: "facts/gateway-usage.json#measurementPeriod", issue: `Missing fields: ${gatewayPeriodMissing.join(", ")}` });
+const harnessInstallerMissing = missingFields(harnessInstallerContent, ["schemaVersion", "product", "version", "publishedAt", "owner", "source", "lastReviewed", "dataClassification", "canonicalUrl", "releaseUrl", "checksumsUrl", "platforms"]);
+if (harnessInstallerMissing.length) contentFindings.push({ source: "harness/installer.json", issue: `Missing fields: ${harnessInstallerMissing.join(", ")}` });
+for (const platformId of ["mac", "windows"]) {
+  const platform = harnessInstallerContent.platforms?.[platformId] || {};
+  const platformMissing = missingFields(platform, ["label", "architecture", "format", "filename", "displaySize", "sizeBytes", "sha256", "downloadUrl", "signing"]);
+  if (platformMissing.length) contentFindings.push({ source: `harness/installer.json#${platformId}`, issue: `Missing fields: ${platformMissing.join(", ")}` });
+  if (!Number.isInteger(platform.sizeBytes) || platform.sizeBytes <= 0 || !/^[a-f0-9]{64}$/.test(platform.sha256 || "")) {
+    contentFindings.push({ source: `harness/installer.json#${platformId}`, issue: "Installer size and SHA-256 must identify the published artifact" });
+  }
+  if (
+    !platform.filename?.includes(harnessInstallerContent.version) ||
+    !platform.downloadUrl?.endsWith(`/${platform.filename}`) ||
+    platform.downloadUrl?.includes("portable")
+  ) {
+    contentFindings.push({ source: `harness/installer.json#${platformId}`, issue: "Installer filename, version, and direct download URL do not match" });
+  }
+}
 const updateFeedRequired = ["schemaVersion", "title", "description", "owner", "source", "lastReviewed", "streams", "areas", "updates"];
 const updateFeedMissing = missingFields(tritonAiUpdatesContent, updateFeedRequired);
 if (updateFeedMissing.length) contentFindings.push({ source: "updates/tritonai-updates.json", issue: `Missing fields: ${updateFeedMissing.join(", ")}` });
@@ -425,6 +448,7 @@ const freshnessEntries = [
   ...(roadmapContent.items || []).map((item, index) => ({ filename: `roadmap/milestones.json#${index + 1}`, lastReviewed: isoDate(item.lastReviewed) })),
   ...(factsContent.facts || []).map((fact, index) => ({ filename: `facts/public-facts.json#${fact.id || index + 1}`, lastReviewed: isoDate(fact.lastReviewed) })),
   { filename: "facts/gateway-usage.json", lastReviewed: isoDate(gatewayUsageContent.lastReviewed) },
+  { filename: "harness/installer.json", lastReviewed: isoDate(harnessInstallerContent.lastReviewed) },
   { filename: "home/hero.json", lastReviewed: isoDate(homeHeroContent.lastReviewed) },
   { filename: "updates/tritonai-updates.json", lastReviewed: isoDate(tritonAiUpdatesContent.lastReviewed) },
 ];
@@ -524,22 +548,28 @@ for (const page of htmlFiles) {
     }
   }
 
-  const primaryNav = $("#navbar > .navbar-nav-list").first();
-  if (!primaryNav.length && !standalone) {
-    navigation.push({ page: route, issue: "Primary navigation is missing" });
-  } else {
-    const primaryItems = primaryNav.children("li").toArray();
-    const activeItems = primaryItems.filter((item) => $(item).hasClass("active"));
-    const expectedOwner = navigationOwner(siteContent.navigation || [], route);
-    if (!expectedOwner && activeItems.length) {
-      navigation.push({ page: route, issue: "Primary navigation should not have an active item" });
-    }
-    if (expectedOwner) {
-      const expectedItem = primaryItems.find(
-        (item) => normalizeRoute(toLocalPath($(item).children("a").attr("href"), page) || "") === normalizeRoute(expectedOwner.href),
-      );
-      if (!expectedItem || activeItems.length !== 1 || activeItems[0] !== expectedItem) {
-        navigation.push({ page: route, issue: `Incorrect active primary navigation; expected ${expectedOwner.label}` });
+  // A standalone page renders no Decorator navigation, so it has no active state
+  // to assert. The whole block is skipped rather than just the missing-navbar
+  // check: an absent navbar otherwise reads as one missing its active item, which
+  // fires for any standalone route that sits under a section in the nav tree.
+  if (!standalone) {
+    const primaryNav = $("#navbar > .navbar-nav-list").first();
+    if (!primaryNav.length) {
+      navigation.push({ page: route, issue: "Primary navigation is missing" });
+    } else {
+      const primaryItems = primaryNav.children("li").toArray();
+      const activeItems = primaryItems.filter((item) => $(item).hasClass("active"));
+      const expectedOwner = navigationOwner(siteContent.navigation || [], route);
+      if (!expectedOwner && activeItems.length) {
+        navigation.push({ page: route, issue: "Primary navigation should not have an active item" });
+      }
+      if (expectedOwner) {
+        const expectedItem = primaryItems.find(
+          (item) => normalizeRoute(toLocalPath($(item).children("a").attr("href"), page) || "") === normalizeRoute(expectedOwner.href),
+        );
+        if (!expectedItem || activeItems.length !== 1 || activeItems[0] !== expectedItem) {
+          navigation.push({ page: route, issue: `Incorrect active primary navigation; expected ${expectedOwner.label}` });
+        }
       }
     }
   }
@@ -765,6 +795,8 @@ for (const page of htmlFiles) {
   }
   const performanceRuntime = $("script[src$='/_resources/js/site-performance.js'][defer]");
   if (performanceRuntime.length !== 1) performance.push({ page: route, issue: "Performance runtime is missing or not deferred" });
+  const webMcpRuntime = $("script[src$='/_resources/js/webmcp.js'][defer]");
+  if (webMcpRuntime.length !== 1) webMcp.push({ page: route, issue: "WebMCP runtime is missing or not deferred" });
   if ($("body").hasClass("agent-page")) {
     const agentStylesheet = $("link[href*='/agent-site.css']").attr("href") || "";
     if (!/[?&]v=[a-f0-9]{12}(?:$|&)/.test(agentStylesheet)) {
@@ -925,6 +957,24 @@ for (const page of htmlFiles) {
     for (const selector of requiredSections) {
       if ($(selector).length !== 1) accessibility.push({ page: route, issue: `Expected one ${selector.slice(1)} section` });
     }
+    const expectedPrimaryGuidance = useCase.primaryGuidance ? 1 : 0;
+    const primaryGuidance = $(".use-case-primary-guidance");
+    if (primaryGuidance.length !== expectedPrimaryGuidance) {
+      contentFindings.push({ source: route, issue: "Rendered primary guidance does not match use-case content" });
+    }
+    if (useCase.primaryGuidance && primaryGuidance.length === 1) {
+      if (primaryGuidance.find("h2").text().trim() !== useCase.primaryGuidance.title) {
+        contentFindings.push({ source: route, issue: "Primary guidance heading does not match use-case content" });
+      }
+      const renderedResourceHrefs = primaryGuidance.find("nav a[href]").map((_, element) => $(element).attr("href")).get();
+      const expectedResourceHrefs = useCase.primaryGuidance.links.map((link) => link.href);
+      if (JSON.stringify(renderedResourceHrefs) !== JSON.stringify(expectedResourceHrefs)) {
+        contentFindings.push({ source: route, issue: "Primary guidance resources do not match use-case content" });
+      }
+      if (primaryGuidance.next(".use-case-overview").length !== 1) {
+        contentFindings.push({ source: route, issue: "Primary guidance must appear before the use-case overview" });
+      }
+    }
     if ($(".use-case-governance-grid > div").length !== 4) {
       contentFindings.push({ source: route, issue: "Use-case accountability summary must contain four fields" });
     }
@@ -1002,62 +1052,122 @@ for (const page of htmlFiles) {
     const narrativeOrder = $(".landing-hub-content").children("section, nav").map((_, element) => $(element).attr("id")).get().filter(Boolean);
     const expectedNarrativeOrder = [
       "builder-entry-points",
-      "tritonai-harness",
+      "what-it-costs",
       "api-gateway",
+      "model-catalog",
+      "tritonai-harness",
+      "workflow-automation",
+      "built-on-tritonai",
       "gateway-usage",
-      "service-lifecycle",
-      "hosting-lanes",
-      "shared-responsibility",
+      "service-ladder",
       "builder-resources",
       "build-start"
     ];
     const narrativePositions = expectedNarrativeOrder.map((id) => narrativeOrder.indexOf(id));
     if (narrativePositions.some((position) => position === -1) || narrativePositions.some((position, index) => index > 0 && position <= narrativePositions[index - 1])) {
-      contentFindings.push({ source: route, issue: "Build landing page sections must follow the intended overview, entry point, workspace, platform, lifecycle, hosting, ownership, and resource narrative" });
+      contentFindings.push({ source: route, issue: "Build landing page sections must follow the path, cost, model, client, workflow, evidence, usage, ladder, and resource narrative" });
     }
-    const gatewayMap = $(".api-gateway-map");
+    const pathCards = $("#builder-entry-points .builder-track-card");
+    if (
+      pathCards.length !== 3 ||
+      pathCards.filter((_, element) => $(element).find(`a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/developer-apis/harness.html']`).length === 1).length !== 1 ||
+      pathCards.filter((_, element) => $(element).find(`a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/developer-apis/start.html#n8n']`).length === 1).length !== 1 ||
+      pathCards.filter((_, element) => $(element).find(`a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/developer-apis/start.html']`).length === 1).length !== 1
+    ) {
+      contentFindings.push({ source: route, issue: "Build landing page must offer the TritonAI Harness, n8n, and API paths the homepage promises" });
+    }
+    const costSection = $("#what-it-costs");
+    if (
+      costSection.length !== 1 ||
+      costSection.find(".hub-number-grid article").length !== 4 ||
+      costSection.text().includes("Recharge is the campus term") === false ||
+      /\$\d|per token|per month/.test(costSection.text())
+    ) {
+      contentFindings.push({ source: route, issue: "Build landing page cost summary must define recharge, list the four funding cases, and leave rates to the Model Hub" });
+    }
+    const gatewayMap = $("#api-gateway .api-gateway-map");
     if (
       gatewayMap.length !== 1 ||
       gatewayMap.find(".api-gateway-builders .api-gateway-node-list > li").length !== 4 ||
       gatewayMap.find(".api-gateway-workspaces .api-gateway-node-list > li").length !== 3 ||
       gatewayMap.find(".api-gateway-core").length !== 1 ||
       gatewayMap.find(".api-gateway-routes .api-gateway-node-list > li").length !== 2 ||
-      gatewayMap.find(".api-gateway-capabilities li").length !== 6
-    ) {
-      contentFindings.push({ source: route, issue: "API gateway diagram is missing a builder, workspace, gateway, route, or capability group" });
-    }
-    if (gatewayMap.find(".api-gateway-node-preferred").text().trim().includes("TritonAI Harness") === false) {
-      contentFindings.push({ source: route, issue: "API gateway diagram must identify TritonAI Harness as the preferred campus workspace" });
-    }
-    if (
+      gatewayMap.find(".api-gateway-capabilities li").length !== 6 ||
+      gatewayMap.find(".api-gateway-node-preferred").text().includes("TritonAI Harness") === false ||
       gatewayMap.find(".api-gateway-core ul").length !== 0 ||
-      /Access and routing|Usage tracking|Templates and guardrails/.test(gatewayMap.find(".api-gateway-core").text())
+      gatewayMap.text().includes("UC-hosted") === false ||
+      /harness(es)?\b(?!.*TritonAI)/i.test(gatewayMap.find(".api-gateway-workspaces").text().replace(/TritonAI Harness/g, ""))
     ) {
-      contentFindings.push({ source: route, issue: "API gateway core must retain a concise label without the removed detail list" });
+      contentFindings.push({ source: route, issue: "API gateway diagram must show four builder groups, three client tiers with TritonAI Harness preferred, one endpoint, two routes named UC-hosted and enterprise cloud, and six capabilities" });
+    }
+    const modelSection = $("#model-catalog");
+    if (
+      modelSection.length !== 1 ||
+      modelSection.find("table.model-catalog-table tbody tr").length !== (modelCatalogContent.models || []).length ||
+      modelSection.find("a[href='https://tritonai-api.ucsd.edu/ui/model_hub_table/']").length < 1 ||
+      modelSection.text().includes("UC-hosted") === false
+    ) {
+      contentFindings.push({ source: route, issue: "Build landing page model catalog must match the synced catalog and point to the Model Hub" });
     }
     const harnessSection = $("#tritonai-harness");
-    const harnessFlow = harnessSection.find(".build-harness-flow > li");
-    if (harnessSection.length !== 1 || harnessFlow.length !== 4) {
-      contentFindings.push({ source: route, issue: "Build landing page must include the four-step TritonAI Harness overview" });
-    }
-    if ($(`.hub-link-columns a[href='#tritonai-harness']`).length !== 1) {
-      accessibility.push({ page: route, issue: "Builder resources must link to the TritonAI Harness overview" });
-    }
-    const hostingLanes = $("#hosting-lanes");
+    const harnessText = harnessSection.text().replace(/\s+/g, " ");
     if (
-      hostingLanes.length !== 1 ||
-      hostingLanes.find(".hosting-lanes > .hosting-lane").length !== 4 ||
-      hostingLanes.find(".hosting-lane-escalation").length !== 3 ||
-      hostingLanes.find(".hosting-lane-triggers li").length !== 3
+      harnessSection.length !== 1 ||
+      harnessSection.find(".build-tool-grid > article").length !== 3 ||
+      harnessSection.find(".build-tool-preferred").text().includes("TritonAI Harness") === false ||
+      harnessSection.find(`a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/developer-apis/harness.html']`).length !== 1 ||
+      harnessSection.find(`a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/developer-apis/start.html#harness']`).length !== 1 ||
+      harnessSection.find("a[href*='github.com/dbalders/TritonAI-Installer']").length !== 0 ||
+      /in pilot/i.test(harnessText) === false ||
+      harnessText.includes("Mac (Apple Silicon) and Windows") === false ||
+      /An active TritonAI access key is a prerequisite|Supported packages:|Check access & install|Open TritonAI Harness|releases\/tag\/v\d|hand over full access|whatever the task and your nerves/.test(harnessText)
     ) {
-      contentFindings.push({ source: route, issue: "Build landing page must include four hosting lanes, three escalation steps, and three escalation triggers" });
+      contentFindings.push({ source: route, issue: "Build page must compare API clients, state TritonAI Harness pilot status and platforms, and hand installation to the setup page" });
+    }
+    const apiClientGuidance = `${$(".hub-section-intro").text()} ${$("#api-gateway").text()} ${modelSection.text()} ${harnessText} ${$("#build-start").text()}`.replace(/\s+/g, " ");
+    for (const requiredTerm of ["primary supported client", "Claude Code and Codex", "Hermes, OpenCode", "Gateway endpoint and key"]) {
+      if (apiClientGuidance.includes(requiredTerm) === false) {
+        contentFindings.push({ source: route, issue: `Build page API client guidance is missing: ${requiredTerm}` });
+      }
+    }
+    if (/OpenAI[- ]compatible/i.test($("main#main-content").text())) {
+      contentFindings.push({ source: route, issue: "Build page must not describe the Gateway as OpenAI-compatible" });
+    }
+    if (/campus administrative work|not recharged|current Model Hub rates|Research projects charge|grant or approved research project chartstring|inter-campus recharge|chartstring|budget owner|spending limit/.test(apiClientGuidance)) {
+      contentFindings.push({ source: route, issue: "Build page must leave detailed eligibility, funding, and billing guidance on the access page" });
+    }
+    if ($(`#workflow-automation a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/developer-apis/start.html#n8n']`).length !== 1 || $("#workflow-automation a[href='https://n8n.tritonai.ucsd.edu/']").length !== 1) {
+      contentFindings.push({ source: route, issue: "Workflow automation section must hand n8n access to the setup page and link the n8n workspace" });
     }
     if (
-      hostingLanes.text().includes("~1000") ||
-      hostingLanes.text().includes("*.apps.ucsd.edu") ||
-      hostingLanes.text().includes("*.tritonai.ucsd.edu")
+      $("#built-on-tritonai .use-case-card").length !== 3 ||
+      $(`#built-on-tritonai a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/use-cases/class-planner-app.html']`).length < 1 ||
+      $(`#built-on-tritonai a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/use-cases/passport-app.html']`).length < 1 ||
+      $(`#built-on-tritonai a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/use-cases/ai-use-case-meeting.html']`).length < 1 ||
+      $(`#built-on-tritonai a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/use-cases/index.html']`).length !== 1
     ) {
-      contentFindings.push({ source: route, issue: "Public hosting lanes must not include internal volume estimates or tentative hosting domains" });
+      contentFindings.push({ source: route, issue: "Build landing page must show the featured use cases and link to the portfolio" });
+    }
+    if ($(`.hub-link-columns a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/developer-apis/start.html']`).length !== 1 || $(`.hub-link-columns a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/developer-apis/citizen-developer.html']`).length !== 1) {
+      accessibility.push({ page: route, issue: "Builder resources must link to Get Started and the first-project guide" });
+    }
+    const serviceLadder = $("#service-ladder");
+    if (
+      serviceLadder.length !== 1 ||
+      serviceLadder.find(".hosting-lanes > .hosting-lane").length !== 4 ||
+      serviceLadder.find(".hosting-lane-escalation").length !== 0 ||
+      serviceLadder.find(".hosting-lane-triggers li").length !== 3 ||
+      serviceLadder.find(`a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/about/team.html']`).length !== 1 ||
+      serviceLadder.find(`a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/about/strategy.html']`).length !== 1
+    ) {
+      contentFindings.push({ source: route, issue: "Build landing page must include the four-rung service ladder, three triggers, and the ownership and lifecycle handoffs" });
+    }
+    if (
+      serviceLadder.text().includes("~1000") ||
+      serviceLadder.text().includes("*.apps.ucsd.edu") ||
+      serviceLadder.text().includes("*.tritonai.ucsd.edu")
+    ) {
+      contentFindings.push({ source: route, issue: "Public service ladder must not include internal volume estimates or tentative hosting domains" });
     }
     const gatewayUsage = $("#gateway-usage");
     if (gatewayUsage.length !== 1 || gatewayUsage.find(".gateway-usage-metrics > li").length !== (gatewayUsageContent.metrics || []).length) {
@@ -1065,6 +1175,81 @@ for (const page of htmlFiles) {
     }
     if (gatewayUsage.find(".gateway-usage-month").length !== gatewayMonths.length || gatewayUsage.find("tbody tr").length !== gatewayMonths.length) {
       contentFindings.push({ source: route, issue: "Gateway usage chart or table does not match structured monthly data" });
+    }
+  }
+  if (route === "/developer-apis/start.html") {
+    const setupPage = $(".developer-start-page");
+    const setupText = setupPage.text().replace(/\s+/g, " ").trim();
+    const setupSteps = setupPage.find(".developer-start-step, .workbench-card");
+    const requestLink = setupPage.find("a[href='https://ucsd.kualibuild.com/app/6979392e4f46f40289d22645/run']");
+    const macDownload = setupPage.find("a[data-harness-download='mac']");
+    const windowsDownload = setupPage.find("a[data-harness-download='windows']");
+    if (
+      $("main#main-content h1").first().text().trim() !== "Get Started" ||
+      setupSteps.length < 3 ||
+      requestLink.length < 1 ||
+      /managed runtime|model routing|model route|API token|LLM Gateway|SHA-256/.test(setupText)
+    ) {
+      contentFindings.push({ source: route, issue: "Gateway access and Harness setup page must preserve the onboarding workbench" });
+    }
+    if (
+      macDownload.length !== 1 ||
+      windowsDownload.length !== 1 ||
+      macDownload.attr("href") !== harnessInstallerContent.platforms.mac.downloadUrl ||
+      windowsDownload.attr("href") !== harnessInstallerContent.platforms.windows.downloadUrl ||
+      macDownload.attr("href") === harnessInstallerContent.releaseUrl ||
+      windowsDownload.attr("href") === harnessInstallerContent.releaseUrl ||
+      setupPage.find("[data-harness-release]").attr("href") !== harnessInstallerContent.releaseUrl ||
+      setupPage.find("[data-harness-checksums]").attr("href") !== harnessInstallerContent.checksumsUrl
+    ) {
+      contentFindings.push({ source: route, issue: "Harness setup downloads must match the versioned Mac and Windows release metadata" });
+    }
+    if (
+      setupText.includes(harnessInstallerContent.platforms.mac.filename) === false ||
+      setupText.includes(harnessInstallerContent.platforms.windows.filename) === false
+    ) {
+      contentFindings.push({ source: route, issue: "Harness setup page is missing platform or guided Installer instructions" });
+    }
+    if (
+      setupPage.find("a[href='mailto:tritonai@ucsd.edu']").length < 1 ||
+      setupPage.find("a[href='https://pulse.ucsd.edu/departments/is/AI/Pages/default.aspx']").length !== 1 ||
+      setupText.includes("Keep the key private") === false
+    ) {
+      contentFindings.push({ source: route, issue: "Harness setup page is missing key-safety, support, model, or shared-service handoffs" });
+    }
+    for (const requiredTerm of [
+      "Campus and Health Sciences",
+      "monthly caps",
+      "Other UC campuses",
+      "Health System patient care",
+      "TritonAI Harness",
+      "Claude Code and Codex",
+      "grant or project chartstring"
+    ]) {
+      if (setupText.includes(requiredTerm) === false) {
+        contentFindings.push({ source: route, issue: `Harness setup intake guidance is missing: ${requiredTerm}` });
+      }
+    }
+    const catalogIds = new Set((modelCatalogContent.models || []).map((model) => model.id));
+    setupPage.find("code").each((_, element) => {
+      const value = $(element).text().trim();
+      if (/^api-[a-z0-9.-]+$/.test(value) && !catalogIds.has(value)) {
+        contentFindings.push({ source: route, issue: `Get Started page names a model route missing from the synced catalog: ${value}` });
+      }
+    });
+    if (/OpenAI[- ]compatible/i.test(setupText)) {
+      contentFindings.push({ source: route, issue: "Harness setup page must not describe the Gateway as OpenAI-compatible" });
+    }
+    if (/(?<!TritonAI )\bHarness\b/.test(setupText)) {
+      contentFindings.push({ source: route, issue: "Get Started page must use the full TritonAI Harness name" });
+    }
+  }
+  if (route === "/developer-apis/faq.html") {
+    const faqText = $("main#main-content").text().replace(/\s+/g, " ").trim();
+    for (const requiredTerm of ["campus administrative work", "not recharged", "current market rate published", "Research projects charge both UC-hosted and cloud model use", "grant or approved research project chartstring", "inter-campus recharge agreement", "recharged for both UC-hosted and cloud model use", "chartstring", "named budget owner", "spend limit", "P4 data is not approved", "patient-care operations", "approval response"]) {
+      if (faqText.includes(requiredTerm) === false) {
+        contentFindings.push({ source: route, issue: `Developer FAQ access guidance is missing: ${requiredTerm}` });
+      }
     }
   }
   if (route === "/about/roadmap.html") {
@@ -1128,8 +1313,11 @@ for (const page of htmlFiles) {
         accessibility.push({ page: route, issue: `${skillName} is missing instructions or usage details` });
       }
     });
-    if ($("[data-skills-search]").length !== 1 || $("[data-skills-collection]").length !== 1) {
-      accessibility.push({ page: route, issue: "Skills filters are missing" });
+    if ($("[data-skills-search]").length !== 1) {
+      accessibility.push({ page: route, issue: "Skills search is missing" });
+    }
+    if ($("[data-skills-collection]").length !== 0) {
+      contentFindings.push({ source: route, issue: "TritonAI-only catalog should not render a collection filter" });
     }
   }
   if (route === "/training-resources/pathways.html") {
@@ -1235,6 +1423,11 @@ for (const behavior of ["IntersectionObserver", "requestIdleCallback", "data-aft
   if (!performanceRuntimeSource.includes(behavior)) performance.push({ page: "/_resources/js/site-performance.js", issue: `Missing runtime behavior: ${behavior}` });
 }
 
+const webMcpRuntimeSource = await readFile(path.join(DIST_DIR, "_resources/js/webmcp.js"), "utf8").catch(() => "");
+for (const behavior of ["document.modelContext", "registerTool", "get-tritonai-page", "list-tritonai-page-links", "readOnlyHint", "untrustedContentHint"]) {
+  if (!webMcpRuntimeSource.includes(behavior)) webMcp.push({ page: "/_resources/js/webmcp.js", issue: `Missing WebMCP behavior: ${behavior}` });
+}
+
 let routeManifest = null;
 try {
   routeManifest = JSON.parse(await readFile(path.join(DIST_DIR, "_data/routes.json"), "utf8"));
@@ -1310,6 +1503,7 @@ const report = {
     decoratorFailures: decorator.length,
     chromeFailures: chrome.length,
     analyticsFailures: analytics.length,
+    webMcpFailures: webMcp.length,
   },
   missing,
   inherited,
@@ -1325,6 +1519,7 @@ const report = {
   decorator,
   chrome,
   analytics,
+  webMcp,
 };
 await mkdir(REPORT_DIR, { recursive: true });
 await writeFile(path.join(REPORT_DIR, "validation.json"), `${JSON.stringify(report, null, 2)}\n`);
@@ -1350,7 +1545,8 @@ if (
   performance.length ||
   decorator.length ||
   chrome.length ||
-  analytics.length
+  analytics.length ||
+  webMcp.length
 ) {
   // Chrome findings carry the markup and the source of truth, so print them in
   // full rather than making the reader open the JSON report to self-correct.

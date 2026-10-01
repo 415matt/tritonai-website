@@ -2,6 +2,7 @@
 title: Contract Review
 slug: contract-review
 summary: Procurement staff get contract language compared against approved UC legal positions, marked up and ready for a qualified reviewer.
+buildPath: TritonAI solutions team build
 status: Production
 owner: TritonAI solutions team and the sponsoring legal service owner
 lastReviewed: 2026-07-25

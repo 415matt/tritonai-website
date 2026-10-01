@@ -2,6 +2,7 @@
 title: Research Alignment
 slug: research-alignment
 summary: Matches researcher profiles against outside funding and collaboration opportunities, and explains why each one surfaced.
+buildPath: TritonAI solutions team build
 status: In development
 owner: TritonAI solutions team and prospective research-service partners
 lastReviewed: 2026-07-24

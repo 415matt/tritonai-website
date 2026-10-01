@@ -2,6 +2,7 @@
 title: AI Use-Case Meeting
 slug: ai-use-case-meeting
 summary: Biweekly sessions where campus staff bring an AI idea and leave with a scoped use case and a recommendation on whether to proceed.
+buildPath: Program service
 status: Production
 owner: TritonAI program and solutions teams
 lastReviewed: 2026-07-24

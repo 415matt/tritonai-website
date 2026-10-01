@@ -3,8 +3,8 @@
   "title": "TritonAI Updates",
   "description": "Changes across TritonGPT, campus AI services, developer tools, models, and shared infrastructure.",
   "owner": "TritonAI program",
-  "source": "Published TritonGPT release notes and approved TritonAI service updates",
-  "lastReviewed": "2026-08-12",
+  "source": "Published TritonGPT release notes, public TritonAI builder pages, and approved TritonAI service updates",
+  "lastReviewed": "2026-08-30",
   "streams": [
     {
       "id": "program",
@@ -37,6 +37,24 @@
     { "id": "tritongpt", "label": "TritonGPT", "icon": "flash" }
   ],
   "updates": [
+    {
+      "id": "2026-08-30-citizen-developer-data-guidance",
+      "stream": "program",
+      "date": "2026-08-30",
+      "displayDate": "August 30, 2026",
+      "area": "developer",
+      "title": "Citizen developer and data-protection guidance expands",
+      "details": "<p>The new <a href=\"/developer-apis/citizen-developer.html\">Citizen Developer Guide</a> helps staff, faculty, researchers, and developers identify recurring work, choose a supported delivery path, and set data and human-review boundaries before building.</p><p>Updated <a href=\"/about/trust-architecture.html#protection-levels\">data-protection guidance</a> explains that TritonGPT and TritonAI Harness may be used with information up to P3 only within an approved service or setup. P4 data is not approved.</p>"
+    },
+    {
+      "id": "2026-08-21-harness-builder-resources",
+      "stream": "program",
+      "date": "2026-08-21",
+      "displayDate": "August 21, 2026",
+      "area": "developer",
+      "title": "TritonAI Harness access and builder resources expand",
+      "details": "<p>UC San Diego faculty and staff can request access to the TritonAI Gateway, receive approved billing and usage limits, and install the TritonAI Harness on supported Mac or Windows computers. The TritonAI Harness is UC San Diego's primary supported Gateway client. Claude Code and Codex remain supported alternatives.</p><p>The UCSD Skills Library publishes reusable, reviewed capabilities. The Build section explains how the TritonAI Harness, n8n, developer APIs, and supported hosting fit together. <a href=\"/developer-apis/start.html\">Request access and set up the TritonAI Harness</a> or <a href=\"/skills/index.html\">browse the Skills Library</a>.</p>"
+    },
     {
       "id": "2026-07-19-production-workflows",
       "stream": "program",

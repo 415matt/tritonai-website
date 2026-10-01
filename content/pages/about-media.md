@@ -3,7 +3,7 @@ title: Media and recognition
 path: /about/media.html
 description: Media coverage and public appearances about TritonAI and TritonGPT.
 eyebrow: TritonAI in public
-lastReviewed: 2026-08-21
+lastReviewed: 2026-08-30
 audiences: [students, faculty, staff, developers, leaders, media]
 source: https://brettcpollak.com/media and linked original publications
 canonicalUrl: /about/media.html
@@ -28,7 +28,7 @@ bannerMode: abstract
 <div class="landing-section-heading"><p class="home-kicker">Start here</p><h2 id="media-featured-heading">Featured coverage</h2><p>Three perspectives on TritonAI's platform, architecture, and higher-education collaboration.</p></div>
 <div class="media-feature-grid">
 <a class="media-feature-card media-feature-card-gold" href="https://www.cio.com/article/4032770/unpacking-uc-san-diegos-use-of-llms-to-boost-access-to-knowledge.html" rel="noopener noreferrer" target="_blank"><span class="media-type">Case study</span><h3>Unpacking UC San Diego's use of LLMs to boost access to knowledge</h3><p>CIO.com · August 8, 2025</p><span class="media-action">Read the case study <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></span></a>
-<a class="media-feature-card media-feature-card-blue" href="https://higheredaiplaybook.substack.com/p/adoption-without-authority-what-50000" rel="noopener noreferrer" target="_blank"><span class="media-type">Interview</span><h3>Inside TritonGPT: Build the Control Layer, Buy the Horsepower</h3><p>Higher Ed AI Playbook · July 30, 2026</p><span class="media-action">Open the interview <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></span></a>
+<a class="media-feature-card media-feature-card-blue" href="https://www.higheredaiplaybook.com/p/use-case-lab-live-4-with-brett-pollak" rel="noopener noreferrer" target="_blank"><span class="media-type">Interview</span><h3>Use Case Lab Live #4 with Brett Pollak of UCSD</h3><p>Higher Ed AI Playbook · August 3, 2026</p><span class="media-action">Open the interview <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></span></a>
 <a class="media-feature-card media-feature-card-cyan" href="https://www.asugsvsummit.com/schedule/shared-ai-at-scale-developed-by-universities-for-universities" rel="noopener noreferrer" target="_blank"><span class="media-type">Conference session</span><h3>Shared AI at Scale: Developed by Universities for Universities</h3><p>ASU+GSV Summit · April 14, 2026</p><span class="media-action">View the session <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></span></a>
 </div>
 </div>
@@ -79,12 +79,12 @@ bannerMode: abstract
 <div class="container">
 <div class="landing-section-heading"><p class="home-kicker">Written coverage</p><h2 id="media-latest-heading">Latest coverage</h2><p>Recent reporting and case studies about TritonAI and TritonGPT. Browse the full archive by year.</p></div>
 <div class="media-entry-grid">
-<a class="media-entry" href="https://higheredaiplaybook.substack.com/p/adoption-without-authority-what-50000" rel="noopener noreferrer" target="_blank"><span class="glyphicon glyphicon-file" aria-hidden="true"></span><div><span class="media-entry-meta">Higher Ed AI Playbook · July 13, 2026</span><h3>Adoption Without Authority: What 50,000 Students and Faculty Just Revealed</h3><p>Article</p></div></a>
+<a class="media-entry" href="https://www.higheredaiplaybook.com/p/25-hours-to-11-minutes-60000-transcripts" rel="noopener noreferrer" target="_blank"><span class="glyphicon glyphicon-file" aria-hidden="true"></span><div><span class="media-entry-meta">Higher Ed AI Playbook · August 3, 2026</span><h3>2.5 Hours to 11 Minutes, 60,000 Transcripts at 98%, 17 Models Under One Roof: Inside UC San Diego’s Build-It-Yourself AI Strategy</h3><p>Article</p></div></a>
+<a class="media-entry" href="https://www.higheredaiplaybook.com/p/use-case-lab-live-4-with-brett-pollak" rel="noopener noreferrer" target="_blank"><span class="glyphicon glyphicon-file" aria-hidden="true"></span><div><span class="media-entry-meta">Higher Ed AI Playbook · August 3, 2026</span><h3>Use Case Lab Live #4 with Brett Pollak of UCSD</h3><p>Video interview</p></div></a>
+<a class="media-entry" href="https://www.higheredaiplaybook.com/p/uc-san-diego-built-its-own-ai-and" rel="noopener noreferrer" target="_blank"><span class="glyphicon glyphicon-file" aria-hidden="true"></span><div><span class="media-entry-meta">Higher Ed AI Playbook · July 8, 2026</span><h3>UC San Diego Built Its Own AI — and Now Sells It to Berkeley</h3><p>Article</p></div></a>
 <a class="media-entry" href="https://today.ucsd.edu/story/tritongpt-is-here-and-ready-to-help" rel="noopener noreferrer" target="_blank"><span class="glyphicon glyphicon-file" aria-hidden="true"></span><div><span class="media-entry-meta">UC San Diego Magazine · November 21, 2025</span><h3>TritonGPT is Here and Ready to Help</h3><p>Campus story</p></div></a>
 <a class="media-entry" href="https://ucsdguardian.org/2025/11/03/revisited-chatgpt-goes-to-college/" rel="noopener noreferrer" target="_blank"><span class="glyphicon glyphicon-file" aria-hidden="true"></span><div><span class="media-entry-meta">The UCSD Guardian · November 3, 2025</span><h3>Revisited: ChatGPT Goes to College</h3><p>Student journalism</p></div></a>
 <a class="media-entry" href="https://www.forbes.com/sites/avivalegatt/2025/08/10/why-faculty-hold-the-keys-to-higher-ed-s-ai-digital-transformation/" rel="noopener noreferrer" target="_blank"><span class="glyphicon glyphicon-file" aria-hidden="true"></span><div><span class="media-entry-meta">Forbes · August 10, 2025</span><h3>Why Faculty Hold the Keys to Higher Ed's AI Digital Transformation</h3><p>Article</p></div></a>
-<a class="media-entry" href="https://www.cio.com/article/4032770/unpacking-uc-san-diegos-use-of-llms-to-boost-access-to-knowledge.html" rel="noopener noreferrer" target="_blank"><span class="glyphicon glyphicon-file" aria-hidden="true"></span><div><span class="media-entry-meta">CIO.com · August 8, 2025</span><h3>Unpacking UC San Diego's Use of LLMs to Boost Access to Knowledge</h3><p>Case study</p></div></a>
-<a class="media-entry" href="https://ai.berkeley.edu/beargpt" rel="noopener noreferrer" target="_blank"><span class="glyphicon glyphicon-file" aria-hidden="true"></span><div><span class="media-entry-meta">UC Berkeley AI Hub · June 1, 2025</span><h3>BearGPT Enterprise Assistants</h3><p>Partner deployment</p></div></a>
 </div>
 <p><a class="btn btn-primary" href="/about/media-articles.html">View articles and coverage</a></p>
 </div>

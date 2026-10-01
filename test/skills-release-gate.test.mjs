@@ -5,6 +5,7 @@ import {
   shouldDeploySkills,
   snapshotCommit,
 } from "../scripts/skills-release-gate.mjs";
+import { isRetiredSkillDescription } from "../scripts/lib/skills-source.mjs";
 
 const COMMIT = "4d4c48be70156d1d18c80576037f8770f5a68c34";
 
@@ -34,4 +35,9 @@ test("scheduled runs deploy a changed or unreadable production catalog", () => {
 test("main pushes and manual runs always deploy", () => {
   assert.equal(shouldDeploySkills("push", COMMIT, COMMIT), true);
   assert.equal(shouldDeploySkills("workflow_dispatch", COMMIT, COMMIT), true);
+});
+
+test("retired skills are excluded from the public catalog", () => {
+  assert.equal(isRetiredSkillDescription("Retired. Superseded by ucsd-decorator."), true);
+  assert.equal(isRetiredSkillDescription("Build and edit UC San Diego web pages."), false);
 });

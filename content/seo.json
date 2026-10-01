@@ -43,7 +43,7 @@
         "AI governance",
         "AI hosting"
       ],
-      "lastModified": "2026-08-12"
+      "lastModified": "2026-08-30"
     },
     "/about/ai-updates.html": {
       "description": "Read weekly updates on supported AI tools, TritonAI services, and upcoming UC San Diego training and workshops.",
@@ -58,7 +58,7 @@
         "TritonGPT",
         "AI applications"
       ],
-      "lastModified": "2026-08-12"
+      "lastModified": "2026-08-30"
     },
     "/about/roadmap.html": {
       "description": "See the status of TritonAI services and campus AI work from the first chatbot launch through the current governed builder program.",
@@ -66,19 +66,30 @@
     },
     "/developer-apis/faq.html": {
       "title": "Developer APIs and Resources FAQ",
-      "description": "Find answers about TritonAI API access, supported development paths, account setup, security, and help for UC San Diego builders.",
-      "lastModified": "2026-07-29"
+      "description": "Find answers about TritonAI access, use-case and funding intake, cloud requirements, data boundaries, security, and support.",
+      "lastModified": "2026-08-21"
     },
     "/developer-apis/index.html": {
-      "title": "Build AI Services at UC San Diego",
-      "description": "Build generative AI applications and workflows with TritonAI APIs, campus skills, approved model access, and supported hosting.",
+      "title": "Build with TritonAI",
+      "description": "Get one Gateway key to approved AI models, then build with TritonAI Harness, another compatible client, n8n, or your own code.",
       "schemaAbout": [
         "Artificial intelligence development",
         "Generative AI applications",
         "AI APIs",
         "AI agents"
       ],
-      "lastModified": "2026-08-12"
+      "lastModified": "2026-08-30"
+    },
+    "/developer-apis/start.html": {
+      "title": "Get Started with TritonAI",
+      "description": "Request a Gateway key, connect TritonAI Harness or another client, run a first test, and request n8n access separately.",
+      "schemaAbout": [
+        "TritonAI Harness",
+        "TritonAI LLM Gateway",
+        "AI access keys",
+        "Desktop application installation"
+      ],
+      "lastModified": "2026-08-22"
     },
     "/training/harness/index.html": {
       "title": "TritonAI Harness Training",
@@ -138,6 +149,12 @@
       "description": "Watch recorded UC San Diego sessions on TritonGPT, prompting, workflow improvement, and responsible use of AI at work.",
       "lastModified": "2026-07-29"
     },
+    "/tritongpt/bgpt-chat-generator/index.html": {
+      "title": "BearGPT Widget Configurator",
+      "description": "Internal tool that builds a configured BearGPT chat widget script tag.",
+      "robots": "noindex,nofollow",
+      "lastModified": "2026-08-14"
+    },
     "/tritongpt/chatbot-widget.html": {
       "description": "Learn how UC San Diego websites use the TritonGPT chatbot widget to answer campus questions and connect visitors with relevant resources.",
       "lastModified": "2026-07-29"
@@ -151,7 +168,7 @@
         "Large language models",
         "Campus AI"
       ],
-      "lastModified": "2026-08-12"
+      "lastModified": "2026-08-25"
     },
     "/tritongpt/instruction.html": {
       "title": "Instructional AI Program",
@@ -220,6 +237,27 @@
         "Approved AI services"
       ],
       "lastModified": "2026-08-12"
+    },
+    "/developer-apis/harness.html": {
+      "title": "TritonAI Harness at UC San Diego",
+      "description": "Download and configure TritonAI Harness, UC San Diego's primary supported agent workspace for code, files, and campus workflows.",
+      "schemaAbout": [
+        "TritonAI Harness",
+        "AI agents",
+        "Developer tools",
+        "Campus AI workspace"
+      ],
+      "lastModified": "2026-09-03"
+    },
+    "/developer-apis/harness-privacy.html": {
+      "title": "TritonAI Harness Privacy Statement",
+      "description": "Review data residency, on-premises transit, credential protection, and UC Protection Levels for TritonAI Harness.",
+      "schemaAbout": [
+        "TritonAI Harness privacy",
+        "AI data protection",
+        "UC IS-3 compliance"
+      ],
+      "lastModified": "2026-09-03"
     }
   }
 }

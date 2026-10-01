@@ -20,6 +20,14 @@ export function isPublicModel(id) {
   return !/^(?:onyx-|dev-|templ|test-)/.test(id) && !id.includes("-test-");
 }
 
+export function isVisiblePublicModel(model) {
+  return (
+    model?.is_public_model_group === true &&
+    model?.visible === true &&
+    isPublicModel(model.model_group)
+  );
+}
+
 const CLOUD_PROVIDERS = new Set(["azure", "azure_ai", "bedrock", "vertex_ai", "gemini", "anthropic"]);
 
 // Keep publishers in a stable, reviewable order. A model can be served by a
@@ -123,6 +131,7 @@ const DISPLAY_NAMES = {
   "us.amazon.nova-2-lite-v1:0": "Amazon Nova 2 Lite",
   "us.amazon.nova-premier-v1:0": "Amazon Nova Premier",
   "api-glm-5.2": "GLM 5.2",
+  "api-glm-5.3": "GLM 5.3",
   "api-deepseek-v4-flash": "DeepSeek V4 Flash",
   "api-gemma-4-26b": "Gemma 4 26B",
   "api-gemma-4-31b": "Gemma 4 31B",
@@ -165,7 +174,12 @@ export function modelType(id, mode) {
 
 export function formatContext(tokens) {
   if (!Number.isFinite(tokens) || tokens <= 0) return "See Model Hub";
-  if (tokens >= 1000000) return `${tokens / 1000000}M tokens`;
+  if (tokens >= 1000000) {
+    // 1,048,576 and 1,050,000 both read as "1M" to a builder choosing a route.
+    const millions = tokens / 1000000;
+    const rounded = millions < 1.1 ? 1 : Number.parseFloat(millions.toFixed(1));
+    return `${rounded}M tokens`;
+  }
   if (tokens >= 1000) return `${Math.round(tokens / 1000)}K tokens`;
   return `${tokens} tokens`;
 }
@@ -185,7 +199,7 @@ export async function fetchCatalog() {
   }
   const payload = await response.json();
   const models = (Array.isArray(payload) ? payload : [])
-    .filter((model) => isPublicModel(model.model_group))
+    .filter(isVisiblePublicModel)
     .map((model) => ({
       id: model.model_group,
       displayName: deriveDisplayName(model.model_group),
@@ -200,8 +214,33 @@ export async function loadCatalog() {
   return JSON.parse(await readFile(CATALOG_JSON, "utf8"));
 }
 
+// UC-hosted routes come first: they carry no recharge for campus
+// administrative work and are the default suggestion on the Get Started page.
+export function sortModelsByHosting(models) {
+  const rank = (model) => (model.hosting === "UC-hosted" ? 0 : 1);
+  return [...models].sort((a, b) => rank(a) - rank(b));
+}
+
+// The route the Get Started page uses in its setup examples. Keep this list
+// and src/site/developer-apis/start.html in step; validate.mjs checks that
+// every request ID on that page still exists in the synced catalog.
+const PREFERRED_DEFAULT_ROUTES = ["api-glm-5.3", "api-glm-5.2"];
+
+export function defaultRoute(models) {
+  for (const id of PREFERRED_DEFAULT_ROUTES) {
+    const match = models.find((model) => model.id === id);
+    if (match) return match;
+  }
+  return models.find((model) => model.hosting === "UC-hosted" && model.type === "Chat and reasoning") ?? null;
+}
+
 export function renderSection(catalog) {
-  const rows = catalog.models
+  const models = sortModelsByHosting(catalog.models);
+  const suggested = defaultRoute(models);
+  const suggestion = suggested
+    ? ` Start with a UC-hosted route such as <strong>${escapeHtml(suggested.displayName || suggested.id)}</strong> (<code class="model-catalog-request-id">${escapeHtml(suggested.id)}</code>). Move to a cloud route when a task needs it.`
+    : "";
+  const rows = models
     .map(
       (model) =>
         `<tr><td><strong>${escapeHtml(model.displayName || model.id)}</strong><br><code class="model-catalog-request-id">${escapeHtml(model.id)}</code></td><td>${escapeHtml(model.hosting)}</td><td>${escapeHtml(model.type)}</td><td>${escapeHtml(
@@ -212,7 +251,7 @@ export function renderSection(catalog) {
   const refreshed = escapeHtml(catalog.lastSynced.slice(0, 10));
   return `${SECTION_START}
 <section class="hub-section" id="model-catalog" aria-labelledby="model-catalog-heading">
-<div class="hub-heading"><p class="home-kicker">Shared AI platform</p><h2 id="model-catalog-heading">Models available through the gateway</h2><p>The gateway lists these models today, spanning approved enterprise cloud models and UC-hosted open models. The code under each name is the request ID to use through the gateway, and context length is the amount of input a request can carry. Rates and full details stay in the <a href="https://tritonai-api.ucsd.edu/ui/model_hub_table/">Model Hub</a>.</p></div>
+<div class="hub-heading"><p class="home-kicker">Models and routes</p><h2 id="model-catalog-heading">Models available through the Gateway</h2><p>The Gateway lists these models today. UC-hosted open models appear first, followed by approved enterprise cloud models.${suggestion} The code under each name is the request ID to use through the Gateway, and context length is the amount of input a request can carry. Rates and full details stay in the <a href="https://tritonai-api.ucsd.edu/ui/model_hub_table/">Model Hub</a>.</p></div>
 <div class="table-responsive" role="region" aria-label="Current model catalog" tabindex="0"><table class="table table-striped model-catalog-table">
 <caption class="sr-only">Models currently listed by the TritonAI gateway with their hosting, type, and context length</caption>
 <thead><tr><th scope="col">Model</th><th scope="col">Hosting</th><th scope="col">Type</th><th scope="col">Context length</th></tr></thead>

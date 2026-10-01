@@ -39,6 +39,7 @@ const DIST_DIR = path.resolve("dist");
 const SITE_BASE_PATH = (process.env.SITE_BASE_PATH || "").replace(/^\/+|\/+$/g, "");
 const STANDALONE_ROUTES = new Set([
   "/presentations/managing-the-tritonai-website.html",
+  "/tritongpt/bgpt-chat-generator/index.html",
   "/training/harness/index.html",
 ]);
 // Tier 4 reads the sources rather than dist, so a finding points at the file to

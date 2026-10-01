@@ -3,7 +3,7 @@ title: Articles and coverage
 path: /about/media-articles.html
 description: News stories, case studies, reports, and independent coverage about TritonAI and TritonGPT.
 eyebrow: Media and recognition
-lastReviewed: 2026-07-30
+lastReviewed: 2026-08-30
 audiences: [students, faculty, staff, developers, leaders, media]
 source: https://brettcpollak.com/media and linked original publications
 canonicalUrl: /about/media-articles.html
@@ -18,7 +18,7 @@ bannerPosition: center
 <section class="media-article-section" aria-labelledby="articles-2026-heading">
 <div class="media-year-heading"><span>2026</span><div><h2 id="articles-2026-heading">Current program perspective</h2><p>Recent writing about adoption and the choices behind shared institutional AI.</p></div></div>
 <div class="media-article-list">
-<article><div class="media-article-date"><span>Jul</span><strong>13</strong></div><div><p class="media-article-source">Higher Ed AI Playbook</p><h3><a href="https://higheredaiplaybook.substack.com/p/adoption-without-authority-what-50000" rel="noopener noreferrer" target="_blank">Adoption Without Authority: What 50,000 Students and Faculty Just Revealed</a></h3><span class="media-article-kind">Article</span></div></article>
+<article><div class="media-article-date"><span>Aug</span><strong>3</strong></div><div><p class="media-article-source">Higher Ed AI Playbook</p><h3><a href="https://www.higheredaiplaybook.com/p/25-hours-to-11-minutes-60000-transcripts" rel="noopener noreferrer" target="_blank">2.5 Hours to 11 Minutes, 60,000 Transcripts at 98%, 17 Models Under One Roof: Inside UC San Diego’s Build-It-Yourself AI Strategy</a></h3><span class="media-article-kind">Article</span></div></article><article><div class="media-article-date"><span>Aug</span><strong>3</strong></div><div><p class="media-article-source">Higher Ed AI Playbook</p><h3><a href="https://www.higheredaiplaybook.com/p/use-case-lab-live-4-with-brett-pollak" rel="noopener noreferrer" target="_blank">Use Case Lab Live #4 with Brett Pollak of UCSD</a></h3><span class="media-article-kind">Video interview</span></div></article><article><div class="media-article-date"><span>Jul</span><strong>8</strong></div><div><p class="media-article-source">Higher Ed AI Playbook</p><h3><a href="https://www.higheredaiplaybook.com/p/uc-san-diego-built-its-own-ai-and" rel="noopener noreferrer" target="_blank">UC San Diego Built Its Own AI — and Now Sells It to Berkeley</a></h3><span class="media-article-kind">Article</span></div></article>
 </div>
 </section>
 

@@ -47,6 +47,13 @@ jobs:
             echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Check links in updated newsletters
+        if: steps.changes.outputs.changed == 'true'
+        shell: bash
+        run: |
+          mapfile -t newsletters < <(git diff --name-only --diff-filter=ACM -- content/newsletters)
+          npm run check:newsletter-links -- "${newsletters[@]}"
+
       - name: Validate the updated site
         if: steps.changes.outputs.changed == 'true'
         run: npm test
@@ -77,9 +84,9 @@ jobs:
               --base main \
               --head "$BRANCH_NAME" \
               --title "Sync UC San Diego AI Weekly" \
-              --body "Imports new or updated editions from https://brettcpollak.com/ucsd-ai-news. The standard build, language, and accessibility checks passed before this pull request was opened."
+              --body "Imports new or updated editions from https://brettcpollak.com/ucsd-ai-news. External link, build, language, and accessibility checks passed before this pull request was opened."
           else
             gh pr edit "$existing" \
               --title "Sync UC San Diego AI Weekly" \
-              --body "Imports new or updated editions from https://brettcpollak.com/ucsd-ai-news. The standard build, language, and accessibility checks passed before this pull request was refreshed."
+              --body "Imports new or updated editions from https://brettcpollak.com/ucsd-ai-news. External link, build, language, and accessibility checks passed before this pull request was refreshed."
           fi

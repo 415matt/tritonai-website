@@ -2,6 +2,7 @@
 title: Voice Agent
 slug: voice-agent
 summary: Consent-based voice interviews capture how work happens and turn the evidence into reviewable process records, themes, and automation opportunities.
+buildPath: TritonAI program pilot
 status: Pilot
 owner: TritonAI program and participating service owners
 lastReviewed: 2026-07-27

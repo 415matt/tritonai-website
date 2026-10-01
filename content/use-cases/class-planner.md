@@ -2,6 +2,7 @@
 title: TritonGPT Class Planner
 slug: class-planner
 summary: Students say which courses they need and when they cannot meet, and the assistant drafts a schedule without conflicts for them to review.
+buildPath: TritonGPT assistant
 status: Production
 owner: TritonGPT service and the sponsoring enrollment-management team
 lastReviewed: 2026-07-25

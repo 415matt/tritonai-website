@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
-import { loadSkillsSource, skillPathPattern } from "./lib/skills-source.mjs";
+import { isRetiredSkillDescription, loadSkillsSource, skillPathPattern } from "./lib/skills-source.mjs";
 
 const source = await loadSkillsSource();
 const OWNER = source.owner;
@@ -48,13 +48,14 @@ const skillPaths = tree.tree
   .sort();
 if (!skillPaths.length) throw new Error("No public SKILL.md entrypoints were found.");
 
-const skills = await Promise.all(
+const skillResults = await Promise.all(
   skillPaths.map(async (skillPath) => {
     const skillDirectory = path.posix.dirname(skillPath);
     const collection = skillPath.split("/")[0];
     const parsed = matter(await rawFile(commit.sha, skillPath));
     const name = requireValue(parsed.data.name, "frontmatter name", skillPath);
     const description = requireValue(parsed.data.description, "frontmatter description", skillPath);
+    if (isRetiredSkillDescription(description)) return null;
     const maintainer = parsed.data.maintainer ? String(parsed.data.maintainer).trim() : null;
     if (collection === "community" && !maintainer) throw new Error(`${skillPath} is a community skill without a maintainer.`);
     const supportingFiles = tree.tree.filter(
@@ -82,6 +83,7 @@ const skills = await Promise.all(
     };
   }),
 );
+const skills = skillResults.filter(Boolean);
 
 skills.sort((left, right) => left.collection.localeCompare(right.collection) || left.name.localeCompare(right.name));
 const collections = source.collections.map((id) => ({

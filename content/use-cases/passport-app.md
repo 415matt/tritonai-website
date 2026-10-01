@@ -2,6 +2,7 @@
 title: Passport Visitor Management
 slug: passport-app
 summary: Visitors check in for Passport Services at CSC or the UCSD Bookstore while staff manage each location from a shared queue dashboard.
+buildPath: Department-built application
 status: Production
 owner: UC San Diego Passport Services and IPPS Technology and Project Management
 lastReviewed: 2026-07-27
