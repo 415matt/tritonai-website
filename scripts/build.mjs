@@ -597,7 +597,7 @@ function renderTrainingVideoIndex(allVideos) {
   const videos = allVideos.filter((video) => video.discoverySeries === true).sort((a, b) => a.order - b.order);
   const seriesHtml = TRAINING_VIDEO_SERIES_ORDER.map((series, index) => {
     const cards = videos.filter((video) => video.series === series).map((video) => {
-      const isStaticCard = video.order >= 9 && video.order <= 15;
+      const isStaticCard = video.order >= 9 && video.order <= 15 && !video.linkFromIndex;
       const titleHtml = isStaticCard
         ? escapeHtml(video.title)
         : `<a href="${escapeHtml(video.canonicalUrl)}">${escapeHtml(video.title)}</a>`;

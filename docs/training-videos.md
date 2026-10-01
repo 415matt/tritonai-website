@@ -12,6 +12,8 @@ included in that sequence.
 - `status: Coming soon` publishes the lesson text and knowledge check with a
   clearly labeled empty video area. It does not load sample footage or export a
   placeholder transcript. Leave `durationMinutes: null` until the runtime is known.
+- `linkFromIndex: true` links an upcoming lesson from the series index when its
+  text and knowledge check are ready for review.
 - `presenters` is a list of `name`, `title`, and optional `image` values. Missing
   photos show a neutral placeholder. A presenter `cardImage` replaces the
   presenter text with that image on the series index; lesson pages keep the
