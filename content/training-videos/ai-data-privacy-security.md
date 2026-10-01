@@ -19,7 +19,7 @@ order: 4
 quiz:
   - question: Why does data quality matter for AI?
     options:
-      - 'Clean, accurate data produces more reliable results.'
+      - It produces more reliable results
       - It makes AI faster.
       - It removes the need for privacy.
       - It guarantees unbiased output.
@@ -32,12 +32,12 @@ quiz:
       - Which AI tool is most popular
       - How to write prompts
       - What information can be shared with which AI tool
-      - How to design a website
+      - How to design a workflow
     answer: 2
     explanation: Data classification identifies the sensitivity of information and helps determine which tools are appropriate.
   - question: What should you do before using AI with university data?
     options:
-      - Assume all data is public
+      - Assume all data is public if it sits behind an SSO
       - Check the data classification and follow UC privacy and security requirements
       - No prior checks are required as long as you only use TritonGPT
       - Ensure names are removed

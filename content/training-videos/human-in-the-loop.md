@@ -30,14 +30,14 @@ quiz:
   - question: Why does human review matter?
     options:
       - AI can make mistakes or invent information.
-      - Human review can be subjective.
+      - Human review is only needed in higher education, but other fields do not require it
       - Human review slows work.
       - AI is always objective.
     answer: 0
     explanation: Review helps catch errors and prevents unverified AI output from being treated as fact.
   - question: What is a hallucination?
     options:
-      - A software crash
+      - Output that is incorrect due to a prompt grounding in the wrong source material
       - A security breach
       - Output that sounds convincing but is not accurate
       - A type of data classification
@@ -47,8 +47,8 @@ quiz:
     options:
       - 'Whenever accuracy, context, or accountability matter'
       - Only when AI fails
-      - Only for creative work
-      - Only when using external tools
+      - Only for creative work that is more subjective
+      - Only when using external tools outside of TritonAI
     answer: 0
     explanation: Human judgment is especially important when the stakes are high or the consequences affect people.
 discussionPoints:

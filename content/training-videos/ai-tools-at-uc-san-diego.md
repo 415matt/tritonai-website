@@ -44,7 +44,7 @@ quiz:
       - Replace human review
       - Match the right tool to the right task
       - Guarantee security
-      - Eliminate the need for training
+      - Eliminate the need for further AI training
     answer: 1
     explanation: Categorizing the work makes it easier to choose a tool that fits the purpose and the risk level.
   - question: Where can you find UC San Diego’s approved AI tools?

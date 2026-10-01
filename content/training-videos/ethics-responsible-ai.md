@@ -21,16 +21,16 @@ quiz:
     options:
       - Restrict all AI use
       - 'Guide safe, fair, and accountable AI use'
-      - Promote unrestricted experimentation
+      - Promote unrestricted experimentation and innovation
       - Override campus policy
     answer: 1
     explanation: 'The principles provide a shared framework for using AI in ways that are transparent, equitable, and responsible.'
   - question: How can bias enter an AI system?
     options:
       - Through the data used to train it and the assumptions built into it
-      - Only through user prompts
-      - Only through hardware failure
-      - Only through random chance
+      - Bias enters AI systems through random chance only
+      - Hardware failure is the main way bias can enter
+      - Prompting with bias is the only way that bias can enter an AI system
     answer: 0
     explanation: Bias can enter through incomplete or unrepresentative data and through design choices made during development.
   - question: What is one way to reduce the impact of bias?

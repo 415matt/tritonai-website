@@ -40,10 +40,10 @@ quiz:
     explanation: Process mapping separates genuine opportunities from assumptions about what AI can fix.
   - question: Where can you get help with process improvement?
     options:
-      - 'Through campus support, including OSI'
-      - Only from vendors
+      - Through campus support, including Operational Strategic Initiatives (OSI)
+      - From the vendor that sold the software
       - Only from online forums
-      - No support is available
+      - Process improvement is not needed as is an outdated concept
     answer: 0
     explanation: OSI and related campus support can help teams assess and improve processes before implementing AI.
 discussionPoints:
