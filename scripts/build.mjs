@@ -1225,17 +1225,14 @@ function applyHarnessInstallerMetadata($, installer) {
     if (!download.length) continue;
     download.attr({
       href: platform.downloadUrl,
-      "aria-label": `${platform.label}, ${platform.architecture}, ${platform.format}, ${platform.displaySize}`,
+      "aria-label": `${platform.label}, ${platform.architecture}, ${platform.format}, on the latest GitHub release page`,
     });
     download.find("[data-harness-download-label]").text(platform.label);
     download
       .find("[data-harness-download-detail]")
-      .text(`Version ${installer.version} · ${platform.architecture} · ${platform.format} · ${platform.displaySize}`);
-    $(`[data-harness-filename='${platformId}']`).text(platform.filename);
+      .text(`Latest release · ${platform.architecture} · ${platform.format}`);
   }
   $("[data-harness-release]").attr("href", installer.releaseUrl);
-  $("[data-harness-checksums]").attr("href", installer.checksumsUrl);
-  $("[data-harness-version]").text(`Version ${installer.version}`);
 }
 
 function transformHtml(html, relativePath, context) {
@@ -1546,10 +1543,10 @@ for (const [route, entry] of Object.entries(seo.routes)) {
 }
 requireFields(tritonAiUpdates, ["schemaVersion", "title", "description", "owner", "source", "lastReviewed", "streams", "areas", "updates"], "content/updates/tritonai-updates.json");
 tritonAiUpdates.lastReviewed = isoDate(tritonAiUpdates.lastReviewed);
-requireFields(harnessInstaller, ["schemaVersion", "product", "version", "publishedAt", "owner", "source", "lastReviewed", "dataClassification", "canonicalUrl", "releaseUrl", "checksumsUrl", "platforms"], "content/harness/installer.json");
+requireFields(harnessInstaller, ["schemaVersion", "product", "owner", "source", "lastReviewed", "dataClassification", "canonicalUrl", "releaseUrl", "platforms"], "content/harness/installer.json");
 harnessInstaller.lastReviewed = isoDate(harnessInstaller.lastReviewed);
 for (const platformId of ["mac", "windows"]) {
-  requireFields(harnessInstaller.platforms[platformId] || {}, ["label", "architecture", "format", "filename", "displaySize", "sizeBytes", "sha256", "downloadUrl", "signing"], `Harness installer platform ${platformId}`);
+  requireFields(harnessInstaller.platforms[platformId] || {}, ["label", "architecture", "format", "downloadUrl"], `Harness installer platform ${platformId}`);
 }
 const updateStreamIds = new Set();
 for (const [index, stream] of tritonAiUpdates.streams.entries()) {
