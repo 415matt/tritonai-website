@@ -5578,11 +5578,21 @@ a.video-theater-nav-next.is-suggested .video-theater-nav-next-label {
   padding-top: 26px;
 }
 
-/* Training videos: knowledge check, discussion points, and team CTA */
+/* Training videos: key links, knowledge check, discussion points, and team CTA */
+.video-key-links-section .video-theater-about-inner,
 .video-quiz-section .video-theater-about-inner,
 .video-discussion-section .video-theater-about-inner,
 .video-training-cta .video-theater-about-inner {
   max-width: 880px;
+}
+main#main-content .video-key-links-list {
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0;
+  padding-left: 22px;
+}
+main#main-content .video-key-links-list li {
+  margin-bottom: 10px;
 }
 main#main-content .video-quiz-question {
   min-width: 0;
@@ -5993,6 +6003,7 @@ main#main-content .video-quiz-dialog :focus-visible { outline: 3px solid #00629b
 @media (max-width: 640px) {
   main#main-content .discovery-video-pending { min-height: 240px; padding: 24px 16px; }
   main#main-content .video-quiz-question { padding: 14px; min-width: 0; }
+  main#main-content .video-key-links-section .video-theater-about-inner,
   main#main-content .video-quiz-section .video-theater-about-inner,
   main#main-content .video-discussion-section .video-theater-about-inner,
   main#main-content .video-training-cta .video-theater-about-inner { padding: 0 var(--video-theater-side-padding); }

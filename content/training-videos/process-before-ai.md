@@ -16,6 +16,11 @@ dataClassification: Public description
 canonicalUrl: /training-resources/videos/process-before-ai.html
 relatedSlides: []
 order: 8
+keyLinks:
+  - label: Lucidchart
+    href: https://blink.ucsd.edu/technology/file-sharing/lucidchart/index.html
+  - label: Promapp
+    href: https://blink.ucsd.edu/technology/file-sharing/promapp/index.html
 quiz:
   - question: What should you do before choosing an AI solution?
     options:
