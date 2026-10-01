@@ -3501,6 +3501,11 @@ main#main-content .skills-setup {
   border-top-color: var(--triton-blue);
 }
 
+.developer-start-platforms article {
+  display: flex;
+  flex-direction: column;
+}
+
 .developer-start-platforms article > .glyphicon {
   color: var(--triton-blue);
   font-size: 28px;
@@ -3542,6 +3547,10 @@ a.developer-download-button:visited {
   text-align: left;
   width: 100%;
   white-space: normal;
+}
+
+.developer-start-platforms a.developer-download-button {
+  margin-top: auto;
 }
 
 .developer-download-button > span,
