@@ -1075,12 +1075,12 @@ function applyHarnessInstallerMetadata($, installer) {
     if (!download.length) continue;
     download.attr({
       href: platform.downloadUrl,
-      "aria-label": `${platform.label}, ${platform.architecture}, ${platform.format}, on the latest GitHub release page`,
+      "aria-label": `${platform.label}, version ${installer.version}, ${platform.architecture}, ${platform.format}`,
     });
     download.find("[data-harness-download-label]").text(platform.label);
     download
       .find("[data-harness-download-detail]")
-      .text(`Latest release · ${platform.architecture} · ${platform.format}`);
+      .text(`Version ${installer.version} · ${platform.architecture} · ${platform.format}`);
   }
   $("[data-harness-release]").attr("href", installer.releaseUrl);
 }
@@ -1382,10 +1382,10 @@ for (const [route, entry] of Object.entries(seo.routes)) {
 }
 requireFields(tritonAiUpdates, ["schemaVersion", "title", "description", "owner", "source", "lastReviewed", "streams", "areas", "updates"], "content/updates/tritonai-updates.json");
 tritonAiUpdates.lastReviewed = isoDate(tritonAiUpdates.lastReviewed);
-requireFields(harnessInstaller, ["schemaVersion", "product", "owner", "source", "lastReviewed", "dataClassification", "canonicalUrl", "releaseUrl", "platforms"], "content/harness/installer.json");
+requireFields(harnessInstaller, ["schemaVersion", "product", "version", "publishedAt", "owner", "source", "lastReviewed", "dataClassification", "canonicalUrl", "releaseUrl", "platforms"], "content/harness/installer.json");
 harnessInstaller.lastReviewed = isoDate(harnessInstaller.lastReviewed);
 for (const platformId of ["mac", "windows"]) {
-  requireFields(harnessInstaller.platforms[platformId] || {}, ["label", "architecture", "format", "downloadUrl"], `Harness installer platform ${platformId}`);
+  requireFields(harnessInstaller.platforms[platformId] || {}, ["label", "architecture", "format", "filename", "sizeBytes", "sha256", "downloadUrl"], `Harness installer platform ${platformId}`);
 }
 const updateStreamIds = new Set();
 for (const [index, stream] of tritonAiUpdates.streams.entries()) {

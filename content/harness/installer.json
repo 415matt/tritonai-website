@@ -12,13 +12,21 @@
       "label": "Download for Mac",
       "architecture": "Apple Silicon",
       "format": "DMG",
-      "downloadUrl": "https://github.com/dbalders/TritonAI-Harness/releases/latest"
+      "downloadUrl": "https://github.com/dbalders/TritonAI-Harness/releases/download/v0.3.4/TritonAI-Harness-0.3.4-arm64.dmg",
+      "filename": "TritonAI-Harness-0.3.4-arm64.dmg",
+      "sizeBytes": 321699572,
+      "sha256": "b7a894497f0573b1ce248fb6b44eea60be0bc4be21fcc8c04719ef500b3dc4a0"
     },
     "windows": {
       "label": "Download for Windows",
       "architecture": "x64",
       "format": "Setup EXE",
-      "downloadUrl": "https://github.com/dbalders/TritonAI-Harness/releases/latest"
+      "downloadUrl": "https://github.com/dbalders/TritonAI-Harness/releases/download/v0.3.4/TritonAI-Harness-0.3.4-x64.exe",
+      "filename": "TritonAI-Harness-0.3.4-x64.exe",
+      "sizeBytes": 218791040,
+      "sha256": "133ba9dcddfc0993939351ce53281ceb740ea17e2560c6f1c6e4b99ef961af1d"
     }
-  }
+  },
+  "version": "0.3.4",
+  "publishedAt": "2026-09-23T02:59:43Z"
 }
