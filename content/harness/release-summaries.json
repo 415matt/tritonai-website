@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "owner": "TritonAI service team",
+  "releases": {
+    "v0.3.4": {
+      "source": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.4",
+      "sourceDigest": "77ae84e47ac5fe5cbb696b5bd5d57aaf2d0cc3c970672767633f3be11d12f014",
+      "lastReviewed": "2026-10-01",
+      "highlights": [
+        "Opt-in computer use lets you work with desktop apps while setup and activity remain visible.",
+        "Tasks can retain goals, accept more file types, and show subagent activity.",
+        "A redesigned sidebar adds task organization, conversation search, and saved drafts. Pull request reviews can be handled in the app.",
+        "Kuali Build and n8n plugins join the catalog. Their actions depend on your connected account and granted permissions.",
+        "Windows installation and updating receive fixes, along with macOS microphone access and desktop updater reliability."
+      ]
+    },
+    "v0.3.3": {
+      "source": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.3",
+      "sourceDigest": "333a92e2c6dc89f482de26a631fa76e3b94eaa787b337a373a8db30326c1ca93",
+      "lastReviewed": "2026-10-01",
+      "highlights": [
+        "Update TritonAI Harness inside the app, with progress, release notes, and restart controls.",
+        "Configure separate credentials for UC-hosted and cloud model routes, and replace them without restarting the app.",
+        "Plugin sign-in and workspace navigation receive improvements."
+      ]
+    }
+  }
+}

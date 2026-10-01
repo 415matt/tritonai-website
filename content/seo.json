@@ -258,6 +258,17 @@
         "UC IS-3 compliance"
       ],
       "lastModified": "2026-09-03"
+    },
+    "/developer-apis/harness-release-notes.html": {
+      "title": "TritonAI Harness Release Notes",
+      "description": "Review stable TritonAI Harness releases, find direct Mac and Windows installers, and read the original release details.",
+      "keywords": [
+        "TritonAI Harness release notes",
+        "TritonAI Harness updates",
+        "Mac installer",
+        "Windows installer"
+      ],
+      "lastModified": "2026-10-01"
     }
   }
 }

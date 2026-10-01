@@ -16,6 +16,7 @@ import {
 import { collectTokens } from "./lib/chrome-styling.mjs";
 import { collectStyling } from "./chrome-contract.mjs";
 import { loadSkillsSource } from "./lib/skills-source.mjs";
+import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues } from "./lib/harness-releases.mjs";
 
 const DIST_DIR = path.resolve("dist");
 const REPORT_DIR = path.resolve("reports");
@@ -226,6 +227,8 @@ const roadmapContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "roadmap
 const factsContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "facts/public-facts.json"), "utf8"));
 const gatewayUsageContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "facts/gateway-usage.json"), "utf8"));
 const harnessInstallerContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "harness/installer.json"), "utf8"));
+const harnessReleasesContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "harness/releases.json"), "utf8"));
+const harnessReleaseSummaries = JSON.parse(await readFile(path.join(CONTENT_DIR, "harness/release-summaries.json"), "utf8"));
 const modelCatalogContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "models/catalog.json"), "utf8"));
 const skillsContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "skills/library.json"), "utf8"));
 const homeHeroContent = JSON.parse(await readFile(path.join(CONTENT_DIR, "home/hero.json"), "utf8"));
@@ -271,6 +274,9 @@ for (const platformId of ["mac", "windows"]) {
   if (!Number.isInteger(platform.sizeBytes) || platform.sizeBytes <= 0 || !/^[a-f0-9]{64}$/.test(platform.sha256 || "")) {
     contentFindings.push({ source: `harness/installer.json#${platformId}`, issue: "Installer size and SHA-256 must identify the published artifact" });
   }
+}
+for (const issue of releaseSummaryIssues(harnessReleasesContent, harnessReleaseSummaries, harnessInstallerContent)) {
+  contentFindings.push({ source: "harness/releases.json", issue });
 }
 const updateFeedRequired = ["schemaVersion", "title", "description", "owner", "source", "lastReviewed", "streams", "areas", "updates"];
 const updateFeedMissing = missingFields(tritonAiUpdatesContent, updateFeedRequired);
@@ -1204,9 +1210,9 @@ for (const page of htmlFiles) {
       windowsDownload.attr("href") !== harnessInstallerContent.platforms.windows.downloadUrl ||
       macDownload.attr("href") === harnessInstallerContent.releaseUrl ||
       windowsDownload.attr("href") === harnessInstallerContent.releaseUrl ||
-      setupPage.find("[data-harness-release]").attr("href") !== harnessInstallerContent.releaseUrl
+      setupPage.find("[data-harness-release]").attr("href") !== `${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}${HARNESS_RELEASE_PAGE}#${releaseFragment(`v${harnessInstallerContent.version}`)}`
     ) {
-      contentFindings.push({ source: route, issue: "Harness setup buttons must download the platform installers directly and preserve the latest release notes link" });
+      contentFindings.push({ source: route, issue: "Harness setup buttons must download the platform installers directly and link to the matching website release notes" });
     }
     if (
       !macDownload.find("[data-harness-download-detail]").text().includes(`Version ${harnessInstallerContent.version}`) ||
@@ -1295,10 +1301,21 @@ for (const page of htmlFiles) {
       accessibility.push({ page: route, issue: `${updateStreamId} updates need unique fragment targets` });
     }
   }
-  if (["/about/roadmap.html", "/about/tritonai-updates.html", "/tritongpt/release-notes/index.html"].includes(route)) {
-    if ($(".delivery-pathway a").length !== 3 || $(".delivery-pathway a[aria-current='page']").length !== 1) {
+  if (["/about/roadmap.html", "/about/tritonai-updates.html", "/tritongpt/release-notes/index.html", HARNESS_RELEASE_PAGE].includes(route)) {
+    if ($(".delivery-pathway a").length !== 4 || $(".delivery-pathway a[aria-current='page']").length !== 1) {
       accessibility.push({ page: route, issue: "Delivery pathway links or current-page context are incomplete" });
     }
+  }
+  if (route === HARNESS_RELEASE_PAGE) {
+    const latestId = releaseFragment(harnessReleasesContent.latestTag);
+    const latest = $(`main #${latestId}`);
+    if (latest.length !== 1 || latest.find("a").filter((_, el) => $(el).attr("href") === harnessInstallerContent.platforms.mac.downloadUrl).length !== 1 || latest.find("a").filter((_, el) => $(el).attr("href") === harnessInstallerContent.platforms.windows.downloadUrl).length !== 1) {
+      contentFindings.push({ source: route, issue: "Harness release notes must show the current stable release and matching direct installers" });
+    }
+    for (const release of harnessReleasesContent.releases) {
+      if ($(`main a[href='${release.notesUrl}']`).length !== 1) contentFindings.push({ source: route, issue: `Missing original release notes link for ${release.tag}` });
+    }
+    if ($("main").text().includes("nightly")) contentFindings.push({ source: route, issue: "Harness release notes must exclude nightly releases" });
   }
   if (route === "/skills/index.html") {
     const renderedSkills = $("[data-skill-card]");
