@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { HARNESS_REPOSITORY, installerFromRelease, releaseSnapshot, releaseSummaryIssues } from "./lib/harness-releases.mjs";
+import { HARNESS_REPOSITORY, GUIDED_INSTALLER_REPOSITORY, installerFromRelease, guidedInstallerFromRelease, releaseSnapshot, releaseSummaryIssues } from "./lib/harness-releases.mjs";
 
 const check = process.argv.includes("--check");
 const candidateIndex = process.argv.indexOf("--candidate-dir");
@@ -10,8 +10,8 @@ if (candidateDir && check) throw new Error("Choose --check or --candidate-dir.")
 const token = process.env.HARNESS_GITHUB_TOKEN || process.env.GITHUB_TOKEN;
 const headers = { Accept: "application/vnd.github+json", "User-Agent": "tritonai-website-harness-sync", "X-GitHub-Api-Version": "2026-03-10" };
 if (token) headers.Authorization = `Bearer ${token}`;
-async function github(endpoint) {
-  const response = await fetch(`https://api.github.com/repos/${HARNESS_REPOSITORY}${endpoint}`, { headers, signal: AbortSignal.timeout(30000) });
+async function github(endpoint, repository = HARNESS_REPOSITORY) {
+  const response = await fetch(`https://api.github.com/repos/${repository}${endpoint}`, { headers, signal: AbortSignal.timeout(30000) });
   if (!response.ok) throw new Error(`Harness release API returned ${response.status}; saved notes and downloads were preserved.`);
   return response.json();
 }
@@ -36,6 +36,9 @@ const snapshot = releaseSnapshot(releases, latest.tag_name, current?.lastReviewe
 const changed = JSON.stringify(current) !== JSON.stringify(snapshot);
 if (changed) snapshot.lastReviewed = date;
 let nextInstaller = installerFromRelease(latest, installer, installer.lastReviewed);
+const guidedRelease = await github("/releases/latest", GUIDED_INSTALLER_REPOSITORY);
+nextInstaller.guided = guidedInstallerFromRelease(guidedRelease, installer.guided, installer.guided.lastReviewed);
+if (JSON.stringify(nextInstaller.guided) !== JSON.stringify(installer.guided)) nextInstaller.guided.lastReviewed = date;
 const installerChanged = JSON.stringify(installer) !== JSON.stringify(nextInstaller);
 if (installerChanged) nextInstaller.lastReviewed = date;
 const issues = releaseSummaryIssues(snapshot, summaries, nextInstaller);

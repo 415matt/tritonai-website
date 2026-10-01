@@ -16,7 +16,7 @@ import {
 import { collectTokens } from "./lib/chrome-styling.mjs";
 import { collectStyling } from "./chrome-contract.mjs";
 import { loadSkillsSource } from "./lib/skills-source.mjs";
-import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues } from "./lib/harness-releases.mjs";
+import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues, guidedInstallerIssues } from "./lib/harness-releases.mjs";
 
 const DIST_DIR = path.resolve("dist");
 const REPORT_DIR = path.resolve("reports");
@@ -273,6 +273,9 @@ for (const platformId of ["mac", "windows"]) {
   if (!Number.isInteger(platform.sizeBytes) || platform.sizeBytes <= 0 || !/^[a-f0-9]{64}$/.test(platform.sha256 || "")) {
     contentFindings.push({ source: `harness/installer.json#${platformId}`, issue: "Installer size and SHA-256 must identify the published artifact" });
   }
+}
+for (const issue of guidedInstallerIssues(harnessInstallerContent.guided)) {
+  contentFindings.push({ source: "harness/installer.json#guided", issue });
 }
 for (const issue of releaseSummaryIssues(harnessReleasesContent, harnessReleaseSummaries, harnessInstallerContent)) {
   contentFindings.push({ source: "harness/releases.json", issue });
@@ -1175,6 +1178,7 @@ for (const page of htmlFiles) {
     }
   }
   if (route === "/developer-apis/start.html") {
+    const guidedInstaller = harnessInstallerContent.guided;
     const setupPage = $(".developer-start-page");
     const setupText = setupPage.text().replace(/\s+/g, " ").trim();
     const setupSteps = setupPage.find(".developer-start-step, .workbench-card");
@@ -1192,17 +1196,17 @@ for (const page of htmlFiles) {
     if (
       macDownload.length !== 1 ||
       windowsDownload.length !== 1 ||
-      macDownload.attr("href") !== harnessInstallerContent.platforms.mac.downloadUrl ||
-      windowsDownload.attr("href") !== harnessInstallerContent.platforms.windows.downloadUrl ||
+      macDownload.attr("href") !== guidedInstaller.platforms.mac.downloadUrl ||
+      windowsDownload.attr("href") !== guidedInstaller.platforms.windows.downloadUrl ||
       macDownload.attr("href") === harnessInstallerContent.releaseUrl ||
       windowsDownload.attr("href") === harnessInstallerContent.releaseUrl ||
-      setupPage.find("[data-harness-release]").attr("href") !== `${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}${HARNESS_RELEASE_PAGE}#${releaseFragment(`v${harnessInstallerContent.version}`)}`
+      setupPage.find("[data-harness-release]").attr("href") !== `${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}${HARNESS_RELEASE_PAGE}`
     ) {
       contentFindings.push({ source: route, issue: "Harness setup buttons must download the platform installers directly and link to the matching website release notes" });
     }
     if (
-      macDownload.find("[data-harness-download-detail]").text() !== `${harnessInstallerContent.platforms.mac.architecture} · ${harnessInstallerContent.platforms.mac.format}` ||
-      windowsDownload.find("[data-harness-download-detail]").text() !== `${harnessInstallerContent.platforms.windows.architecture} · ${harnessInstallerContent.platforms.windows.format}` ||
+      macDownload.find("[data-harness-download-detail]").text() !== `${guidedInstaller.platforms.mac.architecture} · ${guidedInstaller.platforms.mac.format}` ||
+      windowsDownload.find("[data-harness-download-detail]").text() !== `${guidedInstaller.platforms.windows.architecture} · ${guidedInstaller.platforms.windows.format}` ||
       setupText.includes("Choose the installer for your operating system under Assets on GitHub")
     ) {
       contentFindings.push({ source: route, issue: "Harness setup buttons must identify the platform and file format without directing users to select release assets" });
@@ -1226,6 +1230,10 @@ for (const page of htmlFiles) {
       if (setupText.includes(requiredTerm) === false) {
         contentFindings.push({ source: route, issue: `Harness setup intake guidance is missing: ${requiredTerm}` });
       }
+    }
+    const orderedSteps = setupPage.find(".developer-start-flow > .developer-start-step").slice(0, 3).map((_, element) => $(element).attr("id")).get();
+    if (orderedSteps.join(",") !== "harness,request-access,verify" || !setupText.includes("one-time link") || !setupText.includes("key itself is not in the email") || !setupText.includes("Check access & install")) {
+      contentFindings.push({ source: route, issue: "Setup must follow download, retrieve key, and finish installation in that order" });
     }
     const catalogIds = new Set((modelCatalogContent.models || []).map((model) => model.id));
     setupPage.find("code").each((_, element) => {

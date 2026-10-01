@@ -531,25 +531,63 @@
 
 <div class="developer-start-intro">
 <p class="home-kicker">Build with TritonAI</p>
-<h2>Get started with the TritonAI Gateway</h2>
-<p class="lead">Request a Gateway key, connect a client, and run a first test. n8n access is a separate request, covered at the end of this page.</p>
+<h2>Set up TritonAI Harness</h2>
+<p class="lead">Download and open the installer, get a TritonAI access key if you need one, then finish setup and try your first prompt.</p>
+<p>Already opened the installer? <a href="#request-access">Get your key</a>. For another client or your own code, see <a href="#other-clients">other setup options</a>. <a href="#n8n">n8n access</a> is a separate request.</p>
 </div>
 
 <div class="developer-start-flow">
-
-<section aria-labelledby="developer-start-step-one" class="developer-start-step" id="request-access">
+<section aria-labelledby="developer-start-step-one" class="developer-start-step" id="harness">
 <header class="developer-start-step-header">
 <span aria-hidden="true">01</span>
 <div>
-<h2 id="developer-start-step-one">Request Gateway access</h2>
+<h2 id="developer-start-step-one">Download and open the installer</h2>
 </div>
 </header>
-<p>Submit the access form to receive your approved Gateway key and the models available to it. The approval records the access, limits, and billing treatment for the key.</p>
+<p>Choose the stable installer for your computer. It guides you through access setup and installs TritonAI Harness. You can download it before requesting a key.</p>
 
+<div class="workbench-card workbench-card-primary" id="download-installer" style="margin-bottom: 20px;">
+<div class="workbench-card-header">
+<span class="comparison-badge comparison-badge-preferred">Primary Supported Client</span>
+<h3 style="font-size: 20px; font-weight: 700; margin: 6px 0 4px; color: var(--triton-navy, #182b49);">TritonAI Harness</h3>
+<p style="color: #64748b; font-size: 14px; margin-bottom: 16px;">TritonAI Harness is the desktop workspace. TritonAI Installer sets it up on your computer and checks your access to campus models.</p>
+</div>
+<div class="developer-start-platforms">
+<article>
+<span class="glyphicon glyphicon-apple" aria-hidden="true"></span>
+<h4>Mac (Apple Silicon)</h4>
+<p>Requires Apple M1 or newer. Open the downloaded DMG and launch TritonAI Installer.</p>
+<a class="btn btn-primary developer-download-button" data-harness-download="mac" href="https://github.com/dbalders/TritonAI-Installer/releases/download/v0.3.4/TritonAI-Installer-0.3.4-arm64.dmg"><span data-harness-download-label>Download for Mac</span><small data-harness-download-detail>Apple Silicon · DMG</small></a>
+</article>
+<article>
+<span class="glyphicon glyphicon-modal-window" aria-hidden="true"></span>
+<h4>Windows (x64)</h4>
+<p>Requires an x64 processor. Run the downloaded setup file, then open TritonAI Installer. Windows may show a SmartScreen warning.</p>
+<a class="btn btn-primary developer-download-button" data-harness-download="windows" href="https://github.com/dbalders/TritonAI-Installer/releases/download/v0.3.4/TritonAI-Installer-Setup-0.3.4-x64.exe"><span data-harness-download-label>Download for Windows</span><small data-harness-download-detail>x64 · Setup EXE</small></a>
+</article>
+</div>
+<p class="developer-start-release-links"><a data-harness-release href="/developer-apis/harness-release-notes.html">Read TritonAI Harness release notes</a>.</p>
+</div>
+<p>When the installer asks for your TritonAI access key, use your existing key or follow the next step to request one. Installation completes after your key is checked.</p>
+</section>
+
+<section aria-labelledby="developer-start-step-two" class="developer-start-step" id="request-access">
+<header class="developer-start-step-header">
+<span aria-hidden="true">02</span>
+<div>
+<h2 id="developer-start-step-two">Get your access key</h2>
+</div>
+</header>
+<p>Already have a TritonAI key? Continue to <a href="#verify">finish setup</a>. If you need one, select <strong>Don’t have a key?</strong> in the installer to open the access guidance, or use the Kuali Build form below. If the installer sent you to this page, this is the next step.</p>
+
+<ol class="developer-start-actions">
+<li><span>1</span><div><strong>Submit the access form</strong><p>Describe your intended use and choose the access you need. Some requests require approval.</p><p><a class="btn btn-primary" href="https://ucsd.kualibuild.com/app/6979392e4f46f40289d22645/run">Request Gateway access (Kuali Build) <span aria-hidden="true">→</span></a></p></div></li>
+<li><span>2</span><div><strong>Retrieve your key</strong><p>The email contains a one-time link to view and copy your key. The key itself is not in the email. Keep the key private and save it securely before leaving that page.</p></div></li>
+<li><span>3</span><div><strong>Return to the installer</strong><p>Paste the key into TritonAI Installer and choose <strong>Check access &amp; install</strong>.</p></div></li>
+</ol>
 <div class="row" style="margin-top: 16px;">
 <div class="col-sm-7">
 <p>UC-hosted models carry <strong>no recharge</strong> for campus administrative work. Cloud models and sponsored research require a departmental or project chartstring. Recharge is the campus term for internal billing to a chartstring.</p>
-<p><a class="btn btn-primary" href="https://ucsd.kualibuild.com/app/6979392e4f46f40289d22645/run">Request Gateway access (Kuali Build) <span aria-hidden="true">→</span></a></p>
 </div>
 <div class="col-sm-5">
 <aside class="hub-note-card" style="margin-top:0;">
@@ -559,49 +597,45 @@
 </div>
 </div>
 
-<div class="workbench-policy-box" style="background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid var(--triton-navy,#182b49);border-radius:4px;padding:16px 20px;margin-top:20px;">
-<h3 style="margin:0 0 10px;font-size:16px;font-weight:700;color:var(--triton-navy,#182b49);">Eligibility and recharge details</h3>
-<ul style="margin:0;padding-left:18px;font-size:14px;color:#334155;line-height:1.6;">
+<details class="workbench-policy-box" style="background:#f8fafc;border:1px solid #e2e8f0;border-left:4px solid var(--triton-navy,#182b49);border-radius:4px;padding:16px 20px;margin-top:20px;">
+<summary>Eligibility and recharge details</summary>
+<ul style="margin:12px 0 0;padding-left:18px;font-size:14px;color:#334155;line-height:1.6;">
 <li><strong>Faculty and staff:</strong> Campus and Health Sciences personnel may use UC-hosted models for administrative work under monthly caps.</li>
 <li><strong>Research projects:</strong> Sponsored research charges model usage to an approved grant or project chartstring.</li>
 <li><strong>Other UC campuses:</strong> Intercampus recharge agreements are arranged via <a href="mailto:tritonai@ucsd.edu">tritonai@ucsd.edu</a>.</li>
 <li><strong>Health System patient care:</strong> Clinical operations must use <a href="https://pulse.ucsd.edu/departments/is/AI/Pages/default.aspx" target="_blank" rel="noopener noreferrer">approved Medical Center AI platforms on Pulse</a>.</li>
 </ul>
+</details>
+</section>
+
+<section aria-labelledby="developer-start-step-three" class="developer-start-step" id="verify">
+<header class="developer-start-step-header">
+<span aria-hidden="true">03</span>
+<div>
+<h2 id="developer-start-step-three">Finish setup and try TritonAI Harness</h2>
+</div>
+</header>
+<p>Let the installer finish setup, then launch TritonAI Harness and try a prompt that contains no sensitive information.</p>
+
+<div class="row">
+<div class="col-sm-7">
+<ol class="developer-start-actions">
+<li><span>1</span><div><strong>Complete installation</strong><p>Keep TritonAI Installer open while it checks access and completes setup.</p></div></li>
+<li><span>2</span><div><strong>Open TritonAI Harness</strong><p>Launch the app and choose a model available to your key. Start with a UC-hosted model.</p></div></li>
+<li><span>3</span><div><strong>Try a first prompt</strong><p>Ask “Help me outline a meeting agenda.” Confirm you receive a response, then review it.</p></div></li>
+</ol>
+</div>
+<div class="col-sm-5">
+<div class="developer-start-help" style="margin-top:0;">
+<h4>Need setup help?</h4>
+<p>If your key is rejected or models do not appear, remove extra spaces around your key. Keep the key private; support will never ask for your secret key.</p>
+<p>Email <a href="mailto:tritonai@ucsd.edu">tritonai@ucsd.edu</a> with your operating system and error details. Never include the secret key in email.</p>
+</div>
+</div>
 </div>
 </section>
 
-<section aria-labelledby="developer-start-step-two" class="developer-start-step" id="harness">
-<header class="developer-start-step-header">
-<span aria-hidden="true">02</span>
-<div>
-<h2 id="developer-start-step-two">Choose your client or integration</h2>
-</div>
-</header>
-<p>Connect your approved key to TritonAI Harness, another compatible client, or your own code.</p>
-
-<div class="workbench-card workbench-card-primary" id="download-installer" style="margin-bottom: 20px;">
-<div class="workbench-card-header">
-<span class="comparison-badge comparison-badge-preferred">Primary Supported Client</span>
-<h3 style="font-size: 20px; font-weight: 700; margin: 6px 0 4px; color: var(--triton-navy, #182b49);">TritonAI Harness</h3>
-<p style="color: #64748b; font-size: 14px; margin-bottom: 16px;">Native desktop app for local coding, file editing, terminal execution, and Microsoft 365 connections. In pilot for Mac (Apple Silicon) and Windows. Anyone with a Gateway key can request it.</p>
-</div>
-<div class="developer-start-platforms">
-<article>
-<span class="glyphicon glyphicon-apple" aria-hidden="true"></span>
-<h4>Mac (Apple Silicon)</h4>
-<p>Requires Apple M1 or newer. Signed by the developer and checked by Apple.</p>
-<a class="btn btn-primary developer-download-button" data-harness-download="mac" href="https://github.com/dbalders/TritonAI-Harness/releases/download/v0.3.4/TritonAI-Harness-0.3.4-arm64.dmg"><span data-harness-download-label>Download for Mac</span><small data-harness-download-detail>Apple Silicon · DMG</small></a>
-</article>
-<article>
-<span class="glyphicon glyphicon-modal-window" aria-hidden="true"></span>
-<h4>Windows (x64)</h4>
-<p>Requires an x64 processor. Run setup and accept SmartScreen if prompted.</p>
-<a class="btn btn-primary developer-download-button" data-harness-download="windows" href="https://github.com/dbalders/TritonAI-Harness/releases/download/v0.3.4/TritonAI-Harness-0.3.4-x64.exe"><span data-harness-download-label>Download for Windows</span><small data-harness-download-detail>x64 · Setup EXE</small></a>
-</article>
-</div>
-<p class="developer-start-release-links"><a data-harness-release href="/developer-apis/harness-release-notes.html#harness-v0-3-4">Read TritonAI Harness release notes</a>.</p>
-</div>
-
+<section class="developer-start-step" id="other-clients" aria-labelledby="developer-start-other-clients"><h2 id="developer-start-other-clients">Other clients and direct API use</h2><p>Using another client or your own code? <a href="#request-access">Request a Gateway key</a>, then configure your chosen client. You do not need TritonAI Installer for this path.</p>
 <div class="row">
 <div class="col-sm-6">
 <div class="workbench-card" style="height: 100%;">
@@ -611,7 +645,7 @@
 <ul style="font-size: 13px; padding-left: 18px; margin-bottom: 0;">
 <li>Base URL: <code>https://tritonai-api.ucsd.edu/v1</code></li>
 <li>Default Model: <code>api-glm-5.3</code></li>
-<li>Store your API key in your shell profile.</li>
+<li>Keep your API key in a secure local credential store or environment variable. Never commit it to code.</li>
 </ul>
 </div>
 </div>
@@ -635,40 +669,8 @@ resp = client.chat.completions.create(
 </div>
 </section>
 
-<section aria-labelledby="developer-start-step-three" class="developer-start-step" id="verify">
-<header class="developer-start-step-header">
-<span aria-hidden="true">03</span>
-<div>
-<h2 id="developer-start-step-three">Launch and verify</h2>
-</div>
-</header>
-<p>Enter your key and verify your connection with a low-risk test prompt.</p>
-
-<div class="row">
-<div class="col-sm-7">
-<ol class="developer-start-actions">
-<li><span>1</span><div><strong>Enter your key</strong><p>Paste the approved key into your client settings.</p></div></li>
-<li><span>2</span><div><strong>Choose an approved model</strong><p>Select <code>api-glm-5.3</code> (UC-hosted, 320K context) or an approved cloud route.</p></div></li>
-<li><span>3</span><div><strong>Run a test request</strong><p>Confirm the model responds and check results.</p></div></li>
-</ol>
-</div>
-<div class="col-sm-5">
-<div class="developer-start-help" style="margin-top:0;">
-<h4>Need setup help?</h4>
-<p>If your key is rejected or models do not appear, remove extra spaces around your key. Keep the key private; support will never ask for your secret key.</p>
-<p>Email <a href="mailto:tritonai@ucsd.edu">tritonai@ucsd.edu</a> with your operating system and error details. Never include the secret key in email.</p>
-</div>
-</div>
-</div>
-</section>
-
 <section aria-labelledby="developer-start-step-n8n" class="developer-start-step" id="n8n">
-<header class="developer-start-step-header">
-<span aria-hidden="true">04</span>
-<div>
-<h2 id="developer-start-step-n8n">Request n8n access</h2>
-</div>
-</header>
+<h2 id="developer-start-step-n8n">Optional n8n access</h2>
 <p>n8n is the campus-hosted workflow platform. Access is granted separately from a Gateway key, and workflows that call a model use your key through the Gateway.</p>
 <div class="row">
 <div class="col-sm-7">
@@ -682,12 +684,11 @@ resp = client.chat.completions.create(
 <div class="col-sm-5">
 <div class="developer-start-help" style="margin-top:0;">
 <h4>When n8n fits</h4>
-<p>You know the process and how it should handle exceptions. It runs on a schedule or when a message, file, or request arrives. For work that changes shape every time, start in TritonAI Harness instead.</p>
+<p>You know the process and how it should handle exceptions. It runs on a schedule or when a message, file, or request arrives. For work that changes from one request to the next, start in TritonAI Harness.</p>
 </div>
 </div>
 </div>
 </section>
-
 </div>
                     </section>
 				    

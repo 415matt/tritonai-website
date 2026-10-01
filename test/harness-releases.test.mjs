@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { HARNESS_GITHUB, installerFromRelease, releaseSnapshot, releaseSummaryIssues } from "../scripts/lib/harness-releases.mjs";
+import { HARNESS_GITHUB, installerFromRelease, guidedInstallerFromRelease, guidedInstallerIssues, releaseSnapshot, releaseSummaryIssues } from "../scripts/lib/harness-releases.mjs";
 const fixture = (tag = "v1.2.3") => ({ tag_name: tag, draft: false, prerelease: false, published_at: "2026-10-01T00:00:00Z", html_url: `${HARNESS_GITHUB}/releases/tag/${tag}`, body: "Release notes", assets: ["arm64.dmg", "x64.exe"].map((suffix) => ({ name: `TritonAI-Harness-${tag.slice(1)}-${suffix}`, browser_download_url: `${HARNESS_GITHUB}/releases/download/${tag}/TritonAI-Harness-${tag.slice(1)}-${suffix}`, size: 123, digest: `sha256:${"a".repeat(64)}`, state: "uploaded" })) });
 const previous = { version: "1.0.0", platforms: { mac: { label: "Download for Mac", architecture: "Apple Silicon", format: "DMG" }, windows: { label: "Download for Windows", architecture: "x64", format: "Setup EXE" } } };
 
@@ -28,6 +28,20 @@ test("reject missing Windows installers, bad digests, and foreign download URLs"
     assert.throws(() => installerFromRelease(release, previous, "2026-10-01"), /Missing or invalid/);
   }
 });
+test("guided setup selects the Installer DMG and Setup EXE, excluding portable and standalone apps", () => {
+  const release = fixture();
+  release.html_url = release.html_url.replace("TritonAI-Harness", "TritonAI-Installer");
+  release.assets = ["TritonAI-Installer-1.2.3-arm64.dmg", "TritonAI-Installer-Setup-1.2.3-x64.exe", "TritonAI-Installer-1.2.3-x64-portable.exe", "TritonAI-Installer-Setup-1.2.3-x64.exe.blockmap"].map(name => ({ name, browser_download_url: `https://github.com/dbalders/TritonAI-Installer/releases/download/v1.2.3/${name}`, size: 123, digest: `sha256:${"a".repeat(64)}`, state: "uploaded" }));
+  const guided = guidedInstallerFromRelease(release, previous, "2026-10-01");
+  assert.deepEqual(guidedInstallerIssues(guided), []);
+  assert.equal(guided.platforms.windows.filename, "TritonAI-Installer-Setup-1.2.3-x64.exe");
+  assert.throws(() => guidedInstallerFromRelease(fixture(), previous, "2026-10-01"), /official repository/);
+  const invalid = structuredClone(guided);
+  invalid.platforms.mac.downloadUrl = "https://example.com/app.dmg";
+  assert.match(guidedInstallerIssues(invalid).join(" "), /Invalid guided mac/);
+  release.assets = release.assets.filter(asset => !asset.name.endsWith("arm64.dmg"));
+  assert.throws(() => guidedInstallerFromRelease(release, previous, "2026-10-01"), /Missing or invalid mac/);
+});
 test("edited notes and new releases require a matching public summary", () => {
   const release = fixture();
   const snapshot = releaseSnapshot([release], release.tag_name, "2026-10-01");
@@ -41,6 +55,7 @@ test("edited notes and new releases require a matching public summary", () => {
 test("committed notes, summaries, and direct downloads agree", async () => {
   const read = async (name) => JSON.parse(await readFile(new URL(`../content/harness/${name}.json`, import.meta.url), "utf8"));
   assert.deepEqual(releaseSummaryIssues(await read("releases"), await read("release-summaries"), await read("installer")), []);
+  assert.deepEqual(guidedInstallerIssues((await read("installer")).guided), []);
 });
 test("generated summaries require review and verified on-premises provenance", () => {
   const release = fixture();

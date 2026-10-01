@@ -4,7 +4,7 @@ import path from "node:path";
 import { load } from "cheerio";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
-import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues } from "./lib/harness-releases.mjs";
+import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues, guidedInstallerIssues } from "./lib/harness-releases.mjs";
 
 const SOURCE_DIR = path.resolve("src/site");
 const CONTENT_DIR = path.resolve("content");
@@ -1058,7 +1058,7 @@ function normalizeNavigationMarkup($) {
   }
 }
 
-function applyHarnessInstallerMetadata($, installer) {
+function applyHarnessInstallerMetadata($, installer, notesVersion = installer.version) {
   for (const [platformId, platform] of Object.entries(installer.platforms)) {
     const download = $(`[data-harness-download='${platformId}']`).first();
     if (!download.length) continue;
@@ -1071,7 +1071,7 @@ function applyHarnessInstallerMetadata($, installer) {
       .find("[data-harness-download-detail]")
       .text(`${platform.architecture} · ${platform.format}`);
   }
-  $("[data-harness-release]").attr("href", `${HARNESS_RELEASE_PAGE}#${releaseFragment(`v${installer.version}`)}`);
+  $("[data-harness-release]").attr("href", `${HARNESS_RELEASE_PAGE}${notesVersion ? `#${releaseFragment(`v${notesVersion}`)}` : ""}`);
 }
 
 function transformHtml(html, relativePath, context) {
@@ -1206,7 +1206,7 @@ function transformHtml(html, relativePath, context) {
   $("[data-gateway-usage='true']").html(renderGatewayUsage(context.gatewayUsage));
   $("[data-skills-library='true']").html(renderSkillsLibrary(context.skills));
   if (route === "/developer-apis/start.html" || route === "/tools/harness.html" || route === "/developer-apis/harness.html") {
-    applyHarnessInstallerMetadata($, context.harnessInstaller);
+    applyHarnessInstallerMetadata($, route === "/developer-apis/start.html" ? context.harnessInstaller.guided : context.harnessInstaller, route === "/developer-apis/start.html" ? null : context.harnessInstaller.version);
   }
   $("[data-harness-release-notes]").html(renderHarnessReleases(context.harnessReleases, context.harnessReleaseSummaries, context.harnessInstaller));
 
@@ -1343,7 +1343,7 @@ const gatewayUsage = await readJson(GATEWAY_USAGE_FILE);
 const harnessInstaller = await readJson(HARNESS_INSTALLER_FILE);
 const harnessReleases = await readJson(path.join(CONTENT_DIR, "harness/releases.json"));
 const harnessReleaseSummaries = await readJson(path.join(CONTENT_DIR, "harness/release-summaries.json"));
-const harnessReleaseIssues = releaseSummaryIssues(harnessReleases, harnessReleaseSummaries, harnessInstaller);
+const harnessReleaseIssues = [...releaseSummaryIssues(harnessReleases, harnessReleaseSummaries, harnessInstaller), ...guidedInstallerIssues(harnessInstaller.guided)];
 if (harnessReleaseIssues.length) throw new Error(harnessReleaseIssues.join("\n"));
 const seo = await readJson(SEO_FILE);
 const tritonAiUpdates = await readJson(TRITONAI_UPDATES_FILE);
