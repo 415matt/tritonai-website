@@ -3,13 +3,15 @@ title: Prompting
 slug: prompting
 summary: What a prompt is, why it sits at the core of most AI use, and what to include for the audience you have in mind.
 series: Using the Tools
-status: Coming soon
+status: Published
 owner: TritonAI training program
 lastReviewed: '2026-10-01'
 audiences:
   - faculty
   - staff
 source: 'Prompting presentation content from Jeniffer Lapek, October 1, 2026'
+videoEmbedSrc: 'https://cdnapisec.kaltura.com/p/2323111/embedPlaykitJs/uiconf_id/52706832?iframeembed=true&entry_id=1_z03d5hmd&config[provider]={"widgetId":"1_e8sby8ko"}'
+videoEmbedTitle: 'TritonAI Discovery Series-09-Jennifer Lapek'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/prompting.html
 relatedSlides: []
