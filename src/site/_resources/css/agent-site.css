@@ -5982,11 +5982,6 @@ main#main-content .discovery-presenter img {
 }
 main#main-content .discovery-presenter-name { display: block; font-size: 15px; font-weight: 700; color: #182b49; }
 main#main-content .discovery-presenter-title { display: block; font-size: 13px; line-height: 1.4; color: #44576b; }
-main#main-content .discovery-presenter-banner { display: block; }
-main#main-content .discovery-presenter-banner img {
-  width: 100%; height: auto; max-width: 100%;
-  border-radius: 8px;
-}
 main#main-content .discovery-video-pending {
   display: grid; align-content: center; justify-items: center; min-height: 300px;
   padding: 32px; text-align: center; background: #edf2f6; border: 1px solid #c7d4e0; border-radius: 8px;
@@ -6032,9 +6027,6 @@ main#main-content .discovery-lesson-header .discovery-presenters { margin: 0; ga
 main#main-content .discovery-lesson-header .discovery-presenter { gap: 10px; }
 main#main-content .discovery-lesson-header .discovery-presenter img {
   width: 44px; height: 44px; flex-basis: 44px;
-}
-main#main-content .discovery-lesson-header .discovery-presenter-banner img {
-  width: 100%; height: auto; flex-basis: auto;
 }
 @media (max-width: 767px) {
   main#main-content .discovery-lesson-header { grid-template-columns: minmax(0, 1fr); gap: 10px; margin-bottom: 12px; }

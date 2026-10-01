@@ -48,6 +48,6 @@ discussionPoints:
 durationMinutes: null
 discoverySeries: true
 presenters:
-  - image: /_images/training-resources/videos/kevin-chou.jpg
-    imageAlt: Kevin Chou, Chief Information Officer
+  - name: Kevin Chou
+    title: Chief Information Officer
 ---
