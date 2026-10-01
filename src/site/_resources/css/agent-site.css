@@ -5057,6 +5057,10 @@ a.developer-download-button:visited {
   margin: 0 auto;
   border: 0;
 }
+.video-theater .training-video-embed-frame {
+  display: grid;
+  place-items: center;
+}
 .video-theater .video-play-overlay {
   align-items: center;
   background: rgba(0, 40, 70, 0.92);
