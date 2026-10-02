@@ -6421,3 +6421,10 @@ main#main-content .harness-example-steps span { display: block; margin-top: 5px;
   main#main-content .harness-component-visual { width: 100%; max-width: 270px; margin: 14px auto 0; }
   main#main-content .harness-worked-example { padding: 20px; }
 }
+
+/* Harness capability video: captions smaller than the browser default so they cover less of the footage. */
+main#main-content #harness-in-action video::cue {
+  font-size: 55%;
+  line-height: 1.25;
+  background: rgba(0, 0, 0, 0.62);
+}
