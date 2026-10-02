@@ -123,6 +123,68 @@ description, and the index card.
 
 The same applies to `description`. At most two of the fourteen may open with "How".
 
+### 9. Name the actor and use simple verbs
+
+When the source names who acts, use active voice. Use `is`, `has`, and direct action verbs
+where they express the meaning. Keep an unknown actor unknown.
+
+| Before | After |
+|---|---|
+| TritonGPT serves as a campus assistant. | TritonGPT is a campus assistant. |
+| Staff can perform a review of the draft. | Staff can review the draft. |
+
+Use source evidence for claims about outcomes. Cut clauses that merely declare
+importance, such as "marking a pivotal moment" or "highlighting our commitment to
+innovation". A claim about an outcome needs evidence even when it follows a factual sentence.
+
+### 10. Name sources and keep real uncertainty
+
+For a sourced claim, use the source's name and retain its link. When source material names
+a source, replace vague attribution such as "experts say" with that name.
+
+Flag missing evidence for the content owner. Never invent a source or fill a gap with a
+plausible detail. Keep uncertainty and scope where they describe a real limitation. The
+claim protections below apply to every copy edit.
+
+### 11. Make each paragraph add information
+
+Start with the point. Cut an opening sentence that repeats the heading or announces the
+next point. End with a useful fact or an action the reader can take.
+
+| Before | After |
+|---|---|
+| Let's explore how to review a draft. | Read the draft and check its claims against the source. |
+| In order to review the draft, it is important to check each claim. | To review the draft, check each claim. |
+
+Cut generic optimistic endings such as "Exciting times lie ahead". If the source states a
+plan, keep it. Use connected sentences, with length guided by the content.
+Rewrite a run of dramatic fragments as a complete thought.
+
+### 12. Keep names consistent
+
+Use one name for each service or concept. Keep product names, defined status words, and
+governance terms exact. Use pronouns where their referent is clear.
+
+To fix repetition, change the sentence construction or combine related sentences. Repeated
+mentions of TritonGPT do not need substitutes such as "the platform" or "the AI solution".
+
+## Editorial review
+
+These additions draw on the humanizer skill. Apply them in the site's factual, institutional
+voice. Preserve quoted material and official titles. Use the punctuation exceptions and
+claim protections in this guide. If the author supplies an opinion or personal anecdote,
+include it only where appropriate to the page.
+
+Before finishing a copy change:
+
+1. Read the affected passage aloud or at speaking pace. Check rhythm and repeated openings.
+   Rewrite an awkward paragraph around its main point.
+2. Compare the revision with its source. Account for every fact, name, number, and date.
+   Preserve quotes, citations, scope qualifiers, and uncertainty. Correct any unsupported
+   addition or lost claim.
+3. Run `npm run test:language` and review its findings. It checks mechanical patterns.
+   Manually review source attribution and paragraph quality as well.
+
 ## Words that carry meaning here
 
 These are **not** boosters. They qualify a real control, several are validated, and some are

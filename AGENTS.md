@@ -19,7 +19,7 @@ Maintain an accessible, static TritonAI website that preserves the public site's
 
 ## Voice
 
-Full rules and before/after examples: [docs/voice-and-language.md](docs/voice-and-language.md). `npm run test:language` checks the mechanical ones.
+Before writing or editing site copy, read [docs/voice-and-language.md](docs/voice-and-language.md) for the full rules, examples, and editorial review process. `npm run test:language` checks the mechanical patterns.
 
 - One idea per heading. No two-sentence headings.
 - A heading names what the section contains. It is not a maxim.
@@ -29,6 +29,11 @@ Full rules and before/after examples: [docs/voice-and-language.md](docs/voice-an
 - Cut boosters (`practical`, `trusted`, `meaningful`, `seamless`, `leverage`). Keep the governance vocabulary (`approved`, `bounded`, `supervised`, `named owner`) — those qualify real controls.
 - Em dashes only for a genuine aside or a numeric range. Never in a frontmatter `description`.
 - Read sibling strings top to bottom. If a set shares an opening frame, rewrite it. A use-case `summary` may not start with "A", "An", or "The".
+- Name who acts and use simple verbs. Describe supported outcomes without inflating their importance.
+- When a named source is available, attribute the claim to it. Keep uncertainty and scope. Flag missing evidence without inventing details.
+- Cut filler, opening sentences that repeat headings, and generic optimistic endings. Each paragraph adds information the reader can use.
+- Keep one name for each service or concept. Vary sentence construction without cycling through synonyms.
+- Finish with an editorial pass for rhythm and repetition, then compare against the source for changed facts or lost qualifications.
 
 This applies to agent-authored newsletters in `content/newsletters/` as well as pages.
 
