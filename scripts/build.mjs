@@ -1217,6 +1217,9 @@ function transformHtml(html, relativePath, context) {
 
   $("video").each((_, element) => {
     const video = $(element);
+    // User-started players retain native sources so a tap can start playback
+    // without waiting for viewport hydration or an autoplay promise.
+    if (video.attr("data-playback") === "manual") return;
     video
       .removeAttr("autoplay")
       .attr("data-autoplay-when-visible", "true")

@@ -50,12 +50,13 @@ bannerMode: abstract
 <h2 id="harness-in-action-heading">See the Harness in action</h2>
 <p>This narrated video runs about two minutes and shows results from the Harness app. It was recorded with fictional workshop files.</p>
 </div>
-<video class="img-responsive center-block" width="1920" height="1080" controls controlslist="nodownload" muted playsinline preload="metadata" poster="/_images/harness/tritonai-harness-capabilities-2026-10-01-v2.jpg" aria-label="TritonAI Harness in action" aria-describedby="harness-in-action-description" aria-details="harness-in-action-transcript">
+<video class="img-responsive center-block" width="1920" height="1080" data-playback="manual" controls controlslist="nodownload" muted playsinline preload="none" poster="/_images/harness/tritonai-harness-capabilities-2026-10-01-v2.jpg" aria-label="TritonAI Harness in action" aria-describedby="harness-in-action-description" aria-details="harness-in-action-transcript">
 <source src="/_files/harness/tritonai-harness-capabilities-2026-10-01-v3.mp4" type="video/mp4">
 <track kind="captions" src="/_files/harness/tritonai-harness-capabilities-2026-10-01-v2.vtt" srclang="en" label="English" default>
 Your browser does not support embedded video.
 </video>
-<p id="harness-in-action-description" class="small">The video plays muted with captions. Turn on sound to hear the narration. It shows a survey summary, an Excel dashboard, a briefing deck on the UC San Diego template, the five campus plugins, an n8n workflow explained step by step, a GitHub code review, and a sign-up app built on the campus design system and wired to an n8n workflow.</p>
+<p class="small">Tap Play to start. If the embedded player does not work, <a href="/_files/harness/tritonai-harness-capabilities-2026-10-01-v3.mp4">open the video directly</a>.</p>
+<p id="harness-in-action-description" class="small">The video starts muted with captions. Turn on sound to hear the narration. It shows a survey summary, an Excel dashboard, a briefing deck on the UC San Diego template, the five campus plugins, an n8n workflow explained step by step, a GitHub code review, and a sign-up app built on the campus design system and wired to an n8n workflow.</p>
 <section class="sr-only" id="harness-in-action-transcript" aria-label="Video transcript">
 <h3>Introduction (0:00)</h3>
 <p>TritonAI Harness is UC San Diego's AI workspace on your desktop. You hand it real work, and it delivers finished results, using your files and campus systems.</p>

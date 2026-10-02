@@ -764,13 +764,17 @@ for (const page of htmlFiles) {
 
   $("video").each((_, element) => {
     const video = $(element);
+    const manualPlayback = video.attr("data-playback") === "manual";
     if (video.attr("controls") === undefined) accessibility.push({ page: route, issue: "Video missing controls" });
-    if (video.attr("data-autoplay-when-visible") !== "true") accessibility.push({ page: route, issue: "Video must autoplay when visible" });
+    if (!manualPlayback && video.attr("data-autoplay-when-visible") !== "true") accessibility.push({ page: route, issue: "Video must autoplay when visible or use manual playback" });
     if (video.attr("muted") === undefined) accessibility.push({ page: route, issue: "Autoplay video must be muted" });
     if (video.attr("playsinline") === undefined) accessibility.push({ page: route, issue: "Autoplay video must play inline" });
     if (video.attr("autoplay") !== undefined) performance.push({ page: route, issue: "Video must not load through eager autoplay" });
     if (video.attr("preload") !== "none") performance.push({ page: route, issue: "Deferred video must use preload=none" });
-    if (video.attr("src") || video.find("source[src]").length) performance.push({ page: route, issue: "Video source must be deferred to data-src" });
+    if (manualPlayback) {
+      if (video.attr("data-autoplay-when-visible") || video.attr("data-src") || video.find("source[data-src]").length) performance.push({ page: route, issue: "Manual video must bypass autoplay and deferred hydration" });
+      if (!video.attr("src") && !video.find("source[src]").length) accessibility.push({ page: route, issue: "Manual video needs a native source" });
+    } else if (video.attr("src") || video.find("source[src]").length) performance.push({ page: route, issue: "Video source must be deferred to data-src" });
     const descriptionId = video.attr("aria-describedby");
     const described = descriptionId && $(`#${descriptionId}`).length === 1;
     const silentDemo = video.attr("data-silent-demo") === "true" && video.attr("muted") !== undefined && described;
