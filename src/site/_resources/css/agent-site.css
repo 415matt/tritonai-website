@@ -5484,6 +5484,8 @@ a.video-theater-nav-next.is-suggested .video-theater-nav-next-label {
   border-radius: 0;
   background: transparent;
   width: 100%;
+  max-width: 976px;
+  aspect-ratio: 16 / 9;
   height: auto;
   max-height: none;
   min-height: 0;
