@@ -1,37 +1,32 @@
 {
-  "schemaVersion": 1,
-  "product": "TritonAI Installer",
-  "version": "0.3.3",
-  "publishedAt": "2026-08-13T18:04:06Z",
+  "schemaVersion": 2,
+  "product": "TritonAI Harness",
   "owner": "TritonAI service team",
-  "source": "https://github.com/dbalders/TritonAI-Installer/releases/tag/v0.3.3",
-  "lastReviewed": "2026-08-21",
+  "source": "https://github.com/dbalders/TritonAI-Harness/releases/latest",
+  "lastReviewed": "2026-10-01",
   "dataClassification": "Public",
   "canonicalUrl": "/developer-apis/start.html",
-  "releaseUrl": "https://github.com/dbalders/TritonAI-Installer/releases/tag/v0.3.3",
-  "checksumsUrl": "https://github.com/dbalders/TritonAI-Installer/releases/download/v0.3.3/SHA256SUMS.txt",
+  "releaseUrl": "https://github.com/dbalders/TritonAI-Harness/releases/latest",
   "platforms": {
     "mac": {
       "label": "Download for Mac",
       "architecture": "Apple Silicon",
       "format": "DMG",
-      "filename": "TritonAI-Installer-0.3.3-arm64.dmg",
-      "displaySize": "441 MB",
-      "sizeBytes": 461975177,
-      "sha256": "9427d2c97d8d67a474e7422962f084bde197654a07976b70e48cc5549109b2c2",
-      "downloadUrl": "https://github.com/dbalders/TritonAI-Installer/releases/download/v0.3.3/TritonAI-Installer-0.3.3-arm64.dmg",
-      "signing": "Developer ID signed, Apple notarized, and stapled"
+      "downloadUrl": "https://github.com/dbalders/TritonAI-Harness/releases/download/v0.3.4/TritonAI-Harness-0.3.4-arm64.dmg",
+      "filename": "TritonAI-Harness-0.3.4-arm64.dmg",
+      "sizeBytes": 321699572,
+      "sha256": "b7a894497f0573b1ce248fb6b44eea60be0bc4be21fcc8c04719ef500b3dc4a0"
     },
     "windows": {
       "label": "Download for Windows",
       "architecture": "x64",
       "format": "Setup EXE",
-      "filename": "TritonAI-Installer-Setup-0.3.3-x64.exe",
-      "displaySize": "390 MB",
-      "sizeBytes": 408978444,
-      "sha256": "4179faa2cd33550b07130e85cd70c5a2a2f75866a27b08f7acf3c624903804b5",
-      "downloadUrl": "https://github.com/dbalders/TritonAI-Installer/releases/download/v0.3.3/TritonAI-Installer-Setup-0.3.3-x64.exe",
-      "signing": "Unsigned; Microsoft Defender SmartScreen may appear"
+      "downloadUrl": "https://github.com/dbalders/TritonAI-Harness/releases/download/v0.3.4/TritonAI-Harness-0.3.4-x64.exe",
+      "filename": "TritonAI-Harness-0.3.4-x64.exe",
+      "sizeBytes": 218791040,
+      "sha256": "133ba9dcddfc0993939351ce53281ceb740ea17e2560c6f1c6e4b99ef961af1d"
     }
-  }
+  },
+  "version": "0.3.4",
+  "publishedAt": "2026-09-23T02:59:43Z"
 }

@@ -16,6 +16,11 @@ dataClassification: Public description
 canonicalUrl: /training-resources/videos/process-before-ai.html
 relatedSlides: []
 order: 8
+keyLinks:
+  - label: Lucidchart
+    href: https://blink.ucsd.edu/technology/file-sharing/lucidchart/index.html
+  - label: Promapp
+    href: https://blink.ucsd.edu/technology/file-sharing/promapp/index.html
 quiz:
   - question: What should you do before choosing an AI solution?
     options:
@@ -35,10 +40,10 @@ quiz:
     explanation: Process mapping separates genuine opportunities from assumptions about what AI can fix.
   - question: Where can you get help with process improvement?
     options:
-      - 'Through campus support, including OSI'
-      - Only from vendors
+      - Through campus support, including Operational Strategic Initiatives (OSI)
+      - From the vendor that sold the software
       - Only from online forums
-      - No support is available
+      - Process improvement is not needed as is an outdated concept
     answer: 0
     explanation: OSI and related campus support can help teams assess and improve processes before implementing AI.
 discussionPoints:
@@ -50,4 +55,5 @@ discoverySeries: true
 presenters:
   - name: Antonio Nava
     title: 'Program Director, OSI'
+    cardImage: /_images/training-resources/videos/antonio-nava-presenter-card.png
 ---

@@ -15,6 +15,20 @@ videoEmbedTitle: 'TritonAI Discovery Series-03-Kevin Chou'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/ai-tools-at-uc-san-diego.html
 relatedSlides: []
+keyTerms:
+  - term: TritonAI Harness
+    description: UCSD's agentic coding environment where TritonAI runs an AI agent with tools, skills, and integrations to work on your files and workflows.
+  - term: Skills
+    description: Bundled instruction sets in TritonAI that teach the agent how to perform specific UC San Diego tasks or workflows (e.g., accessibility review, CMS editing, calendar management).
+  - term: Plugins
+    description: Optional add-on integrations, for example, GitHub and Google Drive that extend the Harness with external tools and data access.
+  - term: MCP Connections
+    description: Secure links between the Harness and external services via the Model Context Protocol (MCP), letting the agent read and act on those systems on your behalf.
+  - term: n8n
+    description: A workflow-automation platform used by UC San Diego to connect to the TritonAI Harness, used for building and running automated multi-step integrations and data pipelines.
+keyLinks:
+  - label: TritonAI Harness
+    href: https://stage-tritonai.ucsd.edu/developer-apis/harness.html
 order: 3
 quiz:
   - question: What should you consider first when choosing an AI tool?
@@ -30,7 +44,7 @@ quiz:
       - Replace human review
       - Match the right tool to the right task
       - Guarantee security
-      - Eliminate the need for training
+      - Eliminate the need for further AI training
     answer: 1
     explanation: Categorizing the work makes it easier to choose a tool that fits the purpose and the risk level.
   - question: Where can you find UC San Diego’s approved AI tools?
@@ -50,4 +64,5 @@ discoverySeries: true
 presenters:
   - name: Kevin Chou
     title: Chief Information Officer
+    cardImage: /_images/training-resources/videos/kevin-chou-presenter-card.png
 ---

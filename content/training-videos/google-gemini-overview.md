@@ -4,6 +4,7 @@ slug: google-gemini-overview
 summary: How to create a Gem and use the specialized functions available in Gemini at UC San Diego.
 series: Using the Tools
 status: Coming soon
+availabilityLabel: 'Coming October 15th'
 owner: TritonAI training program
 lastReviewed: '2026-09-29'
 audiences:

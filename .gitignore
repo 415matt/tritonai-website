@@ -7,3 +7,4 @@ reports/language.json
 reports/screenshots/
 reports/ux-agent/
 .claude/
+__pycache__/

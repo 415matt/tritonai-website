@@ -4,6 +4,7 @@ import path from "node:path";
 import { load } from "cheerio";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
+import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues } from "./lib/harness-releases.mjs";
 
 const SOURCE_DIR = path.resolve("src/site");
 const CONTENT_DIR = path.resolve("content");
@@ -178,11 +179,26 @@ function renderDeliveryPathway(current) {
     { id: "roadmap", label: "Roadmap", href: "/about/roadmap.html", description: "Approved direction and delivery status" },
     { id: "updates", label: "TritonAI Updates", href: "/about/tritonai-updates.html", description: "Verified program launches and milestones" },
     { id: "features", label: "TritonGPT Feature Updates", href: "/tritongpt/release-notes/index.html", description: "Deployed product changes for users" },
+    { id: "harness", label: "Harness Release Notes", href: HARNESS_RELEASE_PAGE, description: "Stable desktop releases and downloads" },
   ];
   const items = steps
     .map((step, index) => `<li${step.id === current ? ' class="delivery-pathway-current"' : ""}><a href="${step.href}"${step.id === current ? ' aria-current="page"' : ""}><span class="delivery-pathway-number" aria-hidden="true">${index + 1}</span><span><strong>${escapeHtml(step.label)}</strong><small>${escapeHtml(step.description)}</small></span></a></li>`)
     .join("");
-  return `<nav class="delivery-pathway" aria-labelledby="delivery-pathway-heading"><div class="delivery-pathway-heading"><p class="home-kicker">From direction to delivery</p><h2 id="delivery-pathway-heading">Follow the work at each stage</h2><p>The roadmap shows approved work. Program updates record delivery. Feature updates explain changes available in TritonGPT.</p></div><ol>${items}</ol></nav>`;
+  return `<nav class="delivery-pathway" aria-labelledby="delivery-pathway-heading"><div class="delivery-pathway-heading"><p class="home-kicker">Updates and planning</p><h2 id="delivery-pathway-heading">Release notes and program updates</h2><p>Browse planned work, verified program milestones, and releases for TritonGPT and TritonAI Harness.</p></div><ol>${items}</ol></nav>`;
+}
+
+function renderHarnessReleases(snapshot, summaries, installer) {
+  const date = (value) => new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(value));
+  const detailed = snapshot.releases.filter((release) => summaries.releases[release.tag]);
+  const archive = snapshot.releases.filter((release) => !summaries.releases[release.tag]);
+  const notes = detailed.map((release) => {
+    const summary = summaries.releases[release.tag];
+    const latest = release.tag === snapshot.latestTag;
+    const downloads = latest ? `<p><a class="btn btn-primary" href="${escapeHtml(installer.platforms.mac.downloadUrl)}">Download ${escapeHtml(release.tag)} for Mac</a> <a class="btn btn-primary" href="${escapeHtml(installer.platforms.windows.downloadUrl)}">Download ${escapeHtml(release.tag)} for Windows</a></p>` : "";
+    return `<article class="harness-release-card" id="${releaseFragment(release.tag)}"><p class="home-kicker">${latest ? "Current stable release" : "Previous release"}</p><h2>TritonAI Harness ${escapeHtml(release.tag)}</h2><p>Published <time datetime="${escapeHtml(release.publishedAt)}">${escapeHtml(date(release.publishedAt))}</time></p><ul>${summary.highlights.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>${downloads}<p><a href="${escapeHtml(release.notesUrl)}">Full ${escapeHtml(release.tag)} release notes on GitHub</a></p></article>`;
+  }).join("");
+  const history = archive.map((release) => `<li><a href="${escapeHtml(release.notesUrl)}">TritonAI Harness ${escapeHtml(release.tag)}</a> <time datetime="${escapeHtml(release.publishedAt)}">${escapeHtml(date(release.publishedAt))}</time></li>`).join("");
+  return `${renderDeliveryPathway("harness")}<div class="container harness-release-notes"><section aria-labelledby="harness-release-intro"><h2 id="harness-release-intro">What changed in TritonAI Harness</h2><p>Summaries of stable desktop releases published by the TritonAI Harness project. Access to models and connected services depends on your approved setup and account permissions.</p><p><a href="/developer-apis/start.html">Installation and Gateway setup</a> · <a href="/developer-apis/harness.html">TritonAI Harness overview</a></p></section>${notes}${history ? `<section aria-labelledby="harness-release-archive"><h2 id="harness-release-archive">Earlier releases</h2><p>Original release details remain available on GitHub.</p><ul class="harness-release-archive">${history}</ul></section>` : ""}</div>`;
 }
 
 function renderTritonAiUpdates(feed, streamId) {
@@ -512,9 +528,35 @@ function videoAvailability(video) {
   return video.status === "Coming soon" ? "Video coming soon" : `${escapeHtml(String(video.durationMinutes))} min`;
 }
 
-function renderVideoPresenters(video) {
+function renderVideoPresenters(video, variant = "theater", linkUrl = null) {
   const presenters = video.presenters || (video.presenter ? [{ name: video.presenter, title: video.presenterTitle, image: video.presenterImage }] : []);
-  return presenters.map((presenter) => `<div class="discovery-presenter">${presenter.image ? `<img src="${escapeHtml(presenter.image)}" alt="" loading="lazy">` : ""}<span><span class="discovery-presenter-name">${escapeHtml(presenter.name)}</span>${presenter.title ? `<span class="discovery-presenter-title">${escapeHtml(presenter.title)}</span>` : ""}</span></div>`).join("");
+  const renderCardImage = (src, altText) => {
+    const image = `<img class="discovery-presenter-card-image" src="${escapeHtml(src)}" alt="${escapeHtml(altText)}" loading="lazy">`;
+    return `<div class="discovery-presenter">${linkUrl ? `<a class="discovery-presenter-card-link" href="${escapeHtml(linkUrl)}">${image}</a>` : image}</div>`;
+  };
+  if (variant === "card" && video.presenterCardImage) {
+    const altText = presenters.map((presenter) => presenter.title ? `${presenter.name}, ${presenter.title}` : presenter.name).join(" and ");
+    return renderCardImage(video.presenterCardImage, altText);
+  }
+  return presenters.map((presenter) => {
+    if (variant === "card" && presenter.cardImage) {
+      const altText = presenter.title ? `${presenter.name}, ${presenter.title}` : presenter.name;
+      return renderCardImage(presenter.cardImage, altText);
+    }
+    return `<div class="discovery-presenter">${presenter.image ? `<img src="${escapeHtml(presenter.image)}" alt="" loading="lazy">` : ""}<span><span class="discovery-presenter-name">${escapeHtml(presenter.name)}</span>${presenter.title ? `<span class="discovery-presenter-title">${escapeHtml(presenter.title)}</span>` : ""}</span></div>`;
+  }).join("");
+}
+
+function renderTrainingVideoKeyLinks(video) {
+  if (!video.keyLinks?.length) return "";
+  const links = video.keyLinks.map((link) => `<li><a href="${escapeHtml(link.href)}">${escapeHtml(link.label)}</a></li>`).join("");
+  return `<section class="landing-section video-key-links-section" aria-labelledby="${escapeHtml(video.slug)}-key-links-heading"><div class="container video-theater-about-inner"><div class="landing-section-heading"><h2 id="${escapeHtml(video.slug)}-key-links-heading">Key links</h2></div><ul class="video-key-links-list">${links}</ul></div></section>`;
+}
+
+function renderTrainingVideoKeyTerms(video) {
+  if (!video.keyTerms?.length) return "";
+  const terms = video.keyTerms.map((term) => `<li><strong>${escapeHtml(term.term)}:</strong> ${escapeHtml(term.description)}</li>`).join("");
+  return `<section class="landing-section video-key-terms-section" aria-labelledby="${escapeHtml(video.slug)}-key-terms-heading"><div class="container video-theater-about-inner"><div class="landing-section-heading"><h2 id="${escapeHtml(video.slug)}-key-terms-heading">Key terms</h2></div><ul class="video-key-terms-list">${terms}</ul></div></section>`;
 }
 
 function renderTrainingVideoQuiz(video) {
@@ -552,19 +594,20 @@ async function renderTrainingVideoPage(video, siblings = []) {
   const railHtml = `<aside class="video-theater-rail" aria-label="Series navigation"><p class="video-theater-rail-heading">In this series</p>${position >= 0 ? `<p class="video-theater-rail-position">Lesson ${position + 1} of ${progression.length}</p>` : ""}${railCards ? `<ul class="video-rail-list">${railCards}</ul>` : ""}<a class="video-theater-rail-all" href="/training-resources/videos/index.html">TritonAI Discovery Series <span aria-hidden="true">→</span></a></aside>`;
   const media = pending ? `<div class="discovery-video-pending"><span class="glyphicon glyphicon-film" aria-hidden="true"></span><h2>Video coming soon</h2><p>The recording, captions, and transcript will be added when available.</p><a href="#${escapeHtml(video.slug)}-quiz-heading">Explore the knowledge check</a></div>` : renderTrainingVideoBlock(video);
   const theaterHtml = `<section class="video-theater" aria-label="${escapeHtml(video.title)} viewing area"><div class="video-theater-layout"><div class="video-theater-primary"><div class="discovery-lesson-header"><div class="discovery-lesson-copy"><p class="video-theater-kicker">${escapeHtml(video.series)} · ${videoAvailability(video)}</p><h1 class="video-theater-title">${escapeHtml(video.title)}</h1><p class="video-theater-description">${escapeHtml(video.summary)}</p></div><div class="discovery-presenters">${renderVideoPresenters(video)}</div></div>${media}${transcriptHtml}</div>${railHtml}</div></section>`;
-  return `${theaterHtml}${renderTrainingVideoQuiz(video)}${renderTrainingVideoDiscussion(video)}${renderTrainingVideoCta(video, { nextVideo: position >= 0 ? progression[position + 1] : undefined })}`;
+  return `${theaterHtml}${renderTrainingVideoKeyTerms(video)}${renderTrainingVideoKeyLinks(video)}${renderTrainingVideoQuiz(video)}${renderTrainingVideoDiscussion(video)}${renderTrainingVideoCta(video, { nextVideo: position >= 0 ? progression[position + 1] : undefined })}`;
 }
 
 function renderTrainingVideoIndex(allVideos) {
   const videos = allVideos.filter((video) => video.discoverySeries === true).sort((a, b) => a.order - b.order);
   const seriesHtml = TRAINING_VIDEO_SERIES_ORDER.map((series, index) => {
     const cards = videos.filter((video) => video.series === series).map((video) => {
-      const isStaticCard = video.order >= 9 && video.order <= 15;
+      const isStaticCard = video.order >= 9 && video.order <= 15 && !video.linkFromIndex;
       const titleHtml = isStaticCard
         ? escapeHtml(video.title)
         : `<a href="${escapeHtml(video.canonicalUrl)}">${escapeHtml(video.title)}</a>`;
       const exploreHtml = isStaticCard ? "" : `<p class="discovery-card-link"><a class="text-link" href="${escapeHtml(video.canonicalUrl)}">Explore lesson <span class="sr-only">${String(video.order)}: ${escapeHtml(video.title)}</span><span aria-hidden="true">→</span></a></p>`;
-      return `<article class="panel panel-default cms-news-card cms-use-case-card discovery-card" data-video-card="${escapeHtml(video.slug)}" data-video-available="${video.status === "Published"}" data-quiz-version="${createHash("sha256").update(JSON.stringify(video.quiz)).digest("hex").slice(0, 12)}"><div class="panel-body"><div class="discovery-card-intro"><p class="training-video-card-meta">${String(video.order).padStart(2, "0")} · ${videoAvailability(video)}<span class="training-video-card-state" data-video-state hidden></span></p>${video.videoPoster ? `<a class="cms-news-image" href="${escapeHtml(video.canonicalUrl)}"><img src="${escapeHtml(video.videoPoster)}" alt="${escapeHtml(video.title)} video poster" loading="lazy"></a>` : ""}<h3>${titleHtml}</h3><p>${escapeHtml(video.summary)}</p></div><div class="discovery-presenters">${renderVideoPresenters(video)}</div><div class="discovery-card-footer">${exploreHtml}<p class="discovery-quiz-state" data-quiz-card-state hidden></p></div></div></article>`;
+      const availabilityLabel = video.availabilityLabel || videoAvailability(video);
+      return `<article class="panel panel-default cms-news-card cms-use-case-card discovery-card" data-video-card="${escapeHtml(video.slug)}" data-video-available="${video.status === "Published"}" data-quiz-version="${createHash("sha256").update(JSON.stringify(video.quiz)).digest("hex").slice(0, 12)}"><div class="panel-body"><div class="discovery-card-intro"><p class="training-video-card-meta">${String(video.order).padStart(2, "0")} · ${escapeHtml(availabilityLabel)}<span class="training-video-card-state" data-video-state hidden></span></p>${video.videoPoster ? `<a class="cms-news-image" href="${escapeHtml(video.canonicalUrl)}"><img src="${escapeHtml(video.videoPoster)}" alt="${escapeHtml(video.title)} video poster" loading="lazy"></a>` : ""}<h3>${titleHtml}</h3><p>${escapeHtml(video.summary)}</p></div><div class="discovery-presenters">${renderVideoPresenters(video, "card", isStaticCard ? null : video.canonicalUrl)}</div><div class="discovery-card-footer">${exploreHtml}<p class="discovery-quiz-state" data-quiz-card-state hidden></p></div></div></article>`;
     }).join("");
     const sectionId = `series-${series.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
     return `<section aria-labelledby="${sectionId}" class="landing-section cms-news-module${index % 2 ? " landing-section-sand" : ""}"><div class="container"><div class="landing-section-heading"><p class="home-kicker">Series</p><h2 id="${sectionId}">${escapeHtml(series)}</h2><p>${escapeHtml(TRAINING_VIDEO_SERIES_DESCRIPTIONS[series])}</p></div><div class="discovery-grid">${cards}</div></div></section>`;
@@ -1219,17 +1262,14 @@ function applyHarnessInstallerMetadata($, installer) {
     if (!download.length) continue;
     download.attr({
       href: platform.downloadUrl,
-      "aria-label": `${platform.label}, ${platform.architecture}, ${platform.format}, ${platform.displaySize}`,
+      "aria-label": `${platform.label}, version ${installer.version}, ${platform.architecture}, ${platform.format}`,
     });
     download.find("[data-harness-download-label]").text(platform.label);
     download
       .find("[data-harness-download-detail]")
-      .text(`Version ${installer.version} · ${platform.architecture} · ${platform.format} · ${platform.displaySize}`);
-    $(`[data-harness-filename='${platformId}']`).text(platform.filename);
+      .text(`Version ${installer.version} · ${platform.architecture} · ${platform.format}`);
   }
-  $("[data-harness-release]").attr("href", installer.releaseUrl);
-  $("[data-harness-checksums]").attr("href", installer.checksumsUrl);
-  $("[data-harness-version]").text(`Version ${installer.version}`);
+  $("[data-harness-release]").attr("href", `${HARNESS_RELEASE_PAGE}#${releaseFragment(`v${installer.version}`)}`);
 }
 
 function transformHtml(html, relativePath, context) {
@@ -1368,6 +1408,8 @@ function transformHtml(html, relativePath, context) {
   if (route === "/developer-apis/start.html" || route === "/tools/harness.html" || route === "/developer-apis/harness.html") {
     applyHarnessInstallerMetadata($, context.harnessInstaller);
   }
+  $("[data-harness-release-notes]").html(renderHarnessReleases(context.harnessReleases, context.harnessReleaseSummaries, context.harnessInstaller));
+
   $("[data-tritonai-updates]").each((_, element) => {
     const target = $(element);
     target.html(renderTritonAiUpdates(context.tritonAiUpdates, target.attr("data-tritonai-updates")));
@@ -1508,6 +1550,10 @@ const skills = await readJson(SKILLS_FILE);
 const homeHero = await readJson(HOME_HERO_FILE);
 const gatewayUsage = await readJson(GATEWAY_USAGE_FILE);
 const harnessInstaller = await readJson(HARNESS_INSTALLER_FILE);
+const harnessReleases = await readJson(path.join(CONTENT_DIR, "harness/releases.json"));
+const harnessReleaseSummaries = await readJson(path.join(CONTENT_DIR, "harness/release-summaries.json"));
+const harnessReleaseIssues = releaseSummaryIssues(harnessReleases, harnessReleaseSummaries, harnessInstaller);
+if (harnessReleaseIssues.length) throw new Error(harnessReleaseIssues.join("\n"));
 const seo = await readJson(SEO_FILE);
 const tritonAiUpdates = await readJson(TRITONAI_UPDATES_FILE);
 requireFields(roadmap, ["title", "description", "owner", "lastReviewed", "source", "canonicalUrl", "items"], "content/roadmap/milestones.json");
@@ -1540,10 +1586,10 @@ for (const [route, entry] of Object.entries(seo.routes)) {
 }
 requireFields(tritonAiUpdates, ["schemaVersion", "title", "description", "owner", "source", "lastReviewed", "streams", "areas", "updates"], "content/updates/tritonai-updates.json");
 tritonAiUpdates.lastReviewed = isoDate(tritonAiUpdates.lastReviewed);
-requireFields(harnessInstaller, ["schemaVersion", "product", "version", "publishedAt", "owner", "source", "lastReviewed", "dataClassification", "canonicalUrl", "releaseUrl", "checksumsUrl", "platforms"], "content/harness/installer.json");
+requireFields(harnessInstaller, ["schemaVersion", "product", "version", "publishedAt", "owner", "source", "lastReviewed", "dataClassification", "canonicalUrl", "releaseUrl", "platforms"], "content/harness/installer.json");
 harnessInstaller.lastReviewed = isoDate(harnessInstaller.lastReviewed);
 for (const platformId of ["mac", "windows"]) {
-  requireFields(harnessInstaller.platforms[platformId] || {}, ["label", "architecture", "format", "filename", "displaySize", "sizeBytes", "sha256", "downloadUrl", "signing"], `Harness installer platform ${platformId}`);
+  requireFields(harnessInstaller.platforms[platformId] || {}, ["label", "architecture", "format", "filename", "sizeBytes", "sha256", "downloadUrl"], `Harness installer platform ${platformId}`);
 }
 const updateStreamIds = new Set();
 for (const [index, stream] of tritonAiUpdates.streams.entries()) {
@@ -1603,6 +1649,9 @@ for (const video of trainingVideos) {
     if (!question.question || !Array.isArray(question.options) || question.options.length < 2 || !Number.isInteger(question.answer) || question.answer < 0 || question.answer >= question.options.length || !question.explanation) {
       throw new Error(`${video.filename}: invalid quiz question or answer key`);
     }
+  }
+  for (const [index, link] of (video.keyLinks || []).entries()) {
+    requireFields(link, ["label", "href"], `key link ${index + 1} for ${video.slug}`);
   }
 }
 const newsletters = await loadNewsletters();
@@ -1704,7 +1753,7 @@ const optimizedImages = new Set(
     .filter((file) => file.endsWith(".webp"))
     .map((file) => `/_images/${file.replaceAll(path.sep, "/")}`),
 );
-const context = { site, newsletters, useCases, facts, gatewayUsage, harnessInstaller, skills, seo, tritonAiUpdates, generatedByPath, optimizedImages };
+const context = { site, newsletters, useCases, facts, gatewayUsage, harnessInstaller, harnessReleases, harnessReleaseSummaries, skills, seo, tritonAiUpdates, generatedByPath, optimizedImages };
 for (const relativePath of htmlFiles) {
   const filename = path.join(OUTPUT_DIR, relativePath);
   await writeFile(filename, transformHtml(await readFile(filename, "utf8"), relativePath, context));

@@ -21,15 +21,15 @@ quiz:
     options:
       - It can find patterns in large amounts of information.
       - It can guarantee truthful answers.
-      - It can understand ethics perfectly.
-      - It can replace expert judgment.
+      - It can replace the need to plan a workflow
+      - It can replace human judgement which saves time
     answer: 0
     explanation: >-
       AI is useful for identifying relationships and trends across large data sets that would be difficult to review
       manually.
   - question: What is one limitation of AI?
     options:
-      - It is always accurate.
+      - It requires human oversight
       - It can make mistakes or produce unreliable output.
       - It cannot be reviewed.
       - It only works on data from the internet
@@ -37,10 +37,10 @@ quiz:
     explanation: AI output is not automatically accurate. It should always be checked before it is used to support a decision.
   - question: What should you do before relying on AI output?
     options:
-      - Assume it is correct.
+      - Start with the assumption that it is correct
       - Check the output with a more technical colleague
       - Check it against a trusted source or your own judgment.
-      - Use it only for high-stakes decisions.
+      - Ask multiple colleagues to run the same prompt
     answer: 2
     explanation: >-
       Verification protects accuracy and accountability, especially when the output affects people, decisions, or
@@ -54,4 +54,5 @@ discoverySeries: true
 presenters:
   - name: Trevor Bonjour
     title: 'Assistant Teaching Professor, Department of Computer Science and Engineering'
+    cardImage: /_images/training-resources/videos/trevor-bonjour-presenter-card.png
 ---

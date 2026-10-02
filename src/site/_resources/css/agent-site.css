@@ -3879,7 +3879,7 @@ a.developer-download-button:visited {
   counter-reset: none;
   display: grid;
   gap: 16px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   list-style: none;
   margin: 0;
   padding: 0;
@@ -5578,11 +5578,31 @@ a.video-theater-nav-next.is-suggested .video-theater-nav-next-label {
   padding-top: 26px;
 }
 
-/* Training videos: knowledge check, discussion points, and team CTA */
+/* Training videos: key links, knowledge check, discussion points, and team CTA */
+.video-key-links-section .video-theater-about-inner,
+.video-key-terms-section .video-theater-about-inner,
 .video-quiz-section .video-theater-about-inner,
 .video-discussion-section .video-theater-about-inner,
 .video-training-cta .video-theater-about-inner {
   max-width: 880px;
+}
+main#main-content .video-key-links-list {
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0;
+  padding-left: 22px;
+}
+main#main-content .video-key-links-list li {
+  margin-bottom: 10px;
+}
+main#main-content .video-key-terms-list {
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0;
+  padding-left: 22px;
+}
+main#main-content .video-key-terms-list li {
+  margin-bottom: 10px;
 }
 main#main-content .video-quiz-question {
   min-width: 0;
@@ -5916,6 +5936,8 @@ main#main-content .video-quiz-result:empty { display: none; }
 
 
 /* Quiz, discussion, and CTA align to the theater's reading column */
+.video-key-links-section .video-theater-about-inner,
+.video-key-terms-section .video-theater-about-inner,
 .video-quiz-section .video-theater-about-inner,
 .video-discussion-section .video-theater-about-inner,
 .video-training-cta .video-theater-about-inner {
@@ -5926,7 +5948,10 @@ main#main-content .video-quiz-result:empty { display: none; }
   width: auto;
 }
 main#main-content .video-discussion-section .landing-section-heading .home-kicker {
-  margin-bottom: 4px;
+  margin: 20px 0 0;
+}
+main#main-content .video-discussion-section .landing-section-heading h2 {
+  margin-top: 2px;
 }
 
 .video-quiz-section {
@@ -5969,6 +5994,11 @@ main#main-content .discovery-presenter { display: flex; align-items: center; gap
 main#main-content .discovery-presenter img {
   width: 64px; height: 64px; flex: 0 0 64px; border-radius: 50%; object-fit: cover;
 }
+main#main-content .discovery-presenter img.discovery-presenter-card-image {
+  width: 100%; height: auto; flex: 1 1 100%; border-radius: 8px; object-fit: contain;
+}
+main#main-content .discovery-presenter a.discovery-presenter-card-link { display: block; flex: 1 1 100%; text-decoration: none; }
+main#main-content .discovery-presenter a.discovery-presenter-card-link img { border: 0; }
 main#main-content .discovery-presenter-name { display: block; font-size: 15px; font-weight: 700; color: #182b49; }
 main#main-content .discovery-presenter-title { display: block; font-size: 13px; line-height: 1.4; color: #44576b; }
 main#main-content .discovery-video-pending {
@@ -5993,6 +6023,8 @@ main#main-content .video-quiz-dialog :focus-visible { outline: 3px solid #00629b
 @media (max-width: 640px) {
   main#main-content .discovery-video-pending { min-height: 240px; padding: 24px 16px; }
   main#main-content .video-quiz-question { padding: 14px; min-width: 0; }
+  main#main-content .video-key-links-section .video-theater-about-inner,
+  main#main-content .video-key-terms-section .video-theater-about-inner,
   main#main-content .video-quiz-section .video-theater-about-inner,
   main#main-content .video-discussion-section .video-theater-about-inner,
   main#main-content .video-training-cta .video-theater-about-inner { padding: 0 var(--video-theater-side-padding); }
@@ -6021,3 +6053,12 @@ main#main-content .discovery-lesson-header .discovery-presenter img {
   main#main-content .discovery-lesson-header .discovery-presenters { display: flex; flex-wrap: wrap; gap: 8px 16px; }
   main#main-content .discovery-lesson-header .discovery-presenter { flex: 1 1 240px; }
 }
+
+/* Related update views and Harness release content remain inside the canvas. */
+main#main-content .delivery-pathway li::after { display: none; }
+main#main-content .harness-release-notes { padding-top: 20px; padding-bottom: 45px; }
+main#main-content .harness-release-card { border-top: 1px solid #d6dde2; margin-top: 30px; padding-top: 20px; scroll-margin-top: 20px; }
+main#main-content .harness-release-card li { margin-bottom: 10px; }
+main#main-content .harness-release-archive li { margin-bottom: 12px; }
+main#main-content .harness-release-archive time { display: block; color: #53616c; }
+main#main-content .harness-release-card .btn { margin-bottom: 8px; }

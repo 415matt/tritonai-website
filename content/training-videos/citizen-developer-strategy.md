@@ -7,6 +7,7 @@ summary: >-
   practice for harness use within a team.
 series: Building
 status: Coming soon
+availabilityLabel: 'Coming October 15th'
 discoverySeries: true
 owner: TritonAI training program
 lastReviewed: '2026-09-29'
