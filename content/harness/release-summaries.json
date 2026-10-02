@@ -32,7 +32,7 @@
         "Each model now uses the correct account key, and you can replace or remove keys without restarting the app.",
         "Signing in to add-ons such as GitHub, Google Workspace, and Microsoft 365 is easier and more flexible.",
         "When the app asks you to approve work, you now see complete details, including full proposed file changes.",
-        "Small fixes improve app stability and voice input on Mac. The app's appearance has also been updated."
+        "Small fixes make the app more stable and polished, with a refreshed look and better voice input on Mac."
       ],
       "reviewStatus": "reviewed",
       "generatedBy": {

@@ -4,15 +4,14 @@ import { load } from "cheerio";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
 
-// Checks repository-authored copy against docs/voice-and-language.md.
+// Flags editorial patterns using docs/voice-and-language.md.
 //
 // This reads content/ source rather than dist/ so a finding names the file an
 // editor would open. Structural and accessibility rules stay in validate.mjs;
 // nothing here inspects rendered markup.
 //
-// Warnings do not fail the build. Every pattern below is legitimate somewhere,
-// and a gate that fails on a defensible sentence gets switched off. Run with
-// --strict to exit non-zero on errors.
+// Style findings are advisory: each pattern can be appropriate in context.
+// Run with --strict to exit non-zero on technical errors such as metadata length.
 
 const CONTENT_DIR = path.resolve("content");
 const REPORT_DIR = path.resolve("reports");
@@ -82,41 +81,41 @@ function checkText(role, value, source, raw, suppressed, options = {}) {
   const isHeadline = role === "heading" || role === "kicker";
 
   if (isHeadline && SENTENCE_BREAK.test(value)) {
-    report("error", "heading-sentence-break", source, line, role, value,
-      "A heading with two sentences reads as a slogan. Say one thing.");
+    report("warn", "heading-sentence-break", source, line, role, value,
+      "Review whether the two-part heading is easy to scan and fits the section's purpose.");
   }
   if (isHeadline && COUNT_HEADING.test(value)) {
     report("warn", "count-in-heading", source, line, role, value,
-      "The list below already shows the count. Name the thing instead.");
+      "Keep the count if it helps readers navigate a guide or recognize a framework.");
   }
   if (isHeadline && ANTITHESIS.test(value)) {
     report("warn", "antithesis-in-heading", source, line, role, value,
-      "Manufactured contrast. State the positive claim directly.");
+      "Review whether the contrast explains a real distinction or adds useful emphasis.");
   }
   if (!isHeadline && ANTITHESIS.test(value)) {
     report("warn", "manufactured-contrast", source, line, role, value,
-      "State the point directly. Keep the contrast only when the distinction is necessary.");
+      "Review whether the contrast adds meaning; repeated contrasts can distract from the point.");
   }
   if (options.checkLists && LONG_LIST.test(value)) {
     report("warn", "long-comma-list", source, line, role, value,
-      "Five or more items in one sentence. Cut it down or use a list element.");
+      "Consider a list element if readers need to scan or act on these items separately.");
   }
   const dashCheckValue = value.replace(/\b\d+\s*[—–]\s*\d+\b/g, "");
   if (options.checkEmDash && EM_DASH.test(dashCheckValue)) {
     report("warn", "em-dash", source, line, role, value,
-      "Use a period, a comma, or a conjunction unless this is a genuine aside or a numeric range.");
+      "Review whether the dash helps clarity or rhythm, especially alongside other dashes.");
   }
   for (const booster of BOOSTERS) {
     if (new RegExp(`\\b${booster}\\b`, "i").test(value)) {
       report("warn", "booster-adjective", source, line, role, value,
-        `"${booster}" is doing no work here. Delete it and reread.`);
+        `Consider what "${booster}" adds in context. Keep it if it conveys meaning or suits the invitation; claims need support.`);
       break;
     }
   }
 }
 
-// Sibling strings that share an opening frame are the clearest tell in the
-// corpus, and the one a reader notices without being able to name it.
+// Repeated openings can feel mechanical, while parallel wording can help
+// readers compare related items. Flag sets for an editor to assess together.
 function checkRepeatedFrames(label, entries) {
   const frames = new Map();
   for (const { source, value } of entries) {
@@ -129,7 +128,7 @@ function checkRepeatedFrames(label, entries) {
     if (group.length < threshold) continue;
     for (const { source, value } of group) {
       report("warn", "repeated-opening-frame", source, null, label, value,
-        `${group.length} of ${entries.length} ${label} strings open with "${frame}". Vary the construction.`);
+        `${group.length} of ${entries.length} ${label} strings open with "${frame}". Review whether the parallel wording helps comparison or feels repetitive.`);
     }
   }
 }
@@ -160,8 +159,8 @@ async function scan(directory, type) {
     if (summary) {
       summaries.push({ source, value: summary });
       if (/^(A|An|The)\s/.test(summary)) {
-        report("error", "summary-noun-phrase", source, lineOf(raw, summary), "summary", summary,
-          "Lead with the person or the action, not an article. This string renders in three places.");
+        report("warn", "summary-noun-phrase", source, lineOf(raw, summary), "summary", summary,
+          "Check that this opening is specific and reads well across the page, meta description, and card.");
       }
       checkText("summary", summary, source, raw, suppressed, { checkLists: true, checkEmDash: true });
     }

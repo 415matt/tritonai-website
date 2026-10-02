@@ -8,15 +8,15 @@ items: 14
 
 ### Zoom AI Companion
 
--   **[Zoom's agentic search now spans ten enterprise connectors](https://www.zoom.com/en/products/whats-new/)** — Zoom's What's New page currently features a batch of agentic AI updates: AI Companion can answer enterprise-level questions across Salesforce, Google Drive, ServiceNow, Box, Workday, Confluence, SharePoint, Zendesk, and more, with ten connectors now live (requires the Custom AI Companion add-on). Agentic retrieval also now pulls Gmail and Outlook messages into AI Companion 3.0 on the web as context for questions and summaries, and a new MCP integration lets Claude Cowork and Claude Code use Zoom's meeting intelligence to power context-aware workflows. Teams using Zoom and Claude can use the integration for connected workflows.
+-   **[Zoom's agentic search now spans ten enterprise connectors](https://www.zoom.com/en/products/whats-new/)** — Zoom's What's New page currently features a batch of agentic AI updates: AI Companion can answer enterprise-level questions across Salesforce, Google Drive, ServiceNow, Box, Workday, Confluence, SharePoint, Zendesk, and more, with ten connectors now live (requires the Custom AI Companion add-on). Agentic retrieval also now pulls Gmail and Outlook messages into AI Companion 3.0 on the web as context for questions and summaries, and a new MCP integration lets Claude Cowork and Claude Code use Zoom's meeting intelligence to power context-aware workflows. If your team lives in both Zoom and Claude, that pairing is worth a look.
 
 ### Copilot for Microsoft 365
 
--   **[Brand Kit and Skills arrive in Copilot in PowerPoint](https://techcommunity.microsoft.com/blog/microsoft-copilot-blog/brand-kit-and-skills-in-copilot-in-powerpoint/4554932)** — Announced September 14: Copilot in PowerPoint gains Brand Kit, which applies your organization's visual identity to AI-generated slides, and Skills, which carry reusable instructions so Copilot's output stays consistent deck after deck. These features are intended to reduce the time departments spend matching slides to their branding, so they can focus on the presentation content.
+-   **[Brand Kit and Skills arrive in Copilot in PowerPoint](https://techcommunity.microsoft.com/blog/microsoft-copilot-blog/brand-kit-and-skills-in-copilot-in-powerpoint/4554932)** — Announced September 14: Copilot in PowerPoint gains Brand Kit, which applies your organization's visual identity to AI-generated slides, and Skills, which carry reusable instructions so Copilot's output stays consistent deck after deck. These features aim to help departments spend less time matching slides to their branding and more time shaping the story.
 
 ### Copilot Studio
 
--   **[Managing apps built in Copilot Studio](https://techcommunity.microsoft.com/blog/copilot-studio-blog/managing-apps-built-in-copilot-studio/4556774)** — App creation is on by default for all users in both Copilot Studio and Copilot Cowork, and Microsoft's September 15 post walks through how to keep the resulting app estate under control. Published apps are inventoried in the Microsoft 365 admin center, and the "Choose where people can make apps" setting (under Apps > Overview) lets admins decide which creation paths stay open. Units that want to limit app creation can use this setting; the default allows it.
+-   **[Managing apps built in Copilot Studio](https://techcommunity.microsoft.com/blog/copilot-studio-blog/managing-apps-built-in-copilot-studio/4556774)** — App creation is on by default for all users in both Copilot Studio and Copilot Cowork, and Microsoft's September 15 post walks through how to keep the resulting app estate under control. Published apps are inventoried in the Microsoft 365 admin center, and the "Choose where people can make apps" setting (under Apps > Overview) lets admins decide which creation paths stay open. Worth a read if you track governance: the default is open, so if your unit wants to limit app creation, this is the control to set.
 
 ### Google Gemini & NotebookLM
 
@@ -35,8 +35,8 @@ items: 14
 Self-paced options in the meantime:
 
 -   Take the **[AI Foundations course](https://go.ucsd.edu/3FvH9Hf)** to learn core AI concepts and UC policies on AI tools.
--   Watch the **[AI Webinar #6 recording](https://tritonai.ucsd.edu/training-resources/webinars.html)** — a walkthrough of TritonGPT's first year, including MyDocuments, model switching, and chat sharing.
--   Explore the **[Everyday AI video series](https://www.youtube.com/playlist?list=PLZoL-14Q0aIkY5gnibNuZZh3X0ikY6VGA)** for short prompting tips that work across TritonGPT and other AI tools.
+-   Watch the **[AI Webinar #6 recording](https://tritonai.ucsd.edu/training-resources/webinars.html)** — a practical walkthrough of TritonGPT's first year, including MyDocuments, model switching, and chat sharing.
+-   Explore the **[Everyday AI video series](https://www.youtube.com/playlist?list=PLZoL-14Q0aIkY5gnibNuZZh3X0ikY6VGA)** for short, practical prompting tips that work across TritonGPT and other AI tools.
 
 * * *
 

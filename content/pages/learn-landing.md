@@ -19,7 +19,7 @@ bannerMode: abstract
 </section>
 
 <section class="hub-section hub-section-dark hub-full-bleed" aria-labelledby="role-pathways-heading">
-<div class="container"><div class="hub-heading"><h2 id="role-pathways-heading">Learning paths by role</h2></div>
+<div class="container"><div class="hub-heading"><h2 id="role-pathways-heading">Different work, different practice</h2></div>
 <div class="row hub-number-grid">
 <div class="col-md-4"><article><span>01</span><h3>Students</h3><p>Writing prompts, checking answers, and knowing what your instructor allows in each course.</p></article></div>
 <div class="col-md-4"><article><span>02</span><h3>Faculty and instructors</h3><p>Setting expectations for your class, trying instructional patterns, and seeing what students actually learned.</p></article></div>
@@ -32,7 +32,7 @@ bannerMode: abstract
 </section>
 
 <section class="hub-section hub-section-sand hub-full-bleed" aria-labelledby="practice-heading">
-<div class="container"><div class="hub-heading"><h2 id="practice-heading">Guides, recordings, and symposium sessions</h2></div>
+<div class="container"><div class="hub-heading"><h2 id="practice-heading">Put your AI skills to work</h2></div>
 <div class="row hub-story-grid">
 <div class="col-md-4"><article class="panel panel-default hub-story-card"><a href="/training-resources/prompting/index.html"><img alt="Abstract blue and gold TritonAI pattern" class="img-responsive" src="/_images/homepage/TritonAI_Hero_2500.webp"></a><div class="hub-story-body"><h3><a href="/training-resources/prompting/index.html">Prompt with START</a></h3><p>Use the five-part START framework to structure a request.</p></div></article></div>
 <div class="col-md-4"><article class="panel panel-default hub-story-card"><a href="/training-resources/webinars.html"><img alt="TritonGPT interface used in an AI webinar" class="img-responsive" src="/_images/TritonGPT_zoom_light.jpg"></a><div class="hub-story-body"><h3><a href="/training-resources/webinars.html">Watch recorded webinars</a></h3><p>Recorded sessions showing the tools used on actual campus work.</p></div></article></div>

@@ -1,33 +1,52 @@
 # Voice and language
 
 How TritonAI copy should read. [Content governance](content-governance.md) decides what may
-be published; this page decides how it sounds.
+be published; this page guides how it sounds.
 
-`npm run test:language` checks the mechanical parts of these rules against page and
-use-case copy, newsletter descriptions, the homepage hero, and public roadmap narrative.
-It writes `reports/language.json`.
+`npm run test:language` flags patterns in page and use-case copy, newsletter descriptions,
+the homepage hero, and public roadmap narrative.
+It writes `reports/language.json`. Style findings are advisory prompts for editorial
+review. Metadata length remains a separate technical check.
 
 ## The target
 
-Write the way the older pages on this site already do:
+Use your best editorial judgment for the audience, purpose, and surrounding copy.
+Prefer active voice, clear verbs, and specific language. Preserve effective existing
+copy and make the smallest change that improves it.
+
+The tone can vary across the site:
+
+- **Instructions, access guidance, and policy:** make actions and conditions easy to find.
+- **Landing pages, marketing, and outreach:** use inviting language, imagery, and enthusiasm
+  when they help readers understand the offer or see themselves using it.
+- **Newsletters and event descriptions:** allow conversational commentary and a sense of
+  discovery while distinguishing intended benefits from demonstrated outcomes.
+
+For example, this older page has a clear purpose and an inviting voice:
 
 > Struggling to articulate your impact for this year's appraisal? Our new AI-Powered
 > Self-Appraisal Guide is now available to help.
 > — `src/site/training-resources/index.html`
 
-Not the way a language model does:
+This heading needs more context to tell readers what they can do:
 
 > A practical path from first prompt to trusted service
-> — the homepage `h1`, before this guide existed
+> — an earlier homepage `h1`
 
-The test for any sentence: **is a specific person doing a specific thing?** If the subject
-is an abstraction and the verb is doing no work, rewrite it.
+Ask whether a sentence helps readers understand, act, or become interested. Naming an
+actor often helps, but descriptions, questions, and memorable phrases have a place too.
+The guidelines below support that judgment. Claim protections remain requirements in
+every context.
 
-## Rules
+The examples show possible edits for a particular passage. Use them to inform a choice,
+and keep the original when it already serves the page.
+
+## Guidelines
 
 ### 1. One idea per heading
 
-No heading contains two sentences. `npm run test:language` reports this as an error.
+Prefer one clear idea per heading. A short two-part heading can work in outreach when it
+remains easy to scan and helps readers understand the section.
 
 | Before | After |
 |---|---|
@@ -37,8 +56,9 @@ No heading contains two sentences. `npm run test:language` reports this as an er
 
 ### 2. A heading says what the section contains
 
-Not what you would like the reader to conclude from it. If the kicker and the heading say
-the same thing twice, cut one.
+Help readers anticipate the section. An evocative heading can work when nearby copy makes
+its meaning clear. If the kicker and heading repeat each other, consider keeping the
+stronger one.
 
 | Before | After |
 |---|---|
@@ -47,7 +67,10 @@ the same thing twice, cut one.
 | A narrow prototype is the beginning, not the finish line | What a prototype needs before it becomes a service |
 | Trust comes from the whole service—not just the model | What we check before a service ships |
 
-### 3. No count in a heading when the list is right there
+### 3. Use counts when they help readers
+
+A count can signal a short guide or a named framework. Omit it when it adds little to a
+list readers can already see.
 
 | Before | After |
 |---|---|
@@ -55,13 +78,13 @@ the same thing twice, cut one.
 | Five campus access paths | Supported AI services |
 | Three parts work together | The three parts |
 
-"Six principles" on `/about/strategy.html` is exempt. It is the name of a framework, not a
-count of the cards below, and carries a `lang-ok` marker saying so.
+"Six principles" on `/about/strategy.html` is the name of a framework and carries a
+`lang-ok` marker explaining that choice.
 
-### 4. No manufactured contrast
+### 4. Make contrasts earn their place
 
-"X, not Y", "not only X but Y", "rather than", "instead of". One per page at most, and only
-where the contrast is the actual point.
+Use contrast when it explains a real distinction or gives a useful emphasis. Review
+repeated contrasts that create drama without adding meaning. There is no per-page quota.
 
 | Before | After |
 |---|---|
@@ -70,9 +93,11 @@ where the contrast is the actual point.
 | Treat output as material to review—not authority to accept | Check what the model gives you before you use it |
 | ...instead of adding avoidable steps | ...so nobody has to learn a new system |
 
-### 5. Four items maximum in a sentence-level list
+### 5. Keep lists readable
 
-More than that goes in a `<ul>`. Keep the items grammatically parallel.
+Four items is a useful rule of thumb for a sentence-level list. Use a `<ul>` for longer
+lists when readers need to scan or act on individual items. A compact list of familiar
+terms can stay in a sentence. Keep the items grammatically parallel.
 
 > **Before:** Useful AI practice combines clear requests, strong source material,
 > verification, data awareness, accessibility, authorship expectations, and the confidence
@@ -82,17 +107,18 @@ More than that goes in a `<ul>`. Keep the items grammatically parallel.
 > source material, check the answer against something you trust, and know when the task
 > needs a person instead.
 
-### 6. Delete the booster and reread
+### 6. Choose adjectives and verbs that contribute
 
 `practical`, `trusted`, `meaningful`, `thoughtful`, `durable`, `robust`, `seamless`,
-`powerful`, `leverage`, `empower`, `unlock`. If the sentence lost nothing, leave it deleted.
-Usually the product name is more precise than the adjective: "a trusted campus assistant"
-is just "TritonGPT".
+`powerful`, `leverage`, `empower`, `unlock`. These words can be useful in context. Ask what
+each adds: "practical prompting tips" describes a training offer; a claim that a service is
+"trusted" needs a basis. Remove vague praise or stacks of adjectives that obscure the
+offer. Use the product name when it is the clearest reference.
 
-### 7. Em dashes are not a rhetorical beat
+### 7. Let punctuation support the rhythm
 
-Keep one where it sets off a genuine aside or a numeric range. Replace it where it stages a
-reveal. Never use one as the pivot of a contrast.
+Em dashes can set off an aside, mark a range, or give a sentence useful emphasis. Review
+repeated dashes or staged reveals that make the prose harder to follow.
 
 Legitimate, leave alone:
 
@@ -100,42 +126,45 @@ Legitimate, leave alone:
 - roadmap `period` labels, `"Q1 2026 — Agents"`
 - approved `measurementPeriod` strings, `"Production — 91% time savings (120 min to 11 min average)"`
 
-Frontmatter `description` takes no em dash at all — it renders as the meta description, and
-a dash there is always decoration.
+Frontmatter `description` renders as the meta description. Keep it concise and readable;
+choose punctuation for clarity within the character limit.
 
 ### 8. Read sibling strings top to bottom
 
-This is the clearest tell on the site and the one a reader notices without being able to
-name it. If a set of strings shares an opening frame, rewrite until it does not.
+Read sets of cards or summaries together. Vary openings when repetition feels mechanical;
+keep parallel construction when it helps readers compare related items.
 
-Nine of eleven use-case summaries once opened the same way — "A supervised workflow
-that…", "A drafting workflow for…", "An assistive workflow that…". Nobody writes eleven
-descriptions like that. Each now leads with the person or the action:
+Many use-case summaries once opened with "A supervised workflow that…", "A drafting
+workflow for…", or "An assistive workflow that…". Leading with a person or action made
+those summaries more specific:
 
 | Before | After |
 |---|---|
 | A supervised workflow that compares contract language with approved legal positions and prepares review-ready findings. | Procurement staff get contract language compared against approved UC legal positions, marked up and ready for a qualified reviewer. |
 | A drafting workflow for organizing approved faculty activity data into a reviewable BioBib document. | Faculty pull approved activity data into a BioBib draft, then check every section before it goes anywhere. |
 
-A `summary` may not start with "A", "An", or "The". The check reports it as an error,
-because that string renders in three places at once: the use-case page lede, the meta
-description, and the index card.
+A `summary` renders in the use-case page lede, the meta description, and the index card.
+Check that it works in all three places. Starting with "A", "An", or "The" is fine when
+the sentence remains specific and the set reads naturally.
 
-The same applies to `description`. At most two of the fourteen may open with "How".
+Apply the same judgment to `description`; there is no quota for an opening word.
 
-### 9. Name the actor and use simple verbs
+### 9. Prefer active voice and clear verbs
 
-When the source names who acts, use active voice. Use `is`, `has`, and direct action verbs
-where they express the meaning. Keep an unknown actor unknown.
+When the source names who acts, active voice usually makes the action clearer. Choose
+verbs for meaning and tone. Direct verbs help in instructions; more expressive language
+can suit an invitation or introduction. Keep an unknown actor unknown.
 
 | Before | After |
 |---|---|
-| TritonGPT serves as a campus assistant. | TritonGPT is a campus assistant. |
 | Staff can perform a review of the draft. | Staff can review the draft. |
 
-Use source evidence for claims about outcomes. Cut clauses that merely declare
-importance, such as "marking a pivotal moment" or "highlighting our commitment to
-innovation". A claim about an outcome needs evidence even when it follows a factual sentence.
+"TritonGPT serves as a campus assistant" and "TritonGPT is a campus assistant" can both
+work. Choose the construction that fits the passage.
+
+Use source evidence for claims about outcomes. Enthusiasm can support an invitation;
+claims of impact need evidence. Review phrases such as "marking a pivotal moment" for
+whether the source supports their significance.
 
 ### 10. Name sources and keep real uncertainty
 
@@ -146,19 +175,20 @@ Flag missing evidence for the content owner. Never invent a source or fill a gap
 plausible detail. Keep uncertainty and scope where they describe a real limitation. The
 claim protections below apply to every copy edit.
 
-### 11. Make each paragraph add information
+### 11. Give each paragraph a purpose
 
-Start with the point. Cut an opening sentence that repeats the heading or announces the
-next point. End with a useful fact or an action the reader can take.
+Give each paragraph a purpose. Instructions usually benefit from starting with the action.
+Outreach can open with a question, scene, or invitation and end on an encouraging note.
+Review repeated introductions and endings for what they contribute to the passage.
 
 | Before | After |
 |---|---|
 | Let's explore how to review a draft. | Read the draft and check its claims against the source. |
 | In order to review the draft, it is important to check each claim. | To review the draft, check each claim. |
 
-Cut generic optimistic endings such as "Exciting times lie ahead". If the source states a
-plan, keep it. Use connected sentences, with length guided by the content.
-Rewrite a run of dramatic fragments as a complete thought.
+An optimistic ending works best when it connects to a specific opportunity or next step.
+Keep stated plans and invitations. Vary sentence length and occasional fragments when
+they improve the rhythm; read the paragraph as a whole.
 
 ### 12. Keep names consistent
 
@@ -170,20 +200,21 @@ mentions of TritonGPT do not need substitutes such as "the platform" or "the AI 
 
 ## Editorial review
 
-These additions draw on the humanizer skill. Apply them in the site's factual, institutional
-voice. Preserve quoted material and official titles. Use the punctuation exceptions and
-claim protections in this guide. If the author supplies an opinion or personal anecdote,
-include it only where appropriate to the page.
+Review the copy in the context of the page and its audience. Preserve quoted material,
+official titles, and the author's voice where it works. Opinions or personal anecdotes
+can suit outreach and newsletters when clearly framed and appropriate to the page.
+Apply the claim protections below in every context.
 
 Before finishing a copy change:
 
-1. Read the affected passage aloud or at speaking pace. Check rhythm and repeated openings.
-   Rewrite an awkward paragraph around its main point.
+1. Read the affected passage aloud or at speaking pace. Check clarity, tone, rhythm, and
+   repeated openings. Keep wording that already works.
 2. Compare the revision with its source. Account for every fact, name, number, and date.
    Preserve quotes, citations, scope qualifiers, and uncertainty. Correct any unsupported
    addition or lost claim.
-3. Run `npm run test:language` and review its findings. It checks mechanical patterns.
-   Manually review source attribution and paragraph quality as well.
+3. Run `npm run test:language` and assess its findings in context. A style warning calls
+   for judgment, and does not require a rewrite. Check source attribution and claim
+   accuracy separately.
 
 ## Words that carry meaning here
 
@@ -217,13 +248,15 @@ validated against an allow-list. Never reword, re-case, or pluralize them:
 - The dead `src/site/` files whose `<main>` the build overwrites. Editing them produces a
   clean diff, a passing build, and no change on the site.
 
-## Suppressing a check
+## Recording an editorial choice
 
-Put a marker on the line above, with a reason:
+When a recurring style warning is intentional, you may put a marker on the line above
+with a reason. A marker is optional; reasonable wording does not need an exception to
+this guide.
 
 ```html
 <!-- lang-ok: "Six principles" is the name of the framework, not a count of the cards below -->
 ```
 
-The build strips these before publishing. The reason is required so suppressions stay
-reviewable in a diff — a bare marker is how a style guide quietly stops applying.
+The build strips these before publishing. Include the editorial reason so future
+reviewers can understand the choice.

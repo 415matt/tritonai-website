@@ -19,7 +19,7 @@ Maintain an accessible, static TritonAI website that preserves the public site's
 
 ## Voice
 
-Before writing or editing site copy, read [docs/voice-and-language.md](docs/voice-and-language.md) for the full rules, examples, and editorial review process. `npm run test:language` checks the mechanical patterns.
+Before writing or editing site copy, read [docs/voice-and-language.md](docs/voice-and-language.md) for guidance, examples, and the editorial review process. `npm run test:language` flags patterns for review; its style findings are advisory.
 
 - One idea per heading. No two-sentence headings.
 - A heading names what the section contains. It is not a maxim.
@@ -29,9 +29,10 @@ Before writing or editing site copy, read [docs/voice-and-language.md](docs/voic
 - Cut boosters (`practical`, `trusted`, `meaningful`, `seamless`, `leverage`). Keep the governance vocabulary (`approved`, `bounded`, `supervised`, `named owner`) — those qualify real controls.
 - Em dashes only for a genuine aside or a numeric range. Never in a frontmatter `description`.
 - Read sibling strings top to bottom. If a set shares an opening frame, rewrite it. A use-case `summary` may not start with "A", "An", or "The".
-- Name who acts and use simple verbs. Describe supported outcomes without inflating their importance.
+- Prefer active voice and clear verbs. Choose words that express the meaning and fit the tone.
+- Use your best editorial judgment for the audience, purpose, and surrounding copy. Instructions and policy need direct language; marketing, outreach, and newsletters can use warmth, imagery, enthusiasm, and varied rhythm. Preserve effective existing copy and make the smallest change that improves it.
 - When a named source is available, attribute the claim to it. Keep uncertainty and scope. Flag missing evidence without inventing details.
-- Cut filler, opening sentences that repeat headings, and generic optimistic endings. Each paragraph adds information the reader can use.
+- Give each paragraph a purpose. Review filler and repetition; keep an introduction or encouraging ending when it serves the passage.
 - Keep one name for each service or concept. Vary sentence construction without cycling through synonyms.
 - Finish with an editorial pass for rhythm and repetition, then compare against the source for changed facts or lost qualifications.
 

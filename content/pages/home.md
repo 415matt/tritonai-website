@@ -48,7 +48,7 @@ relatedSlides: [uc-san-diego-ai-strategy-2026, citizen-developer-ecosystem, plat
 <section class="hub-section hub-section-dark hub-full-bleed" aria-labelledby="ecosystem-heading">
 <div class="container">
 <div class="row hub-split hub-split-align-center">
-<div class="col-md-6 hub-split-copy"><h2 id="ecosystem-heading">How TritonAI services connect</h2><p>Every TritonAI service draws on the same approved model access, campus data, and shared components. Most teams start by chatting, then add AI to a system they already run, then automate the parts that repeat.</p><div class="home-feature-actions"><a class="btn btn-primary" href="/about/strategy.html">See the strategy</a><a class="btn btn-default" href="/about/trust-architecture.html">See the trust architecture</a></div></div>
+<div class="col-md-6 hub-split-copy"><h2 id="ecosystem-heading">Start with chat, grow into a supported service</h2><p>Every TritonAI service draws on the same approved model access, campus data, and shared components. Most teams start by chatting, then add AI to a system they already run, then automate the parts that repeat.</p><div class="home-feature-actions"><a class="btn btn-primary" href="/about/strategy.html">See the strategy</a><a class="btn btn-default" href="/about/trust-architecture.html">See the trust architecture</a></div></div>
 <div class="col-md-6"><ol class="hub-path-list"><li><strong>Ask</strong><span>Start in TritonGPT.</span></li><li><strong>Embed</strong><span>Add an approved capability to a system people already use.</span></li><li><strong>Automate</strong><span>Automate the steps that repeat, with someone reviewing the result.</span></li></ol></div>
 </div>
 </div>
