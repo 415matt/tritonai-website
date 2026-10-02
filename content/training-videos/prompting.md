@@ -52,4 +52,5 @@ discoverySeries: true
 presenters:
   - name: Jeniffer Lapek
     title: Senior Contracts and Grants Officer
+    cardImage: /_images/training-resources/videos/jeniffer-lapek-presenter-card.png
 ---
