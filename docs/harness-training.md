@@ -15,7 +15,7 @@ teaches people how to use it.
 
 These entry points currently link to
 `https://bpollak.github.io/tritonai-website/training/harness/`. They open the
-standalone course in the current tab. Do not embed the whole course in an iframe;
+standalone course in a separate tab under the website's external-link policy. Do not embed the whole course in an iframe;
 its controls, chapters, downloads, and keyboard navigation need their own space.
 
 ## Recommended production destination
