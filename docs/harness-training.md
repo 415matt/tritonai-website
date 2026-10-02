@@ -12,6 +12,13 @@ teaches people how to use it.
 - `/developer-apis/start.html#verify`: the next action after installation and a
   successful first prompt.
 - `/training-resources/pathways.html`: a course listing alongside other training.
+- `/`: a featured course near the top of the homepage.
+- `/training-resources/index.html`: a featured course before the role pathways.
+- `/developer-apis/index.html`: links in the Harness client card and setup actions.
+- `/tools/index.html`: a training link on the Harness service card.
+- `/developer-apis/citizen-developer.html`: an Essentials starting point before connected-tool exercises.
+- `/skills/index.html`: a link beside the introduction to using skills.
+- `/developer-apis/harness-release-notes.html`: a training link after the release history.
 
 The production course is at `https://tritonai.ucsd.edu/training/harness/`.
 These entry points link directly to `/training/harness/`. The course has its own

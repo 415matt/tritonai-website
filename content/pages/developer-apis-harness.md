@@ -3,7 +3,7 @@ title: TritonAI Harness
 path: /developer-apis/harness.html
 description: A local-first agent control surface connecting campus builders to approved models, local files, and UC San Diego systems under human supervision.
 eyebrow: Build with TritonAI
-lastReviewed: 2026-09-07
+lastReviewed: 2026-10-01
 audiences: [staff, faculty, researchers, developers]
 owner: TritonAI
 source: "TritonAI Harness product documentation and UC San Diego AI service guidance"
@@ -73,7 +73,7 @@ Your browser does not support embedded video.
 </section>
 
 <section class="hub-section hub-section-cool" id="harness-training" aria-labelledby="harness-training-heading">
-<div class="hub-heading"><p class="home-kicker">Self-paced training</p><h2 id="harness-training-heading">Learn to use TritonAI Harness</h2><p>Follow the narrated chapters, try the knowledge checks, and practice with fictional files. The training opens as a separate course with its own player and downloadable practice kit.</p></div>
+<div class="hub-heading"><p class="home-kicker">Self-paced training</p><h2 id="harness-training-heading">Learn to use TritonAI Harness</h2><p>Start with Essentials, then try the feedback-summary exercise with fictional files. Explore the other narrated chapters and knowledge checks when you need them. The training opens as a separate course with its own player and downloadable practice kit.</p></div>
 <p class="hub-section-action"><a class="btn btn-primary" href="/training/harness/">Start TritonAI Harness training</a></p>
 </section>
 

@@ -3,7 +3,7 @@ title: TritonAI Skills Library
 path: /skills/index.html
 description: Find a TritonAI skill for your task, see how to ask for it, and learn what help to expect.
 eyebrow: Build with TritonAI
-lastReviewed: 2026-08-24
+lastReviewed: 2026-10-01
 audiences: [developers, staff, faculty, students]
 source: https://github.com/UCSD/UCSD-Skills-Library
 canonicalUrl: /skills/index.html
@@ -20,6 +20,8 @@ relatedSlides: [Citizen Developer Ecosystem, Reusable Skills and MCP]
 </ol>
 
 <p>Looking for Outlook or Google Drive connections? Explore <a href="/developer-apis/harness.html#integrations-heading">TritonAI Harness plugins</a>, then try the <a href="/developer-apis/citizen-developer.html#harness-practice">guided Harness exercises</a>.</p>
+
+<p>New to skills in the Harness? The <a href="/training/harness/">TritonAI Harness training</a> shows how to use and share them, with a practice kit you can try in your own project.</p>
 
 <div data-skills-library="true"></div>
 

@@ -3,7 +3,7 @@ title: Plan Your First Project
 path: /developer-apis/citizen-developer.html
 description: Try guided TritonAI Harness exercises with skills and connected tools, then plan a first project you can check and support.
 eyebrow: Build with TritonAI
-lastReviewed: 2026-09-01
+lastReviewed: 2026-10-01
 audiences: [staff, faculty, researchers, developers, leaders]
 owner: TritonAI
 source: "TritonAI public build, trust, and service ownership guidance"
@@ -28,6 +28,12 @@ bannerMode: abstract
 </figure>
 </div></div>
 </section>
+
+<!-- AGENT_SECTION: harness-training -->
+<section class="hub-section hub-section-cool" id="harness-training" aria-labelledby="harness-training-heading">
+<div class="row hub-split hub-split-align-center"><div class="col-md-8 hub-split-copy"><p class="home-kicker">Self-paced training</p><h2 id="harness-training-heading">Learn to use TritonAI Harness</h2><p>Start with Essentials, then try a task with the fictional practice files. Narrated chapters, captions, a transcript, and knowledge checks help you learn the workspace and check your results.</p></div><div class="col-md-4 hub-subscribe-action"><p><a class="btn btn-primary" href="/training/harness/">Start TritonAI Harness training</a></p><p><a href="/developer-apis/start.html">Need the Harness? Download and set up</a></p></div></div>
+</section>
+<!-- END_AGENT_SECTION -->
 
 <section class="hub-section hub-section-cool hub-full-bleed" id="harness-practice" aria-labelledby="harness-practice-heading">
 <div class="container"><div class="hub-heading"><p class="home-kicker">Hands-on with TritonAI Harness</p><h2 id="harness-practice-heading">Try a task with your connected tools</h2><p>Start with one of the <a href="/developer-apis/harness.html#harness-example-heading">Harness examples</a> and follow the exercise below. Replace the meeting, workshop, or department details with your own. Each exercise produces something you can inspect in your workspace.</p></div>

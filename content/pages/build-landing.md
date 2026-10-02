@@ -3,7 +3,7 @@ title: Build with TritonAI
 path: /developer-apis/index.html
 description: Get one Gateway key to approved AI models, then build with TritonAI Harness, another compatible client, n8n, or your own code.
 eyebrow: Build a service
-lastReviewed: 2026-09-04
+lastReviewed: 2026-10-01
 audiences: [developers, researchers, staff, leaders]
 source: TritonAI developer documentation, API access intake and funding guidance, UC Protection Level Classification, TritonAI strategy presentation, ITS-TritonAI n8n service documentation, and TritonAI Installer release information reviewed September 4, 2026
 canonicalUrl: /developer-apis/index.html
@@ -49,8 +49,7 @@ bannerMode: abstract
 </div>
 <div class="hub-action-card-footer builder-track-footer">
 <p><a class="btn btn-primary btn-block" href="/developer-apis/harness.html">Explore TritonAI Harness <span aria-hidden="true">→</span></a></p>
-<p class="builder-track-sublink"><a href="/developer-apis/harness-release-notes.html">Harness release notes</a></p>
-<p class="builder-track-sublink"><small>Prefer Claude Code, Codex, or Hermes? <a href="#tritonai-harness">Any compatible client works</a></small></p>
+<div class="builder-track-sublink"><div><p><a href="/training/harness/">Start Harness training</a></p><p><a href="/developer-apis/harness-release-notes.html">Release notes</a></p><p><small>Prefer Claude Code, Codex, or Hermes? <a href="#tritonai-harness">Any compatible client works</a></small></p></div></div>
 </div>
 </article>
 </div>
@@ -198,7 +197,7 @@ bannerMode: abstract
 <article><span class="glyphicon glyphicon-console" aria-hidden="true"></span><p class="build-tool-label">Supported alternatives</p><h3>Claude Code and Codex</h3><p>Keep a terminal or desktop workflow you already use and point it at the model routes approved for your key.</p></article>
 <article><span class="glyphicon glyphicon-modal-window" aria-hidden="true"></span><p class="build-tool-label">Compatible clients</p><h3>Hermes, OpenCode, and others</h3><p>Connect with the Gateway endpoint and key from your approval. Setup and support are yours.</p></article>
 </div>
-<p class="hub-section-action"><a class="btn btn-primary" href="/developer-apis/harness.html">Explore TritonAI Harness</a> <a class="btn btn-default" href="/developer-apis/start.html#harness">Download and set up</a></p>
+<p class="hub-section-action"><a class="btn btn-primary" href="/developer-apis/harness.html">Explore TritonAI Harness</a> <a class="btn btn-default" href="/developer-apis/start.html#harness">Download and set up</a> <a class="btn btn-default" href="/training/harness/">Start Harness training</a></p>
 </section>
 
 <section class="hub-section hub-section-dark hub-full-bleed" id="workflow-automation" aria-labelledby="workflow-automation-heading">
