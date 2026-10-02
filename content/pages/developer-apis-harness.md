@@ -51,7 +51,7 @@ bannerMode: abstract
 <p>This narrated video runs about two minutes and shows results from the Harness app. It was recorded with fictional workshop files.</p>
 </div>
 <video class="img-responsive center-block" width="1920" height="1080" controls controlslist="nodownload" muted playsinline preload="metadata" poster="/_images/harness/tritonai-harness-capabilities-2026-10-01-v2.jpg" aria-label="TritonAI Harness in action" aria-describedby="harness-in-action-description" aria-details="harness-in-action-transcript">
-<source src="/_files/harness/tritonai-harness-capabilities-2026-10-01-v2.mp4" type="video/mp4">
+<source src="/_files/harness/tritonai-harness-capabilities-2026-10-01-v3.mp4" type="video/mp4">
 <track kind="captions" src="/_files/harness/tritonai-harness-capabilities-2026-10-01-v2.vtt" srclang="en" label="English" default>
 Your browser does not support embedded video.
 </video>
