@@ -4464,6 +4464,16 @@ a.developer-download-button:visited {
   margin-bottom: 16px;
 }
 
+/* Preserve vendor wordmarks at a shared height without stretching their artwork. */
+main#main-content .plugin-logo-wordmark {
+  width: 140px;
+  height: 36px;
+  max-height: 36px;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
 /* High-contrast product comparison table */
 .comparison-table-wrapper {
   background: #ffffff;
