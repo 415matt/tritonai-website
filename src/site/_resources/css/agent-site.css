@@ -3624,6 +3624,16 @@ a.developer-download-button:visited {
   margin: 0;
 }
 
+.developer-start-actions .developer-start-training-action {
+  margin-top: 12px;
+}
+
+@media (min-width: 768px) {
+  #verify .developer-start-help {
+    margin-top: 0;
+  }
+}
+
 .developer-start-help {
   background: var(--triton-sand);
   border-top: 5px solid var(--triton-gold);
