@@ -74,7 +74,7 @@ Your browser does not support embedded video.
 
 <section class="hub-section hub-section-cool" id="harness-training" aria-labelledby="harness-training-heading">
 <div class="hub-heading"><p class="home-kicker">Self-paced training</p><h2 id="harness-training-heading">Learn to use TritonAI Harness</h2><p>Follow the narrated chapters, try the knowledge checks, and practice with fictional files. The training opens as a separate course with its own player and downloadable practice kit.</p></div>
-<p class="hub-section-action"><a class="btn btn-primary" href="https://bpollak.github.io/tritonai-website/training/harness/">Start TritonAI Harness training</a></p>
+<p class="hub-section-action"><a class="btn btn-primary" href="/training/harness/">Start TritonAI Harness training</a></p>
 </section>
 
 <section class="hub-section harness-compare" id="what-a-harness-adds" aria-labelledby="harness-compare-heading">

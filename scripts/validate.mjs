@@ -25,9 +25,11 @@ const SITE_BASE_PATH = (process.env.SITE_BASE_PATH || "").replace(/^\/+|\/+$/g, 
 const OFFICIAL_ORIGIN = "https://tritonai.ucsd.edu";
 const inheritedProductionFailures = new Set();
 const standaloneRoutes = new Set([
+  "/training/harness/index.html",
   "/presentations/managing-the-tritonai-website.html",
   "/tritongpt/bgpt-chat-generator/index.html",
 ]);
+const unlistedStandaloneRoutes = new Set([...standaloneRoutes].filter((route) => route !== "/training/harness/index.html"));
 const renderedProvenancePatterns = [
   { pattern: /\bSource:\s*[^<\n]*\.md\b/i, label: "internal content filename" },
   { pattern: /\bcurrent public (?:deck|presentation|version)\b/i, label: "public-version framing" },
@@ -1456,7 +1458,7 @@ try {
 }
 const sitemap = await readFile(path.join(DIST_DIR, "sitemap.xml"), "utf8").catch(() => "");
 const routeFindings = [];
-const listedHtmlFiles = htmlFiles.filter((file) => !standaloneRoutes.has(normalizeRoute(`/${file}`)));
+const listedHtmlFiles = htmlFiles.filter((file) => !unlistedStandaloneRoutes.has(normalizeRoute(`/${file}`)));
 if (!routeManifest || routeManifest.routes?.length !== listedHtmlFiles.length) {
   routeFindings.push({ issue: `Route manifest count does not match listed HTML count (${routeManifest?.routes?.length || 0} vs ${listedHtmlFiles.length})` });
 } else {
@@ -1466,7 +1468,7 @@ if (!routeManifest || routeManifest.routes?.length !== listedHtmlFiles.length) {
     if (!route.indexable && !route.redirectTo && included) routeFindings.push({ path: route.path, issue: "Non-indexable route appears in sitemap" });
   }
 }
-for (const route of standaloneRoutes) {
+for (const route of unlistedStandaloneRoutes) {
   if (routeManifest?.routes?.some((entry) => entry.path === route)) {
     routeFindings.push({ path: route, issue: "Unlisted standalone route appears in the public route manifest" });
   }
