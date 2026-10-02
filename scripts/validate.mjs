@@ -1352,8 +1352,8 @@ for (const page of htmlFiles) {
         contentFindings.push({ source: route, issue: `${label} does not contain 3 learning steps` });
       }
     });
-    if (programCards.length !== 6) {
-      contentFindings.push({ source: route, issue: `Expected 6 training programs; found ${programCards.length}` });
+    if (programCards.length !== 7) {
+      contentFindings.push({ source: route, issue: `Expected 7 training programs; found ${programCards.length}` });
     }
     programCards.each((_, element) => {
       const card = $(element);

@@ -29,7 +29,7 @@ bannerMode: abstract
 <a class="btn btn-default" href="/skills/index.html">Browse Skills Library</a>
 <a class="btn btn-default" href="/developer-apis/harness-release-notes.html">Release notes</a>
 </p>
-<p>Already have a key? <a href="/developer-apis/start.html#harness">Download and set up</a>.</p>
+<p>Already have a key? <a href="/developer-apis/start.html#harness">Download and set up</a>. Ready to learn? <a href="#harness-training">Explore the training</a>.</p>
 </div>
 <div class="col-md-5 hub-split-media">
 <figure class="build-architecture" aria-describedby="harness-architecture-caption">
@@ -70,6 +70,11 @@ Your browser does not support embedded video.
 <h3>Build a web app (1:33)</h3>
 <p>And it builds software. Here, a sign-up app on the official campus design system, wired through the n8n plugin to a campus sign-up workflow. Coming soon: self-service hosting, so the apps you build in the Harness can go live for campus. That's TritonAI Harness: real work, finished on your desktop, with campus tools built in.</p>
 </section>
+</section>
+
+<section class="hub-section hub-section-cool" id="harness-training" aria-labelledby="harness-training-heading">
+<div class="hub-heading"><p class="home-kicker">Self-paced training</p><h2 id="harness-training-heading">Learn to use TritonAI Harness</h2><p>Follow the narrated chapters, try the knowledge checks, and practice with fictional files. The training opens as a separate course with its own player and downloadable practice kit.</p></div>
+<p class="hub-section-action"><a class="btn btn-primary" href="https://bpollak.github.io/tritonai-website/training/harness/">Start TritonAI Harness training</a></p>
 </section>
 
 <section class="hub-section harness-compare" id="what-a-harness-adds" aria-labelledby="harness-compare-heading">
