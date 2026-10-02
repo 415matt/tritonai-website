@@ -3,7 +3,7 @@ title: TritonAI
 path: /index.html
 description: Artificial intelligence tools, training, and developer services for UC San Diego students, faculty, and staff.
 eyebrow: AI at UC San Diego
-lastReviewed: 2026-08-12
+lastReviewed: 2026-10-01
 audiences: [students, faculty, staff, developers, leaders]
 source: TritonAI public services and strategy presentation
 canonicalUrl: /
@@ -20,6 +20,12 @@ relatedSlides: [uc-san-diego-ai-strategy-2026, citizen-developer-ecosystem, plat
 </div>
 <div class="col-md-6 hub-split-media"><figure class="hub-browser-frame"><img alt="Geisel Library beneath a rainbow over the UC San Diego campus" class="img-responsive" src="/_images/homepage/rainbow-over-geisel-library-768.webp" srcset="/_images/homepage/rainbow-over-geisel-library-768.webp 768w, /_images/homepage/rainbow-over-geisel-library.webp 1200w" sizes="(max-width: 767px) calc(100vw - 108px), 50vw" width="1200" height="410"></figure></div>
 </div>
+</section>
+<!-- END_AGENT_SECTION -->
+
+<!-- AGENT_SECTION: harness-training -->
+<section class="hub-section hub-section-cool" id="harness-training" aria-labelledby="harness-training-heading">
+<div class="row hub-split hub-split-align-center"><div class="col-md-8 hub-split-copy"><p class="home-kicker">Self-paced training</p><h2 id="harness-training-heading">Learn to use TritonAI Harness</h2><p>Start with Essentials, then try a task with the fictional practice files. Narrated chapters, captions, a transcript, and knowledge checks help you learn the workspace and check your results.</p></div><div class="col-md-4 hub-subscribe-action"><p><a class="btn btn-primary" href="/training/harness/">Start TritonAI Harness training</a></p><p><a href="/developer-apis/start.html">Need the Harness? Download and set up</a></p></div></div>
 </section>
 <!-- END_AGENT_SECTION -->
 

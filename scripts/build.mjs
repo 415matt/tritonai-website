@@ -1087,7 +1087,7 @@ function transformHtml(html, relativePath, context) {
   const seo = context.seo.routes[route] || {};
   const title = seo.title || generated?.title || $("meta[name='PAGETITLE']").attr("content") || $("title").text().trim() || context.site.name;
   const description = seo.description || generated?.description || $("meta[name='DESCRIPTION']").attr("content") || context.site.description;
-  const canonicalPath = generated?.canonicalUrl || route;
+  const canonicalPath = generated?.canonicalUrl || seo.canonicalUrl || route;
   const canonicalUrl = new URL(canonicalPath, OFFICIAL_ORIGIN).href;
   const useCaseImage = generated?.slug ? USE_CASE_MEDIA[generated.slug]?.src : null;
   const socialImagePath = seo.socialImage || generated?.socialImage || generated?.bannerImage || useCaseImage || context.seo.defaultSocialImage;
@@ -1221,6 +1221,9 @@ function transformHtml(html, relativePath, context) {
 
   $("video").each((_, element) => {
     const video = $(element);
+    // User-started players retain native sources so a tap can start playback
+    // without waiting for viewport hydration or an autoplay promise.
+    if (video.attr("data-playback") === "manual") return;
     video
       .removeAttr("autoplay")
       .attr("data-autoplay-when-visible", "true")
@@ -1497,7 +1500,7 @@ htmlFiles = (await listFiles(OUTPUT_DIR)).filter((file) => file.endsWith(".html"
 const routes = htmlFiles
   .map((relativePath) => ({
     path: routeForRelativePath(relativePath),
-    canonicalUrl: new URL(generatedByPath.get(relativePath)?.canonicalUrl || routeForRelativePath(relativePath), OFFICIAL_ORIGIN).href,
+    canonicalUrl: new URL(generatedByPath.get(relativePath)?.canonicalUrl || seo.routes[routeForRelativePath(relativePath)]?.canonicalUrl || routeForRelativePath(relativePath), OFFICIAL_ORIGIN).href,
     redirectTo: generatedByPath.get(relativePath)?.redirectTo || null,
     source: generatedByPath.has(relativePath) ? "structured-content" : "cascade-snapshot",
     lastModified: seo.routes[routeForRelativePath(relativePath)]?.lastModified || generatedByPath.get(relativePath)?.lastReviewed || site.lastReviewed,

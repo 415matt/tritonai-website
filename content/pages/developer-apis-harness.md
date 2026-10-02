@@ -3,10 +3,10 @@ title: TritonAI Harness
 path: /developer-apis/harness.html
 description: A local-first agent control surface connecting campus builders to approved models, local files, and UC San Diego systems under human supervision.
 eyebrow: Build with TritonAI
-lastReviewed: 2026-09-07
+lastReviewed: 2026-10-02
 audiences: [staff, faculty, researchers, developers]
 owner: TritonAI
-source: "TritonAI Harness product documentation and UC San Diego AI service guidance"
+source: "TritonAI Harness stable v0.3.4 release notes and tagged user documentation; packaged plugin composition; UC San Diego AI service guidance"
 canonicalUrl: /developer-apis/harness.html
 relatedSlides: [Citizen Developer Ecosystem, Reusable Skills and MCP, platform-architecture]
 landingHub: true
@@ -29,15 +29,15 @@ bannerMode: abstract
 <a class="btn btn-default" href="/skills/index.html">Browse Skills Library</a>
 <a class="btn btn-default" href="/developer-apis/harness-release-notes.html">Release notes</a>
 </p>
-<p>Already have a key? <a href="/developer-apis/start.html#harness">Download and set up</a>.</p>
+<p>Already have a key? <a href="/developer-apis/start.html#harness">Download and set up</a>. Ready to learn? <a href="#harness-training">Explore the training</a>.</p>
 </div>
 <div class="col-md-5 hub-split-media">
 <figure class="build-architecture" aria-describedby="harness-architecture-caption">
 <p class="build-architecture-label">Governed agent execution</p>
 <ol class="build-architecture-flow">
-<li><span>01</span><div><strong>Local workspace</strong><small>Files, transcripts, and code remain on your workstation.</small></div></li>
+<li><span>01</span><div><strong>Local workspace</strong><small>Files and task history are stored locally; selected context is sent to the model.</small></div></li>
 <li><span>02</span><div><strong>Campus gateway</strong><small>Zero-retention UC-hosted models on UC San Diego infrastructure.</small></div></li>
-<li><span>03</span><div><strong>Supervised execution</strong><small>You approve file edits, commands, and external actions.</small></div></li>
+<li><span>03</span><div><strong>Task access mode</strong><small>Choose when the agent pauses for your approval.</small></div></li>
 </ol>
 <figcaption id="harness-architecture-caption">TritonAI Harness isolates credentials and runs within your local workspace under your supervision.</figcaption>
 </figure>
@@ -45,31 +45,57 @@ bannerMode: abstract
 </div>
 </section>
 
+<section class="hub-section hub-section-cool" id="harness-stable-release" aria-labelledby="harness-stable-release-heading">
+<div class="hub-heading">
+<p class="home-kicker">Stable release</p>
+<h2 id="harness-stable-release-heading">Harness 0.3.4 stable release</h2>
+<p><strong>Current stable version: 0.3.4.</strong> Checked October 2, 2026 against the published release. Available for macOS Apple Silicon and Windows x64. The newer 0.3.5 nightly builds are prereleases on a separate update track.</p>
+</div>
+<ul>
+<li><strong>Computer use:</strong> Opt in to let the agent inspect and operate desktop apps, with visible setup and activity. In this release it works with the Codex provider on a local desktop backend.</li>
+<li><strong>Task goals and attachments:</strong> Give Codex tasks persistent goals, attach general files, and drop images into chat.</li>
+<li><strong>Search and review:</strong> Search conversation content and project files, organize tasks in the redesigned sidebar, and inspect pull requests and changed lines in the app.</li>
+<li><strong>Campus plugins:</strong> Kuali Build and n8n join the included plugin catalog with separately authorized read and write abilities.</li>
+<li><strong>Skills and sub-agents:</strong> Share a local skill with UCSD for review and follow delegated work in the Agents panel.</li>
+</ul>
+<p>To update an existing installation, open <strong>Settings &gt; About &gt; Check for Updates</strong>. For first-time setup, use the <a href="/developer-apis/start.html#harness">stable TritonAI Installer</a>.</p>
+<p>Computer use starts off. Enable it in <strong>Settings &gt; General</strong>; on macOS, grant Accessibility and Screen Recording permissions and restart the Harness when prompted.</p>
+<p><a href="https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.4">Read the Harness 0.3.4 release notes</a> · <a href="https://github.com/dbalders/TritonAI-Harness/blob/v0.3.4/docs/user/permission-modes.md">Review approval modes</a></p>
+</section>
+
 <section class="hub-section" id="harness-in-action" aria-labelledby="harness-in-action-heading">
 <div class="hub-heading">
 <h2 id="harness-in-action-heading">See the Harness in action</h2>
-<p>This narrated video runs about two minutes and shows results from the Harness app. It was recorded with fictional workshop files.</p>
+<p>This narrated video runs a little over two minutes and shows results from the Harness app. It was recorded with fictional workshop files.</p>
 </div>
-<video class="img-responsive center-block" width="1920" height="1080" controls controlslist="nodownload" muted playsinline preload="metadata" poster="/_images/harness/tritonai-harness-capabilities-2026-10-01-v2.jpg" aria-label="TritonAI Harness in action" aria-describedby="harness-in-action-description" aria-details="harness-in-action-transcript">
-<source src="/_files/harness/tritonai-harness-capabilities-2026-10-01-v2.mp4" type="video/mp4">
-<track kind="captions" src="/_files/harness/tritonai-harness-capabilities-2026-10-01-v2.vtt" srclang="en" label="English" default>
+<video class="img-responsive center-block" width="1920" height="1080" data-playback="manual" controls controlslist="nodownload" muted playsinline preload="none" poster="/_images/harness/tritonai-harness-capabilities-2026-10-01-v2.jpg" aria-label="TritonAI Harness in action" aria-describedby="harness-in-action-description" aria-details="harness-in-action-transcript">
+<source src="/_files/harness/tritonai-harness-capabilities-2026-10-02-v4.mp4" type="video/mp4">
+<track kind="captions" src="/_files/harness/tritonai-harness-capabilities-2026-10-02-v4.vtt" srclang="en" label="English" default>
 Your browser does not support embedded video.
 </video>
-<p id="harness-in-action-description" class="small">The video plays muted with captions. Turn on sound to hear the narration. It shows a survey summary, an Excel dashboard, a briefing deck on the UC San Diego template, the five campus plugins, an n8n workflow explained step by step, a GitHub code review, and a sign-up app built on the campus design system and wired to an n8n workflow.</p>
+<p class="small">Tap Play to start. If the embedded player does not work, <a href="/_files/harness/tritonai-harness-capabilities-2026-10-02-v4.mp4">open the video directly</a>.</p>
+<p id="harness-in-action-description" class="small">The video starts muted with captions. Turn on sound to hear the narration. It shows a survey summary, an Excel dashboard, a briefing deck on the UC San Diego template, the five campus plugins, an n8n workflow explained step by step, a GitHub code review, and a sign-up app built on the campus design system and wired to an n8n workflow.</p>
 <section class="sr-only" id="harness-in-action-transcript" aria-label="Video transcript">
 <h3>Introduction (0:00)</h3>
 <p>TritonAI Harness is UC San Diego's AI workspace on your desktop. You hand it real work, and it delivers finished results, using your files and campus systems.</p>
 <h3>Summarize a survey (0:11)</h3>
-<p>Here it is, live. I hand it a raw workshop survey and ask for a summary. Fourteen seconds later: averages for every question, the top comments, the missing data flagged, and a takeaway for the planning team, saved as a file.</p>
-<h3>Build an Excel dashboard (0:29)</h3>
-<p>Same data, bigger ask: a presentation-ready Excel dashboard. It builds the workbook, and a few quick follow-ups polish the layout. Headline numbers up top, three charts in campus colors, and a one-line insight under each.</p>
-<h3>Create a briefing deck (0:46)</h3>
-<p>Next, the meeting notes and the survey together, turned into a briefing deck on the official UC San Diego template. Nine slides with live charts, an owners table, a timeline to the next session, and speaker notes, all built from the source files.</p>
-<h3>Work with campus systems (1:04)</h3>
+<p>Here it is, live, with a made-up project: Jordan's fall workshop pilot. Qualtrics already reports the survey, but Jordan wants the team's own questions answered, so I hand it the raw results. Fourteen seconds later: averages for every question, the top comments, the missing data flagged, and a takeaway for the planning team, saved as a file.</p>
+<h3>Build an Excel dashboard (0:35)</h3>
+<p>Department leaders want one page, so: a presentation-ready Excel dashboard. It builds the workbook, and a few quick follow-ups polish the layout. Headline numbers up top, three charts in campus colors, and a one-line insight under each.</p>
+<h3>Create a briefing deck (0:52)</h3>
+<p>Jordan has ten minutes with leaders next week, so the meeting notes and the survey become a briefing deck on the official UC San Diego template. Nine slides with live charts, an owners table, a timeline to the next session, and speaker notes, all built from the source files.</p>
+<h3>Work with campus systems (1:10)</h3>
 <p>It plugs into the campus systems you already use: Microsoft 365, Google Workspace, Kuali Build, GitHub, and n8n. Here it reads an n8n workflow, explains each step in plain language, and confirms the last run succeeded. With GitHub, it reviews a code change: what changed, which files, and whether the build passed.</p>
-<h3>Build a web app (1:33)</h3>
-<p>And it builds software. Here, a sign-up app on the official campus design system, wired through the n8n plugin to a campus sign-up workflow. Coming soon: self-service hosting, so the apps you build in the Harness can go live for campus. That's TritonAI Harness: real work, finished on your desktop, with campus tools built in.</p>
+<h3>Build a web app (1:39)</h3>
+<p>And it builds software. A Microsoft Form would cover a basic sign-up, but Jordan's team wants the campus look and every sign-up in its own n8n workflow. Here's that app, on the official campus design system. Coming soon: self-service hosting, so the apps you build in the Harness can go live for campus.</p>
+<h3>Campus tools first (2:01)</h3>
+<p>When a campus tool does the job, use it. When you need it your way, build it with the Harness. That's TritonAI Harness: real work, finished on your desktop, with campus tools built in.</p>
 </section>
+</section>
+
+<section class="hub-section hub-section-cool" id="harness-training" aria-labelledby="harness-training-heading">
+<div class="hub-heading"><p class="home-kicker">Self-paced training</p><h2 id="harness-training-heading">Learn to use TritonAI Harness</h2><p>Start with Essentials, then try the feedback-summary exercise with fictional files. Explore the other narrated chapters and knowledge checks when you need them. The training opens as a separate course with its own player and downloadable practice kit.</p></div>
+<p class="hub-section-action"><a class="btn btn-primary" href="/training/harness/">Start TritonAI Harness training</a></p>
 </section>
 
 <section class="hub-section harness-compare" id="what-a-harness-adds" aria-labelledby="harness-compare-heading">
@@ -86,7 +112,7 @@ Your browser does not support embedded video.
 <div class="harness-compare-head"><div><p class="harness-compare-title" id="harness-compare-harness-title">Harness</p><p class="harness-compare-sub">A model works.</p></div><div class="harness-compare-pills"><span class="harness-pill">Context</span><span class="harness-pill">Tools</span><span class="harness-pill">Loop</span></div></div>
 <div class="harness-compare-loop"><ul class="harness-stack harness-stack-in" aria-label="What the model is given"><li>files</li><li>rules</li><li>memory</li></ul><div class="harness-model-ring"><svg viewBox="0 0 120 120" aria-hidden="true" focusable="false"><circle cx="60" cy="60" r="55" fill="none" stroke="#e7d9c4" stroke-width="1.2" stroke-dasharray="3 4"/><circle class="harness-anim-arc" cx="60" cy="60" r="55" fill="none" stroke="#c69214" stroke-width="1.6" stroke-dasharray="9 80" stroke-linecap="round"/><circle class="harness-anim-orbit" cx="0" cy="0" r="4" fill="#c69214"/></svg><span class="harness-model harness-model-gold" aria-hidden="true">M<small>↺</small></span></div><ul class="harness-stack harness-stack-out" aria-label="What the model can do"><li>read</li><li>edit</li><li>verify</li></ul></div>
 <div class="harness-compare-result"><span class="harness-compare-label">You get</span><span class="harness-chip"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>contract.docx</span><span class="harness-chip"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>routed for sign-off</span><span class="harness-chip"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>logged</span></div>
-<p class="harness-compare-note">TritonAI Harness takes the same model and gives it a workspace, bounded tools, and a person who approves each consequential step.</p>
+<p class="harness-compare-note">TritonAI Harness takes the same model and gives it a workspace, bounded tools, and a person who chooses the approval mode and reviews the result.</p>
 </article></div>
 </div>
 </section>
@@ -183,7 +209,7 @@ Your browser does not support embedded video.
 <span class="comparison-mobile-label" aria-hidden="true">TritonAI Harness</span>
 <div class="comparison-table-val">
 <strong>Local folders, terminal, &amp; git</strong>
-<small>Reads project directories, edits local code, and runs shell commands with your approval.</small>
+<small>Reads project directories, edits local code, and runs shell commands according to the chat’s access mode.</small>
 </div>
 </td>
 </tr>
@@ -199,8 +225,8 @@ Your browser does not support embedded video.
 <td role="cell">
 <span class="comparison-mobile-label" aria-hidden="true">TritonAI Harness</span>
 <div class="comparison-table-val">
-<strong>100% local residency (~/.tritonai-harness)</strong>
-<small>Transcripts, code, and memory vaults remain on your device with instant user deletion.</small>
+<strong>Local files and task history</strong>
+<small>Project files and saved task history stay on your device. Prompts and selected context are sent to the chosen model; connected tools exchange data with their services.</small>
 </div>
 </td>
 </tr>
@@ -216,8 +242,8 @@ Your browser does not support embedded video.
 <td role="cell">
 <span class="comparison-mobile-label" aria-hidden="true">TritonAI Harness</span>
 <div class="comparison-table-val">
-<strong>GitHub, Google Workspace, &amp; Microsoft 365</strong>
-<small>Host-managed OAuth plugins with draft-first safeguards for email and calendar.</small>
+<strong>Campus service plugins</strong>
+<small>Connect the included plugins listed below. Access follows your account permissions and enabled abilities.</small>
 </div>
 </td>
 </tr>
@@ -233,8 +259,8 @@ Your browser does not support embedded video.
 <td role="cell">
 <span class="comparison-mobile-label" aria-hidden="true">TritonAI Harness</span>
 <div class="comparison-table-val">
-<strong>Human-in-the-loop review</strong>
-<small>Explicit human approval required for every file modification, shell command, or write action.</small>
+<strong>Per-chat approval modes</strong>
+<small>Supervised pauses for file changes and write tools. Full access allows actions without approval prompts. Plugin abilities and account permissions still apply.</small>
 </div>
 </td>
 </tr>
@@ -291,7 +317,7 @@ Data classification
 <article class="panel panel-default hub-action-card">
 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
 <h3>Staff and citizen developers</h3>
-<p>Automate recurring spreadsheets, generate draft reports, and organize intake data without sending records to external clouds.</p>
+<p>Analyze spreadsheets, generate draft reports, and organize intake data using your files and enabled campus plugins. Choose a model route approved for the data you use.</p>
 <p><a href="/developer-apis/citizen-developer.html">Citizen Developer Guide <span aria-hidden="true">→</span></a></p>
 </article>
 </div>
@@ -308,7 +334,7 @@ Data classification
 <article class="panel panel-default hub-action-card">
 <span class="glyphicon glyphicon-education" aria-hidden="true"></span>
 <h3>Faculty and researchers</h3>
-<p>Query local datasets and run prompt pipelines against zero-retention UC-hosted models under strict grant privacy controls.</p>
+<p>Work with local datasets and run prompt pipelines through approved campus model routes. Check the requirements of your research project before using its data.</p>
 <p><a href="/developer-apis/index.html#api-gateway">Models and routes <span aria-hidden="true">→</span></a></p>
 </article>
 </div>
@@ -327,28 +353,28 @@ Data classification
 <article>
 <span>01</span>
 <h3>Local-first execution</h3>
-<p>Your project files, conversation transcripts, and memory vaults remain on your workstation in <code>~/.tritonai-harness</code>. No external model training occurs on your code or text.</p>
+<p>Project files and saved task history are stored on your workstation. The selected model receives the prompt and context needed for the task, including relevant file content or images.</p>
 </article>
 </div>
 <div class="col-sm-6 col-md-3">
 <article>
 <span>02</span>
 <h3>UC-hosted models</h3>
-<p>Connect to campus-hosted open-weight models on UC San Diego infrastructure, including GLM 5.3 with 320K context, with zero data retention and zero recharge costs for administrative work.</p>
+<p>The stable release uses GLM 5.3 Flash as the managed default and also offers GLM 5.3 and Glimmer. Existing selections of available models are preserved. Check the <a href="/developer-apis/index.html#api-gateway">current models and routes</a> for hosting and data-use guidance.</p>
 </article>
 </div>
 <div class="col-sm-6 col-md-3">
 <article>
 <span>03</span>
 <h3>Supervised execution</h3>
-<p>Review and approve proposed file modifications, terminal commands, and external requests before any action takes place on your system.</p>
+<p>Start with Supervised while learning: safe reads may proceed, while file changes, write tools, and commands needing additional permissions pause for approval. Choose the mode in each chat; exact behavior depends on the provider. Full access allows actions without prompts.</p>
 </article>
 </div>
 <div class="col-sm-6 col-md-3">
 <article>
 <span>04</span>
 <h3>Credential isolation</h3>
-<p>API keys and OAuth tokens reside in your operating system secret store. They remain isolated from model prompts and cannot leak into transcripts or logs.</p>
+<p>The desktop app encrypts stored API keys and OAuth tokens with a key protected by your operating system. Connected tools receive authorized operation results; stored credentials are kept out of model context.</p>
 </article>
 </div>
 </div>
@@ -359,7 +385,7 @@ Data classification
 <div class="hub-heading">
 <p class="home-kicker">Host integrations</p>
 <h2 id="integrations-heading">Included plugins</h2>
-<p>Turn plugins on or off in Settings, then choose the abilities they can use. Connected-service credentials remain on your workstation and are never passed to the model.</p>
+<p>In Settings &gt; Plugins, enable an included plugin, connect your account, and select its abilities under Access where available. Some abilities are granted during sign-in. Account permissions, enabled abilities, and the chat’s approval mode each control what the agent can do.</p>
 </div>
 <div class="row hub-action-grid">
 <div class="col-sm-6 col-md-4">
@@ -380,7 +406,7 @@ Data classification
 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
 </svg>
 <h3>Google Workspace</h3>
-<p>Connect UC San Diego Google Drive, Gmail, and Calendar through fixed, bounded tools connected to the verified ucsd.edu hosted domain.</p>
+<p>Read UC San Diego Drive files, including Docs, Sheets, and Slides. Gmail and Google Calendar access are also available for accounts that use them. File access is read-only; unsent Gmail drafts and calendar changes are separate opt-in abilities.</p>
 </article>
 </div>
 <div class="col-sm-6 col-md-4">
@@ -392,13 +418,31 @@ Data classification
 <path fill="#FFB900" d="M13 13h10v10H13z"/>
 </svg>
 <h3>Microsoft 365</h3>
-<p>Read mail, calendars, and Teams chats with delegated access. Write operations default to draft mode for your review before sending.</p>
+<p>Read Outlook mail and calendars with your signed-in permissions. Unsent email drafts, mail organization, calendar changes, and Teams chat access are separate opt-in abilities. The plugin has no email-send tool; sending to an existing Teams chat requires its own enabled ability.</p>
+</article>
+</div>
+</div>
+<div class="row hub-action-grid">
+<div class="col-sm-6 col-md-4">
+<article class="panel panel-default hub-action-card">
+<!-- Official vendor artwork: https://www.kuali.co/ -->
+<img class="plugin-logo plugin-logo-wordmark" src="https://cdn.prod.website-files.com/6a54fa1c67a49a38a3dfceaf/6a6480d26a966372f1be7f4a_image%2079%20%5BVectorized%5D.webp" alt="" width="140" height="36" loading="lazy">
+<h3>UC San Diego Kuali Build</h3>
+<p>Connect with your API key to inspect apps, forms, documents, and workflow metadata. Creating, editing, and submitting Build documents require the corresponding write abilities.</p>
+</article>
+</div>
+<div class="col-sm-6 col-md-4">
+<article class="panel panel-default hub-action-card">
+<!-- Official vendor artwork: https://n8n.io/brandguidelines/ -->
+<img class="plugin-logo plugin-logo-wordmark" src="https://n8n.io/brandguidelines/logo-dark.svg" alt="" width="140" height="36" loading="lazy">
+<h3>n8n</h3>
+<p>Sign in through your browser to inspect and design workflows in UC San Diego’s n8n service. Running, creating, updating, and publishing workflows depend on the abilities granted during sign-in and the chat’s approval mode.</p>
 </article>
 </div>
 </div>
 <aside class="hub-note-card">
 <strong>Immediate revocation</strong>
-<span>Disabling a plugin in Settings revokes its tools immediately. Changes reconcile before the next agent turn.</span>
+<span>Disabling a plugin removes access to its tools immediately. Available tools and skills refresh for the next agent turn.</span>
 </aside>
 </section>
 
@@ -407,7 +451,7 @@ Data classification
 <div class="hub-heading">
 <p class="home-kicker">Reusable capabilities</p>
 <h2 id="skills-heading">UCSD Skills Library</h2>
-<p>Skills package instructions, references, and scripts that agents load on demand. Maintained in the <a href="https://github.com/UCSD/UCSD-Skills-Library" target="_blank" rel="noopener noreferrer">UCSD Skills Library</a> and installed locally in <code>~/.agents/ucsd/skills/</code>.</p>
+<p>Skills package instructions, references, and scripts that agents load on demand. Browse AI Team and Community skills in <strong>Settings &gt; Skills</strong>. Skills you create or add locally stay under Your Skills; use <strong>Share with UCSD</strong> to submit a public contribution for review.</p>
 </div>
 <div class="row hub-action-grid">
 <div class="col-sm-6 col-md-3">

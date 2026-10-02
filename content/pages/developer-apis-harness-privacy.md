@@ -3,10 +3,10 @@ title: TritonAI Harness Privacy Statement
 path: /developer-apis/harness-privacy.html
 description: How TritonAI Harness handles data residency, campus network transit, credential protection, and UC Protection Levels.
 eyebrow: Build with TritonAI
-lastReviewed: 2026-09-21
+lastReviewed: 2026-10-02
 audiences: [staff, faculty, researchers, developers]
 owner: TritonAI
-source: "UC San Diego IT Services AI governance and data protection guidance"
+source: "UC San Diego IT Services AI governance and data protection guidance; TritonAI Harness stable v0.3.4 tagged user, integration, and credential-storage documentation"
 canonicalUrl: /developer-apis/harness-privacy.html
 relatedSlides: [platform-architecture, Citizen Developer Ecosystem]
 landingHub: true
@@ -20,8 +20,8 @@ bannerMode: abstract
 <div class="col-md-8 hub-split-copy">
 <p class="home-kicker">Data architecture</p>
 <h2 id="privacy-intro-heading">Privacy and security in TritonAI Harness</h2>
-<p class="hub-lede">TritonAI Harness uses a local-first architecture. Your project files, transcripts, and credentials stay on your computer. This statement explains what data stays local, what passes through the gateway, and how UC policies apply.</p>
-<p>Unlike centralized web chat interfaces, the Harness does not retain your work on campus servers. You keep custody of your local files and project history.</p>
+<p class="hub-lede">TritonAI Harness uses a local-first architecture. Local project files and task history are stored on your computer. Selected context is sent to the model, and enabled plugins communicate with their connected services. This statement explains what data stays local, what passes through the gateway, and how UC policies apply.</p>
+<p>This statement describes local desktop use with approved campus model routes. Connected services retain their own records, and other providers or cloud tasks have separate data-handling terms.</p>
 </div>
 <div class="col-md-4">
 <aside class="hub-note-card">
@@ -37,14 +37,14 @@ bannerMode: abstract
 <div class="hub-heading">
 <p class="home-kicker">Local storage</p>
 <h2 id="residency-heading">What remains on your computer</h2>
-<p>The Harness stores operational data locally within your user account rather than on central servers.</p>
+<p>Local desktop task data is stored within your user account. This local storage is separate from context transmitted for model requests and records held by connected services.</p>
 </div>
 <div class="row hub-action-grid">
 <div class="col-md-4">
 <article class="panel panel-default hub-action-card">
 <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
 <h3>Project files and code</h3>
-<p>All source code, spreadsheets, text documents, and configuration files remain in their original directories on your computer. The Harness only reads files in folders you explicitly open.</p>
+<p>Project files stay in their directories on your computer. The agent can read or change files through its tools according to the task approval mode and granted access. Files and attachments selected as context may be sent to the model.</p>
 </article>
 </div>
 <div class="col-md-4">
@@ -58,7 +58,7 @@ bannerMode: abstract
 <article class="panel panel-default hub-action-card">
 <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
 <h3>Local memory vaults</h3>
-<p>Persistent notes, context summaries, and reference instructions are saved as local Markdown files on your workstation. No cloud indexing or external training takes place.</p>
+<p>Persistent notes, context summaries, and reference instructions are saved as local Markdown files on your workstation. Relevant notes may be included in model requests when the agent uses them as context.</p>
 </article>
 </div>
 </div>
@@ -76,7 +76,7 @@ bannerMode: abstract
 <article class="panel panel-default hub-action-card">
 <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
 <h3>Active prompt context &amp; zero silent fallback</h3>
-<p>When an agent turn executes, only the prompt text and specific file snippets needed for that turn travel across encrypted HTTPS to the TritonAI Gateway.</p>
+<p>When an agent turn executes, selected context travels across encrypted HTTPS to the TritonAI Gateway. It can include conversation text, file contents, and tool results. Image attachments and computer-use screenshots can also be sent to models that support them.</p>
 <p>UC-hosted models on campus infrastructure process requests with <strong>zero data retention</strong> and <strong>no model training</strong>. Your prompts are discarded after generating the response. For UC-hosted open-weight routes, inference, request context, and responses remain within the UC-managed environment and are not sent to the model provider or any third party, including providers outside the United States. UC-hosted weights are run locally, not accessed as an external hosted service. Other approved open-weight routes may use enterprise cloud providers under UC agreements.</p>
 <p>The Harness maintains an <strong>empty cloud fallback list</strong> by default. If a UC-hosted model is temporarily unavailable, the error is surfaced immediately. Private campus context is never silently redirected to external cloud providers.</p>
 </article>
@@ -104,7 +104,7 @@ bannerMode: abstract
 <article>
 <span>01</span>
 <h3>Host-managed tokens</h3>
-<p>OAuth tokens for GitHub, Google Workspace, and Microsoft 365 reside in the local host secret store. Tokens are never passed into model prompt context.</p>
+<p>The Harness stores managed plugin credentials in encrypted local files, with the encryption key protected by the operating system. Its credential system supplies secrets to authorized operations and keeps stored credential values out of model context.</p>
 </article>
 </div>
 <div class="col-sm-6 col-md-3">
@@ -117,8 +117,8 @@ bannerMode: abstract
 <div class="col-sm-6 col-md-3">
 <article>
 <span>03</span>
-<h3>Draft-first safeguards</h3>
-<p>Write operations for email and calendar default to draft mode. External changes require explicit human confirmation before sending or publishing.</p>
+<h3>Write permissions and approvals</h3>
+<p>Email draft tools create unsent drafts. Calendar write tools make real changes when enabled. Available actions depend on account permissions and plugin capabilities; the task approval mode determines when the agent asks. Choose Supervised for write tools to pause for approval. Full access allows enabled actions without approval prompts.</p>
 </article>
 </div>
 <div class="col-sm-6 col-md-3">
@@ -164,15 +164,15 @@ bannerMode: abstract
 <div class="col-md-8 hub-split-copy">
 <p class="home-kicker">User control</p>
 <h2 id="deletion-heading">Data deletion and access revocation</h2>
-<p class="hub-lede">Because session data is stored locally, you maintain complete control over data removal.</p>
-<p>You can delete past task transcripts, remove cached files, or clear memory entries at any time by removing them from your local directory or clearing history within the application interface. Deletion is instantaneous and permanent.</p>
+<p class="hub-lede">Manage local task history, project files, and connected-service records separately.</p>
+<p>Deleting a project folder does not establish that all associated task history, attachments, or application caches have been removed. Backups and records in connected services may retain separate copies. Follow your department’s retention requirements, and contact the service team if you need help removing saved data.</p>
 <p>To revoke Microsoft 365 access, use the Disconnect button in Settings under Plugins, or revoke permissions directly in your Microsoft 365 account security settings.</p>
 </div>
 <div class="col-md-4">
 <aside class="hub-quote-card deletion-quote-card">
 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-<h3>Immediate local removal</h3>
-<p>Clearing a task or deleting a local workspace folder immediately deletes the associated session records from your system.</p>
+<h3>Separate storage locations</h3>
+<p>Task history and project files have separate storage locations. Removing a local folder does not delete records in Microsoft 365, Google Workspace, or other connected services. Disconnecting a plugin revokes access; it does not erase those records.</p>
 </aside>
 </div>
 </div>

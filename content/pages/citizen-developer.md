@@ -3,7 +3,7 @@ title: Plan Your First Project
 path: /developer-apis/citizen-developer.html
 description: Try guided TritonAI Harness exercises with skills and connected tools, then plan a first project you can check and support.
 eyebrow: Build with TritonAI
-lastReviewed: 2026-09-01
+lastReviewed: 2026-10-02
 audiences: [staff, faculty, researchers, developers, leaders]
 owner: TritonAI
 source: "TritonAI public build, trust, and service ownership guidance"
@@ -29,11 +29,18 @@ bannerMode: abstract
 </div></div>
 </section>
 
+<!-- AGENT_SECTION: harness-training -->
+<section class="hub-section hub-section-cool" id="harness-training" aria-labelledby="harness-training-heading">
+<div class="row hub-split hub-split-align-center"><div class="col-md-8 hub-split-copy"><p class="home-kicker">Self-paced training</p><h2 id="harness-training-heading">Learn to use TritonAI Harness</h2><p>Start with Essentials, then try a task with the fictional practice files. Narrated chapters, captions, a transcript, and knowledge checks help you learn the workspace and check your results.</p></div><div class="col-md-4 hub-subscribe-action"><p><a class="btn btn-primary" href="/training/harness/">Start TritonAI Harness training</a></p><p><a href="/developer-apis/start.html">Need the Harness? Download and set up</a></p></div></div>
+</section>
+<!-- END_AGENT_SECTION -->
+
 <section class="hub-section hub-section-cool hub-full-bleed" id="harness-practice" aria-labelledby="harness-practice-heading">
 <div class="container"><div class="hub-heading"><p class="home-kicker">Hands-on with TritonAI Harness</p><h2 id="harness-practice-heading">Try a task with your connected tools</h2><p>Start with one of the <a href="/developer-apis/harness.html#harness-example-heading">Harness examples</a> and follow the exercise below. Replace the meeting, workshop, or department details with your own. Each exercise produces something you can inspect in your workspace.</p></div>
 <h3>Set up your workspace</h3>
 <ol>
 <li><strong>Open the Harness and a project folder.</strong> If you are starting from scratch, follow <a href="/developer-apis/start.html">access and setup</a> to get a Gateway key and install the Harness. Use a folder where you can keep the draft and its supporting files.</li>
+<li><strong>Choose Supervised.</strong> Before sending your first request, select <strong>Supervised</strong> in the message composer. New chats otherwise default to Full access. Supervised allows safe reads and pauses file changes and write tools for approval; command handling depends on the provider.</li>
 <li><strong>Connect the sources for your task.</strong> In Harness Settings, enable Microsoft 365 or Google Workspace and sign in with your campus account. Outlook mail and calendar reads are default Microsoft 365 capabilities. Google Drive, Docs, and Sheets access is read-only. The available tools also depend on your account permissions and enabled plugin capabilities.</li>
 <li><strong>Name the result you want.</strong> Tell the Harness the topic, relevant dates, and output format. Ask it to identify the sources it used and any information it could not read. If a connection is unavailable, you can work from files you are approved to save in your project folder.</li>
 </ol>
@@ -135,7 +142,7 @@ bannerMode: abstract
 <section class="hub-section hub-section-sand hub-full-bleed" aria-labelledby="campus-path-heading">
 <div class="container"><div class="hub-heading"><p class="home-kicker">TritonAI ecosystem</p><h2 id="campus-path-heading">Choose a path that fits the work</h2><p>Start with the simplest supported option that meets the need. You can move a workflow to a different path later as its audience, data, or support needs change.</p></div>
 <div class="build-tool-grid">
-<article class="build-tool-preferred"><span class="glyphicon glyphicon-console" aria-hidden="true"></span><p class="build-tool-label">Interactive agent work</p><h3><a href="/developer-apis/harness.html">TritonAI Harness</a></h3><p>Work on a small task that can span files, browser work, and approved connections. The Harness asks for your approval before significant actions, so you stay in control while you learn which steps are worth repeating.</p></article>
+<article class="build-tool-preferred"><span class="glyphicon glyphicon-console" aria-hidden="true"></span><p class="build-tool-label">Interactive agent work</p><h3><a href="/developer-apis/harness.html">TritonAI Harness</a></h3><p>Work on a small task that can span files, browser work, and approved connections. The task approval mode controls when the Harness asks. Choose Supervised while learning; Full access permits enabled actions without approval prompts.</p></article>
 <article><span class="glyphicon glyphicon-random" aria-hidden="true"></span><p class="build-tool-label">Repeatable workflow</p><h3>n8n</h3><p>Run a process you already understand. n8n starts the steps on a schedule, when a message or file arrives, or when another system sends a request. It fits best once you know the process and how it should handle exceptions.</p></article>
 <article><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span><p class="build-tool-label">Application or shared capability</p><h3>APIs and skills</h3><p>Add approved AI models to software you already run, or package instructions and reference material into a skill that others can review and reuse.</p></article>
 </div>
@@ -158,7 +165,7 @@ bannerMode: abstract
 
 <section class="hub-section hub-section-sand hub-full-bleed" id="skill-practice" aria-labelledby="starter-heading">
 <div class="container"><div class="hub-heading"><p class="home-kicker">Practice with skills</p><h2 id="starter-heading">Try a skill on a campus task</h2><p>Choose an exercise below and work through it in your Harness project folder. Each one connects a skill to a result you can inspect. Use the sample details provided or substitute your own approved material.</p></div>
-<p><strong>Before you begin:</strong> Check that the relevant skills are installed and enabled in your workspace. The Harness can select them from your request and conversation context; you usually do not need to name them. If it misses the intended skill, ask which skill it used or name the one linked in the exercise.</p>
+<p><strong>Before you begin:</strong> Choose <strong>Supervised</strong> in the message composer and check that the relevant skills are installed and enabled in your workspace. The Harness can select them from your request and conversation context; you usually do not need to name them. If it misses the intended skill, ask which skill it used or name the one linked in the exercise.</p>
 <nav aria-label="Skill practice exercises"><ul>
 <li><a href="#practice-accessibility">Improve a workshop handout</a></li>
 <li><a href="#practice-data-handling">Review a signup form before collecting data</a></li>

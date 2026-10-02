@@ -27,9 +27,11 @@ const SITE_BASE_PATH = (process.env.SITE_BASE_PATH || "").replace(/^\/+|\/+$/g, 
 const OFFICIAL_ORIGIN = "https://tritonai.ucsd.edu";
 const inheritedProductionFailures = new Set();
 const standaloneRoutes = new Set([
+  "/training/harness/index.html",
   "/presentations/managing-the-tritonai-website.html",
   "/tritongpt/bgpt-chat-generator/index.html",
 ]);
+const unlistedStandaloneRoutes = new Set([...standaloneRoutes].filter((route) => route !== "/training/harness/index.html"));
 const renderedProvenancePatterns = [
   { pattern: /\bSource:\s*[^<\n]*\.md\b/i, label: "internal content filename" },
   { pattern: /\bcurrent public (?:deck|presentation|version)\b/i, label: "public-version framing" },
@@ -764,13 +766,17 @@ for (const page of htmlFiles) {
 
   $("video").each((_, element) => {
     const video = $(element);
+    const manualPlayback = video.attr("data-playback") === "manual";
     if (video.attr("controls") === undefined) accessibility.push({ page: route, issue: "Video missing controls" });
-    if (video.attr("data-autoplay-when-visible") !== "true") accessibility.push({ page: route, issue: "Video must autoplay when visible" });
+    if (!manualPlayback && video.attr("data-autoplay-when-visible") !== "true") accessibility.push({ page: route, issue: "Video must autoplay when visible or use manual playback" });
     if (video.attr("muted") === undefined) accessibility.push({ page: route, issue: "Autoplay video must be muted" });
     if (video.attr("playsinline") === undefined) accessibility.push({ page: route, issue: "Autoplay video must play inline" });
     if (video.attr("autoplay") !== undefined) performance.push({ page: route, issue: "Video must not load through eager autoplay" });
     if (video.attr("preload") !== "none") performance.push({ page: route, issue: "Deferred video must use preload=none" });
-    if (video.attr("src") || video.find("source[src]").length) performance.push({ page: route, issue: "Video source must be deferred to data-src" });
+    if (manualPlayback) {
+      if (video.attr("data-autoplay-when-visible") || video.attr("data-src") || video.find("source[data-src]").length) performance.push({ page: route, issue: "Manual video must bypass autoplay and deferred hydration" });
+      if (!video.attr("src") && !video.find("source[src]").length) accessibility.push({ page: route, issue: "Manual video needs a native source" });
+    } else if (video.attr("src") || video.find("source[src]").length) performance.push({ page: route, issue: "Video source must be deferred to data-src" });
     const descriptionId = video.attr("aria-describedby");
     const described = descriptionId && $(`#${descriptionId}`).length === 1;
     const silentDemo = video.attr("data-silent-demo") === "true" && video.attr("muted") !== undefined && described;
@@ -1357,8 +1363,8 @@ for (const page of htmlFiles) {
         contentFindings.push({ source: route, issue: `${label} does not contain 3 learning steps` });
       }
     });
-    if (programCards.length !== 6) {
-      contentFindings.push({ source: route, issue: `Expected 6 training programs; found ${programCards.length}` });
+    if (programCards.length !== 7) {
+      contentFindings.push({ source: route, issue: `Expected 7 training programs; found ${programCards.length}` });
     }
     programCards.each((_, element) => {
       const card = $(element);
@@ -1461,7 +1467,7 @@ try {
 }
 const sitemap = await readFile(path.join(DIST_DIR, "sitemap.xml"), "utf8").catch(() => "");
 const routeFindings = [];
-const listedHtmlFiles = htmlFiles.filter((file) => !standaloneRoutes.has(normalizeRoute(`/${file}`)));
+const listedHtmlFiles = htmlFiles.filter((file) => !unlistedStandaloneRoutes.has(normalizeRoute(`/${file}`)));
 if (!routeManifest || routeManifest.routes?.length !== listedHtmlFiles.length) {
   routeFindings.push({ issue: `Route manifest count does not match listed HTML count (${routeManifest?.routes?.length || 0} vs ${listedHtmlFiles.length})` });
 } else {
@@ -1471,7 +1477,7 @@ if (!routeManifest || routeManifest.routes?.length !== listedHtmlFiles.length) {
     if (!route.indexable && !route.redirectTo && included) routeFindings.push({ path: route.path, issue: "Non-indexable route appears in sitemap" });
   }
 }
-for (const route of standaloneRoutes) {
+for (const route of unlistedStandaloneRoutes) {
   if (routeManifest?.routes?.some((entry) => entry.path === route)) {
     routeFindings.push({ path: route, issue: "Unlisted standalone route appears in the public route manifest" });
   }

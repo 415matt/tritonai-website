@@ -3,7 +3,7 @@ title: AI Learning Pathways
 path: /training-resources/pathways.html
 description: One learning pathway for each role, from students and instructors through to campus leaders.
 eyebrow: Training & Resources
-lastReviewed: 2026-07-22
+lastReviewed: 2026-10-01
 audiences: [students, faculty, staff, developers, leaders]
 source: TritonAI training catalog and public service documentation
 canonicalUrl: /training-resources/pathways.html
@@ -31,6 +31,7 @@ relatedSlides: [AI Essentials, Citizen Developer Ecosystem]
 <section class="learning-programs" aria-labelledby="training-programs-heading">
 <div class="learning-section-heading"><p class="home-kicker">Keep learning</p><h2 id="training-programs-heading">Choose a format that fits your schedule</h2><p>Some of these you do alone at your own pace. Some you do live with other people.</p></div>
 <div class="learning-program-grid">
+<article class="learning-program"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span><p class="learning-program-type">Self-paced course</p><h3>TritonAI Harness</h3><p>Begin with Essentials and a feedback-summary exercise. Continue with narrated chapters, knowledge checks, and the fictional practice files at your own pace.</p><a href="/training/harness/">Start TritonAI Harness training <span aria-hidden="true">→</span></a></article>
 <article class="learning-program"><span class="glyphicon glyphicon-book" aria-hidden="true"></span><p class="learning-program-type">Self-paced</p><h3>AI Foundations</h3><p>The core concepts and the UC policy, then TritonGPT applied to actual campus work.</p><a href="https://go.ucsd.edu/3FvH9Hf">Take AI Foundations <span aria-hidden="true">→</span></a></article>
 <article class="learning-program"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><p class="learning-program-type">Framework</p><h3>START Prompting</h3><p>Use the START framework to get stronger results from any AI tool.</p><a href="/training-resources/prompting/index.html">Browse the prompt library <span aria-hidden="true">→</span></a></article>
 <article class="learning-program"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span><p class="learning-program-type">Live and on demand</p><h3>Webinars &amp; workshops</h3><p>Recurring sessions on real use cases, with recordings and slides afterward.</p><a href="/training-resources/webinars.html">Watch recordings <span aria-hidden="true">→</span></a></article>

@@ -202,13 +202,7 @@ jobs:
 
       - name: Fail if base path leaked into the build
         if: steps.release_gate.outputs.should_deploy == 'true'
-        run: |
-          if grep -rl '/tritonai-website' dist >/dev/null 2>&1; then
-            echo "::error::dist contains /tritonai-website; SITE_BASE_PATH was not empty"
-            grep -rl '/tritonai-website' dist | head -20
-            exit 1
-          fi
-          echo "Base path clean. dist contains $(find dist -type f | wc -l) files."
+        run: node scripts/check-production-base-path.mjs
 
       - uses: actions/setup-python@v5
         if: steps.release_gate.outputs.should_deploy == 'true'

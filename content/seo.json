@@ -263,6 +263,12 @@
         "Windows installer"
       ],
       "lastModified": "2026-10-01"
+    },
+    "/training/harness/index.html": {
+      "title": "TritonAI Harness Training",
+      "description": "Learn TritonAI Harness through narrated chapters, captions, knowledge checks, and exercises with fictional files.",
+      "canonicalUrl": "/training/harness/",
+      "lastModified": "2026-10-01"
     }
   }
 }

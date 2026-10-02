@@ -38,6 +38,7 @@ import {
 const DIST_DIR = path.resolve("dist");
 const SITE_BASE_PATH = (process.env.SITE_BASE_PATH || "").replace(/^\/+|\/+$/g, "");
 const STANDALONE_ROUTES = new Set([
+  "/training/harness/index.html",
   "/presentations/managing-the-tritonai-website.html",
   "/tritongpt/bgpt-chat-generator/index.html",
 ]);

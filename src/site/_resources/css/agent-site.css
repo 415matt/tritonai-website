@@ -3624,6 +3624,16 @@ a.developer-download-button:visited {
   margin: 0;
 }
 
+.developer-start-actions .developer-start-training-action {
+  margin-top: 12px;
+}
+
+@media (min-width: 768px) {
+  #verify .developer-start-help {
+    margin-top: 0;
+  }
+}
+
 .developer-start-help {
   background: var(--triton-sand);
   border-top: 5px solid var(--triton-gold);
@@ -4452,6 +4462,16 @@ a.developer-download-button:visited {
   height: 36px;
   width: 36px;
   margin-bottom: 16px;
+}
+
+/* Preserve vendor wordmarks at a shared height without stretching their artwork. */
+main#main-content .plugin-logo-wordmark {
+  width: 140px;
+  height: 36px;
+  max-height: 36px;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left center;
 }
 
 /* High-contrast product comparison table */
