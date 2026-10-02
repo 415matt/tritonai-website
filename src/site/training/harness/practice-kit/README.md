@@ -2,11 +2,17 @@
 
 Everything in this folder is made up. There is no real person, class, or survey behind it, so it is safe to use while you learn.
 
+## The scenario
+
+The training follows one made-up project, and so do these exercises. Jordan runs a fall workshop series for campus staff. The first session just ended. The feedback survey ran in Qualtrics, and `workshop-feedback.csv` is a simplified export of it. `meeting-notes.md` comes from the team's pilot review. This week the team needs a feedback summary, a dashboard and a deck for department leaders, a follow-up email, and a sign-up page for session two.
+
+Campus tools such as Qualtrics reports, Microsoft Forms, and the brand.ucsd.edu templates cover the standard version of each. The exercises practice the parts shaped to this project.
+
 ## What's here
 
 | File | What it is |
 |---|---|
-| `workshop-feedback.csv` | 42 fictional survey responses: pace, content, and room ratings (1 to 5) plus one comment each. Four responses left the room rating blank. |
+| `workshop-feedback.csv` | 42 fictional survey responses, a simplified Qualtrics export: pace, content, and room ratings (1 to 5) plus one comment each. Four responses left the room rating blank. |
 | `meeting-notes.md` | Fictional notes from a pilot review meeting, for the follow-up draft exercise. |
 | `weekly-feedback-digest.n8n.json` | An inactive n8n workflow the Harness designed during the training. It has two problems for you to find. |
 | `.agents/skills/daily-meeting-brief/SKILL.md` | A skill for a daily meeting brief. It's in a hidden `.agents` folder so the practice project picks it up. |

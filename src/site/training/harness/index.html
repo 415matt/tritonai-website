@@ -398,6 +398,15 @@ td.shot{color:var(--muted)}
 .four{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 .four div{background:rgba(255,255,255,.06);border:1px solid #37557f;border-radius:14px;padding:18px 20px;font-size:18.5px;color:#cfdcec}
 .four b{display:block;font:500 32px/1 Teko,sans-serif;color:#fff;margin-bottom:6px}
+.ask5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.ask5 div{background:rgba(255,255,255,.06);border:1px solid #37557f;border-radius:14px;padding:14px 16px}
+.ask5 b{display:block;font:500 30px/1 Teko,sans-serif;color:var(--note);margin-bottom:6px}
+.ask5 p{font-size:16.5px;line-height:1.35;color:#cfdcec;margin:0}
+.card p.req{font:16px/1.5 "Roboto Mono",monospace;color:#e8f0fa;background:rgba(0,0,0,.28);border-left:3px solid var(--note);border-radius:8px;padding:14px 18px;margin:20px 0 0}
+.ov .ask5>div{animation:fadeup .7s cubic-bezier(.2,.8,.2,1) backwards}
+.ov .ask5>div:nth-child(1){animation-delay:.35s}.ov .ask5>div:nth-child(2){animation-delay:.5s}.ov .ask5>div:nth-child(3){animation-delay:.65s}.ov .ask5>div:nth-child(4){animation-delay:.8s}.ov .ask5>div:nth-child(5){animation-delay:.95s}
+.ov .card p.req{animation:fadeup .8s 1.8s cubic-bezier(.2,.8,.2,1) backwards}
+@media (prefers-reduced-motion:reduce){.ov .ask5>div,.ov .card p.req{animation:none!important}}
 .fan{display:grid;grid-template-columns:260px 1fr;gap:40px;align-items:center}
 .fan .main{background:rgba(255,255,255,.08);border:1px solid var(--note);border-radius:14px;padding:22px;font-size:18px;color:#dfe8f4;display:block}
 .fan .main b{display:block;font:500 34px/1 Teko,sans-serif;color:#fff;margin-bottom:6px}
@@ -1817,7 +1826,52 @@ SHOTS.v20AppAsk='data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QBARXhpZgAA
  over(wired,()=>S.real(SHOTS.v20AppWired,'The result in the thread: the submit control now uses the Decorator 5 primary button pattern, an error region was added above the form, and the form posts name, email, department, and session as JSON to the inactive workflow webhook. Verified with a mocked success that showed the confirmation and a mocked failure that showed the error. The workflow remains inactive and unchanged.','Real capture · connect with the n8n plugin',{s0:1,s1:1.08,ox:'35%',oy:'45%',dur:11}));
 })();
 
-const VO_DUR=[28.81, 19.56, 11.4, 17.45, 9.63, 10.1, 7.31, 18.17, 16.6, 8.21, 7.16, 9.04, 8.89, 8.81, 14.6, 7.3, 9.55, 9.44, 13.81, 17.42, 16.78, 10.02, 15.95, 11.63, 9.85, 13.13, 9.69, 7.35, 12.36, 12.76, 14.98, 14.29, 15.17, 17.21, 15.76, 28.47, 8.07, 11.32, 6.79, 9.7, 7.84, 10.57, 13.48, 17.24, 15.55, 11.07, 16.01, 13.17, 8.56, 16.7, 11.81, 12.73, 9.97, 14.38, 11.9, 11.53, 16.66, 20.94, 16.88, 10.97, 17.31, 18.06, 16.91, 7.28, 16.76, 14.76, 10.47, 12.89, 14.89, 22.92, 20.34, 17.01, 14.85, 13.04, 9.55, 17.36, 13.54, 11.92, 17.62, 17.06, 14.85, 13.81, 12.59, 16.61, 25.23, 11.21, 13.99, 13.22, 15.37, 18.09, 15.11, 10.84, 9.17, 11.22, 11.0, 16.67, 9.22];
+/* ---------- v22: one running project (Jordan's fall workshop pilot), campus tools first, five questions ---------- */
+(function(){
+ const by=t=>{ const c=CH.find(c=>c.t===t); if(!c) throw new Error('missing chapter '+t); return c; };
+ const beat=(c,prefix)=>{ const b=c.beats.find(b=>b.say.startsWith(prefix)); if(!b) throw new Error('missing beat '+prefix); return b; };
+
+ /* 1. Introduce the project and where the Harness fits beside campus tools */
+ const why=by('Why the Harness');
+ why.learn='What this training covers, what you need before you start, how the Harness differs from chat, and the project you will follow.';
+ why.beats.push(
+  {say:"Throughout this training, we'll follow one made-up project. Jordan runs a fall workshop series for campus staff. The first session just ended. The feedback survey ran in Qualtrics, forty-two people answered, and there's a pilot review on Tuesday.",
+   shot:'Card: the project you will follow. The team, the two source files, and what the team needs this week.',
+   do(){ S.card(`<p class="k">The project you'll follow</p><h3>A fall workshop series pilot</h3><div class="three"><div><b>The team</b><p>Jordan, facilitator. Priya, content. Sam, facilities. Alex, registration.</p></div><div><b>The sources</b><p>workshop-feedback.csv: 42 survey responses, a simplified Qualtrics export. meeting-notes.md: notes from Tuesday's pilot review, used later in the week.</p></div><div><b>Coming up</b><p>A feedback summary for Tuesday, a dashboard and a deck for department leaders, a follow-up email, and a sign-up page for session two.</p></div></div><span class="bdg">All made up. The same files are in the practice kit.</span>`); }},
+  {say:"Campus already has good tools for this, and Jordan uses them. Qualtrics reports the results. Microsoft Forms can take sign-ups. The brand site has PowerPoint templates. But this pilot needs a few things shaped to it: a summary that answers the team's own questions, a deck for department leaders built from the real numbers, and a sign-up page that feeds the team's own workflow. That's where the Harness fits. When a campus tool does the job, use it. When you need it your way, build it with the Harness.",
+   shot:'Card: campus tools give the standard version; the Harness builds the pieces shaped to the project.',
+   do(){ S.card(`<p class="k">Campus tools first</p><h3>Use the standard tool, or build it your way</h3><div class="cols"><div class="col2"><b>Campus tools</b><p>The standard version, ready to use.</p><div class="flow"><span>Qualtrics reports</span><span>Microsoft Forms sign-ups</span><span>brand.ucsd.edu templates</span></div></div><div class="col2 hi"><b>TritonAI Harness</b><p>Shaped to your project, working alongside those tools.</p><div class="flow"><span>a summary for your questions</span><span>a deck from your numbers</span><span>a sign-up page wired to your workflow</span></div></div></div><span class="bdg">When a campus tool does the job, use it</span>`); }}
+ );
+
+ /* 2. Each output now starts with why Jordan's team needs it */
+ const ft=by('Your first thread');
+ beat(ft,'Now ask for something small and specific').say="Qualtrics already charts every question. Jordan's question is narrower: what should change before session two? So export the results and ask for something small and specific. Name the file, say what you want, and say where to put the result.";
+
+ const aw=by('Ask well');
+ beat(aw,'Then be specific').say="Then be specific. A good request answers five questions: why you need it, who it's for, what to use, what shape the result should take, and how you'll check it. Vague requests get vague results.";
+ aw.tryP="Write one request that answers all five questions: why, who it's for, what to use, what shape, and how you'll check it. For example:\n\nI'm meeting our planning team on Tuesday to decide what to change before session two. Using only @workshop-feedback.csv, write a one-page summary.md with a short table of the ratings and the three most common comments. Flag missing responses and show how you calculated each number.";
+ aw.beats.push({say:"Here's how Jordan might ask for the leadership deck. Why: to report on the pilot and what changes for session two. Who: department leaders, with ten minutes on the agenda. What to use: the survey and the meeting notes, nothing else. Shape: about eight slides on the campus template, with charts and speaker notes. Check: every number has to trace back to the survey.",
+   shot:'Card: the five questions (why, who, what to use, shape, check) answered for the leadership deck, then the full request they add up to.',
+   do(){ S.clearNotes(); S.hl(); S.card(`<p class="k">Five questions</p><h3>How Jordan might ask for the leadership deck</h3><div class="ask5"><div><b>Why</b><p>Report on the pilot and what changes for session two</p></div><div><b>Who</b><p>Department leaders, ten minutes on the agenda</p></div><div><b>What to use</b><p>The survey and the meeting notes, nothing else</p></div><div><b>Shape</b><p>About eight slides on the campus template, with charts and speaker notes</p></div><div><b>Check</b><p>Every number traces back to the survey</p></div></div><p class="req">I'm presenting the fall workshop pilot to department leaders next Thursday and have ten minutes. Using only workshop-feedback.csv and meeting-notes.md, build about eight slides on the UC San Diego template in this folder: what we heard, what we're changing, and what's still open, including the room question. Add charts for the ratings and speaker notes on every slide. List where each number came from so I can check it.</p>`); }});
+ const sc0=by('Stay in control').beats[0]; const sc0Do=sc0.do;
+ sc0.do=function(){ S.uncard(); return sc0Do.apply(this,arguments); };
+
+ const bj=by('Bigger jobs');
+ beat(bj,"Here's a good first task").say="Jordan wants a chart of the three ratings to drop into an email. There's no plugin for Excel charts, so ask it to open the practice file in Excel, chart the three averages, and save a new file. Name the app, the file, and what to save, and tell it what not to touch.";
+ beat(bj,'So open the file yourself').say="So open the file yourself and check it against the source. The averages should read 4.05, 4.43, and 2.97, which means the blanks were skipped. A first pass is rarely ready for a meeting. For the leadership meeting, Jordan wanted one page that answers just the questions the leaders care about. This dashboard came from the same file in another thread and took a few follow-ups to polish. Computer use is slower than a plugin, so save it for apps nothing else can reach.";
+
+ const pw=by('Put it to work');
+ beat(pw,'Follow-up draft').say="After the review, Jordan owes the team a recap. With Create mail drafts switched on, give it the meeting notes and ask for decisions, owners, and dates. It saves an unsent Outlook draft. The plugin can't send mail, so you review it and send it yourself.";
+ beat(pw,'Same project, another output').say="Same project, another output. Jordan has ten minutes at next week's leadership meeting to report on the pilot. Rather than start from a blank template, Jordan has the Harness draft the deck from the real numbers, then finishes it in PowerPoint. Download a UC San Diego template from brand.ucsd.edu into your project. Then ask for a deck that uses the template's own layouts, draws only on the meeting notes and the survey data, adds a few charts, and includes speaker notes on every slide.";
+
+ const ap=by('Build an app, connect n8n');
+ beat(ap,'Sometimes the right tool').say="Sometimes the right tool is a small web app. A Microsoft Form would cover a basic sign-up. But registration for session two opened late, and Alex wants more this time: the campus look, the team's own session choices, and every sign-up landing in the team's n8n workflow. That's a custom page, and the Harness can build it. You describe it, see it, connect it, and test it. Everything you see was recorded for this training, with made-up data.";
+
+ const mk=by('Make it stick');
+ beat(mk,'Three habits').say="Look back at Jordan's week. The campus tools did the standard work, and the Harness built the pieces shaped to this project: a summary, a dashboard, a deck, a follow-up, and a sign-up page, each starting from a clear request. Three habits made the difference. Start in a project folder. Say exactly what you want and how you'll check it. And review before anything leaves your computer.";
+})();
+
+const VO_DUR=[28.81, 19.56, 11.4, 14.45, 16.56, 33.35, 9.63, 10.1, 7.31, 18.17, 16.6, 15.54, 7.16, 9.04, 8.89, 8.81, 14.6, 7.3, 9.55, 9.44, 14.36, 29.54, 17.42, 16.78, 10.02, 15.95, 11.63, 9.85, 13.13, 9.69, 7.35, 12.36, 12.76, 14.98, 17.23, 15.17, 17.21, 15.76, 34.85, 8.07, 11.32, 6.79, 9.7, 7.84, 10.57, 13.48, 17.24, 15.55, 11.07, 16.01, 13.17, 8.56, 16.7, 11.81, 12.73, 9.97, 14.38, 11.9, 11.53, 16.66, 20.94, 16.88, 10.97, 17.31, 18.06, 16.91, 7.28, 16.76, 14.76, 10.47, 12.89, 16.97, 31.26, 20.34, 17.01, 14.85, 13.04, 9.55, 29.76, 13.54, 11.92, 17.62, 17.06, 14.85, 13.81, 12.59, 16.61, 25.23, 11.21, 13.99, 13.22, 15.37, 18.09, 15.11, 10.84, 9.17, 11.22, 24.86, 16.67, 9.22];
 const FLAT=[]; let total=0;
 CH.forEach((c,ci)=>{ c.start=total; c.beats.forEach((b,bi)=>{ b.dur=VO_DUR[FLAT.length]||Math.max(4.5,Math.min(16,words(b.say)/2.55+1.6)); FLAT.push({ci,bi,start:total,dur:b.dur}); total+=b.dur; }); c.len=total-c.start; });
 const fmt=s=>{s=Math.max(0,Math.round(s)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
