@@ -26,7 +26,7 @@ _Monday, August 10, 2026_
 
 ### TritonAI Developer API
 
--   **[13 new models added to the public Model Hub](https://tritonai-api.ucsd.edu/ui/model_hub_table/)** — This week's catalog expansion adds Claude Opus 4.7, 4.8, and 5; Claude Sonnet 4.6; Gemini 3.5 Flash and 3.5 Flash Lite; Gemini 3.6 Flash; Kimi K2.5 and K2.6; MiniMax M2; DeepSeek V4 Flash; Gemma 4 31B; and a Bedrock-hosted Claude Opus 4.6 variant. Developers now have 28 public models to choose from, up from 15 last week.
+-   **[13 new models added to the public Model Hub](https://docs.tritonai.ucsd.edu/models)** — This week's catalog expansion adds Claude Opus 4.7, 4.8, and 5; Claude Sonnet 4.6; Gemini 3.5 Flash and 3.5 Flash Lite; Gemini 3.6 Flash; Kimi K2.5 and K2.6; MiniMax M2; DeepSeek V4 Flash; Gemma 4 31B; and a Bedrock-hosted Claude Opus 4.6 variant. Developers now have 28 public models to choose from, up from 15 last week.
 
 ## Coming Up: Trainings & Workshops
 

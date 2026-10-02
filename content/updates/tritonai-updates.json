@@ -145,7 +145,7 @@
       "displayDate": "June 17, 2026",
       "area": "developer",
       "title": "Developer pilot and model catalog updates",
-      "details": "<p>The developer pilot added workflow capabilities and expanded the models evaluated through the gateway. Because the catalog and rates change, use the <a href=\"https://tritonai-api.ucsd.edu/ui/model_hub_table/\">Model Hub</a> for current availability, capabilities, and published rates.</p>"
+      "details": "<p>The developer pilot added workflow capabilities and expanded the models evaluated through the gateway. Because the catalog and rates change, use the <a href=\"https://docs.tritonai.ucsd.edu/models\">Model Hub</a> for current availability, capabilities, and published rates.</p>"
     },
     {
       "id": "2026-06-16-reliability",

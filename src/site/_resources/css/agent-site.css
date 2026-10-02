@@ -4878,3 +4878,167 @@ main#main-content .harness-release-card li { margin-bottom: 10px; }
 main#main-content .harness-release-archive li { margin-bottom: 12px; }
 main#main-content .harness-release-archive time { display: block; color: #53616c; }
 main#main-content .harness-release-card .btn { margin-bottom: 8px; }
+/* Compact model families; all controls and styles stay inside the page canvas. */
+main#main-content #model-catalog [data-model-catalog-list] {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+  margin-top: 28px;
+}
+
+main#main-content #model-catalog .model-catalog-hosting {
+  min-width: 0;
+}
+
+main#main-content #model-catalog .model-catalog-hosting h3 {
+  color: var(--triton-blue);
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+
+main#main-content #model-catalog .model-catalog-table {
+  table-layout: fixed;
+  width: 100%;
+  margin-bottom: 0;
+}
+
+main#main-content #model-catalog .model-catalog-table th {
+  color: #555;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0 0 10px;
+}
+
+main#main-content #model-catalog .model-catalog-table th:last-child {
+  width: 120px;
+  text-align: right;
+}
+
+main#main-content #model-catalog .model-catalog-table td {
+  padding: 8px 0;
+  border-top: 1px solid #dce2e7;
+  vertical-align: top;
+}
+
+main#main-content #model-catalog .model-catalog-table td.model-catalog-context {
+  padding-top: 22px;
+  text-align: right;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+main#main-content #model-catalog .model-catalog-family summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding-right: 16px;
+  cursor: pointer;
+  list-style: none;
+  border-radius: 3px;
+}
+
+main#main-content #model-catalog .model-catalog-family summary::-webkit-details-marker {
+  display: none;
+}
+
+main#main-content #model-catalog .model-catalog-family summary::after {
+  content: "";
+  flex: 0 0 6px;
+  width: 6px;
+  height: 6px;
+  border-bottom: 1.5px solid #536775;
+  border-right: 1.5px solid #536775;
+  transform: rotate(45deg);
+  margin: -4px 2px 0 auto;
+}
+
+main#main-content #model-catalog .model-catalog-family[open] summary::after {
+  transform: rotate(225deg);
+  margin-top: 4px;
+}
+
+main#main-content #model-catalog .model-catalog-family summary:hover {
+  background: #f3f6f8;
+}
+
+main#main-content #model-catalog .model-catalog-family summary:focus-visible {
+  outline: 2px solid var(--triton-blue);
+  outline-offset: 3px;
+}
+
+main#main-content #model-catalog .model-catalog-logo {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+main#main-content #model-catalog .model-catalog-name {
+  min-width: 0;
+  display: block;
+}
+
+main#main-content #model-catalog .model-catalog-name strong {
+  display: block;
+  color: var(--triton-navy);
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+main#main-content #model-catalog .model-catalog-name > span {
+  display: block;
+  color: #536775;
+  font-size: 13px;
+  line-height: 1.45;
+  margin-top: 3px;
+}
+
+main#main-content #model-catalog .model-catalog-routes {
+  list-style: none;
+  padding: 0 16px 4px 44px;
+  margin: 8px 0 0;
+  font-size: 13px;
+}
+
+main#main-content #model-catalog .model-catalog-routes li + li {
+  margin-top: 10px;
+}
+
+main#main-content #model-catalog .model-catalog-routes code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+main#main-content #model-catalog .model-catalog-routes li > span {
+  display: block;
+  color: #536775;
+  margin-top: 3px;
+}
+
+main#main-content #model-catalog .model-catalog-refreshed {
+  color: #536775;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 20px;
+}
+
+@media (max-width: 991px) {
+  main#main-content #model-catalog [data-model-catalog-list] {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  main#main-content #model-catalog .model-catalog-table th:last-child {
+    width: 100px;
+  }
+
+  main#main-content #model-catalog .model-catalog-family summary {
+    gap: 10px;
+    padding-right: 10px;
+  }
+}

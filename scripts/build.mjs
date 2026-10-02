@@ -4,8 +4,10 @@ import path from "node:path";
 import { load } from "cheerio";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
+import { loadCatalog, renderSection } from "./lib/model-catalog.mjs";
 import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues, guidedInstallerIssues } from "./lib/harness-releases.mjs";
 
+const modelCatalog = await loadCatalog();
 const SOURCE_DIR = path.resolve("src/site");
 const CONTENT_DIR = path.resolve("content");
 const PAGE_DIR = path.join(CONTENT_DIR, "pages");
@@ -1189,6 +1191,8 @@ function transformHtml(html, relativePath, context) {
     $(".about-subpage-layout").first().prepend(renderAboutMobileNav(context.site.navigation, route));
   }
   normalizeNavigationMarkup($);
+
+  if ($("main#main-content #model-catalog").length) $("#model-catalog").replaceWith(renderSection(modelCatalog));
 
   $("[data-newsletters='latest']").html(renderLatestNewsletters(context.newsletters));
   $("[data-newsletters='all']").html(context.newsletters.map(renderNewsletter).join(""));

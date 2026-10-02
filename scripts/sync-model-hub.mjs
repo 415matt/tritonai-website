@@ -1,7 +1,6 @@
 import { writeFile } from "node:fs/promises";
 import {
   CATALOG_JSON,
-  MODELS_ENDPOINT,
   fetchCatalog,
   loadCatalog,
   renderAndWrite,
@@ -11,12 +10,13 @@ import {
 //   node scripts/sync-model-hub.mjs           fetch, update JSON, re-render page
 //   node scripts/sync-model-hub.mjs --check   fetch and report drift, write nothing
 //
-// Uses the unauthenticated public Model Hub endpoint, which lists the full
-// catalog: approved enterprise cloud models and UC-hosted open models.
+// Uses the cached docs API, which excludes earlier model series and internal
+// routes. The saved snapshot is the browser fallback if that API is unavailable.
 
 const checkOnly = process.argv.includes("--check");
 
-const models = await fetchCatalog();
+const catalog = await fetchCatalog();
+const { models } = catalog;
 if (models.length === 0) {
   console.error("Gateway returned no public models; refusing to write an empty catalog.");
   process.exit(1);
@@ -42,7 +42,6 @@ if (checkOnly) {
   process.exit(0);
 }
 
-const catalog = { lastSynced: new Date().toISOString(), source: MODELS_ENDPOINT, models };
 await writeFile(CATALOG_JSON, `${JSON.stringify(catalog, null, 2)}\n`);
 await renderAndWrite(catalog);
 console.log(

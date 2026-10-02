@@ -19,6 +19,18 @@ This repository is a static, agent-maintainable source for the public website at
 
 ## Local development
 
+The model table at `/developer-apis/index.html` reads `https://docs.tritonai.ucsd.edu/api/model-catalog` in the browser.
+The docs service selects current models and supplies family names and logos. The website groups variants and expands their request IDs and individual limits.
+Full model details link to `https://docs.tritonai.ucsd.edu/models`.
+The browser saves responses for up to five minutes and refreshes expired data while the page is visible.
+If live updates fail, the table retains its saved response or the build snapshot from `content/models/catalog.json`.
+
+`npm run sync:models` refreshes that snapshot and the generated section in `content/pages/build-landing.md`.
+The snapshot keeps the table available without JavaScript. Deploy the docs endpoint before publishing the website connection.
+Set `MODEL_CATALOG_BASE_URL` to the local service origin when you refresh the snapshot or build against a local API. The production default is `https://docs.tritonai.ucsd.edu/`, with the catalog at `/api/model-catalog`.
+For a temporary local API, run `MODEL_CATALOG_BASE_URL=http://localhost:3000 npm run build`.
+This changes only `dist/`, including model details and logo links. The next normal build restores the production URLs.
+
 ```bash
 npm install
 npx playwright install chromium
