@@ -54,4 +54,5 @@ discoverySeries: true
 presenters:
   - name: Trevor Bonjour
     title: 'Assistant Teaching Professor, Department of Computer Science and Engineering'
+    cardImage: /_images/training-resources/videos/trevor-bonjour-presenter-card.png
 ---

@@ -55,4 +55,5 @@ discoverySeries: true
 presenters:
   - name: Antonio Nava
     title: 'Program Director, OSI'
+    cardImage: /_images/training-resources/videos/antonio-nava-presenter-card.png
 ---

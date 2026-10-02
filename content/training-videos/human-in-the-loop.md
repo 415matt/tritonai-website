@@ -57,6 +57,7 @@ discussionPoints:
   - Share how your team could build human review into AI-assisted work.
 durationMinutes: null
 discoverySeries: true
+presenterCardImage: /_images/training-resources/videos/crystal-goldman-keefe-reuter-presenter-card.png
 presenters:
   - name: Crystal Goldman
     title: Writing Programs Librarian

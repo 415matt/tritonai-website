@@ -54,4 +54,5 @@ discoverySeries: true
 presenters:
   - name: Michelle Perez
     title: Energy and Sustainability Manager
+    cardImage: /_images/training-resources/videos/michelle-perez-presenter-card.png
 ---

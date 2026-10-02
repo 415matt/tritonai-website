@@ -50,4 +50,5 @@ discoverySeries: true
 presenters:
   - name: Hortense Gerardo
     title: 'Director of the Anthropology, Performance, and Technology (APT) Program'
+    cardImage: /_images/training-resources/videos/hortense-gerardo-presenter-card.png
 ---
