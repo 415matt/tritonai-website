@@ -1,5 +1,5 @@
 {
-  "lastSynced": "2026-09-21T22:27:36.918Z",
+  "lastSynced": "2026-10-02T18:30:11.747Z",
   "source": "https://tritonai-api.ucsd.edu/public/model_hub",
   "models": [
     {
@@ -50,6 +50,20 @@
       "type": "Chat and reasoning",
       "hosting": "Approved enterprise cloud",
       "maxInputTokens": 200000
+    },
+    {
+      "id": "claude-opus-5-5",
+      "displayName": "Claude Opus 5.5",
+      "type": "Chat and reasoning",
+      "hosting": "Approved enterprise cloud",
+      "maxInputTokens": 1000000
+    },
+    {
+      "id": "claude-sonnet-5-5",
+      "displayName": "Claude Sonnet 5.5",
+      "type": "Chat and reasoning",
+      "hosting": "Approved enterprise cloud",
+      "maxInputTokens": 1000000
     },
     {
       "id": "gemini-3.8-flash",
@@ -127,6 +141,34 @@
       "type": "Chat and reasoning",
       "hosting": "Approved enterprise cloud",
       "maxInputTokens": 1050000
+    },
+    {
+      "id": "gpt-6-astra",
+      "displayName": "GPT-6 Astra",
+      "type": "Chat and reasoning",
+      "hosting": "Approved enterprise cloud",
+      "maxInputTokens": 922000
+    },
+    {
+      "id": "gpt-6-luna",
+      "displayName": "GPT-6 Luna",
+      "type": "Chat and reasoning",
+      "hosting": "Approved enterprise cloud",
+      "maxInputTokens": 922000
+    },
+    {
+      "id": "gpt-6-sol",
+      "displayName": "GPT-6 Sol",
+      "type": "Chat and reasoning",
+      "hosting": "Approved enterprise cloud",
+      "maxInputTokens": 922000
+    },
+    {
+      "id": "gpt-6.1-sol",
+      "displayName": "GPT-6.1 Sol",
+      "type": "Chat and reasoning",
+      "hosting": "Approved enterprise cloud",
+      "maxInputTokens": 922000
     },
     {
       "id": "kimi-k2.6",

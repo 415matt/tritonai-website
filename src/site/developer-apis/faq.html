@@ -542,6 +542,18 @@
 <h3><strong>Where can I see what changed in Harness?</strong></h3>
 <p>The <a href="/developer-apis/harness-release-notes.html">Harness release notes</a> summarize stable desktop releases and link to the original release details. Find the downloads and setup instructions on <a href="/developer-apis/start.html#harness">Get Started</a>.</p>
 
+<h3><strong>When does the Harness ask for approval?</strong></h3>
+<p>Choose the mode per chat in the message composer. New chats default to <strong>Full access</strong> unless you select another mode; chats created from within a chat inherit its mode. Full access allows enabled actions without approval prompts. Use <strong>Supervised</strong> while learning: safe reads may proceed, while file changes and write tools pause for approval. Command handling depends on the provider. Auto-accept edits permits file edits automatically; Auto handles routine actions automatically with provider-dependent review. Account permissions and plugin capabilities still limit which tools are available.</p>
+
+<h3><strong>How do I enable computer use?</strong></h3>
+<p>Computer use is optional and starts off. Open <strong>Settings &gt; General</strong> and follow the readiness instructions. On macOS, grant Accessibility and Screen Recording permissions and restart when prompted. Stable version 0.3.4 supports computer use with the Codex provider on a local desktop backend. If the setting says Needs permissions, complete the listed steps. Screenshots can be sent as model context; check the <a href="/developer-apis/harness-privacy.html">privacy statement</a>.</p>
+
+<h3><strong>Should I install stable or nightly Harness?</strong></h3>
+<p>Use the stable <a href="/developer-apis/start.html#harness">TritonAI Installer</a> for the campus setup path. The current stable Harness release is <strong>0.3.4</strong>, checked October 2, 2026. Nightly builds are prereleases with separate application data and update tracks. Update the Harness app through <strong>Settings &gt; About &gt; Check for Updates</strong>; app and engine updates are separate.</p>
+
+<h3><strong>Why is a plugin connected but a tool unavailable?</strong></h3>
+<p>In <strong>Settings &gt; Plugins</strong>, check that the plugin is enabled and finish its sign-in or API-key setup. Review its readiness status and granted capabilities. Some capabilities require separate authorization, and your account must have access to the source. Read access does not grant write access. A task’s approval mode also controls whether an available action can proceed. Share the readiness message with <a href="mailto:tritonai@ucsd.edu">tritonai@ucsd.edu</a> if you need help; never include a secret key.</p>
+
 <h3><strong>What's the difference between UC-hosted and enterprise cloud models?</strong></h3>
 <p>Both may be available through the common gateway. They differ in capability, hosting, rate, and approved controls. Cloud and UC-hosted access are approved separately. Review the <a href="https://tritonai-api.ucsd.edu/ui/model_hub_table/">Model Hub</a> for the current catalog and published rates, then confirm the approved access and limits during intake.</p>
 

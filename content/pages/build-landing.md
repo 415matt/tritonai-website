@@ -3,9 +3,9 @@ title: Build with TritonAI
 path: /developer-apis/index.html
 description: Get one Gateway key to approved AI models, then build with TritonAI Harness, another compatible client, n8n, or your own code.
 eyebrow: Build a service
-lastReviewed: 2026-10-01
+lastReviewed: 2026-10-02
 audiences: [developers, researchers, staff, leaders]
-source: TritonAI developer documentation, API access intake and funding guidance, UC Protection Level Classification, TritonAI strategy presentation, ITS-TritonAI n8n service documentation, and TritonAI Installer release information reviewed September 4, 2026
+source: TritonAI developer documentation, API access intake and funding guidance, UC Protection Level Classification, TritonAI strategy presentation, ITS-TritonAI n8n service documentation, TritonAI Harness stable v0.3.4 documentation, and the public Model Hub reviewed October 2, 2026
 canonicalUrl: /developer-apis/index.html
 relatedSlides: [tritonai-developer-api-program, tritongpt-secure-scalable-ai-platform, campus-app-hosting-intake, cabinet-people-10-domain-expert, harness-memory-architecture]
 landingHub: true
@@ -39,7 +39,7 @@ bannerMode: abstract
 <span class="builder-track-pill">Staff, analysts, developers</span>
 </div>
 <h3>Work with an agent</h3>
-<p class="builder-track-summary">TritonAI Harness runs on your computer and works with local files, spreadsheets, code, and Microsoft 365. You approve each action before it takes effect.</p>
+<p class="builder-track-summary">TritonAI Harness runs on your computer and works with local files, spreadsheets, code, and Microsoft 365. Choose a task approval mode; use Supervised while learning so file changes and write tools pause for approval.</p>
 <div class="builder-track-waypoints">
 <p class="builder-track-waypoint-label">On this page:</p>
 <ul class="builder-track-links">
@@ -167,6 +167,8 @@ bannerMode: abstract
 <tr><td><strong>Claude Sonnet 4.6</strong><br><code class="model-catalog-request-id">claude-sonnet-4-6</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>1M tokens</td></tr>
 <tr><td><strong>Claude Opus 4.6</strong><br><code class="model-catalog-request-id">claude-opus-4-6</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>1M tokens</td></tr>
 <tr><td><strong>Claude Opus 4.6</strong><br><code class="model-catalog-request-id">claude-opus-4-6-v1</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>200K tokens</td></tr>
+<tr><td><strong>Claude Opus 5.5</strong><br><code class="model-catalog-request-id">claude-opus-5-5</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>1M tokens</td></tr>
+<tr><td><strong>Claude Sonnet 5.5</strong><br><code class="model-catalog-request-id">claude-sonnet-5-5</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>1M tokens</td></tr>
 <tr><td><strong>Gemini 3.8 Flash</strong><br><code class="model-catalog-request-id">gemini-3.8-flash</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>1M tokens</td></tr>
 <tr><td><strong>Gemini 3.7 Flash</strong><br><code class="model-catalog-request-id">gemini-3.7-flash</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>1M tokens</td></tr>
 <tr><td><strong>Gemini 3.6 Flash</strong><br><code class="model-catalog-request-id">gemini-3.6-flash</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>1M tokens</td></tr>
@@ -177,6 +179,10 @@ bannerMode: abstract
 <tr><td><strong>GPT-5.6 Terra</strong><br><code class="model-catalog-request-id">gpt-5.6-terra</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>1M tokens</td></tr>
 <tr><td><strong>GPT-5.5</strong><br><code class="model-catalog-request-id">gpt-5.5</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>1M tokens</td></tr>
 <tr><td><strong>GPT-5.4</strong><br><code class="model-catalog-request-id">gpt-5.4</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>1M tokens</td></tr>
+<tr><td><strong>GPT-6 Astra</strong><br><code class="model-catalog-request-id">gpt-6-astra</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>922K tokens</td></tr>
+<tr><td><strong>GPT-6 Luna</strong><br><code class="model-catalog-request-id">gpt-6-luna</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>922K tokens</td></tr>
+<tr><td><strong>GPT-6 Sol</strong><br><code class="model-catalog-request-id">gpt-6-sol</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>922K tokens</td></tr>
+<tr><td><strong>GPT-6.1 Sol</strong><br><code class="model-catalog-request-id">gpt-6.1-sol</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>922K tokens</td></tr>
 <tr><td><strong>Kimi K2.6</strong><br><code class="model-catalog-request-id">kimi-k2.6</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>See Model Hub</td></tr>
 <tr><td><strong>Kimi K2.5</strong><br><code class="model-catalog-request-id">moonshotai.kimi-k2.5</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>262K tokens</td></tr>
 <tr><td><strong>MiniMax M2</strong><br><code class="model-catalog-request-id">minimax.minimax-m2</code></td><td>Approved enterprise cloud</td><td>Chat and reasoning</td><td>128K tokens</td></tr>
@@ -186,14 +192,14 @@ bannerMode: abstract
 <tr><td><strong>TritonGPT Embeddings</strong><br><code class="model-catalog-request-id">api-tgpt-embeddings</code></td><td>Approved enterprise cloud</td><td>Embeddings</td><td>4K tokens</td></tr>
 </tbody>
 </table></div>
-<p class="model-catalog-refreshed">List refreshed from the public Model Hub on 2026-09-21. Test registrations and TritonGPT-internal serving entries are excluded.</p>
+<p class="model-catalog-refreshed">List refreshed from the public Model Hub on 2026-10-02. Test registrations and TritonGPT-internal serving entries are excluded.</p>
 </section>
 <!-- END_AGENT_SECTION -->
 
 <section class="hub-section build-harness" id="tritonai-harness" aria-labelledby="harness-heading">
 <div class="hub-heading"><p class="home-kicker">Choose a client</p><h2 id="harness-heading">TritonAI Harness and other clients</h2><p>TritonAI Harness is UC San Diego's primary supported client. It is in pilot, runs on Mac (Apple Silicon) and Windows, and anyone with a Gateway key can request it. Claude Code and Codex are supported alternatives. Other compatible clients can connect with the same endpoint and key, though their features and setup differ.</p></div>
 <div class="build-tool-grid">
-<article class="build-tool-preferred"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><p class="build-tool-label">Primary supported client</p><h3>TritonAI Harness</h3><p>A desktop workspace with the Gateway connection, campus skills, and Microsoft 365, Google Workspace, and GitHub connections set up for UC San Diego use.</p></article>
+<article class="build-tool-preferred"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><p class="build-tool-label">Primary supported client</p><h3>TritonAI Harness</h3><p>A desktop workspace with the Gateway connection, campus skills, and included campus plugins. Connect Microsoft 365 or Google Workspace for workplace tasks, GitHub for code, Kuali Build for forms, and n8n for workflows.</p></article>
 <article><span class="glyphicon glyphicon-console" aria-hidden="true"></span><p class="build-tool-label">Supported alternatives</p><h3>Claude Code and Codex</h3><p>Keep a terminal or desktop workflow you already use and point it at the model routes approved for your key.</p></article>
 <article><span class="glyphicon glyphicon-modal-window" aria-hidden="true"></span><p class="build-tool-label">Compatible clients</p><h3>Hermes, OpenCode, and others</h3><p>Connect with the Gateway endpoint and key from your approval. Setup and support are yours.</p></article>
 </div>

@@ -3,7 +3,7 @@ title: TritonAI Skills Library
 path: /skills/index.html
 description: Find a TritonAI skill for your task, see how to ask for it, and learn what help to expect.
 eyebrow: Build with TritonAI
-lastReviewed: 2026-10-01
+lastReviewed: 2026-10-02
 audiences: [developers, staff, faculty, students]
 source: https://github.com/UCSD/UCSD-Skills-Library
 canonicalUrl: /skills/index.html
@@ -22,6 +22,11 @@ relatedSlides: [Citizen Developer Ecosystem, Reusable Skills and MCP]
 <p>Looking for Outlook or Google Drive connections? Explore <a href="/developer-apis/harness.html#integrations-heading">TritonAI Harness plugins</a>, then try the <a href="/developer-apis/citizen-developer.html#harness-practice">guided Harness exercises</a>.</p>
 
 <p>New to skills in the Harness? The <a href="/training/harness/">TritonAI Harness training</a> shows how to use and share them, with a practice kit you can try in your own project.</p>
+
+<h2>Install and share skills in the Harness</h2>
+<p>Open <strong>Settings &gt; Skills</strong>. Browse published skills under <strong>AI Team</strong> and <strong>Community</strong>; local skills appear under <strong>Your Skills</strong>. Install the skill you need and check that it is enabled before using it.</p>
+<p>To propose a local skill for the campus library, choose <strong>Share with UCSD</strong>. Review its instructions and files for sensitive information before confirming public sharing. The submission opens a GitHub pull request for review; it does not publish automatically. GitHub access is required.</p>
+<p>Catalog listings refresh automatically. To refresh an installed copy, remove and re-add that skill after checking any local changes.</p>
 
 <div data-skills-library="true"></div>
 
