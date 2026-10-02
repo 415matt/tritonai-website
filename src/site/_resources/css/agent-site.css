@@ -5051,7 +5051,7 @@ a.developer-download-button:visited {
 .video-theater .use-case-demo-frame iframe {
   display: block;
   width: 100%;
-  max-width: 800px;
+  max-width: 960px;
   height: auto;
   aspect-ratio: 16 / 9;
   margin: 0 auto;
