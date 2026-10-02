@@ -286,6 +286,10 @@
   padding-right: max(30px, calc((100vw - 1170px) / 2 + 15px));
 }
 
+#harness-in-action {
+  border-top: 1px solid var(--triton-border);
+}
+
 .hub-section-intro {
   padding-bottom: 78px;
   padding-top: 66px;
