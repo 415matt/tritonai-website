@@ -48,7 +48,7 @@ gate. The course owns its typography, so Decorator font assertions apply to the
 normal website routes rather than the standalone course.
 
 The deployed course files originate from playground commit
-`ae59d16` (v21: opening montage, hosting update, Essentials start and stopping point). Only
+`6dc234e` (v22: one running project scenario, campus tools first, five-question requests). Only
 `src/site/training/harness/` was promoted; unrelated playground content was not
 merged. Audio and practice-kit links remain relative, supporting both host modes.
 
