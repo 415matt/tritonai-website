@@ -54,4 +54,5 @@ discoverySeries: true
 presenters:
   - name: Pegah Parsi
     title: Chief Privacy Officer
+    cardImage: /_images/training-resources/videos/pegah-parsi-presenter-card.png
 ---

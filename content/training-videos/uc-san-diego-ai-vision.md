@@ -53,4 +53,5 @@ discoverySeries: true
 presenters:
   - name: Chancellor Khosla
     title: Chancellor
+    cardImage: /_images/training-resources/videos/chancellor-khosla-presenter-card.png
 ---
