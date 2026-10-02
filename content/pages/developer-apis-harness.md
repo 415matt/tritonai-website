@@ -432,14 +432,16 @@ Data classification
 <div class="row hub-action-grid">
 <div class="col-sm-6 col-md-4">
 <article class="panel panel-default hub-action-card">
-<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+<!-- Official vendor artwork: https://www.kuali.co/ -->
+<img class="plugin-logo plugin-logo-wordmark" src="https://cdn.prod.website-files.com/6a54fa1c67a49a38a3dfceaf/6a6480d26a966372f1be7f4a_image%2079%20%5BVectorized%5D.webp" alt="" width="140" height="36" loading="lazy">
 <h3>UC San Diego Kuali Build</h3>
 <p>Connect with your API key to inspect apps, forms, documents, and workflow metadata. Creating, editing, and submitting Build documents require the corresponding write abilities.</p>
 </article>
 </div>
 <div class="col-sm-6 col-md-4">
 <article class="panel panel-default hub-action-card">
-<span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+<!-- Official vendor artwork: https://n8n.io/brandguidelines/ -->
+<img class="plugin-logo plugin-logo-wordmark" src="https://n8n.io/brandguidelines/logo-dark.svg" alt="" width="140" height="36" loading="lazy">
 <h3>n8n</h3>
 <p>Sign in through your browser to inspect and design workflows in UC San Diego’s n8n service. Running, creating, updating, and publishing workflows depend on the abilities granted during sign-in and the chat’s approval mode.</p>
 </article>
