@@ -1,0 +1,153 @@
+WEBVTT
+
+1
+00:00:00.350 --> 00:00:04.728
+TritonAI Harness is UC San Diego's AI workspace on your desktop.
+
+2
+00:00:05.546 --> 00:00:08.420
+You hand it real work, and it delivers finished results,
+
+3
+00:00:08.679 --> 00:00:10.773
+using your files and campus systems.
+
+4
+00:00:11.623 --> 00:00:15.682
+Here it is, live, with a made-up project: Jordan's fall workshop pilot.
+
+5
+00:00:16.502 --> 00:00:18.486
+Qualtrics already reports the survey,
+
+6
+00:00:18.741 --> 00:00:20.995
+but Jordan wants the team's own questions answered,
+
+7
+00:00:21.360 --> 00:00:23.270
+so I hand it the raw results.
+
+8
+00:00:24.120 --> 00:00:27.189
+Fourteen seconds later: averages for every question, the top comments,
+
+9
+00:00:27.550 --> 00:00:32.175
+the missing data flagged, and a takeaway for the planning team,
+
+10
+00:00:32.607 --> 00:00:33.582
+saved as a file.
+
+11
+00:00:35.232 --> 00:00:39.219
+Department leaders want one page, so: a presentation-ready Excel dashboard.
+
+12
+00:00:39.239 --> 00:00:44.198
+It builds the workbook, and a few quick follow-ups polish the layout.
+
+13
+00:00:45.048 --> 00:00:48.652
+Headline numbers up top, three charts in campus colors,
+
+14
+00:00:48.750 --> 00:00:51.162
+and a one-line insight under each.
+
+15
+00:00:52.012 --> 00:00:54.343
+Jordan has ten minutes with leaders next week,
+
+16
+00:00:54.626 --> 00:00:57.109
+so the meeting notes and the survey become
+
+17
+00:00:57.129 --> 00:00:59.988
+a briefing deck on the official UC San Diego template.
+
+18
+00:01:00.838 --> 00:01:03.383
+Nine slides with live charts, an owners table,
+
+19
+00:01:03.477 --> 00:01:07.661
+a timeline to the next session, and speaker notes,
+
+20
+00:01:07.681 --> 00:01:09.464
+all built from the source files.
+
+21
+00:01:10.314 --> 00:01:16.522
+It plugs into the campus systems you already use: Microsoft 365,
+
+22
+00:01:16.813 --> 00:01:19.933
+Google Workspace, Kuali Build, GitHub, and n8n.
+
+23
+00:01:21.383 --> 00:01:26.238
+Here it reads an n8n workflow, explains each step in plain language,
+
+24
+00:01:26.474 --> 00:01:28.331
+and confirms the last run succeeded.
+
+25
+00:01:30.581 --> 00:01:35.136
+With GitHub, it reviews a code change: what changed, which files,
+
+26
+00:01:35.466 --> 00:01:36.916
+and whether the build passed.
+
+27
+00:01:39.166 --> 00:01:40.679
+And it builds software.
+
+28
+00:01:41.515 --> 00:01:43.576
+A Microsoft Form would cover a basic sign-up,
+
+29
+00:01:43.596 --> 00:01:46.383
+but Jordan's team wants the campus look
+
+30
+00:01:46.403 --> 00:01:49.432
+and every sign-up in its own n8n workflow.
+
+31
+00:01:49.967 --> 00:01:52.606
+Here's that app, on the official campus design system.
+
+32
+00:01:54.256 --> 00:01:56.900
+Coming soon: self-service hosting,
+
+33
+00:01:57.200 --> 00:01:58.083
+so the apps you build
+
+34
+00:01:58.103 --> 00:02:00.351
+in the Harness can go live for campus.
+
+35
+00:02:01.201 --> 00:02:03.871
+When a campus tool does the job, use it.
+
+36
+00:02:04.443 --> 00:02:07.337
+When you need it your way, build it with the Harness.
+
+37
+00:02:08.187 --> 00:02:12.914
+That's TritonAI Harness: real work, finished on your desktop,
+
+38
+00:02:13.201 --> 00:02:14.711
+with campus tools built in.
