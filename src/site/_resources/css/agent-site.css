@@ -5294,8 +5294,8 @@ a.video-theater-nav-next.is-suggested .video-theater-nav-next-label {
   background: rgba(255, 255, 255, 0.06);
   text-decoration: none;
 }
-.video-rail-card:hover,
-.video-rail-card:focus {
+a.video-rail-card:hover,
+a.video-rail-card:focus {
   background: rgba(255, 255, 255, 0.14);
   text-decoration: none;
 }
@@ -5424,8 +5424,8 @@ a.video-theater-nav-next.is-suggested .video-theater-nav-next-label {
 .video-rail-card {
   background: #f5f7f9;
 }
-.video-rail-card:hover,
-.video-rail-card:focus {
+a.video-rail-card:hover,
+a.video-rail-card:focus {
   background: #e8eef3;
 }
 .video-rail-card-flag {
