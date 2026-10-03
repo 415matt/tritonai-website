@@ -26,10 +26,10 @@ bannerMode: abstract
 <p>You’ll need an approved TritonAI Gateway key to connect the Harness to campus models.</p>
 <p class="hub-section-action">
 <a class="btn btn-primary" href="/developer-apis/start.html">Get started</a>
-<a class="btn btn-default" href="/skills/index.html">Browse Skills Library</a>
-<a class="btn btn-default" href="/developer-apis/harness-release-notes.html">Release notes</a>
+<a class="btn btn-primary harness-training-link" href="/training/harness/">Start training</a>
 </p>
 <p>Already have a key? <a href="/developer-apis/start.html#harness">Download and set up</a>.</p>
+<p class="small"><a href="/skills/index.html">Browse Skills Library</a> · <a href="/developer-apis/harness-release-notes.html">Release notes</a></p>
 </div>
 <div class="col-md-5 hub-split-media">
 <figure class="build-architecture" aria-describedby="harness-architecture-caption">
@@ -41,6 +41,27 @@ bannerMode: abstract
 </ol>
 <figcaption id="harness-architecture-caption">TritonAI Harness isolates credentials and runs within your local workspace under your supervision.</figcaption>
 </figure>
+</div>
+</div>
+</section>
+
+<section class="hub-section hub-section-cool" id="harness-training" aria-labelledby="harness-training-heading">
+<div class="harness-training-grid">
+<a class="harness-training-preview" href="/training/harness/" aria-label="Open TritonAI Harness training">
+<img src="/_images/harness/training-preview.svg" width="1180" height="664" alt="" loading="lazy" decoding="async">
+<span class="harness-training-preview-label">Open the course <span aria-hidden="true">→</span></span>
+</a>
+<div class="harness-training-copy">
+<p class="home-kicker">Self-paced training</p>
+<h2 id="harness-training-heading">Learn to use TritonAI Harness</h2>
+<p>Follow narrated lessons to run your first task, guide the work, and check the result. Then explore campus plugins, reusable skills, and app building.</p>
+<p>Start with Essentials, then try the exercises using downloadable fictional files. Knowledge checks help you review what you’ve learned.</p>
+<dl class="harness-training-duration">
+<div><dt>Essentials</dt><dd>About 8 minutes</dd></div>
+<div><dt>Full presentation</dt><dd>About 24 minutes</dd></div>
+</dl>
+<p class="small">Allow additional time for practice.</p>
+<p class="hub-section-action"><a class="btn btn-primary harness-training-link" href="/training/harness/">Start the full training <span aria-hidden="true">→</span></a></p>
 </div>
 </div>
 </section>
@@ -72,6 +93,7 @@ bannerMode: abstract
 <source src="/_files/harness/walkthrough-2026-09-07.mp4" type="video/mp4">
 Your browser does not support embedded video. <a href="/_files/harness/walkthrough-2026-09-07.mp4">Download the walkthrough</a>.
 </video>
+<p>Try these tasks yourself in the <a href="/training/harness/">full Harness training</a>.</p>
 <p id="harness-walkthrough-description" class="small">Silent video, 3 minutes 1 second. The full application window stays visible, with annotations in a narrow strip below it. Recorded September 7, 2026; completed sample conversations are revisited and navigation pauses are shortened.</p>
 <p><a href="/_files/harness/walkthrough-2026-09-07.mp4" download>Download the walkthrough (MP4, 5.1 MB)</a></p>
 <details>
