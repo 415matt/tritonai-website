@@ -5,6 +5,8 @@ import * as cheerio from "cheerio";
 const sha = execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim();
 const installer = JSON.parse(await readFile("content/harness/installer.json", "utf8"));
 const releases = JSON.parse(await readFile("content/harness/releases.json", "utf8"));
+const summaries = JSON.parse(await readFile("content/harness/release-summaries.json", "utf8"));
+const currentSummary = summaries.releases[releases.latestTag];
 const deadline = Date.now() + 25 * 60 * 1000;
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 let published = process.argv.includes("--public-only");
@@ -34,6 +36,17 @@ while (Date.now() < deadline) {
       const versions = $("main#main-content [data-harness-version]").toArray();
       if (!versions.length || versions.some((element) => $(element).text().trim() !== releases.latestTag.slice(1))) current = false;
     }
+    $("main#main-content [data-harness-guidance]").each((_, element) => {
+      const topic = $(element).attr("data-harness-guidance");
+      const expected = currentSummary.guidance[topic].map((text) => topic === "setup" ? text.replace(/(?<!TritonAI )\bHarness\b/g, "TritonAI Harness") : text);
+      const actual = $(element).find("li").toArray().map((item) => $(item).text().trim());
+      if (JSON.stringify(actual) !== JSON.stringify(expected)) current = false;
+    });
+    $("main#main-content [data-harness-current-highlights]").each((_, element) => {
+      const actual = $(element).find("li").toArray().map((item) => $(item).text().trim());
+      if (JSON.stringify(actual) !== JSON.stringify(currentSummary.highlights)) current = false;
+    });
+    if (route.endsWith("harness-release-notes.html") && currentSummary.highlights.some((text) => !$("main#main-content").text().includes(text))) current = false;
     if (route.endsWith("start.html") && (!html.includes(installer.guided.platforms.mac.downloadUrl) || !html.includes(installer.guided.platforms.windows.downloadUrl))) current = false;
   }
   if (current) {
