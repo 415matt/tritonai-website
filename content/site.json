@@ -149,15 +149,15 @@
           "href": "/training-resources/tritongpt/index.html"
         },
         {
-          "label": "Instructional AI Pilot",
+          "label": "Instructional Tutor",
           "href": "/tritongpt/instruction.html",
           "items": [
             {
-              "label": "Instructional AI FAQ",
+              "label": "Tutor FAQ",
               "href": "/tritongpt/instruction-faq.html"
             },
             {
-              "label": "TritonAI Tutor Guide",
+              "label": "Tutor Guide",
               "href": "/tritongpt/tutor-guide/index.html",
               "items": [
                 {

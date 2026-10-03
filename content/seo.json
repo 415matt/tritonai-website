@@ -175,12 +175,12 @@
       "lastModified": "2026-10-03"
     },
     "/tritongpt/instruction-faq.html": {
-      "title": "Instructional AI FAQ",
+      "title": "Tutor FAQ",
       "description": "Answers for UC San Diego instructors and students about the TritonAI Tutor in Canvas: what it can read, how lock dates work, and who can see conversations.",
       "lastModified": "2026-10-03"
     },
     "/tritongpt/tutor-guide/index.html": {
-      "title": "TritonAI Tutor Guide",
+      "title": "Tutor Guide",
       "description": "How to set up and tune the TritonAI Tutor in your Canvas course: the knowledge base, the system prompt, and how to test your tutor.",
       "lastModified": "2026-10-03"
     },
