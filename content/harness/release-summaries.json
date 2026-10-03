@@ -189,7 +189,7 @@
               "evidence": [
                 {
                   "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/tritonai-commons.md",
-                  "quote": "TritonAI Commons is the public skill library in **Settings \u2192 Skills**."
+                  "quote": "TritonAI Commons is the public skill library in **Settings → Skills**."
                 }
               ]
             }
