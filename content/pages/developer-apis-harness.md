@@ -3,10 +3,10 @@ title: TritonAI Harness
 path: /developer-apis/harness.html
 description: A local-first agent control surface connecting campus builders to approved models, local files, and UC San Diego systems under human supervision.
 eyebrow: Build with TritonAI
-lastReviewed: 2026-10-02
+lastReviewed: 2026-10-03
 audiences: [staff, faculty, researchers, developers]
 owner: TritonAI
-source: "TritonAI Harness stable v0.3.4 release notes and tagged user documentation; packaged plugin composition; UC San Diego AI service guidance"
+source: "TritonAI Harness stable release notes and tagged user documentation; packaged plugin composition; UC San Diego AI service guidance"
 canonicalUrl: /developer-apis/harness.html
 relatedSlides: [Citizen Developer Ecosystem, Reusable Skills and MCP, platform-architecture]
 landingHub: true
@@ -48,19 +48,13 @@ bannerMode: abstract
 <section class="hub-section hub-section-cool" id="harness-stable-release" aria-labelledby="harness-stable-release-heading">
 <div class="hub-heading">
 <p class="home-kicker">Stable release</p>
-<h2 id="harness-stable-release-heading">Harness 0.3.4 stable release</h2>
-<p><strong>Current stable version: 0.3.4.</strong> Checked October 2, 2026 against the published release. Available for macOS Apple Silicon and Windows x64. The newer 0.3.5 nightly builds are prereleases on a separate update track.</p>
+<h2 id="harness-stable-release-heading">Harness <span data-harness-version></span> stable release</h2>
+<p><strong>Current stable version: <span data-harness-version></span>.</strong> Release information checked <span data-harness-reviewed></span> against the published release. Available for macOS Apple Silicon and Windows x64. Nightly builds use a separate update track.</p>
 </div>
-<ul>
-<li><strong>Computer use:</strong> Opt in to let the agent inspect and operate desktop apps, with visible setup and activity. In this release it works with the Codex provider on a local desktop backend.</li>
-<li><strong>Task goals and attachments:</strong> Give Codex tasks persistent goals, attach general files, and drop images into chat.</li>
-<li><strong>Search and review:</strong> Search conversation content and project files, organize tasks in the redesigned sidebar, and inspect pull requests and changed lines in the app.</li>
-<li><strong>Campus plugins:</strong> Kuali Build and n8n join the included plugin catalog with separately authorized read and write abilities.</li>
-<li><strong>Skills and sub-agents:</strong> Share a local skill with UCSD for review and follow delegated work in the Agents panel.</li>
-</ul>
+<ul data-harness-current-highlights></ul>
 <p>To update an existing installation, open <strong>Settings &gt; About &gt; Check for Updates</strong>. For first-time setup, use the <a href="/developer-apis/start.html#harness">stable TritonAI Installer</a>.</p>
 <p>Computer use starts off. Enable it in <strong>Settings &gt; General</strong>; on macOS, grant Accessibility and Screen Recording permissions and restart the Harness when prompted.</p>
-<p><a href="https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.4">Read the Harness 0.3.4 release notes</a> · <a href="https://github.com/dbalders/TritonAI-Harness/blob/v0.3.4/docs/user/permission-modes.md">Review approval modes</a></p>
+<p><a data-harness-source-notes>Read the Harness <span data-harness-version></span> release notes</a> · <a data-harness-doc="docs/user/permission-modes.md">Review approval modes</a></p>
 </section>
 
 <section class="hub-section" id="harness-in-action" aria-labelledby="harness-in-action-heading">

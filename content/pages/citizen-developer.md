@@ -251,3 +251,10 @@ bannerMode: abstract
 <section class="hub-section hub-section-dark hub-full-bleed" aria-labelledby="training-heading">
 <div class="container"><div class="row hub-split hub-split-align-center"><div class="col-md-7 hub-split-copy"><p class="home-kicker">Training conversation</p><h2 id="training-heading">Describe the task in one page</h2><p>Bring a short problem statement to a citizen-developer session or the AI Use-Case Meeting. Cover the need, the owner, the data, the review point, and the outcome you expect. That is enough to choose a pattern and test a first version.</p><p><a class="btn btn-primary" href="/use-cases/ai-use-case-meeting.html">Join a use-case meeting</a></p></div><div class="col-md-5"><div class="hub-quote-card citizen-training-card"><span class="glyphicon glyphicon-check" aria-hidden="true"></span><h3>Ready for a first experiment?</h3><p>Until you build something, it is hard to see which parts of your work have software-shaped solutions. Take the idea that seemed most interesting on this page and find out what it would take to build. Maybe it amounts to nothing and you abandon it. Either way you will know your work better than you did before.</p><p>Start with one small task and data you are approved to use, and keep the current process running while you test.</p><p><a class="btn btn-primary" href="/developer-apis/start.html">Review access and setup</a></p></div></div></div></div>
 </section>
+
+<section class="hub-section" data-harness-current-guidance-section aria-labelledby="harness-current-citizen">
+<div class="hub-heading"><h2 id="harness-current-citizen">Build with the current stable release</h2>
+<p>TritonAI Harness <strong data-harness-version></strong>.</p></div>
+<p class="hub-section-action"><a class="btn btn-default" data-harness-release>Read the release notes</a></p>
+<ul data-harness-guidance="citizen"></ul>
+</section>

@@ -3,10 +3,10 @@ title: TritonAI Harness Privacy Statement
 path: /developer-apis/harness-privacy.html
 description: How TritonAI Harness handles data residency, campus network transit, credential protection, and UC Protection Levels.
 eyebrow: Build with TritonAI
-lastReviewed: 2026-10-02
+lastReviewed: 2026-10-03
 audiences: [staff, faculty, researchers, developers]
 owner: TritonAI
-source: "UC San Diego IT Services AI governance and data protection guidance; TritonAI Harness stable v0.3.4 tagged user, integration, and credential-storage documentation"
+source: "UC San Diego IT Services AI governance and data protection guidance; TritonAI Harness stable tagged user, integration, and credential-storage documentation"
 canonicalUrl: /developer-apis/harness-privacy.html
 relatedSlides: [platform-architecture, Citizen Developer Ecosystem]
 landingHub: true
@@ -58,7 +58,7 @@ bannerMode: abstract
 <article class="panel panel-default hub-action-card">
 <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
 <h3>Local memory vaults</h3>
-<p>Persistent notes, context summaries, and reference instructions are saved as local Markdown files on your workstation. Relevant notes may be included in model requests when the agent uses them as context.</p>
+<p>Memory is enabled by default and saves daily summaries as local Markdown notes. Relevant notes may be included in model requests. Optional OneDrive sync copies notes to your UC San Diego OneDrive and brings in notes from your other computers; you must enable sync separately. Turning Memory off stops new notes and removes its agent skill while retaining existing notes.</p>
 </article>
 </div>
 </div>
@@ -190,4 +190,11 @@ bannerMode: abstract
 <a class="btn btn-primary btn-lg" href="mailto:tritonai@ucsd.edu">Email TritonAI team</a>
 </div>
 </div>
+</section>
+
+<section class="hub-section" data-harness-current-guidance-section aria-labelledby="harness-current-privacy">
+<div class="hub-heading"><h2 id="harness-current-privacy">Privacy in the current stable release</h2>
+<p>TritonAI Harness <strong data-harness-version></strong>.</p></div>
+<p class="hub-section-action"><a class="btn btn-default" data-harness-release>Read the release notes</a></p>
+<ul data-harness-guidance="privacy"></ul>
 </section>

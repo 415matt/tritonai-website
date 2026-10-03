@@ -566,7 +566,7 @@
 <a class="btn btn-primary developer-download-button" data-harness-download="windows" href="https://github.com/dbalders/TritonAI-Installer/releases/download/v0.3.4/TritonAI-Installer-Setup-0.3.4-x64.exe"><span data-harness-download-label>Download for Windows</span><small data-harness-download-detail>x64 · Setup EXE</small></a>
 </article>
 </div>
-<p class="developer-start-release-links"><a data-harness-release href="/developer-apis/harness-release-notes.html">Read TritonAI Harness release notes</a>.</p>
+<p class="developer-start-release-links"><a data-harness-release="root" href="/developer-apis/harness-release-notes.html">Read TritonAI Harness release notes</a>.</p>
 </div>
 <p>When the installer asks for your TritonAI access key, use your existing key or follow the next step to request one. Installation completes after your key is checked.</p>
 </section>
@@ -638,7 +638,7 @@
 
 <section class="developer-start-step" id="harness-options" aria-labelledby="harness-options-heading">
 <h2 id="harness-options-heading">Updates and optional computer use</h2>
-<p>For an existing TritonAI Harness installation, open <strong>Settings &gt; About &gt; Check for Updates</strong>. Version <strong>0.3.4</strong> is the current stable release. Stable and nightly installations use separate update tracks. The guided installer above is the first-time setup and runtime repair path.</p>
+<p>For an existing TritonAI Harness installation, open <strong>Settings &gt; About &gt; Check for Updates</strong>. Version <strong data-harness-version></strong> is the current stable release. Stable and nightly installations use separate update tracks. The guided installer above is the first-time setup and runtime repair path.</p>
 <p>Computer use starts off. To enable it, open <strong>Settings &gt; General</strong> and follow the readiness instructions. On macOS, grant Accessibility and Screen Recording permissions, then restart the TritonAI Harness when prompted. In this stable release, computer use requires the Codex provider on a local desktop backend. Screenshots may be included in model requests; use approved data and review the <a href="/developer-apis/harness-privacy.html">TritonAI Harness privacy statement</a>.</p>
 </section>
 
@@ -755,7 +755,14 @@ resp = client.chat.completions.create(
 
 			    </div>
 			</div>
-		</main>
+
+<div class="container"><section class="hub-section" data-harness-current-guidance-section aria-labelledby="harness-current-setup">
+<div class="hub-heading"><h2 id="harness-current-setup">Set up the current stable release</h2>
+<p>TritonAI Harness <strong data-harness-version></strong>.</p></div>
+<p class="hub-section-action"><a class="btn btn-default" data-harness-release>Read the release notes</a></p>
+<ul data-harness-guidance="setup"></ul>
+</section></div>
+</main>
 		<footer class="footer">
 		    
 			

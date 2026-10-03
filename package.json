@@ -40,9 +40,10 @@
     "test:video-quiz": "node --test test/video-quiz.test.mjs",
     "sync:harness": "node scripts/sync-harness-releases.mjs",
     "check:harness": "node scripts/sync-harness-releases.mjs --check",
-    "test:harness": "node --test test/harness-releases.test.mjs && python3 -m unittest discover -s test -p harness_release_job_test.py",
+    "test:harness": "node --test test/harness-releases.test.mjs test/harness-maintenance.test.mjs && python3 -m unittest discover -s test -p harness_release_job_test.py",
     "test:harness-training": "node scripts/check-harness-training.mjs",
-    "test:harness-video": "node scripts/check-harness-video.mjs"
+    "test:harness-video": "node scripts/check-harness-video.mjs",
+    "maintain:harness": "node scripts/maintain-harness-release.mjs"
   },
   "engines": {
     "node": ">=22"

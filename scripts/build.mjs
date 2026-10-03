@@ -5,6 +5,7 @@ import { load } from "cheerio";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
 import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues, guidedInstallerIssues } from "./lib/harness-releases.mjs";
+import { applyHarnessPageMetadata } from "./lib/harness-page-metadata.mjs";
 
 
 const SOURCE_DIR = path.resolve("src/site");
@@ -1420,6 +1421,7 @@ function transformHtml(html, relativePath, context) {
     applyHarnessInstallerMetadata($, route === "/developer-apis/start.html" ? context.harnessInstaller.guided : context.harnessInstaller, route === "/developer-apis/start.html" ? null : context.harnessInstaller.version);
   }
   $("[data-harness-release-notes]").html(renderHarnessReleases(context.harnessReleases, context.harnessReleaseSummaries, context.harnessInstaller));
+  applyHarnessPageMetadata($, context.harnessReleases, context.harnessReleaseSummaries);
 
   $("[data-tritonai-updates]").each((_, element) => {
     const target = $(element);
