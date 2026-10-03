@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Zoom AI Companion">
+  <rect width="64" height="64" rx="14" fill="#0B5CFF"/>
+  <!-- Video Camera Body -->
+  <rect x="15" y="21" width="22" height="20" rx="5" fill="#FFFFFF"/>
+  <!-- Video Camera Lens -->
+  <path d="M38 27 L48.8 20.3 C49.5 19.9 50.4 20.4 50.4 21.2 L50.4 40.8 C50.4 41.6 49.5 42.1 48.8 41.7 L38 35 Z" fill="#FFFFFF"/>
+  <!-- AI Sparkle -->
+  <path d="M14 12 C14 14.5 12 15.5 10 16 C12 16.5 14 17.5 14 20 C14 17.5 16 16.5 18 16 C16 15.5 14 14.5 14 12 Z" fill="#FFFFFF" opacity="0.95"/>
+</svg>

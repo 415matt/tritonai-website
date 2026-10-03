@@ -1,5 +1,5 @@
 {
-  "lastSynced": "2026-09-01T14:55:15.678Z",
+  "lastSynced": "2026-10-02T18:30:11.747Z",
   "source": "https://tritonai-api.ucsd.edu/public/model_hub",
   "models": [
     {
@@ -52,6 +52,34 @@
       "maxInputTokens": 200000
     },
     {
+      "id": "claude-opus-5-5",
+      "displayName": "Claude Opus 5.5",
+      "type": "Chat and reasoning",
+      "hosting": "Approved enterprise cloud",
+      "maxInputTokens": 1000000
+    },
+    {
+      "id": "claude-sonnet-5-5",
+      "displayName": "Claude Sonnet 5.5",
+      "type": "Chat and reasoning",
+      "hosting": "Approved enterprise cloud",
+      "maxInputTokens": 1000000
+    },
+    {
+      "id": "gemini-3.8-flash",
+      "displayName": "Gemini 3.8 Flash",
+      "type": "Chat and reasoning",
+      "hosting": "Approved enterprise cloud",
+      "maxInputTokens": 1048576
+    },
+    {
+      "id": "gemini-3.7-flash",
+      "displayName": "Gemini 3.7 Flash",
+      "type": "Chat and reasoning",
+      "hosting": "Approved enterprise cloud",
+      "maxInputTokens": 1048576
+    },
+    {
       "id": "gemini-3.6-flash",
       "displayName": "Gemini 3.6 Flash",
       "type": "Chat and reasoning",
@@ -78,13 +106,6 @@
       "type": "Chat and reasoning",
       "hosting": "UC-hosted",
       "maxInputTokens": 256000
-    },
-    {
-      "id": "gemini-3.7-flash",
-      "displayName": "Gemini 3.7 Flash",
-      "type": "Chat and reasoning",
-      "hosting": "Approved enterprise cloud",
-      "maxInputTokens": 1048576
     },
     {
       "id": "gpt-5.6-luna",
@@ -120,6 +141,34 @@
       "type": "Chat and reasoning",
       "hosting": "Approved enterprise cloud",
       "maxInputTokens": 1050000
+    },
+    {
+      "id": "gpt-6-astra",
+      "displayName": "GPT-6 Astra",
+      "type": "Chat and reasoning",
+      "hosting": "Approved enterprise cloud",
+      "maxInputTokens": 922000
+    },
+    {
+      "id": "gpt-6-luna",
+      "displayName": "GPT-6 Luna",
+      "type": "Chat and reasoning",
+      "hosting": "Approved enterprise cloud",
+      "maxInputTokens": 922000
+    },
+    {
+      "id": "gpt-6-sol",
+      "displayName": "GPT-6 Sol",
+      "type": "Chat and reasoning",
+      "hosting": "Approved enterprise cloud",
+      "maxInputTokens": 922000
+    },
+    {
+      "id": "gpt-6.1-sol",
+      "displayName": "GPT-6.1 Sol",
+      "type": "Chat and reasoning",
+      "hosting": "Approved enterprise cloud",
+      "maxInputTokens": 922000
     },
     {
       "id": "kimi-k2.6",
@@ -168,14 +217,14 @@
       "displayName": "TritonGPT Embeddings",
       "type": "Embeddings",
       "hosting": "Approved enterprise cloud",
-      "maxInputTokens": 32768
+      "maxInputTokens": 4096
     },
     {
-      "id": "api-deepseek-v4-flash",
-      "displayName": "DeepSeek V4 Flash",
+      "id": "api-glm-5.3-flash",
+      "displayName": "GLM 5.3 Flash",
       "type": "Chat and reasoning",
       "hosting": "UC-hosted",
-      "maxInputTokens": 1000000
+      "maxInputTokens": 500000
     },
     {
       "id": "api-glm-5.3",
@@ -197,6 +246,20 @@
       "type": "Speech to text",
       "hosting": "UC-hosted",
       "maxInputTokens": null
+    },
+    {
+      "id": "api-muse-glimmer-30b",
+      "displayName": "Muse Glimmer 30B",
+      "type": "Chat and reasoning",
+      "hosting": "UC-hosted",
+      "maxInputTokens": 262144
+    },
+    {
+      "id": "api-openai-privacy-filter",
+      "displayName": "OpenAI Privacy Filter",
+      "type": "Chat and reasoning",
+      "hosting": "UC-hosted",
+      "maxInputTokens": 128000
     }
   ]
 }

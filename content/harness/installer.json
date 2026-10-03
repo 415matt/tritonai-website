@@ -28,5 +28,36 @@
     }
   },
   "version": "0.3.4",
-  "publishedAt": "2026-09-23T02:59:43Z"
+  "publishedAt": "2026-09-23T02:59:43Z",
+  "guided": {
+    "owner": "TritonAI service team",
+    "dataClassification": "Public",
+    "canonicalUrl": "/developer-apis/start.html",
+    "platforms": {
+      "mac": {
+        "label": "Download for Mac",
+        "architecture": "Apple Silicon",
+        "format": "DMG",
+        "filename": "TritonAI-Installer-0.3.4-arm64.dmg",
+        "sizeBytes": 623218655,
+        "sha256": "cd2d4ae444678654159baa512a1e03ed6b69fbf3b1573e4a2c79fea1ad9e6401",
+        "downloadUrl": "https://github.com/dbalders/TritonAI-Installer/releases/download/v0.3.4/TritonAI-Installer-0.3.4-arm64.dmg"
+      },
+      "windows": {
+        "label": "Download for Windows",
+        "architecture": "x64",
+        "format": "Setup EXE",
+        "filename": "TritonAI-Installer-Setup-0.3.4-x64.exe",
+        "sizeBytes": 465337736,
+        "sha256": "8e772c14ea6f25ce4875bc7a791f279dc78b22ec28665ce371d69d6ba7ec569e",
+        "downloadUrl": "https://github.com/dbalders/TritonAI-Installer/releases/download/v0.3.4/TritonAI-Installer-Setup-0.3.4-x64.exe"
+      }
+    },
+    "version": "0.3.4",
+    "publishedAt": "2026-09-24T18:39:28Z",
+    "lastReviewed": "2026-10-01",
+    "product": "TritonAI Installer",
+    "source": "https://github.com/dbalders/TritonAI-Installer/releases/latest",
+    "releaseUrl": "https://github.com/dbalders/TritonAI-Installer/releases/tag/v0.3.4"
+  }
 }

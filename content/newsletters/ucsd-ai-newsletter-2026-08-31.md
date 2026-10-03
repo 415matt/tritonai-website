@@ -1,8 +1,8 @@
 ---
-title: "Monday, August 31"
+title: "UC San Diego AI Weekly · August 31, 2026"
 date: 2026-08-31
 source: "ucsd-ai-newsletter-2026-08-31.md"
-items: 7
+items: 10
 ---
 ## What's New in Your AI Tools
 
@@ -28,11 +28,9 @@ items: 7
 
 No live trainings are scheduled in the next 14 days, but you can:
 
-\* Take the self-paced **[AI Foundations course](https://go.ucsd.edu/3FvH9Hf)** to learn core AI concepts and UC policies on AI tools.
-
-\* Watch the **[AI Webinar #6 recording](https://tritonai.ucsd.edu/training-resources/webinars.html)** — a practical walkthrough of TritonGPT's first year, including MyDocuments, model switching, and chat sharing.
-
-\* Explore the **[Everyday I AI video series](https://www.youtube.com/playlist?list=PLZoL-14Q0aIkY5gnibNuZZh3X0ikY6VGA)** for short, practical prompting tips that work across TritonGPT and other AI tools.
+-   Take the self-paced **[AI Foundations course](https://go.ucsd.edu/3FvH9Hf)** to learn core AI concepts and UC policies on AI tools.
+-   Watch the **[AI Webinar #6 recording](https://tritonai.ucsd.edu/training-resources/webinars.html)** — a practical walkthrough of TritonGPT's first year, including MyDocuments, model switching, and chat sharing.
+-   Explore the **[Everyday I AI video series](https://www.youtube.com/playlist?list=PLZoL-14Q0aIkY5gnibNuZZh3X0ikY6VGA)** for short, practical prompting tips that work across TritonGPT and other AI tools.
 
 * * *
 
@@ -45,5 +43,3 @@ No live trainings are scheduled in the next 14 days, but you can:
 -   **[NSF Funds New Center to Design Reliable, Self-Correcting Quantum Computers](https://today.ucsd.edu/story/nsf-funds-new-center-to-design-reliable-self-correcting-quantum-computers)** — A multidisciplinary team including UC San Diego computer scientists received a $37.5 million NSF grant for NSF PRACTIQAL, a center aimed at making quantum error correction practical. Yufei Ding, associate professor of computer science and engineering, leads a thrust on error-correction theory, scalable fault-tolerant architectures, and an open-source QEC software stack.
 
 * * *
-
-\_Want to share feedback on this newsletter? Reply to this email.\_

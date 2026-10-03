@@ -46,6 +46,7 @@ const MODEL_PUBLISHERS = [
   ["Z.ai", /^api-glm-/],
   ["LightOn", /^api-lighton/],
   ["Cohere", /^api-cohere-/],
+  ["Muse", /^api-muse-/],
 ];
 
 // Relative launch sequence within each publisher. These values only establish
@@ -59,6 +60,8 @@ const MODEL_RECENCY = new Map([
   ["claude-sonnet-4-6", 660],
   ["claude-opus-4-6", 650],
   ["claude-opus-4-6-v1", 640],
+  ["gemini-3.8-flash", 720],
+  ["gemini-3.7-flash", 710],
   ["gemini-3.6-flash", 700],
   ["gemini-3.5-flash", 690],
   ["gemini-3.5-flash-lite", 680],
@@ -76,6 +79,9 @@ const MODEL_RECENCY = new Map([
   ["us.amazon.nova-premier-v1:0", 690],
   ["api-tgpt-embeddings", 700],
   ["tgpt-embeddings", 690],
+  ["api-glm-5.3-flash", 710],
+  ["api-glm-5.3", 700],
+  ["api-glm-5.2", 690],
 ]);
 
 export function modelPublisher(id) {
@@ -109,6 +115,12 @@ export function hostingFor(providers = []) {
 // Common names for the current catalog. Unknown ids fall back to
 // deriveDisplayName; the daily sync PR is the review point for new entries.
 const DISPLAY_NAMES = {
+  "gpt-6-astra": "GPT-6 Astra",
+  "gpt-6-luna": "GPT-6 Luna",
+  "gpt-6-sol": "GPT-6 Sol",
+  "gpt-6.1-sol": "GPT-6.1 Sol",
+  "claude-opus-5-5": "Claude Opus 5.5",
+  "claude-sonnet-5-5": "Claude Sonnet 5.5",
   "gpt-5.4": "GPT-5.4",
   "gpt-5.5": "GPT-5.5",
   "gpt-5.6-luna": "GPT-5.6 Luna",
@@ -125,6 +137,8 @@ const DISPLAY_NAMES = {
   "gemini-3.5-flash": "Gemini 3.5 Flash",
   "gemini-3.5-flash-lite": "Gemini 3.5 Flash Lite",
   "gemini-3.6-flash": "Gemini 3.6 Flash",
+  "gemini-3.7-flash": "Gemini 3.7 Flash",
+  "gemini-3.8-flash": "Gemini 3.8 Flash",
   "minimax.minimax-m2": "MiniMax M2",
   "mistral.mistral-large-3-675b-instruct": "Mistral Large 3",
   "moonshotai.kimi-k2.5": "Kimi K2.5",
@@ -132,6 +146,7 @@ const DISPLAY_NAMES = {
   "us.amazon.nova-premier-v1:0": "Amazon Nova Premier",
   "api-glm-5.2": "GLM 5.2",
   "api-glm-5.3": "GLM 5.3",
+  "api-glm-5.3-flash": "GLM 5.3 Flash",
   "api-deepseek-v4-flash": "DeepSeek V4 Flash",
   "api-gemma-4-26b": "Gemma 4 26B",
   "api-gemma-4-31b": "Gemma 4 31B",
@@ -139,6 +154,8 @@ const DISPLAY_NAMES = {
   "api-mistral-small-3.2-2506": "Mistral Small 3.2",
   "api-lightonocr-1b": "LightOn OCR 1B",
   "api-cohere-transcribe": "Cohere Transcribe",
+  "api-muse-glimmer-30b": "Muse Glimmer 30B",
+  "api-openai-privacy-filter": "OpenAI Privacy Filter",
   "api-tgpt-embeddings": "TritonGPT Embeddings",
 };
 

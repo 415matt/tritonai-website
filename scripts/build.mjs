@@ -4,7 +4,8 @@ import path from "node:path";
 import { load } from "cheerio";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
-import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues } from "./lib/harness-releases.mjs";
+import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues, guidedInstallerIssues } from "./lib/harness-releases.mjs";
+
 
 const SOURCE_DIR = path.resolve("src/site");
 const CONTENT_DIR = path.resolve("content");
@@ -194,7 +195,8 @@ function renderHarnessReleases(snapshot, summaries, installer) {
   const notes = detailed.map((release) => {
     const summary = summaries.releases[release.tag];
     const latest = release.tag === snapshot.latestTag;
-    const downloads = latest ? `<p><a class="btn btn-primary" href="${escapeHtml(installer.platforms.mac.downloadUrl)}">Download ${escapeHtml(release.tag)} for Mac</a> <a class="btn btn-primary" href="${escapeHtml(installer.platforms.windows.downloadUrl)}">Download ${escapeHtml(release.tag)} for Windows</a></p>` : "";
+    const downloads = latest ? `<p><a class="btn btn-primary" href="${escapeHtml(installer.platforms.mac.downloadUrl)}">Download for Mac</a> <a class="btn btn-primary" href="${escapeHtml(installer.platforms.windows.downloadUrl)}">Download for Windows</a></p>` : "";
+
     return `<article class="harness-release-card" id="${releaseFragment(release.tag)}"><p class="home-kicker">${latest ? "Current stable release" : "Previous release"}</p><h2>TritonAI Harness ${escapeHtml(release.tag)}</h2><p>Published <time datetime="${escapeHtml(release.publishedAt)}">${escapeHtml(date(release.publishedAt))}</time></p><ul>${summary.highlights.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>${downloads}<p><a href="${escapeHtml(release.notesUrl)}">Full ${escapeHtml(release.tag)} release notes on GitHub</a></p></article>`;
   }).join("");
   const history = archive.map((release) => `<li><a href="${escapeHtml(release.notesUrl)}">TritonAI Harness ${escapeHtml(release.tag)}</a> <time datetime="${escapeHtml(release.publishedAt)}">${escapeHtml(date(release.publishedAt))}</time></li>`).join("");
@@ -1261,20 +1263,22 @@ function normalizeNavigationMarkup($) {
   }
 }
 
-function applyHarnessInstallerMetadata($, installer) {
+function applyHarnessInstallerMetadata($, installer, notesVersion = installer.version) {
   for (const [platformId, platform] of Object.entries(installer.platforms)) {
     const download = $(`[data-harness-download='${platformId}']`).first();
     if (!download.length) continue;
     download.attr({
       href: platform.downloadUrl,
-      "aria-label": `${platform.label}, version ${installer.version}, ${platform.architecture}, ${platform.format}`,
+      "aria-label": `${platform.label}, ${platform.architecture}, ${platform.format}`,
+
     });
     download.find("[data-harness-download-label]").text(platform.label);
     download
       .find("[data-harness-download-detail]")
-      .text(`Version ${installer.version} · ${platform.architecture} · ${platform.format}`);
+      .text(`${platform.architecture} · ${platform.format}`);
   }
-  $("[data-harness-release]").attr("href", `${HARNESS_RELEASE_PAGE}#${releaseFragment(`v${installer.version}`)}`);
+  $("[data-harness-release]").attr("href", `${HARNESS_RELEASE_PAGE}${notesVersion ? `#${releaseFragment(`v${notesVersion}`)}` : ""}`);
+
 }
 
 function transformHtml(html, relativePath, context) {
@@ -1288,7 +1292,7 @@ function transformHtml(html, relativePath, context) {
   const seo = context.seo.routes[route] || {};
   const title = seo.title || generated?.title || $("meta[name='PAGETITLE']").attr("content") || $("title").text().trim() || context.site.name;
   const description = seo.description || generated?.description || $("meta[name='DESCRIPTION']").attr("content") || context.site.description;
-  const canonicalPath = generated?.canonicalUrl || route;
+  const canonicalPath = generated?.canonicalUrl || seo.canonicalUrl || route;
   const canonicalUrl = new URL(canonicalPath, OFFICIAL_ORIGIN).href;
   const useCaseImage = generated?.slug ? USE_CASE_MEDIA[generated.slug]?.src : null;
   const socialImagePath = seo.socialImage || generated?.socialImage || generated?.bannerImage || useCaseImage || context.seo.defaultSocialImage;
@@ -1411,7 +1415,7 @@ function transformHtml(html, relativePath, context) {
   $("[data-gateway-usage='true']").html(renderGatewayUsage(context.gatewayUsage));
   $("[data-skills-library='true']").html(renderSkillsLibrary(context.skills));
   if (route === "/developer-apis/start.html" || route === "/tools/harness.html" || route === "/developer-apis/harness.html") {
-    applyHarnessInstallerMetadata($, context.harnessInstaller);
+    applyHarnessInstallerMetadata($, route === "/developer-apis/start.html" ? context.harnessInstaller.guided : context.harnessInstaller, route === "/developer-apis/start.html" ? null : context.harnessInstaller.version);
   }
   $("[data-harness-release-notes]").html(renderHarnessReleases(context.harnessReleases, context.harnessReleaseSummaries, context.harnessInstaller));
 
@@ -1425,6 +1429,9 @@ function transformHtml(html, relativePath, context) {
   // muted autoplay-when-visible treatment.
   $("video").not("[data-progress-slug]").each((_, element) => {
     const video = $(element);
+    // User-started players retain native sources so a tap can start playback
+    // without waiting for viewport hydration or an autoplay promise.
+    if (video.attr("data-playback") === "manual") return;
     video
       .removeAttr("autoplay")
       .attr("data-autoplay-when-visible", "true")
@@ -1557,7 +1564,8 @@ const gatewayUsage = await readJson(GATEWAY_USAGE_FILE);
 const harnessInstaller = await readJson(HARNESS_INSTALLER_FILE);
 const harnessReleases = await readJson(path.join(CONTENT_DIR, "harness/releases.json"));
 const harnessReleaseSummaries = await readJson(path.join(CONTENT_DIR, "harness/release-summaries.json"));
-const harnessReleaseIssues = releaseSummaryIssues(harnessReleases, harnessReleaseSummaries, harnessInstaller);
+const harnessReleaseIssues = [...releaseSummaryIssues(harnessReleases, harnessReleaseSummaries, harnessInstaller), ...guidedInstallerIssues(harnessInstaller.guided)];
+
 if (harnessReleaseIssues.length) throw new Error(harnessReleaseIssues.join("\n"));
 const seo = await readJson(SEO_FILE);
 const tritonAiUpdates = await readJson(TRITONAI_UPDATES_FILE);
@@ -1768,7 +1776,7 @@ htmlFiles = (await listFiles(OUTPUT_DIR)).filter((file) => file.endsWith(".html"
 const routes = htmlFiles
   .map((relativePath) => ({
     path: routeForRelativePath(relativePath),
-    canonicalUrl: new URL(generatedByPath.get(relativePath)?.canonicalUrl || routeForRelativePath(relativePath), OFFICIAL_ORIGIN).href,
+    canonicalUrl: new URL(generatedByPath.get(relativePath)?.canonicalUrl || seo.routes[routeForRelativePath(relativePath)]?.canonicalUrl || routeForRelativePath(relativePath), OFFICIAL_ORIGIN).href,
     redirectTo: generatedByPath.get(relativePath)?.redirectTo || null,
     source: generatedByPath.has(relativePath) ? "structured-content" : "cascade-snapshot",
     lastModified: seo.routes[routeForRelativePath(relativePath)]?.lastModified || generatedByPath.get(relativePath)?.lastReviewed || site.lastReviewed,

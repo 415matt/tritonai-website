@@ -16,3 +16,5 @@ bannerMode: abstract
 ---
 
 <div data-harness-release-notes></div>
+
+<section class="hub-section" aria-labelledby="release-training-heading"><div class="hub-heading"><h2 id="release-training-heading">Learn the Harness workspace</h2><p>After updating, use the self-paced training to practice with fictional files and learn how to review results. Start with Essentials and return to other chapters when you need them.</p></div><p><a class="btn btn-primary" href="/training/harness/">Start TritonAI Harness training</a></p></section>

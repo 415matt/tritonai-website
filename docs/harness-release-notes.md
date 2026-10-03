@@ -3,8 +3,9 @@
 ## Location and links
 
 `/developer-apis/harness-release-notes.html` is the Harness product history.
-Getting Started links to the notes for the version offered by its direct Mac
-and Windows download buttons. The Harness overview links to the full history.
+Getting Started offers the guided TritonAI Installer for first-time setup and
+links to the Harness product history. The notes page offers standalone Harness
+app downloads for existing installations. The Harness overview links to the full history.
 
 The shared links within the page canvas connect:
 
@@ -31,6 +32,12 @@ GitHub Markdown, embedded images, or downloads. Public summaries live in
 and its fingerprint. The build refuses a missing current summary, an edited
 source note with an outdated summary, or a mismatch between notes and installers.
 Older stable releases can link directly to the original notes without a summary.
+
+First-time setup downloads come from the latest stable release of
+`dbalders/TritonAI-Installer`. Their independent version, source, direct asset URLs,
+sizes, and SHA-256 digests are saved under `guided` in `content/harness/installer.json`.
+The sync validates both products before writing. Installer and Harness version
+numbers can differ; the website does not assume they are the same.
 
 The website is built from saved content. It makes no release API calls in the
 visitor's browser, and builds do not require GitHub to be available.

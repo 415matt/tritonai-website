@@ -3,6 +3,8 @@ import { createHash } from "node:crypto";
 export const HARNESS_REPOSITORY = "dbalders/TritonAI-Harness";
 export const HARNESS_RELEASE_PAGE = "/developer-apis/harness-release-notes.html";
 export const HARNESS_GITHUB = `https://github.com/${HARNESS_REPOSITORY}`;
+export const GUIDED_INSTALLER_REPOSITORY = "dbalders/TritonAI-Installer";
+const GUIDED_INSTALLER_GITHUB = `https://github.com/${GUIDED_INSTALLER_REPOSITORY}`;
 export const releaseFragment = (tag) => `harness-${tag.replaceAll(".", "-")}`;
 
 export function stableRelease(release) {
@@ -35,20 +37,41 @@ export function releaseSnapshot(releases, latestTag, reviewedDate) {
 }
 
 export function installerFromRelease(release, previous, reviewedDate) {
+  return downloadMetadata(release, previous, reviewedDate, HARNESS_GITHUB, (version, id) => `TritonAI-Harness-${version}-${id === "mac" ? "arm64.dmg" : "x64.exe"}`);
+}
+
+export function guidedInstallerFromRelease(release, previous, reviewedDate) {
+  const result = downloadMetadata(release, previous, reviewedDate, GUIDED_INSTALLER_GITHUB, (version, id) => id === "mac" ? `TritonAI-Installer-${version}-arm64.dmg` : `TritonAI-Installer-Setup-${version}-x64.exe`);
+  return { ...result, product: "TritonAI Installer", source: `${GUIDED_INSTALLER_GITHUB}/releases/latest`, releaseUrl: release.html_url };
+}
+
+function downloadMetadata(release, previous, reviewedDate, repositoryUrl, filenameFor) {
   if (!stableRelease(release)) throw new Error("Installer source must be a published stable release.");
+  if (release.html_url !== `${repositoryUrl}/releases/tag/${release.tag_name}`) throw new Error("Installer release must come from its official repository.");
   const version = release.tag_name.slice(1);
   const platforms = {};
-  for (const [id, suffix] of [["mac", "arm64.dmg"], ["windows", "x64.exe"]]) {
-    const filename = `TritonAI-Harness-${version}-${suffix}`;
+  for (const id of ["mac", "windows"]) {
+    const filename = filenameFor(version, id);
     const matching = (release.assets || []).filter((asset) => asset.name === filename);
     const asset = matching[0];
-    const downloadUrl = `${HARNESS_GITHUB}/releases/download/${release.tag_name}/${filename}`;
+    const downloadUrl = `${repositoryUrl}/releases/download/${release.tag_name}/${filename}`;
     if (matching.length !== 1 || asset.browser_download_url !== downloadUrl || !Number.isInteger(asset.size) || asset.size <= 0 || !/^sha256:[a-f0-9]{64}$/.test(asset.digest || "") || (asset.state && asset.state !== "uploaded")) {
       throw new Error(`Missing or invalid ${id} installer for ${release.tag_name}; current downloads were preserved.`);
     }
     platforms[id] = { ...previous.platforms[id], filename, sizeBytes: asset.size, sha256: asset.digest.slice(7), downloadUrl };
   }
   return { ...previous, version, publishedAt: release.published_at, lastReviewed: reviewedDate, platforms };
+}
+
+export function guidedInstallerIssues(installer) {
+  const issues = [];
+  if (!installer || installer.product !== "TritonAI Installer" || installer.source !== `${GUIDED_INSTALLER_GITHUB}/releases/latest` || !/^\d+\.\d+\.\d+$/.test(installer.version || "") || installer.releaseUrl !== `${GUIDED_INSTALLER_GITHUB}/releases/tag/v${installer.version}` || !Number.isFinite(Date.parse(installer.publishedAt)) || !/^\d{4}-\d{2}-\d{2}$/.test(installer.lastReviewed || "")) return ["Missing or invalid guided TritonAI Installer metadata."];
+  for (const id of ["mac", "windows"]) {
+    const platform = installer.platforms?.[id];
+    const filename = id === "mac" ? `TritonAI-Installer-${installer.version}-arm64.dmg` : `TritonAI-Installer-Setup-${installer.version}-x64.exe`;
+    if (!platform || platform.filename !== filename || platform.downloadUrl !== `${GUIDED_INSTALLER_GITHUB}/releases/download/v${installer.version}/${filename}` || !Number.isInteger(platform.sizeBytes) || platform.sizeBytes <= 0 || !/^[a-f0-9]{64}$/.test(platform.sha256 || "") || !platform.label || !platform.architecture || !platform.format) issues.push(`Invalid guided ${id} Installer artifact.`);
+  }
+  return issues;
 }
 
 export function releaseSummaryIssues(snapshot, summaries, installer) {

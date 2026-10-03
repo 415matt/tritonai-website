@@ -3,7 +3,7 @@ title: AI Learning Pathways
 path: /training-resources/pathways.html
 description: Choose the pathway that fits your work, from students and instructors through to campus leaders.
 eyebrow: Learn
-lastReviewed: 2026-09-25
+lastReviewed: 2026-10-01
 audiences: [students, faculty, staff, developers, leaders]
 source: TritonAI training catalog and public service documentation
 canonicalUrl: /training-resources/pathways.html
@@ -26,7 +26,24 @@ sidebar: true
 </section>
 <!-- END_AGENT_SECTION -->
 
+<aside class="learning-access-standard" aria-labelledby="accessible-media-heading"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span><div><p class="home-kicker">Built for access</p><h2 id="accessible-media-heading">Accessible formats</h2><p>Recordings need captions, a transcript, a descriptive title, and a poster image or text alternative that says something. Demonstration videos need visible controls, and everything they show has to be available to someone who cannot watch the motion.</p></div><a href="/training-resources/webinars.html">Browse recorded webinars <span aria-hidden="true">→</span></a></aside>
+
+<!-- AGENT_SECTION: ux-training-programs -->
+<section class="learning-programs" aria-labelledby="training-programs-heading">
+<div class="learning-section-heading"><p class="home-kicker">Keep learning</p><h2 id="training-programs-heading">Choose a format that fits your schedule</h2><p>Some of these you do alone at your own pace. Some you do live with other people.</p></div>
+<div class="learning-program-grid">
+<article class="learning-program"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span><p class="learning-program-type">Self-paced course</p><h3>TritonAI Harness</h3><p>Begin with Essentials and a feedback-summary exercise. Continue with narrated chapters, knowledge checks, and the fictional practice files at your own pace.</p><a href="/training/harness/">Start TritonAI Harness training <span aria-hidden="true">→</span></a></article>
+<article class="learning-program"><span class="glyphicon glyphicon-book" aria-hidden="true"></span><p class="learning-program-type">Self-paced</p><h3>AI Foundations</h3><p>The core concepts and the UC policy, then TritonGPT applied to actual campus work.</p><a href="https://go.ucsd.edu/3FvH9Hf">Take AI Foundations <span aria-hidden="true">→</span></a></article>
+<article class="learning-program"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span><p class="learning-program-type">Framework</p><h3>START Prompting</h3><p>Use the START framework to get stronger results from any AI tool.</p><a href="/training-resources/prompting/index.html">Browse the prompt library <span aria-hidden="true">→</span></a></article>
+<article class="learning-program"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span><p class="learning-program-type">Live and on demand</p><h3>Webinars &amp; workshops</h3><p>Recurring sessions on real use cases, with recordings and slides afterward.</p><a href="/training-resources/webinars.html">Watch recordings <span aria-hidden="true">→</span></a></article>
+<article class="learning-program"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span><p class="learning-program-type">Short video</p><h3>Everyday AI</h3><p>Short videos of staff using TritonGPT on tasks you probably also have.</p><a href="https://www.youtube.com/playlist?list=PLZoL-14Q0aIkY5gnibNuZZh3X0ikY6VGA">Watch the series <span aria-hidden="true">→</span></a></article>
+<article class="learning-program"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span><p class="learning-program-type">Community</p><h3>TritonAI Champions</h3><p>People doing this in other departments. Swap use cases and find out what did not work.</p><a href="/about/get-involved.html">Join the community <span aria-hidden="true">→</span></a></article>
+<article class="learning-program"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span><p class="learning-program-type">UC system</p><h3>UC-wide resources</h3><p>Training and AI guidance shared across the whole University of California.</p><a href="https://ai.universityofcalifornia.edu/index.html">Visit the UC AI website <span aria-hidden="true">→</span></a></article>
+</div>
+</section>
+
 <section class="learning-pathways" aria-labelledby="keep-going-heading">
 <div class="learning-section-heading"><p class="home-kicker">Keep going</p><h2 id="keep-going-heading">You don't have to do this alone</h2><p>The fastest way to grow is alongside people working on the same problems. Join a community of practice, sign up for the newsletter, and keep learning by doing.</p></div>
 <a class="learning-pathway-action" href="/connect/index.html">Explore TritonAI Connect <span aria-hidden="true">→</span></a>
+
 </section>

@@ -4,7 +4,7 @@
   "description": "Changes across TritonGPT, campus AI services, developer tools, models, and shared infrastructure.",
   "owner": "TritonAI program",
   "source": "Published TritonGPT release notes, public TritonAI builder pages, and approved TritonAI service updates",
-  "lastReviewed": "2026-08-30",
+  "lastReviewed": "2026-09-18",
   "streams": [
     {
       "id": "program",
@@ -30,13 +30,69 @@
     }
   ],
   "areas": [
-    { "id": "services", "label": "AI services", "icon": "tasks" },
-    { "id": "assistants", "label": "Campus assistants", "icon": "comment" },
-    { "id": "developer", "label": "Developer platform", "icon": "console" },
-    { "id": "platform", "label": "Platform and models", "icon": "cog" },
-    { "id": "tritongpt", "label": "TritonGPT", "icon": "flash" }
+    {
+      "id": "services",
+      "label": "AI services",
+      "icon": "tasks"
+    },
+    {
+      "id": "assistants",
+      "label": "Campus assistants",
+      "icon": "comment"
+    },
+    {
+      "id": "developer",
+      "label": "Developer platform",
+      "icon": "console"
+    },
+    {
+      "id": "platform",
+      "label": "Platform and models",
+      "icon": "cog"
+    },
+    {
+      "id": "tritongpt",
+      "label": "TritonGPT",
+      "icon": "flash"
+    }
   ],
   "updates": [
+    {
+      "id": "2026-09-18-scout-public-launch",
+      "stream": "program",
+      "date": "2026-09-18",
+      "displayDate": "September 18, 2026",
+      "area": "platform",
+      "title": "SCOUT is now broadly available at UC Merced",
+      "details": "<p>UC Merced’s SCOUT assistant is now broadly available to the campus following an Early Access preview. SCOUT runs on the shared TritonAI platform and inherits the same hosting, model choice, and governance controls as the UC San Diego deployment. The expansion extends the platform’s multi-institution footprint alongside BearGPT at UC Berkeley, ANR AI at UC Agriculture and Natural Resources, and FredGPT at Fairleigh Dickinson University.</p>"
+    },
+    {
+      "id": "2026-09-08-tritongpt-468-platform",
+      "stream": "program",
+      "date": "2026-09-08",
+      "displayDate": "September 8, 2026",
+      "area": "platform",
+      "title": "TritonGPT’s default model moves to UC-hosted infrastructure",
+      "details": "<p>TritonGPT’s default model now runs on UC San Diego infrastructure, keeping routine campus AI traffic on UC-controlled hardware and adding capacity for periods of peak demand such as course scheduling. Version 4.6.6 also expands the evaluated model catalog and adds new ways to work with assistants, including Voice Mode and a coding sandbox. <a href=\"/tritongpt/release-notes/9-8-2026-release.html\">Read the September 8 release details</a>.</p>"
+    },
+    {
+      "id": "2026-09-08-tritongpt-4-6-6",
+      "stream": "product",
+      "date": "2026-09-08",
+      "displayDate": "September 8, 2026",
+      "area": "tritongpt",
+      "title": "TritonGPT 4.6.6: new default model, Voice Mode, and coding sandbox",
+      "details": "<p>TritonGPT version 4.6.6 is in production. Muse Glimmer 30B, an open model hosted on UC San Diego infrastructure, is now the default model, and GPT-5.6 Terra, Gemini 3.7 Flash, and Claude Sonnet 5 join the lineup. Voice Mode lets you speak with an assistant and hear its responses, a coding sandbox runs code inside chat, and reasoning effort is adjustable per model. <a href=\"/tritongpt/release-notes/9-8-2026-release.html\">Read the September 8 release details</a>.</p>"
+    },
+    {
+      "id": "2026-09-03-scout-production-beta",
+      "stream": "program",
+      "date": "2026-09-03",
+      "displayDate": "September 3, 2026",
+      "area": "platform",
+      "title": "SCOUT in production beta at UC Merced",
+      "details": "<p>UC Merced’s SCOUT assistant is in production beta, serving more than 100 faculty and staff users. SCOUT runs on the shared TritonAI platform and inherits the same hosting, model choice, and governance controls as the UC San Diego deployment. The expansion extends the platform’s multi-institution footprint alongside BearGPT at UC Berkeley, ANR AI at UC Agriculture and Natural Resources, and FredGPT at Fairleigh Dickinson University.</p>"
+    },
     {
       "id": "2026-08-30-citizen-developer-data-guidance",
       "stream": "program",

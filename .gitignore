@@ -8,3 +8,5 @@ reports/screenshots/
 reports/ux-agent/
 .claude/
 __pycache__/
+
+reports/harness-training/

@@ -3591,6 +3591,11 @@ main#main-content .skills-setup {
   border-top-color: var(--triton-blue);
 }
 
+.developer-start-platforms article {
+  display: flex;
+  flex-direction: column;
+}
+
 .developer-start-platforms article > .glyphicon {
   color: var(--triton-blue);
   font-size: 28px;
@@ -3632,6 +3637,10 @@ a.developer-download-button:visited {
   text-align: left;
   width: 100%;
   white-space: normal;
+}
+
+.developer-start-platforms a.developer-download-button {
+  margin-top: auto;
 }
 
 .developer-download-button > span,
@@ -3703,6 +3712,16 @@ a.developer-download-button:visited {
 
 .developer-start-actions p {
   margin: 0;
+}
+
+.developer-start-actions .developer-start-training-action {
+  margin-top: 12px;
+}
+
+@media (min-width: 768px) {
+  #verify .developer-start-help {
+    margin-top: 0;
+  }
 }
 
 .developer-start-help {
@@ -3917,7 +3936,13 @@ a.developer-download-button:visited {
 .delivery-pathway a:focus {
   background: #fff;
   border-color: var(--triton-bright-blue);
+  color: var(--triton-navy);
   text-decoration: none;
+}
+
+.delivery-pathway a:hover small,
+.delivery-pathway a:focus small {
+  color: #52616b;
 }
 
 .delivery-pathway-current a {
@@ -4308,17 +4333,10 @@ a.developer-download-button:visited {
     font-size: 24px;
   }
 
-  .delivery-pathway ol {
+  .delivery-pathway ol,
+  .delivery-pathway ul,
+  .delivery-pathway-grid {
     grid-template-columns: 1fr;
-  }
-
-  .delivery-pathway li:not(:last-child)::after {
-    bottom: -20px;
-    content: "\2193";
-    left: 50%;
-    right: auto;
-    top: auto;
-    transform: translateX(-50%);
   }
 
   .triton-updates-intro {
@@ -4534,6 +4552,16 @@ a.developer-download-button:visited {
   height: 36px;
   width: 36px;
   margin-bottom: 16px;
+}
+
+/* Preserve vendor wordmarks at a shared height without stretching their artwork. */
+main#main-content .plugin-logo-wordmark {
+  width: 140px;
+  height: 36px;
+  max-height: 36px;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left center;
 }
 
 /* High-contrast product comparison table */

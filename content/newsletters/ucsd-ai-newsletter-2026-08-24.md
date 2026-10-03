@@ -1,8 +1,8 @@
 ---
-title: "Monday, August 24"
+title: "UC San Diego AI Weekly · August 24, 2026"
 date: 2026-08-24
 source: "ucsd-ai-newsletter-2026-08-24.md"
-items: 7
+items: 10
 ---
 ## What's New in Your AI Tools
 
@@ -28,11 +28,9 @@ items: 7
 
 No live trainings are scheduled in the next 14 days, but you can:
 
-\* Take the self-paced **[AI Foundations course](https://go.ucsd.edu/3FvH9Hf)** to learn core AI concepts and UC policies on AI tools.
-
-\* Watch the **[AI Webinar #6 recording](https://tritonai.ucsd.edu/training-resources/webinars.html)** — a practical walkthrough of TritonGPT's first year, including MyDocuments, model switching, and chat sharing.
-
-\* Explore the **[Everyday I AI video series](https://www.youtube.com/playlist?list=PLZoL-14Q0aIkY5gnibNuZZh3X0ikY6VGA)** for short, practical prompting tips that work across TritonGPT and other AI tools.
+-   Take the self-paced **[AI Foundations course](https://go.ucsd.edu/3FvH9Hf)** to learn core AI concepts and UC policies on AI tools.
+-   Watch the **[AI Webinar #6 recording](https://tritonai.ucsd.edu/training-resources/webinars.html)** — a practical walkthrough of TritonGPT's first year, including MyDocuments, model switching, and chat sharing.
+-   Explore the **[Everyday I AI video series](https://www.youtube.com/playlist?list=PLZoL-14Q0aIkY5gnibNuZZh3X0ikY6VGA)** for short, practical prompting tips that work across TritonGPT and other AI tools.
 
 * * *
 
@@ -45,5 +43,3 @@ No live trainings are scheduled in the next 14 days, but you can:
 -   **[The New Frontier of Emotional Support: Artificial Intelligence](https://today.ucsd.edu/story/the-new-frontier-of-emotional-support-artificial-intelligence)** — UC San Diego researchers examine the rise of AI chatbots for youth mental health and propose a five-pillar framework for the responsible evolution of AI-based emotional support, published in Nature Human Behaviour.
 
 * * *
-
-\_Want to share feedback on this newsletter? Reply to this email.\_

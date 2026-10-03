@@ -182,23 +182,22 @@
         "BearGPT is live at UC Berkeley as a partner deployment of the shared TritonAI gateway and governance model.",
         "ANR AI serves staff at UC Agriculture and Natural Resources. Partner service renewal work continues.",
         "FredGPT is live at Fairleigh Dickinson University as a research-oriented institution instance.",
-        "UC Merced offers SCOUT in early access for faculty and staff, with a waitlist for additional participants.",
+        "UC Merced's SCOUT assistant is now broadly available to the campus, moving from production beta into full launch.",
         "Partner instances inherit the same hosting, model choice, trust, and observability controls as the UC San Diego deployment.",
         "Partner expansion reuses the existing platform and shared infrastructure."
       ],
       "links": [
         { "label": "About TritonAI", "href": "/about/index.html" },
         { "label": "BearGPT at UC Berkeley", "href": "/about/media-articles.html" },
-        { "label": "SCOUT early access", "href": "https://ai.ucmerced.edu/scout" }
+        { "label": "SCOUT at UC Merced", "href": "https://ai.ucmerced.edu/scout" }
       ],
       "owner": "TritonAI platform team",
-      "lastReviewed": "2026-09-06",
-      "source": "Public partner pages including ai.ucmerced.edu/scout; September 1, 2026 partner renewal planning; reviewed September 6, 2026",
+      "lastReviewed": "2026-09-18",
+      "source": "Public partner pages including ai.ucmerced.edu/scout, the September 3, 2026 SCOUT production-beta program update, and the UC Merced public launch; reviewed September 18, 2026",
       "relatedSlides": ["TritonGPT Initiative", "Multi-Tenant"],
       "icon": "globe",
       "highlights": [
-        { "value": "Live", "label": "UC Berkeley, UC ANR, and FDU" },
-        { "value": "Early access", "label": "UC Merced" },
+        { "value": "Live", "label": "UC Berkeley, UC ANR, FDU, and UC Merced" },
         { "value": "Shared", "label": "Platform and governance" }
       ]
     },

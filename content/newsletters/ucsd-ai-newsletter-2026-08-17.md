@@ -1,8 +1,8 @@
 ---
-title: "Monday, August 17"
+title: "UC San Diego AI Weekly · August 17, 2026"
 date: 2026-08-17
 source: "ucsd-ai-newsletter-2026-08-17.md"
-items: 6
+items: 9
 ---
 ## What's New in Your AI Tools
 
@@ -30,5 +30,5 @@ items: 6
 
 ## TritonAI News
 
--   **[National Data Platform Receives NSF Category I Award to Expand AI-Ready Data Infrastructure](https://today.ucsd.edu/story/national-data-platform-receives-nsf-category-i-award-to-expand-ai-ready-data-infrastructure-for-u.s)** — UC San Diego's National Data Platform has received an NSF Category I award to expand AI-ready data infrastructure across the U.S. The project aims to make research data more accessible and usable for AI-driven discovery, strengthening the foundation that campus researchers rely on for machine learning and analytics work.
--   **[Five UC San Diego Innovators Nominated for First UC Regents Innovation Awards](https://today.ucsd.edu/story/uc-regents-innovation-awards-nominees-ucsd-2026)** — Five UC San Diego faculty and researchers are among the inaugural nominees for the UC Regents Innovation Awards, which recognize translational research with real-world impact. Several nominees' work intersects with AI and computing, reflecting the campus's growing role in turning AI research into deployed solutions.
+-   **[National Data Platform Receives NSF Category I Award to Expand AI-Ready Data Infrastructure](https://today.ucsd.edu/news/national-data-platform-receives-nsf-category-i-award-to-expand-ai-ready-data-infrastructure-for-u.s)** — UC San Diego's National Data Platform has received an NSF Category I award to expand AI-ready data infrastructure across the U.S. The project aims to make research data more accessible and usable for AI-driven discovery, strengthening the foundation that campus researchers rely on for machine learning and analytics work.
+-   **[Five UC San Diego Innovators Nominated for First UC Regents Innovation Awards](https://today.ucsd.edu/news/uc-regents-innovation-awards-nominees-ucsd-2026)** — Five UC San Diego faculty and researchers are among the inaugural nominees for the UC Regents Innovation Awards, which recognize translational research with real-world impact. Several nominees' work intersects with AI and computing, reflecting the campus's growing role in turning AI research into deployed solutions.

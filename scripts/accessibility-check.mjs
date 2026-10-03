@@ -106,6 +106,7 @@ try {
           }),
           decoratorFonts: await page.evaluate(() => {
             const findings = [];
+            if (document.body.classList.contains("standalone-training")) return findings;
             const check = (selector, expectedFamily) => {
               for (const element of document.querySelectorAll(selector)) {
                 const family = getComputedStyle(element).fontFamily;
