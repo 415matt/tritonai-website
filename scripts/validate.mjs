@@ -30,7 +30,7 @@ const standaloneRoutes = new Set([
   "/presentations/managing-the-tritonai-website.html",
   "/tritongpt/bgpt-chat-generator/index.html",
 ]);
-const unlistedStandaloneRoutes = new Set([...standaloneRoutes].filter((route) => route !== "/training/harness/index.html"));
+const unlistedStandaloneRoutes = new Set(standaloneRoutes);
 const renderedProvenancePatterns = [
   { pattern: /\bSource:\s*[^<\n]*\.md\b/i, label: "internal content filename" },
   { pattern: /\bcurrent public (?:deck|presentation|version)\b/i, label: "public-version framing" },
@@ -768,10 +768,6 @@ for (const page of htmlFiles) {
     const video = $(element);
     const manualPlayback = video.attr("data-playback") === "manual";
     if (video.attr("controls") === undefined) accessibility.push({ page: route, issue: "Video missing controls" });
-    if (!manualPlayback && video.attr("data-autoplay-when-visible") !== "true") accessibility.push({ page: route, issue: "Video must autoplay when visible or use manual playback" });
-    if (video.attr("muted") === undefined) accessibility.push({ page: route, issue: "Autoplay video must be muted" });
-
-    if (video.attr("playsinline") === undefined) accessibility.push({ page: route, issue: "Autoplay video must play inline" });
     if (video.attr("autoplay") !== undefined) performance.push({ page: route, issue: "Video must not load through eager autoplay" });
     if (video.attr("data-progress-slug") !== undefined) {
       // Training-video players: user-initiated playback with sound. They must
@@ -783,8 +779,10 @@ for (const page of htmlFiles) {
       if (!video.siblings("[data-video-play]").length) accessibility.push({ page: route, issue: "Training video missing explicit play control" });
       return;
     }
-    if (video.attr("data-autoplay-when-visible") !== "true") accessibility.push({ page: route, issue: "Video must autoplay when visible" });
+    if (!manualPlayback && video.attr("data-autoplay-when-visible") !== "true") accessibility.push({ page: route, issue: "Video must autoplay when visible or use manual playback" });
     if (video.attr("muted") === undefined) accessibility.push({ page: route, issue: "Autoplay video must be muted" });
+
+    if (video.attr("playsinline") === undefined) accessibility.push({ page: route, issue: "Autoplay video must play inline" });
     if (video.attr("preload") !== "none") performance.push({ page: route, issue: "Deferred video must use preload=none" });
     if (manualPlayback) {
       if (video.attr("data-autoplay-when-visible") || video.attr("data-src") || video.find("source[data-src]").length) performance.push({ page: route, issue: "Manual video must bypass autoplay and deferred hydration" });
@@ -1364,6 +1362,7 @@ for (const page of htmlFiles) {
   }
   if (route === "/training-resources/pathways.html") {
     const pathwayCards = $(".learning-pathway-card");
+    const programCards = $(".learning-program");
     if (pathwayCards.length !== 5) {
       contentFindings.push({ source: route, issue: `Expected 5 role pathways; found ${pathwayCards.length}` });
     }
@@ -1384,6 +1383,13 @@ for (const page of htmlFiles) {
     if (programCards.length !== 7) {
       contentFindings.push({ source: route, issue: `Expected 7 training programs; found ${programCards.length}` });
     }
+    programCards.each((_, element) => {
+      const card = $(element);
+      const label = card.find("h3").first().text().trim() || "Unnamed program";
+      if (card.find("h3").length !== 1 || card.find("a").length !== 1) {
+        accessibility.push({ page: route, issue: `${label} is missing a heading or destination` });
+      }
+    });
     if ($("#keep-going-heading").length !== 1 || $("#keep-going-heading").text().trim().length < 20) {
       accessibility.push({ page: route, issue: "Closing guidance is incomplete" });
     }
