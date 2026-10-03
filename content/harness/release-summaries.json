@@ -50,42 +50,44 @@
       "lastReviewed": "2026-10-03",
       "reviewStatus": "source-verified",
       "highlights": [
-        "Memory now turns on by default, can backfill seven days of past work, and can sync your notes between computers through OneDrive.",
-        "Cloud models were refreshed, adding GPT-6.1 Sol, and Flash is now the default model for new chats.",
-        "The managed Codex engine now updates itself automatically after startup when no Codex session is running, with clearer handling when the shared engine is already updated.",
-        "Integration tool rejections now explain how to recover, and credentials stay fresh while the app is idle.",
-        "Threads now use Done and Reopen wording, and Windows computer use no longer opens an extra console window."
+        "Memory now keeps daily notes of your work by default, and you can optionally sync them between your computers through OneDrive.",
+        "New chats now start with the Flash model, and GPT-6.1 Sol is among the updated cloud models.",
+        "Finished tasks are now marked Done, and you can reopen them if you want to continue.",
+        "On Windows, the app no longer opens an extra console window when it works with your desktop applications."
       ],
       "guidance": {
         "setup": [
-          "Check for app updates under Settings, About, Check for Updates. A Harness update also carries UCSD-managed configuration, built-in skills, and the managed plugin composition.",
-          "The managed Codex engine updates in the background after starting unless a Codex session is running; if that attempt is skipped or fails, use the provider update action in the sidebar or provider settings."
+          "To update the app, open Settings, then About, and choose Check for Updates."
         ],
         "faq": [
-          "Computer use is off by default. Turn it on under Settings, General, Computer use; on macOS it requests Accessibility and Screen Recording access before the driver starts.",
-          "Permission modes are set per thread. New threads start in Full access unless you choose otherwise, and changing the mode in one thread does not affect any other thread."
+          "Computer use is off by default; turn it on in Settings under General if you want the agent to work with local applications.",
+          "New tasks start in Full access, where the agent works without asking. Pick a different mode before sending if you want approvals first."
         ],
         "privacy": [
-          "Memory is on by default and keeps daily summaries of your threads as local notes on each machine. You can turn it off under Settings, General, Memory; your existing notes stay.",
-          "OneDrive sync is optional and separate from local notes. When enabled, notes are copied to your OneDrive and shared between your computers; signing out stops sync and keeps the notes."
+          "Memory is on by default and keeps daily notes of your conversations on your own computer. You can turn it off under Settings, General, Memory.",
+          "Syncing notes to your other computers through OneDrive is optional. Turn it on under Settings, General, Memory, and sign in with your UC San Diego account."
         ],
         "skills": [
-          "TritonAI Commons is the public skill library in Settings, Skills. AI Team and Community skills come from Commons; skills you create or add locally stay under Your Skills until you publish them."
+          "Find reusable skills for recurring work in TritonAI Commons, the public skill library under Settings, Skills."
         ],
         "citizen": [
-          "To share a local skill with UCSD, select Share with UCSD under Your Skills and accept the public-share confirmation. Submission opens a ready-for-review pull request; Harness never merges it.",
-          "Only submit material that is safe to publish. Do not include secrets, private data, internal infrastructure details, or files you lack permission to share."
+          "Bring back a prompt you already sent by pressing the up arrow in an empty message box.",
+          "If you want the agent to pause for your approval before changing files, choose Supervised mode before sending your task."
         ],
         "models": [
-          "Harness remembers your provider, model, and model options for new threads. A project's configured model takes precedence over that remembered selection.",
-          "Your TritonAI access key is managed under Settings, Runtime. Change key verifies access and restarts the local runtime; changing one connection keeps the other connection's key."
+          "Check which access key is in use under Settings, Runtime. It shows only the last four characters, so the full key stays hidden.",
+          "To replace an access key, choose Change key, enter the new one, and pick Check access and save. The connection briefly restarts afterward."
         ]
+      },
+      "audience": {
+        "kind": "nontechnical-staff-and-faculty",
+        "policyVersion": 2
       },
       "claimEvidence": {
         "version": "v0.3.5",
         "highlights": [
           {
-            "text": "Memory now turns on by default, can backfill seven days of past work, and can sync your notes between computers through OneDrive.",
+            "text": "Memory now keeps daily notes of your work by default, and you can optionally sync them between your computers through OneDrive.",
             "evidence": [
               {
                 "source": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.5",
@@ -94,7 +96,7 @@
             ]
           },
           {
-            "text": "Cloud models were refreshed, adding GPT-6.1 Sol, and Flash is now the default model for new chats.",
+            "text": "New chats now start with the Flash model, and GPT-6.1 Sol is among the updated cloud models.",
             "evidence": [
               {
                 "source": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.5",
@@ -103,34 +105,17 @@
             ]
           },
           {
-            "text": "The managed Codex engine now updates itself automatically after startup when no Codex session is running, with clearer handling when the shared engine is already updated.",
-            "evidence": [
-              {
-                "source": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.5",
-                "quote": "Managed Codex updates install automatically after startup when no Codex session is running, with clearer handling when the shared runtime is already updated."
-              }
-            ]
-          },
-          {
-            "text": "Integration tool rejections now explain how to recover, and credentials stay fresh while the app is idle.",
-            "evidence": [
-              {
-                "source": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.5",
-                "quote": "Integration tool rejections now explain the recovery action, and credential refresh gets time to finish before tools are retried."
-              },
-              {
-                "source": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.5",
-                "quote": "Integration credentials stay fresh while idle, and failed tool calls give agents clearer recovery guidance."
-              }
-            ]
-          },
-          {
-            "text": "Threads now use Done and Reopen wording, and Windows computer use no longer opens an extra console window.",
+            "text": "Finished tasks are now marked Done, and you can reopen them if you want to continue.",
             "evidence": [
               {
                 "source": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.5",
                 "quote": "Threads use Done/Reopen wording, with improved sidebar presentation and folder-opening actions for memory and logs."
-              },
+              }
+            ]
+          },
+          {
+            "text": "On Windows, the app no longer opens an extra console window when it works with your desktop applications.",
+            "evidence": [
               {
                 "source": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.5",
                 "quote": "Windows computer use no longer opens an extra console window."
@@ -141,45 +126,28 @@
         "guidance": {
           "setup": [
             {
-              "text": "Check for app updates under Settings, About, Check for Updates. A Harness update also carries UCSD-managed configuration, built-in skills, and the managed plugin composition.",
+              "text": "To update the app, open Settings, then About, and choose Check for Updates.",
               "evidence": [
                 {
                   "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/updates.md",
-                  "quote": "**Harness application:** use **Settings > About > Check for Updates**. A Harness update also carries UCSD-managed configuration, built-in skills, and the managed plugin composition."
-                }
-              ]
-            },
-            {
-              "text": "The managed Codex engine updates in the background after starting unless a Codex session is running; if that attempt is skipped or fails, use the provider update action in the sidebar or provider settings.",
-              "evidence": [
-                {
-                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/updates.md",
-                  "quote": "When an update is available, Harness installs it in the background after starting unless a Codex session is running; if that attempt is skipped or fails, use the provider update action in the sidebar or provider settings."
+                  "quote": "**Harness application:** use **Settings > About > Check for Updates**."
                 }
               ]
             }
           ],
           "faq": [
             {
-              "text": "Computer use is off by default. Turn it on under Settings, General, Computer use; on macOS it requests Accessibility and Screen Recording access before the driver starts.",
+              "text": "Computer use is off by default; turn it on in Settings under General if you want the agent to work with local applications.",
               "evidence": [
                 {
                   "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/computer-use.md",
                   "quote": "Computer use is off by default. In the desktop app, open **Settings > General** and turn on **Computer use** to opt in."
-                },
-                {
-                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/computer-use.md",
-                  "quote": "On macOS, turning the setting on requests Accessibility and Screen Recording access."
                 }
               ]
             },
             {
-              "text": "Permission modes are set per thread. New threads start in Full access unless you choose otherwise, and changing the mode in one thread does not affect any other thread.",
+              "text": "New tasks start in Full access, where the agent works without asking. Pick a different mode before sending if you want approvals first.",
               "evidence": [
-                {
-                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/permission-modes.md",
-                  "quote": "The mode is set per thread, from the mode control in the message composer. Changing it in one\nthread does not change any other thread."
-                },
                 {
                   "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/permission-modes.md",
                   "quote": "otherwise new threads start in **Full access** unless you pick something else\nbefore sending."
@@ -189,7 +157,7 @@
           ],
           "privacy": [
             {
-              "text": "Memory is on by default and keeps daily summaries of your threads as local notes on each machine. You can turn it off under Settings, General, Memory; your existing notes stay.",
+              "text": "Memory is on by default and keeps daily notes of your conversations on your own computer. You can turn it off under Settings, General, Memory.",
               "evidence": [
                 {
                   "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/memory.md",
@@ -202,7 +170,7 @@
               ]
             },
             {
-              "text": "OneDrive sync is optional and separate from local notes. When enabled, notes are copied to your OneDrive and shared between your computers; signing out stops sync and keeps the notes.",
+              "text": "Syncing notes to your other computers through OneDrive is optional. Turn it on under Settings, General, Memory, and sign in with your UC San Diego account.",
               "evidence": [
                 {
                   "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/memory.md",
@@ -210,66 +178,62 @@
                 },
                 {
                   "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/memory.md",
-                  "quote": "**Sign out** stops sync and forgets the Microsoft sign-in; the notes stay on this computer and in OneDrive."
+                  "quote": "Otherwise Memory shows a code to enter at Microsoft's sign-in page with your UC San Diego account."
                 }
               ]
             }
           ],
           "skills": [
             {
-              "text": "TritonAI Commons is the public skill library in Settings, Skills. AI Team and Community skills come from Commons; skills you create or add locally stay under Your Skills until you publish them.",
+              "text": "Find reusable skills for recurring work in TritonAI Commons, the public skill library under Settings, Skills.",
               "evidence": [
                 {
                   "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/tritonai-commons.md",
-                  "quote": "TritonAI Commons is the public skill library in **Settings → Skills**. AI Team and Community skills come from Commons; skills you create or add locally stay under **Your Skills** until you decide to publish them."
+                  "quote": "TritonAI Commons is the public skill library in **Settings \u2192 Skills**."
                 }
               ]
             }
           ],
           "citizen": [
             {
-              "text": "To share a local skill with UCSD, select Share with UCSD under Your Skills and accept the public-share confirmation. Submission opens a ready-for-review pull request; Harness never merges it.",
+              "text": "Bring back a prompt you already sent by pressing the up arrow in an empty message box.",
               "evidence": [
                 {
-                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/tritonai-commons.md",
-                  "quote": "Select **Share with UCSD**."
-                },
-                {
-                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/tritonai-commons.md",
-                  "quote": "Harness never exposes GitHub tokens, overwrites an existing Commons skill, or merges the pull request."
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/composer.md",
+                  "quote": "Press `ArrowUp` in an empty composer to bring back the last prompt you sent in this thread."
                 }
               ]
             },
             {
-              "text": "Only submit material that is safe to publish. Do not include secrets, private data, internal infrastructure details, or files you lack permission to share.",
+              "text": "If you want the agent to pause for your approval before changing files, choose Supervised mode before sending your task.",
               "evidence": [
                 {
-                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/tritonai-commons.md",
-                  "quote": "Only submit material that is safe to publish. Do not include secrets, private data, internal infrastructure details, restricted runbooks, or files you do not have permission to share."
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/permission-modes.md",
+                  "quote": "Use **Supervised** when you want commands needing additional permissions and file changes to wait\nfor approval, or the first time you run an unfamiliar task."
                 }
               ]
             }
           ],
           "models": [
             {
-              "text": "Harness remembers your provider, model, and model options for new threads. A project's configured model takes precedence over that remembered selection.",
+              "text": "Check which access key is in use under Settings, Runtime. It shows only the last four characters, so the full key stays hidden.",
               "evidence": [
                 {
-                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/composer.md",
-                  "quote": "TritonAI Harness remembers your provider, model, and model options for new threads. A\nproject's configured model takes precedence; resetting that project setting\nreturns to the remembered selection."
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/tritonai-access-keys.md",
+                  "quote": "The **Access key** status shows the last four characters of its configured key as\n**Ends in abcd**, so you can identify it without revealing the full key."
                 }
               ]
             },
             {
-              "text": "Your TritonAI access key is managed under Settings, Runtime. Change key verifies access and restarts the local runtime; changing one connection keeps the other connection's key.",
+              "text": "To replace an access key, choose Change key, enter the new one, and pick Check access and save. The connection briefly restarts afterward.",
               "evidence": [
                 {
                   "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/tritonai-access-keys.md",
-                  "quote": "Select **Change key**, enter the replacement, and choose **Check access & save**.\nAfter access is verified, the local runtime restarts."
+                  "quote": "Select **Change key**, enter the replacement, and choose **Check access & save**."
                 },
                 {
                   "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/tritonai-access-keys.md",
-                  "quote": "Changing one\nconnection keeps the other connection’s key."
+                  "quote": "After access is verified, the local runtime restarts."
                 }
               ]
             }
@@ -323,14 +287,19 @@
         "method": "gateway-api",
         "providerInstance": "tritonai_onprem",
         "model": "api-glm-5.3",
-        "generatedAt": "2026-10-03T18:59:28.711Z",
-        "responseId": "chatcmpl-a41a8d3f644e59d0"
+        "generatedAt": "2026-10-03T23:41:20.116Z",
+        "responseId": "chatcmpl-bcd5c4ca33e90b84"
       },
       "sourceReview": {
         "method": "gateway-api",
         "model": "api-glm-5.3",
-        "responseId": "chatcmpl-b731763312ad3f6c",
+        "responseId": "chatcmpl-95b4cd488a3e22ca",
         "approved": true
+      },
+      "editorialReview": {
+        "date": "2026-10-03",
+        "method": "agent-editorial-review",
+        "note": "Omitted an internal component update and simplified task labels and Windows desktop-use wording for a nontechnical audience, preserving cited source evidence."
       }
     }
   }

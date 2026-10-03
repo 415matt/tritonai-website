@@ -25,3 +25,16 @@ test("automatic claims require exact official-source evidence and every related 
   assert.throws(() => validateSynthesis({ ...value, guidance: {} }, "v2.3.4", sources), /related page/);
   assert.throws(() => validateSynthesis({ ...value, highlights: [{ ...item, text: '<script>' }, item, item] }, "v2.3.4", sources), /Invalid public/);
 });
+
+
+test("release highlights reject engineering language while preserving source checks", () => {
+  const source = "https://github.com/dbalders/TritonAI-Harness/releases/tag/v2.3.4";
+  const quote = "The managed Codex engine updates automatically when no session is running.";
+  const evidence = [{ source, quote }];
+  const friendly = { text: "Background software for the AI assistant updates when you are not using it.", evidence };
+  const value = { version: "v2.3.4", highlights: [friendly, friendly, friendly], guidance: Object.fromEntries(Object.keys(DOCUMENTS).map((key) => [key, [friendly]])) };
+  assert.equal(validateSynthesis(value, "v2.3.4", { [source]: quote }), value);
+  for (const text of ["The managed Codex engine updates automatically.", "Credentials stay fresh while threads are idle.", "Runtime backfill is improved.", "The built-in Codex helper updates itself."]) {
+    assert.throws(() => validateSynthesis({ ...value, highlights: [{ text, evidence }, friendly, friendly] }, "v2.3.4", { [source]: quote }), /nontechnical reader/);
+  }
+});

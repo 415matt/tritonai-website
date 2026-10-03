@@ -88,9 +88,14 @@ second local or Codex schedule runs this job.
 The worker validates the separately versioned stable Harness and guided Installer
 releases. Drafts, prereleases and nightly tags are excluded. New releases or
 edited source notes receive a UC-hosted GLM 5.3 summary and guidance for setup,
-FAQs, privacy, skills, citizen development and model selection. Each statement
-carries an exact source quotation; another GLM 5.3 request checks whether the
-source supports it. Rejected or malformed output stops without changing saved
+FAQs, privacy, skills, citizen development and model selection.
+
+Release highlights are written for nontechnical staff and faculty: what they
+will notice, what they can do, and any action they need to take. Engineering
+jargon is rejected, and the source reviewer also checks audience suitability.
+An audience policy change refreshes the current summary even without a new
+release. Each statement carries an exact source quotation; another GLM 5.3
+request checks whether the source supports it. Rejected or malformed output stops without changing saved
 website content. No cloud model fallback is used. `source-verified` records an
 automated source check, not a human review.
 
