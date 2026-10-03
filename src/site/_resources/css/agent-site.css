@@ -6093,3 +6093,63 @@ main#main-content .harness-release-card li { margin-bottom: 10px; }
 main#main-content .harness-release-archive li { margin-bottom: 12px; }
 main#main-content .harness-release-archive time { display: block; color: #53616c; }
 main#main-content .harness-release-card .btn { margin-bottom: 8px; }
+
+/* Harness course promotion stays inside the page canvas. */
+main#main-content .harness-training-grid {
+  align-items: center;
+  display: grid;
+  gap: 40px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+}
+main#main-content .harness-training-preview {
+  background: #182b49;
+  border: 1px solid #182b49;
+  border-radius: 8px;
+  color: #fff;
+  display: block;
+  overflow: hidden;
+  text-decoration: none;
+}
+main#main-content .harness-training-preview img {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+main#main-content .harness-training-preview-label {
+  border-top: 1px solid #526b8a;
+  display: block;
+  font-weight: 700;
+  padding: 14px 20px;
+}
+main#main-content .harness-training-preview:hover .harness-training-preview-label {
+  text-decoration: underline;
+}
+main#main-content .harness-training-preview:focus-visible,
+main#main-content .harness-training-link:focus-visible {
+  outline: 3px solid #00629b !important;
+  outline-offset: 5px;
+}
+main#main-content .harness-training-copy h2 {
+  margin-top: 0;
+}
+main#main-content .harness-training-duration {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  margin: 24px 0 12px;
+}
+main#main-content .harness-training-duration dt {
+  color: #182b49;
+  font-size: 14px;
+}
+main#main-content .harness-training-duration dd {
+  color: #182b49;
+  font-size: 18px;
+  margin: 4px 0 0;
+}
+@media (max-width: 991px) {
+  main#main-content .harness-training-grid {
+    gap: 24px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
