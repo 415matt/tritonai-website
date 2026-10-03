@@ -96,6 +96,21 @@
       "dataClassification": "Public",
       "canonicalUrl": "/about/strategy.html",
       "relatedSlides": ["use-cases"]
+    },
+    {
+      "id": "harness-training-duration",
+      "claim": "Harness training includes about 8 minutes of Essentials lessons and about 24 minutes in the full presentation; practice takes additional time.",
+      "definition": "Rounded narrated lesson durations displayed by the course at normal playback speed. Exercise and knowledge-check time is excluded.",
+      "status": "public",
+      "owner": "TritonAI",
+      "lastReviewed": "2026-10-03",
+      "source": "https://tritonai.ucsd.edu/training/harness/; live course header and player checked October 3, 2026 (full presentation 24:16).",
+      "measurementPeriod": "Course available October 3, 2026",
+      "dataClassification": "Public training metadata",
+      "canonicalUrl": "/training/harness/",
+      "relatedSlides": [
+        "Harness training chapter 1: Why the Harness"
+      ]
     }
   ]
 }
