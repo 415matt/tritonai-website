@@ -263,7 +263,7 @@
             {
               "id": "run-url",
               "name": "run_url",
-              "value": "={{ $('Run verified release maintenance').first().json.html_url }}",
+              "value": "={{ 'https://github.com/bpollak/tritonai-website/actions/runs/' + $('Run verified release maintenance').first().json.workflow_run_id }}",
               "type": "string"
             }
           ]

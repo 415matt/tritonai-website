@@ -58,7 +58,7 @@ bannerMode: abstract
 <article class="panel panel-default hub-action-card">
 <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
 <h3>Local memory vaults</h3>
-<p>Memory is enabled by default and saves daily summaries as local Markdown notes. Relevant notes may be included in model requests. Optional OneDrive sync copies notes to your UC San Diego OneDrive and brings in notes from your other computers; you must enable sync separately. Turning Memory off stops new notes and removes its agent skill while retaining existing notes.</p>
+<p>Memory saves daily summaries as local Markdown notes. Relevant notes may be included in model requests. Settings > General > Memory controls collection and optional OneDrive sync. See the current stable release guidance below for defaults and changes.</p>
 </article>
 </div>
 </div>

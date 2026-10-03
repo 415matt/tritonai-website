@@ -67,7 +67,7 @@
         ],
         "privacy": [
           "Memory notes are kept in a local folder on each computer. Optional OneDrive sync, turned on in Settings > General > Memory, copies them to your OneDrive so every computer sees the same notes.",
-          "Usage events sent to TritonAI analytics use a random install ID and never include prompts, responses, file contents, file paths, project or thread names, model names, or authentication tokens."
+          "Usage analytics use a random installation ID. Events exclude conversation and file content, identifying workspace details, model names and authentication tokens."
         ],
         "skills": [
           "To share a skill you created, find it under Your Skills and select Share with UCSD. The confirmation names the exact local folder and explains which files will become public."
@@ -182,7 +182,7 @@
               ]
             },
             {
-              "text": "Usage events sent to TritonAI analytics use a random install ID and never include prompts, responses, file contents, file paths, project or thread names, model names, or authentication tokens.",
+              "text": "Usage analytics use a random installation ID. Events exclude conversation and file content, identifying workspace details, model names and authentication tokens.",
               "evidence": [
                 {
                   "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/telemetry.md",
@@ -228,7 +228,7 @@
               "evidence": [
                 {
                   "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/README.md",
-                  "quote": "**You’ll need a Mac or Windows PC, a TritonAI API key, and an internet connection for setup.**"
+                  "quote": "**You\u2019ll need a Mac or Windows PC, a TritonAI API key, and an internet connection for setup.**"
                 }
               ]
             },
@@ -299,6 +299,11 @@
         "model": "api-glm-5.3",
         "responseId": "chatcmpl-8281f5d96e69e511",
         "approved": true
+      },
+      "editorialReview": {
+        "date": "2026-10-03",
+        "method": "agent-editorial-review",
+        "note": "Grouped analytics exclusions for readability while preserving source evidence."
       }
     }
   }
