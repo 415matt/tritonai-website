@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="no-js" lang="en-US">
+	<head>
+		
+
+
+
+ 
+
+
+
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="initial-scale=1.0" name="viewport"/>
+    <meta content="7MiYjX2ZghMOWvtKRWlar--c6mD2ose5EcbQFQ6szFA" name="google-site-verification"/>
+    
+    <title>Write an Effective System Prompt</title>
+    <meta content="University of California San Diego" name="ORGANIZATION"/>
+    <meta content="index,follow,noarchive" name="robots"/>
+    <meta content="TritonAI" name="SITE"/>
+    <meta content="Write an Effective System Prompt" name="PAGETITLE"/>
+    <meta content="Best practices, test scenarios, and a sample system prompt for your TritonAI Tutor in Canvas." name="DESCRIPTION"/>
+    <meta content="7355c5080aaf6b3a30a17f40b206dd1c" name="id"/>
+
+   
+    
+
+
+    
+
+		
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+<link href="//cdn.ucsd.edu/cms/decorator-5/styles/bootstrap.min.css" rel="stylesheet"/>
+<link href="//cdn.ucsd.edu/cms/decorator-5/styles/base.min.css" rel="stylesheet"/>
+
+
+        
+    
+
+
+
+<!-- Site-specific CSS files -->
+    
+    
+    
+<!-- Other CSS files -->
+<!--[if lt IE 9]>
+<link rel="stylesheet" href="https://cdn.ucsd.edu/cms/decorator-5/styles/ie-support.css" />
+<![endif]-->
+
+<!-- Other JS files -->
+
+
+<script src="https://cdn.ucsd.edu/cms/decorator-5/scripts/modernizr.min.js"></script>
+
+
+        
+    
+    
+
+
+<!-- Site-specific javascript files -->
+
+
+    
+
+<!--[if lt IE 9]>
+<script src="https://cdn.ucsd.edu/cms/decorator-5/scripts/respond.min.js"></script>
+<link href="https://cdn.ucsd.edu/cms/decorator-5/scripts/cross-domain/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />
+<link href="/_resources/cross-domain/respond.proxy.gif" id="respond-redirect" rel="respond-redirect" />
+<script src="/_resources/cross-domain/respond.proxy.js"></script>
+<![endif]-->
+
+
+	</head>
+	<body>
+	    
+
+
+
+    
+
+		<header class="layout-header">
+			<a class="sr-only skip-to-main" href="#main-content">Skip to main content</a>
+			<div id="uc-emergency"></div>
+			<!-- title section -->
+			<section aria-label="Site Name" class="layout-title">
+				<div class="layout-container container">
+					
+
+
+
+
+<a class="title-header title-header-large" href="/">
+            Triton AI
+    </a>
+    
+<a class="title-header title-header-short" href="/">
+            Triton AI
+    </a>
+
+    <a class="title-logo" href="http://www.ucsd.edu">UC San Diego</a>
+
+
+
+				</div>
+			</section>
+		</header>
+		
+		<div class="navmenu navmenu-default navmenu-fixed-left offcanvas" style="">
+		
+
+
+
+
+
+
+<ul class="nav navbar-nav navbar-right msearch">
+		    <li>
+			    <div class="search">
+		            <button aria-label="search" class="search-toggle btn-default">
+		                <span class="glyphicon glyphicon-search"></span> <span class="caret"></span>
+		            </button>
+
+		            <div class="search-content" id="search-m">
+
+                        <form action="/search/index.html" method="get">
+                            <label for="search-scope" style="display:none;">Search</label>
+                            <select class="search-scope" id="search-scope-m" name="search-scope">
+                                                                    <option selected="selected" value="tritonai">This Site</option>
+                                                                <option value="default_collection">All UCSD Sites</option>
+                                <option value="faculty-staff">Faculty/Staff</option>
+                            </select>
+                        
+                            <div class="input-group">
+                                <label for="q-m" style="display:none;">Search Term</label>
+                                <input autofocus="autofocus" class="form-control search-term" id="q-m" name="search-term-m" placeholder="Search..." type="search"/>
+                            </div>
+                            <input class="sr-only" type="submit" value="Submit"/>
+                        </form>
+
+                    </div>
+        </div>
+    </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+  
+<button aria-controls="navbar" class="navbar-toggle sr-only" data-canvas="body" data-target=".navmenu" data-toggle="offcanvas" type="button">Close Nav</button>
+
+<ul class="nav navmenu-nav"><li class="dropdown open "><a href="/about/index.html">About <span class="caret"></span></a><ul class="dropdown-menu navmenu-nav"><li><a href="/about/strategy.html">Strategy</a></li><li><a href="/about/roadmap.html">Roadmap</a></li><li><a href="/about/tritonai-updates.html">TritonAI Updates</a></li><li><a href="/about/trust-architecture.html">Trust, Privacy &amp; Hosting</a></li><li><a href="/about/team.html">Team &amp; Responsibilities</a></li><li><a href="/about/sustainability.html">Sustainability</a></li><li><a href="/about/get-involved.html">Get Involved</a></li><li><a href="/about/ai-updates.html">Weekly AI News</a></li><li><a href="/about/media.html">Media &amp; Recognition</a></li><li><a href="/about/media-articles.html">Articles &amp; Coverage</a></li></ul></li><li class="dropdown open "><a href="/training-resources/index.html">Learn <span class="caret"></span></a><ul class="dropdown-menu navmenu-nav"><li><a href="/training-resources/pathways.html">Learning Paths</a></li><li><a href="/training-resources/videos/index.html">Learning Videos</a></li><li><a href="/training-resources/tritongpt/index.html">TritonGPT Guides</a></li><li><a href="/training-resources/prompting/index.html">Prompting</a></li><li><a href="/training-resources/webinars.html">AI Webinars</a></li><li><a href="/training-resources/faculty-ai-symposium.html">Faculty AI Symposium</a></li><li><a href="/training-resources/certificate.html">Certificate</a></li><li><a href="/training-resources/faq.html">FAQ</a></li></ul></li><li class=""><a href="/connect/index.html">Connect</a></li><li class="dropdown open "><a href="/developer-apis/index.html">Build <span class="caret"></span></a><ul class="dropdown-menu navmenu-nav"><li><a href="/developer-apis/index.html">Build Overview</a></li><li><a href="/developer-apis/dsmlp-datahub.html">DSMLP &amp; DataHub</a></li><li><a href="/skills/index.html">Skills Library</a></li><li><a href="/developer-apis/start.html">Get Started</a></li><li><a href="/developer-apis/faq.html">Developer FAQs</a></li></ul></li><li class=""><a href="/tools/index.html">AI Tools</a></li><li class="dropdown open active"><a href="/tritongpt/index.html">TritonGPT <span class="caret"></span></a><ul class="dropdown-menu navmenu-nav"><li><a href="/tritongpt/index.html">Overview</a></li><li><a href="/tritongpt/integrations.html">Where TritonGPT Appears</a></li><li><a href="/training-resources/tritongpt/index.html">Guides</a></li><li><a href="/tritongpt/instruction.html">Instructional AI Pilot</a></li><li class="active"><a href="/tritongpt/chatbot-widget.html" aria-current="page">Chatbot Widget</a></li><li><a href="/tritongpt/release-notes/index.html">Feature Updates</a></li><li><a href="/tritongpt/terms.html">Terms of Use</a></li><li><a href="/tritongpt/privacy.html">Privacy Statement</a></li></ul></li><li class=""><a href="/use-cases/index.html">Use Cases</a></li></ul>
+
+		</div>
+		
+		<nav class="navbar navbar-default navbar-static-top">
+			<div class="container">
+			    
+                <div class="navbar-header">
+        			<button aria-controls="navbar" aria-expanded="false" class="navbar-toggle" data-canvas="body" data-target=".navmenu" data-toggle="offcanvas" type="button">
+          			    <span class="sr-only">Toggle navigation</span>
+    
+          					<div class="col-sm-1 mobile-nav-bars">
+          				    <span class="icon-bar"></span>
+          				    <span class="icon-bar"></span>
+          				    <span class="icon-bar"></span>
+             				</div>
+              			<div class="col-sm-1 mobile-nav-icon">
+                          MENU
+          			    </div>
+          			    
+                    </button>
+                    
+                    <div class="col-sm-4 pull-right visible-xs-block">
+                        <img alt="UC San Diego Logo" class="img-responsive header-logo" src="https://cdn.ucsd.edu/cms/decorator-5/styles/img/ucsd-footer-logo-white.png"/>
+                    </div>
+                    
+                </div>
+                
+                <div class="navbar-collapse collapse" id="navbar">
+			    
+    	            
+
+
+
+
+
+
+
+
+<ul class="nav navbar-nav navbar-nav-list"><li class="dropdown "><a aria-controls="nav-submenu-0" aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-tritonai-nav-dropdown href="/about/index.html">About <span class="caret"></span></a><ul class="dropdown-menu" id="nav-submenu-0"><li><a href="/about/strategy.html">Strategy</a></li><li><a href="/about/roadmap.html">Roadmap</a></li><li><a href="/about/tritonai-updates.html">TritonAI Updates</a></li><li><a href="/about/trust-architecture.html">Trust, Privacy &amp; Hosting</a></li><li><a href="/about/team.html">Team &amp; Responsibilities</a></li><li><a href="/about/sustainability.html">Sustainability</a></li><li><a href="/about/get-involved.html">Get Involved</a></li><li><a href="/about/ai-updates.html">Weekly AI News</a></li><li><a href="/about/media.html">Media &amp; Recognition</a></li><li><a href="/about/media-articles.html">Articles &amp; Coverage</a></li></ul></li><li class="dropdown "><a aria-controls="nav-submenu-1" aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-tritonai-nav-dropdown href="/training-resources/index.html">Learn <span class="caret"></span></a><ul class="dropdown-menu" id="nav-submenu-1"><li><a href="/training-resources/pathways.html">Learning Paths</a></li><li><a href="/training-resources/videos/index.html">Learning Videos</a></li><li><a href="/training-resources/tritongpt/index.html">TritonGPT Guides</a></li><li><a href="/training-resources/prompting/index.html">Prompting</a></li><li><a href="/training-resources/webinars.html">AI Webinars</a></li><li><a href="/training-resources/faculty-ai-symposium.html">Faculty AI Symposium</a></li><li><a href="/training-resources/certificate.html">Certificate</a></li><li><a href="/training-resources/faq.html">FAQ</a></li></ul></li><li class=""><a href="/connect/index.html">Connect</a></li><li class="dropdown "><a aria-controls="nav-submenu-3" aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-tritonai-nav-dropdown href="/developer-apis/index.html">Build <span class="caret"></span></a><ul class="dropdown-menu" id="nav-submenu-3"><li><a href="/developer-apis/index.html">Build Overview</a></li><li><a href="/developer-apis/dsmlp-datahub.html">DSMLP &amp; DataHub</a></li><li><a href="/skills/index.html">Skills Library</a></li><li><a href="/developer-apis/start.html">Get Started</a></li><li><a href="/developer-apis/faq.html">Developer FAQs</a></li></ul></li><li class=""><a href="/tools/index.html">AI Tools</a></li><li class="dropdown active"><a aria-controls="nav-submenu-5" aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-tritonai-nav-dropdown href="/tritongpt/index.html">TritonGPT <span class="caret"></span></a><ul class="dropdown-menu" id="nav-submenu-5"><li><a href="/tritongpt/index.html">Overview</a></li><li><a href="/tritongpt/integrations.html">Where TritonGPT Appears</a></li><li><a href="/training-resources/tritongpt/index.html">Guides</a></li><li><a href="/tritongpt/instruction.html">Instructional AI Pilot</a></li><li class="active"><a href="/tritongpt/chatbot-widget.html" aria-current="page">Chatbot Widget</a></li><li><a href="/tritongpt/release-notes/index.html">Feature Updates</a></li><li><a href="/tritongpt/terms.html">Terms of Use</a></li><li><a href="/tritongpt/privacy.html">Privacy Statement</a></li></ul></li><li class=""><a href="/use-cases/index.html">Use Cases</a></li></ul>
+
+    	            
+    	            <div class="btn-nav"></div>
+    		
+    				
+
+
+
+
+
+<ul class="nav navbar-nav navbar-right">
+		    <li>
+			    <div class="search">
+		            <button aria-label="search" class="search-toggle btn-default">
+		                <span class="glyphicon glyphicon-search"></span> <span class="caret"></span>
+		            </button>
+
+		            <div class="search-content" id="search">
+
+                        <form action="/search/index.html" id="cse-search-box" method="get">
+                            <label class="sr-only" for="search-scope">Search Scope</label>
+                            <select class="search-scope" id="search-scope" name="search-scope">
+                                                                    <option selected="selected" value="tritonai">This Site</option>
+                                                                <option value="default_collection">All UCSD Sites</option>
+                                <option value="faculty-staff">Faculty/Staff</option>
+                            </select>
+                        
+                            <div class="input-group">
+                                <label for="q" id="search-term-label" style="display:none;">Search Term</label>
+                                <input autofocus="autofocus" class="form-control search-term" id="q" name="search-term" placeholder="Search..." type="search"/>
+                            </div>
+                            <input class="sr-only" type="submit" value="Submit"/>
+                        </form>
+
+                    </div>
+        </div>
+    </li>
+</ul>
+
+
+
+				
+				</div><!--end nav collapse -->
+
+			</div>
+		</nav>
+		<main class="layout-main" id="main-content">
+		    
+
+
+
+
+
+
+        
+                    
+        
+                    
+                                    
+                                
+                    
+                                    
+                         
+                                    
+                                    
+                                
+                        
+        
+        
+
+
+
+			<div class="container">
+			    <div class="row">
+				    
+
+<div class="container">
+    <div class="row">
+       <ol aria-label="Breadcrumb" class="breadcrumb breadcrumbs-list">
+            <li><a href="../index.html">TritonAI</a></li>
+            <li><a href="index.html">TritonGPT</a></li>
+            <li><a href="../instruction.html">Instructional AI Pilot</a></li>
+            <li><a href="index.html">TritonAI Tutor Guide</a></li>
+            <li aria-current="page">Write an Effective System Prompt</li>
+        </ol>
+    </div>
+</div>
+				</div>
+			</div>
+			<div class="container">
+			    <div class="row">
+				    
+
+
+
+
+
+
+
+
+
+<section aria-label="Main Content" class="col-xs-9 main-section pull-right">
+<h1>Write an Effective System Prompt</h1>
+
+<h2 id="before-you-start">Before You Start</h2>
+<p>A well-written system prompt is the most effective way to make your tutor behave like an extension of your teaching. This guide covers how to write one: what to include, how to phrase it, and how to test it before students use it.</p>
+<p>Think of the system prompt as a short syllabus for the tutor's behavior. It tells the tutor who your students are, what the course is trying to accomplish, how to use your materials, and what is off limits. The tutor reads these instructions before every conversation, so small changes can have a large effect.</p>
+<p>You don't need to start from scratch. Each preset (from fully Socratic to fully direct) comes with a baseline system prompt. The easiest approach is to choose the preset closest to what you want, then edit its instructions to fit your course. For where to do that in Canvas, see <a href="edit-system-prompt.html">Update the System Prompt</a>.</p>
+<div class="tutor-guide-note"><p><strong>The system prompt strongly guides the tutor, but it is not an absolute guarantee.</strong> A determined student can sometimes talk an AI past its instructions. If a rule matters to you, such as never giving answers to graded work, test it yourself before relying on it (see <a href="#testing-your-tutor">Testing Your Tutor</a>).</p></div>
+
+<h2 id="best-practices">Best Practices</h2>
+<p>Below are some high-level tips for designing your own system prompt. Use the links to jump to a more detailed explanation.</p>
+<ul>
+  <li><a href="#keep-it-focused"><strong>Keep it focused:</strong></a> Make every instruction earn its place and check that none contradict each other.</li>
+  <li><a href="#audience-and-purpose"><strong>Identify the audience and purpose:</strong></a> Tell the tutor who your students are and what it's there to help with.</li>
+  <li><a href="#address-the-tutor"><strong>Address the tutor directly:</strong></a> Use “you” statements or plain commands, and stay consistent.</li>
+  <li><a href="#be-specific"><strong>Be specific:</strong></a> Describe the exact behavior you want instead of vague goals like “be supportive.”</li>
+  <li><a href="#explain-the-reasons"><strong>Explain the reasons behind your rules:</strong></a> A rule with a reason is followed more reliably and applied better in new situations.</li>
+  <li><a href="#set-boundaries"><strong>Set boundaries, and say what to do instead:</strong></a> Pair every limit with what the tutor should do in its place.</li>
+  <li><a href="#course-materials"><strong>Tell the tutor how to use your course materials:</strong></a> Say which materials take priority, what notation to use, and when to point students back to readings.</li>
+  <li><a href="#students-who-push-back"><strong>Plan for students who push back:</strong></a> Decide in advance how the tutor responds when a student demands the answer.</li>
+  <li><a href="#off-topic-and-difficult"><strong>Plan for off-topic and difficult moments:</strong></a> Tell the tutor how to redirect off-topic requests and respond to students in distress.</li>
+  <li><a href="#good-responses"><strong>Show what good responses look like:</strong></a> Give two varied examples or describe the qualities you want, rather than one template to copy.</li>
+  <li><a href="#define-the-tone"><strong>Define the tone:</strong></a> State briefly how the tutor should sound.</li>
+  <li><a href="#formatting"><strong>Guide the formatting of responses:</strong></a> Keep responses short and simple enough to read comfortably in a Canvas chat window.</li>
+</ul>
+
+<h3 id="keep-it-focused">Keep it focused</h3>
+<p>Every instruction should earn its place. Length itself is rarely the problem; vague instructions and instructions that contradict each other are. Before saving changes to your prompt, reread it and check that no two instructions pull in opposite directions (for example, “always be concise” alongside “explain every step in detail”). If your prompt starts to get long, organize it into short labeled sections so it stays easy to maintain.</p>
+
+<h3 id="audience-and-purpose">Identify the audience and purpose</h3>
+<p>Tell the tutor who it is talking to and why. This helps it calibrate tone, depth, and vocabulary.</p>
+<div class="tutor-guide-examples">
+  <p class="tutor-guide-examples-label">Examples</p>
+  <p>“You are a tutor for UC San Diego undergraduates in BILD 1, a large introductory biology course. Most students are first-years with no college biology background. Your purpose is to help them understand key concepts and connect them to course materials, not to introduce new topics.”</p>
+  <p>“You support graduate students in the History department as they develop research proposals. Help them sharpen their research questions and strengthen their arguments.”</p>
+  <p>“You help engineering students understand lab safety protocols by explaining the reasoning behind each rule in plain language.”</p>
+</div>
+
+<h3 id="address-the-tutor">Address the tutor directly</h3>
+<p>Write instructions as if you are talking to the tutor. Either second person (“you”) statements or plain commands work well; the key is to pick one style and stay consistent.</p>
+<div class="tutor-guide-examples">
+  <p class="tutor-guide-examples-label">Examples</p>
+  <p>“You explain statistical results clearly and avoid jargon.”</p>
+  <p>“Guide students through essay structure using examples from course readings.”</p>
+</div>
+
+<h3 id="be-specific">Be specific</h3>
+<p>Avoid vague terms like “be supportive” or “be engaging,” which the tutor will interpret in its own way. Describe the actual behavior you want.</p>
+<div class="tutor-guide-examples">
+  <p class="tutor-guide-examples-label">Examples</p>
+  <p>“Ask one clarifying question before offering feedback on a student's work.”</p>
+  <p>“When working through a chemistry problem, first restate the question, then identify the relevant equation before any calculation.”</p>
+  <p>“When discussing a literary text, point to a specific passage and explain its relevance before summarizing.”</p>
+</div>
+
+<h3 id="explain-the-reasons">Explain the reasons behind your rules</h3>
+<p>The tutor follows instructions more reliably when it understands why they exist. A reason also helps it handle situations you didn't anticipate, because it can apply the intent rather than guess at the boundaries of a rule.</p>
+<div class="tutor-guide-examples">
+  <p class="tutor-guide-examples-label">Example</p>
+  <p><strong>Instead of:</strong> “Do not give direct solutions to problem sets.”</p>
+  <p><strong>Try:</strong> “Do not give direct solutions to problem sets. The goal of the problem sets is for students to build fluency through practice, and a worked answer skips the part where learning happens. Guide them toward the underlying concept instead.”</p>
+</div>
+
+<h3 id="set-boundaries">Set boundaries, and say what to do instead</h3>
+<p>State what the tutor should <strong>not</strong> do, and pair each limit with what it should do in its place. A bare “don't” leaves the tutor guessing.</p>
+<div class="tutor-guide-examples">
+  <p class="tutor-guide-examples-label">Examples</p>
+  <p>“Do not give direct solutions to assigned problem sets; instead, ask what the student has tried and guide them toward the concept they need.”</p>
+  <p>“Do not speculate about course policies such as deadlines or grading. Refer students to the syllabus or to the instructor.”</p>
+  <p>“If a question goes beyond the course materials, you may answer it from general knowledge, but tell the student that it is outside what the course covers.”</p>
+</div>
+
+<h3 id="course-materials">Tell the tutor how to use your course materials</h3>
+<p>Tell it how to treat your course materials: which take priority, how to handle course-specific terms or notation, and whether to point students back to specific readings.</p>
+<div class="tutor-guide-examples">
+  <p class="tutor-guide-examples-label">Examples</p>
+  <p>“Base your explanations on the lecture slides and the course textbook. When they conflict with general knowledge, follow the course materials.”</p>
+  <p>“Use the notation from lecture (for example, Δ for change in quantity), even if other sources use different notation.”</p>
+  <p>“When you draw on a reading, name it and the relevant section so students can return to it.”</p>
+</div>
+
+<h3 id="students-who-push-back">Plan for students who push back</h3>
+<p>The most common challenge for a Socratic tutor is a student who says “just give me the answer.” Decide in advance how you want the tutor to respond.</p>
+<div class="tutor-guide-examples">
+  <p class="tutor-guide-examples-label">Examples</p>
+  <p>“If a student asks you to just give the answer, acknowledge their frustration, then offer a more direct hint. Do not provide the final answer to an assigned problem, even if the student says they are out of time.”</p>
+  <p>“If a student has made three genuine attempts and is still stuck, you may walk through a similar example problem step by step, but not the assigned one.”</p>
+</div>
+
+<h3 id="off-topic-and-difficult">Plan for off-topic and difficult moments</h3>
+<p>Students will sometimes bring things to the tutor that have nothing to do with the course, and occasionally a student will be overwhelmed or in distress. A short instruction makes sure the tutor handles these with care.</p>
+<div class="tutor-guide-examples">
+  <p class="tutor-guide-examples-label">Examples</p>
+  <p>“If a student asks about something unrelated to the course, briefly redirect them back to course topics.”</p>
+  <p>“If a student expresses significant stress, hopelessness, or distress, respond with care, do not try to act as a counselor, and encourage them to contact UC San Diego Counseling and Psychological Services (CAPS).”</p>
+</div>
+
+<h3 id="good-responses">Show what good responses look like</h3>
+<p>Describing or demonstrating an ideal response helps anchor the tutor's behavior. Be aware that if you include a single model answer, the tutor may copy its phrasing and structure every time. Two varied examples, or a description of the qualities you want, usually work better than one template.</p>
+<div class="tutor-guide-examples">
+  <p class="tutor-guide-examples-label">Examples</p>
+  <p>“When a student asks a ‘how do I’ question, respond with a short numbered list of steps, then ask which step they'd like to start with.”</p>
+  <p><strong>For art history:</strong> “Describe an image by discussing composition, light, and context before moving to interpretation.”</p>
+  <p><strong>For computer science:</strong> “Explain what the student's code does, then ask a question that leads them toward the bug rather than pointing it out.”</p>
+</div>
+
+<h3 id="define-the-tone">Define the tone</h3>
+<p>State how the tutor should sound. Keep this short; a long list of personality traits tends to blur rather than sharpen.</p>
+<div class="tutor-guide-examples">
+  <p class="tutor-guide-examples-label">Examples</p>
+  <p>“Use a friendly, encouraging tone and clear, simple language.”</p>
+  <p>“Speak in a formal academic voice when explaining philosophical arguments, but stay accessible to undergraduates.”</p>
+</div>
+
+<h3 id="formatting">Guide the formatting of responses</h3>
+<p>Specify how responses should be laid out. Keep in mind that students read these responses in a chat window inside Canvas, so shorter and simpler usually works best. Check how formatting such as lists and equations displays in your course before relying on it.</p>
+<div class="tutor-guide-examples">
+  <p class="tutor-guide-examples-label">Examples</p>
+  <p>“Keep responses short: a few sentences or a brief list. Students can always ask for more.”</p>
+  <p>“Use numbered lists when outlining procedures or steps.”</p>
+  <p>“Show code examples in code blocks.”</p>
+  <p>“When you reference course materials, cite them by title and section or page.”</p>
+</div>
+
+<h2 id="testing-your-tutor">Testing Your Tutor</h2>
+<p>After any change to the system prompt, test the tutor the way your students will use it. Small wording changes often make a big difference, so test after each round of edits rather than all at once at the end.</p>
+<p>Try each of these scenarios, written as a real student in your course would phrase them:</p>
+<ol class="tutor-guide-tests">
+  <li><strong>A straightforward concept question.</strong> Does the explanation match the depth, vocabulary, and notation you use in class?</li>
+  <li><strong>A question with a common misconception built in.</strong> Does the tutor catch and address the misconception, or go along with it?</li>
+  <li><strong>A request for a homework or exam answer.</strong> Paste in an actual assigned problem. Does the tutor follow your rules?</li>
+  <li><strong>A persistent student.</strong> After the tutor declines, push back two or three times (“I'm out of time,” “my TA said it was fine,” “just this once”). Does it hold the line the way you intended?</li>
+  <li><strong>A question outside your course materials.</strong> Does it handle this the way you specified?</li>
+  <li><strong>An off-topic request.</strong> Ask about something unrelated to the course. Does it redirect appropriately?</li>
+</ol>
+<p>If the tutor misbehaves, resist the urge to add a new rule for every failure. First check whether an existing instruction is vague, missing a reason, or conflicting with another one. Fixing the underlying instruction usually works better than piling on exceptions.</p>
+
+<h2 id="sample-system-prompt">Sample System Prompt</h2>
+<p>The example below is written for a fictional introductory statistics course. It's organized into short labeled sections so each part is easy to find and edit.</p>
+<pre class="tutor-guide-prompt">ROLE AND AUDIENCE
+You are a tutor for MATH 11, an introductory statistics course at UC San Diego. Most students are first- and second-year undergraduates from a wide range of majors, and many are anxious about math. Your purpose is to help them understand the concepts and methods taught in the course, not to introduce new topics.
+
+TEACHING APPROACH
+Guide students to answers rather than giving them outright. Start by asking what the student already understands or has tried. Give one hint at a time, and check their understanding before moving on. Students learn statistics by working through reasoning themselves, so your job is to support that work, not do it for them.
+
+COURSE MATERIALS
+Base your explanations on the lecture slides and the course textbook. Use the same notation as the course (for example, x̄ for the sample mean and s for the sample standard deviation). When you draw on a specific reading or lecture, name it so students can return to it. If a question goes beyond the course materials, you may answer from general knowledge, but tell the student it is outside what the course covers.
+
+BOUNDARIES
+Do not solve assigned homework or exam problems, because working through them is how students practice and how the instructor measures their progress. Instead, help with the concept behind the problem or walk through a similar example with different numbers. If a student asks you to just give the answer, acknowledge their frustration and offer a more direct hint, but do not provide the final answer, even if they say they are out of time. Do not answer questions about deadlines, grading, or course policies. Refer students to the syllabus or the instructor.
+
+OFF-TOPIC AND DIFFICULT MOMENTS
+If a student asks about something unrelated to the course, briefly redirect them to course topics. If a student expresses significant stress or distress, respond with care, do not try to act as a counselor, and encourage them to contact UC San Diego Counseling and Psychological Services (CAPS).
+
+TONE AND FORMAT
+Use a warm, encouraging tone and plain language. Keep responses short: a few sentences, or a brief numbered list for multi-step procedures. Students can always ask for more detail.</pre>
+
+<ul class="pager">
+  <li class="previous"><a href="edit-system-prompt.html">&larr; Update the System Prompt</a></li>
+  <li class="next"><a href="../instruction-faq.html">Instructional AI FAQ &rarr;</a></li>
+</ul>
+            </section>
+            </section>
+				    
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section aria-label="Sidebar" class="col-xs-12 col-md-3 sidebar-section" role="complementary">
+    
+                <figure aria-label="Logo" id="site-logo" role="complementary">
+            <logo/>
+        </figure>
+        
+                            <article aria-label="Sidebar Nav" class="main-content-nav" role="navigation">
+                                                                                                                                            
+        
+            <h2>
+                                    <a href="index.html">TritonGPT</a>
+                    </h2>
+    
+                                        
+        
+                                        
+        
+    <ul class="navbar-list">
+                
+             
+                                                            
+                                                                
+                                                                
+                                                                                                                                <li class="">
+                    <a href="https://tritonai.ucsd.edu/training-resources/tritongpt/index.html">
+                Guides
+            </a>
+            </li>
+                                                                                                                
+             
+                                                            
+                                                                                                                                    
+                                                                
+                                                                                                                                <li class="">
+                    <a href="instruction.html">
+                Instructional AI Pilot
+            </a>
+            </li>
+                                                                                                                
+             
+                                                            
+                                                                                                                                                            
+                                                                
+                                                                                                                                <li class="active">
+                    Chatbot Widget
+            </li>
+                                                                                                                
+             
+                                                            
+                                                                                                                                    
+                                                                
+                                                                                                                                                                                    
+             
+                                                            
+                                                                
+                        
+                                                                
+                                                                                                                                <li class="collapsed">
+                    <a href="release-notes/index.html">
+                Release Notes
+            </a>
+            </li>
+                                                                                                                
+             
+                                                            
+                                                                                                                                    
+                                                                
+                                                                                                                                <li class="">
+                    <a href="terms.html">
+                Terms of Use
+            </a>
+            </li>
+                                                                                                                
+             
+                                                            
+                                                                                                                                    
+                                                                
+                                                                                                                                <li class="">
+                    <a href="privacy.html">
+                Privacy Statement
+            </a>
+            </li>
+                                                                                                            </ul>
+                
+            </article>
+            
+            
+                            <custom/>
+                </section>
+
+			    </div>
+			</div>
+		</main>
+		<footer class="footer">
+		    
+			
+
+
+
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+        <p>
+        <span>UC San Diego 9500 Gilman Dr. La Jolla, CA 92093 (858) 534-2230</span>
+        <br/>
+        <span>
+        Copyright © <span class="footer-copyright-year">2026</span> Regents of the University of California.
+        All rights reserved.
+        </span>
+        </p>
+            <ul class="footer-links">
+                <li><a href="https://accessibility.ucsd.edu/">Accessibility</a></li>
+                <li><a href="https://ucsd.edu/about/privacy.html">Privacy</a></li>
+                <li><a href="https://ucsd.edu/about/terms-of-use.html">Terms of Use</a></li>
+                <li>
+                        <a href="mailto:tritonai@ucsd.edu">Feedback</a>
+            </li>
+            </ul>
+        </div>
+        
+        <div class="col-sm-4">
+            <a href="https://ucsd.edu/"><img alt="UCSD homepage" class="img-responsive footer-logo" src="https://cdn.ucsd.edu/developer/decorator/5.0.2/img/ucsd-footer-logo-white.png"/></a>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.ucsd.edu/cms/decorator-5/scripts/jquery.min.js"></script>
+<script src="https://cdn.ucsd.edu/cms/decorator-5/scripts/bootstrap.min.js"></script>
+<script src="https://www.ucsd.edu/common/_emergency-broadcast/message.js"></script>
+<script src="https://cdn.ucsd.edu/cms/decorator-5/scripts/vendor.min.js"></script>
+<script src="https://cdn.ucsd.edu/cms/decorator-5/scripts/base.min.js"></script>
+
+
+        
+        
+    
+
+
+<!-- Site-specific javascript files -->
+
+
+
+
+                                <script src="../../_resources/js/datatables.min.js" type="text/javascript"></script>
+            
+
+
+
+
+<script>
+    $(document).ready(function() {
+      $('.js-activated').dropdownHover().dropdown();
+    });
+  </script>
+
+        
+    <script src="https://cdn.ucsd.edu/cms/decorator-5/scripts/decorator.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+    (function($) {
+        $(document).ready(function() {
+            initCopyright();
+        });
+    })(jQuery);
+    </script>
+    
+
+
+
+
+
+ 
+
+
+
+
+  <script src="https://cdn.ucsd.edu/tritongpt/widget/js/tgpt-loader.js" type="text/javascript"></script>
+
+
+		</footer>
+	</body>
+</html>

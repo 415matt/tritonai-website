@@ -872,6 +872,11 @@ function navigationOwner(items, route) {
   return items.find((item) => (item.href.split("/").filter(Boolean)[0] || "") === section) || null;
 }
 
+function navigationContainsRoute(item, route) {
+  if (item.href === route) return true;
+  return (item.items || []).some((child) => navigationContainsRoute(child, route));
+}
+
 function renderNavigation(items, route, mobile = false) {
   const owner = navigationOwner(items, route);
   return items
@@ -910,10 +915,41 @@ function renderSidebarItems(navigation, route) {
   // expanded. Do not repeat a child that merely aliases the section landing.
   const children = (owner.items || []).filter((child) => child.href !== owner.href);
   const activeChild = children.find((child) => child.href === route);
+  const activeDescendantChild = children.find((child) =>
+    child.href !== route && navigationContainsRoute(child, route)
+  );
+  const descendantNavLinks = (item) =>
+    (item.items || [])
+      .map((grandchild) =>
+        grandchild.href === route
+          ? `<li class="${(grandchild.items || []).length ? "expanded active" : "active"}">${escapeHtml(grandchild.label)}${(grandchild.items || []).length ? `<ul>${childNavLinks(grandchild)}</ul>` : ""}</li>`
+          : navigationContainsRoute(grandchild, route)
+            ? `<li class="expanded active">${escapeHtml(grandchild.label)}<ul>${descendantNavLinks(grandchild)}</ul></li>`
+            : `<li><a href="${escapeHtml(grandchild.href)}">${escapeHtml(grandchild.label)}</a></li>`
+      )
+      .join("");
+  const childNavLinks = (item) =>
+    (item.items || [])
+      .map((child) => `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`)
+      .join("");
   if (activeChild) {
     return children
       .map((child) => {
-        if (child.href === route) return `<li class="active">${escapeHtml(child.label)}</li>`;
+        if (child.href === route) {
+          const grandchildMenu = descendantNavLinks(child);
+          return `<li class="${grandchildMenu ? "expanded active" : "active"}">${escapeHtml(child.label)}${grandchildMenu ? `<ul>${grandchildMenu}</ul>` : ""}</li>`;
+        }
+        return `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`;
+      })
+      .join("");
+  }
+
+  if (activeDescendantChild) {
+    return children
+      .map((child) => {
+        if (child === activeDescendantChild) {
+          return `<li class="expanded active">${escapeHtml(child.label)}<ul>${descendantNavLinks(child)}</ul></li>`;
+        }
         return `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`;
       })
       .join("");
@@ -938,7 +974,10 @@ function renderSidebarInner(navigation, route) {
   const owner = navigationOwner(navigation, route);
   const children = owner ? (owner.items || []).filter((child) => child.href !== owner.href) : [];
   const activeChild = children.find((child) => child.href === route);
-  const heading = activeChild && owner
+  const activeDescendantChild = children.find((child) =>
+    child.href !== route && navigationContainsRoute(child, route)
+  );
+  const heading = (activeChild || activeDescendantChild) && owner
     ? `<a href="${escapeHtml(owner.href)}">${escapeHtml(owner.label)}</a>`
     : '<a href="/index.html">TritonAI</a>';
   return `<h2>${heading}</h2><ul class="navbar-list">${renderSidebarItems(navigation, route)}</ul>`;

@@ -174,6 +174,31 @@
       "title": "Instructional TritonAI Tutor",
       "lastModified": "2026-10-03"
     },
+    "/tritongpt/instruction-faq.html": {
+      "title": "Instructional AI FAQ",
+      "description": "Answers for UC San Diego instructors and students about the TritonAI Tutor in Canvas: what it can read, how lock dates work, and who can see conversations.",
+      "lastModified": "2026-10-03"
+    },
+    "/tritongpt/tutor-guide/index.html": {
+      "title": "TritonAI Tutor Guide",
+      "description": "How to set up and tune the TritonAI Tutor in your Canvas course: the knowledge base, the system prompt, and how to test your tutor.",
+      "lastModified": "2026-10-03"
+    },
+    "/tritongpt/tutor-guide/knowledge-base.html": {
+      "title": "Update the Knowledge Base",
+      "description": "Choose which Canvas materials, Google Drive folders, and websites your TritonAI Tutor can use.",
+      "lastModified": "2026-10-03"
+    },
+    "/tritongpt/tutor-guide/edit-system-prompt.html": {
+      "title": "Update the System Prompt",
+      "description": "Pick a teaching style and edit the instructions your TritonAI Tutor follows in every student conversation.",
+      "lastModified": "2026-10-03"
+    },
+    "/tritongpt/tutor-guide/write-system-prompt.html": {
+      "title": "Write an Effective System Prompt",
+      "description": "Best practices, test scenarios, and a sample system prompt for your TritonAI Tutor in Canvas.",
+      "lastModified": "2026-10-03"
+    },
     "/tritongpt/privacy.html": {
       "description": "Read how TritonGPT handles prompts, files, account information, and service data when UC San Diego community members use the platform.",
       "lastModified": "2026-07-29"
