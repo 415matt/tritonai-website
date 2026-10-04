@@ -75,7 +75,7 @@ bannerMode: abstract
 <ul data-harness-current-highlights></ul>
 <p>To update an existing installation, open <strong>Settings &gt; About &gt; Check for Updates</strong>. For first-time setup, use the <a href="/developer-apis/start.html#harness">stable TritonAI Installer</a>.</p>
 <p>Computer use starts off. Enable it in <strong>Settings &gt; General</strong>; on macOS, grant Accessibility and Screen Recording permissions and restart the Harness when prompted.</p>
-<p><a data-harness-source-notes>Read the Harness <span data-harness-version></span> release notes</a> · <a data-harness-doc="docs/user/permission-modes.md">Review approval modes</a></p>
+<p><a data-harness-release>Read the Harness <span data-harness-version></span> release notes</a> · <a data-harness-doc="docs/user/permission-modes.md">Review approval modes</a></p>
 </section>
 
 <section class="hub-section" id="harness-in-action" aria-labelledby="harness-in-action-heading">

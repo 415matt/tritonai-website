@@ -10,7 +10,6 @@ export function applyHarnessPageMetadata($, snapshot, summaries) {
   const version = release.tag.slice(1);
   canvas.find("[data-harness-version]").text(version);
   canvas.find("[data-harness-reviewed]").text(new Date(`${snapshot.lastReviewed}T12:00:00Z`).toLocaleDateString("en-US", { timeZone: "UTC", month: "long", day: "numeric", year: "numeric" }));
-  canvas.find("[data-harness-source-notes]").attr("href", release.notesUrl);
   canvas.find("[data-harness-release]").each((_, element) => {
     const target = $(element);
     target.attr("href", `${HARNESS_RELEASE_PAGE}${target.attr("data-harness-release") === "root" ? "" : `#${releaseFragment(release.tag)}`}`);
