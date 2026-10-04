@@ -1,0 +1,105 @@
+name: Maintain Harness stable release
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish source-verified release content after every site check
+        type: boolean
+        default: false
+      refresh_summary:
+        description: Rebuild the current summary to verify the complete publication path
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: harness-stable-release-maintenance
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Validate stable sources and prepare reviewed content
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TRITONAI_RELEASE_API_KEY: ${{ secrets.TRITONAI_RELEASE_API_KEY }}
+          REFRESH_SUMMARY: ${{ inputs.refresh_summary }}
+        run: |
+          if [ "$REFRESH_SUMMARY" = 'true' ]; then
+            node scripts/maintain-harness-release.mjs --refresh-summary
+          else
+            node scripts/maintain-harness-release.mjs
+          fi
+      - name: Detect a content update
+        id: changes
+        run: |
+          if git diff --quiet -- content/harness; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+            echo 'Stable releases and installers are unchanged.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Install Chromium for accessibility checks
+        if: steps.changes.outputs.changed == 'true'
+        run: npx playwright install --with-deps chromium
+      - name: Verify unchanged release content on the public pages
+        if: steps.changes.outputs.changed != 'true'
+        run: node scripts/verify-harness-publication.mjs --public-only
+      - name: Run every production site check
+        if: steps.changes.outputs.changed == 'true'
+        run: npm test
+      - name: Validate GitHub Pages paths
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          SITE_BASE_PATH: /tritonai-website
+        run: |
+          npm run build
+          npm run validate
+      - name: Preserve the validated candidate
+        if: steps.changes.outputs.changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: harness-release-candidate
+          path: content/harness
+          retention-days: 14
+      - name: Push only release content to the production branch
+        if: steps.changes.outputs.changed == 'true' && inputs.publish
+        env:
+          GH_TOKEN: ${{ secrets.HARNESS_RELEASE_PUSH_TOKEN }}
+        run: |
+          test -n "$GH_TOKEN" || { echo '::error::Dedicated release publishing credential is missing'; exit 1; }
+          git config user.name 'Cristian Horta'
+          git config user.email 'chorta@ucsd.edu'
+          git add content/harness/releases.json content/harness/installer.json content/harness/release-summaries.json
+          git diff --cached --name-only | while read -r file; do
+            case "$file" in content/harness/releases.json|content/harness/installer.json|content/harness/release-summaries.json) ;;
+              *) echo '::error::Unexpected file in release commit'; exit 1;; esac
+          done
+          git commit -m "Update Harness stable release and related page guidance"
+          # A dedicated repository token is required: GITHUB_TOKEN pushes do
+          # not start the normal branch publication workflows.
+          gh auth setup-git
+          git push https://github.com/bpollak/tritonai-website.git HEAD:main
+          echo "Published source commit: $(git rev-parse HEAD)" >> "$GITHUB_STEP_SUMMARY"
+      - name: Verify the matching Cascade publication and public pages
+        if: steps.changes.outputs.changed == 'true' && inputs.publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/verify-harness-publication.mjs

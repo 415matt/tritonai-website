@@ -3,10 +3,10 @@ title: TritonAI Harness
 path: /developer-apis/harness.html
 description: A local-first agent control surface connecting campus builders to approved models, local files, and UC San Diego systems under human supervision.
 eyebrow: Build with TritonAI
-lastReviewed: 2026-10-02
+lastReviewed: 2026-10-03
 audiences: [staff, faculty, researchers, developers]
 owner: TritonAI
-source: "TritonAI Harness stable v0.3.4 release notes and tagged user documentation; packaged plugin composition; UC San Diego AI service guidance"
+source: "TritonAI Harness stable release notes and tagged user documentation; packaged plugin composition; UC San Diego AI service guidance"
 canonicalUrl: /developer-apis/harness.html
 relatedSlides: [Citizen Developer Ecosystem, Reusable Skills and MCP, platform-architecture]
 landingHub: true
@@ -69,62 +69,44 @@ bannerMode: abstract
 <section class="hub-section hub-section-cool" id="harness-stable-release" aria-labelledby="harness-stable-release-heading">
 <div class="hub-heading">
 <p class="home-kicker">Stable release</p>
-<h2 id="harness-stable-release-heading">Harness 0.3.4 stable release</h2>
-<p><strong>Current stable version: 0.3.4.</strong> Checked October 2, 2026 against the published release. Available for macOS Apple Silicon and Windows x64. The newer 0.3.5 nightly builds are prereleases on a separate update track.</p>
+<h2 id="harness-stable-release-heading">Harness <span data-harness-version></span> stable release</h2>
+<p><strong>Current stable version: <span data-harness-version></span>.</strong> Release information checked <span data-harness-reviewed></span> against the published release. Available for macOS Apple Silicon and Windows x64. Nightly builds use a separate update track.</p>
 </div>
-<ul>
-<li><strong>Computer use:</strong> Opt in to let the agent inspect and operate desktop apps, with visible setup and activity. In this release it works with the Codex provider on a local desktop backend.</li>
-<li><strong>Task goals and attachments:</strong> Give Codex tasks persistent goals, attach general files, and drop images into chat.</li>
-<li><strong>Search and review:</strong> Search conversation content and project files, organize tasks in the redesigned sidebar, and inspect pull requests and changed lines in the app.</li>
-<li><strong>Campus plugins:</strong> Kuali Build and n8n join the included plugin catalog with separately authorized read and write abilities.</li>
-<li><strong>Skills and sub-agents:</strong> Share a local skill with UCSD for review and follow delegated work in the Agents panel.</li>
-</ul>
+<ul data-harness-current-highlights></ul>
 <p>To update an existing installation, open <strong>Settings &gt; About &gt; Check for Updates</strong>. For first-time setup, use the <a href="/developer-apis/start.html#harness">stable TritonAI Installer</a>.</p>
 <p>Computer use starts off. Enable it in <strong>Settings &gt; General</strong>; on macOS, grant Accessibility and Screen Recording permissions and restart the Harness when prompted.</p>
-<p><a href="https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.4">Read the Harness 0.3.4 release notes</a> · <a href="https://github.com/dbalders/TritonAI-Harness/blob/v0.3.4/docs/user/permission-modes.md">Review approval modes</a></p>
+<p><a data-harness-release>Read the Harness <span data-harness-version></span> release notes</a> · <a data-harness-doc="docs/user/permission-modes.md">Review approval modes</a></p>
 </section>
 
-<section class="hub-section" id="harness-walkthrough" aria-labelledby="harness-walkthrough-heading">
+<section class="hub-section" id="harness-in-action" aria-labelledby="harness-in-action-heading">
 <div class="hub-heading">
-<h2 id="harness-walkthrough-heading">Watch the Harness walkthrough</h2>
-<p>Explore the workspace, settings, plugins, and skills. Then follow a UC San Diego branded app build, a daily briefing, and a meeting follow-up using fictional sample data.</p>
+<h2 id="harness-in-action-heading">See the Harness in action</h2>
+<p>This narrated video runs a little over two minutes and shows results from the Harness app. It was recorded with fictional workshop files.</p>
 </div>
-<video class="img-responsive center-block" width="1920" height="1280" controls muted playsinline preload="metadata" poster="/_images/harness/walkthrough-2026-09-07.jpg" aria-label="TritonAI Harness walkthrough" aria-describedby="harness-walkthrough-description" data-silent-demo="true">
-<source src="/_files/harness/walkthrough-2026-09-07.mp4" type="video/mp4">
-Your browser does not support embedded video. <a href="/_files/harness/walkthrough-2026-09-07.mp4">Download the walkthrough</a>.
+<video class="img-responsive center-block" width="1920" height="1080" data-playback="manual" controls controlslist="nodownload" muted playsinline preload="none" poster="/_images/harness/tritonai-harness-capabilities-2026-10-01-v2.jpg" aria-label="TritonAI Harness in action" aria-describedby="harness-in-action-description" aria-details="harness-in-action-transcript">
+<source src="/_files/harness/tritonai-harness-capabilities-2026-10-02-v4.mp4" type="video/mp4">
+<track kind="captions" src="/_files/harness/tritonai-harness-capabilities-2026-10-02-v4.vtt" srclang="en" label="English" default>
+Your browser does not support embedded video.
 </video>
 <p>Try these tasks yourself in the <a href="/training/harness/">full Harness training</a>.</p>
-<p id="harness-walkthrough-description" class="small">Silent video, 3 minutes 1 second. The full application window stays visible, with annotations in a narrow strip below it. Recorded September 7, 2026; completed sample conversations are revisited and navigation pauses are shortened.</p>
-<p><a href="/_files/harness/walkthrough-2026-09-07.mp4" download>Download the walkthrough (MP4, 5.1 MB)</a></p>
-<details>
-<summary>Read the walkthrough transcript</summary>
-<h3>Workspace and settings (0:00)</h3>
-<p>The project sidebar remains visible beside the conversation. The right panel displays source files, the request tracker, and the task plan.</p>
-<p>The Plugins page shows GitHub, Google Workspace, and Microsoft 365. The Microsoft 365 card expands to show available tools and individual access controls. No permissions are changed.</p>
-<p>The Skills page shows reusable instructions for deployment, review, and feedback. UC San Diego skills cover branding, content, and data classification.</p>
-<p>General settings includes project grouping, time format, assistant output, and background activity. Appearance includes theme, glass opacity, and word wrapping. The walkthrough also opens runtime settings and keyboard shortcuts.</p>
-<h3>Build a request tracker (1:14)</h3>
-<p>The request invokes the installed UCSD Branding skill to apply the official Decorator 5 design system to a local prototype. The app uses UC San Diego header and footer assets, CDN styles and scripts, navigation, and form components. The example records are fictional.</p>
-<p>The app opens in the Harness browser panel. Submitting an empty form produces three required-field errors and moves focus to Request title. A fictional request titled “Workshop room setup” is entered with the Room Setup category, New status, and the note “Arrange tables for the fictional workshop.”</p>
-<p>The request is added successfully. The New count becomes 1, and the New filter displays the request and its note. The task panel shows the five Decorator rebuild steps completed. The handoff identifies reviews still needed before team adoption.</p>
-<h3>Prepare a daily briefing (2:18)</h3>
-<p>A fictional calendar file appears beside the completed briefing. This example uses a local sample file; it does not show live calendar retrieval or scheduled delivery.</p>
-<p>The briefing identifies priorities for a fictional Tuesday: finalize the pilot categories, review three help pages, and prepare a retrospective decision.</p>
-<ul>
-<li><strong>09:00, request tracker pilot:</strong> Confirm whether the pilot should cover room setup and equipment loans. Accessibility review is pending.</li>
-<li><strong>11:00, website content review:</strong> Review draft help pages for clarity, plain language, and keyboard navigation.</li>
-<li><strong>14:00, pilot retrospective:</strong> Review the fictional totals of 12 submitted requests, 9 completed, and 3 awaiting clarification. Identify the main cause of clarification delays.</li>
-</ul>
-<p>The output lists decisions to confirm, suggests one clear decision and follow-up owner per meeting, and cites the sample calendar file.</p>
-<h3>Prepare meeting follow-up (2:41)</h3>
-<p>Fictional meeting notes remain visible beside the draft. The decision is to pilot the request tracker for room setup and equipment loans only.</p>
-<ul>
-<li><strong>Service coordinator:</strong> Write plain-language category descriptions by September 10.</li>
-<li><strong>Designer:</strong> Check keyboard navigation and contrast by September 11.</li>
-<li><strong>Project lead:</strong> Arrange the pilot review next week; the date is not confirmed.</li>
-</ul>
-<p>The review date and long-term support owner remain open questions. A draft follow-up restates the decision and actions with their owners and dates. No message is sent.</p>
-</details>
+<p class="small">Tap Play to start. If the embedded player does not work, <a href="/_files/harness/tritonai-harness-capabilities-2026-10-02-v4.mp4">open the video directly</a>.</p>
+<p id="harness-in-action-description" class="small">The video starts muted with captions. Turn on sound to hear the narration. It shows a survey summary, an Excel dashboard, a briefing deck on the UC San Diego template, the five campus plugins, an n8n workflow explained step by step, a GitHub code review, and a sign-up app built on the campus design system and wired to an n8n workflow.</p>
+<section class="sr-only" id="harness-in-action-transcript" aria-label="Video transcript">
+<h3>Introduction (0:00)</h3>
+<p>TritonAI Harness is UC San Diego's AI workspace on your desktop. You hand it real work, and it delivers finished results, using your files and campus systems.</p>
+<h3>Summarize a survey (0:11)</h3>
+<p>Here it is, live, with a made-up project: Jordan's fall workshop pilot. Qualtrics already reports the survey, but Jordan wants the team's own questions answered, so I hand it the raw results. Fourteen seconds later: averages for every question, the top comments, the missing data flagged, and a takeaway for the planning team, saved as a file.</p>
+<h3>Build an Excel dashboard (0:35)</h3>
+<p>Department leaders want one page, so: a presentation-ready Excel dashboard. It builds the workbook, and a few quick follow-ups polish the layout. Headline numbers up top, three charts in campus colors, and a one-line insight under each.</p>
+<h3>Create a briefing deck (0:52)</h3>
+<p>Jordan has ten minutes with leaders next week, so the meeting notes and the survey become a briefing deck on the official UC San Diego template. Nine slides with live charts, an owners table, a timeline to the next session, and speaker notes, all built from the source files.</p>
+<h3>Work with campus systems (1:10)</h3>
+<p>It plugs into the campus systems you already use: Microsoft 365, Google Workspace, Kuali Build, GitHub, and n8n. Here it reads an n8n workflow, explains each step in plain language, and confirms the last run succeeded. With GitHub, it reviews a code change: what changed, which files, and whether the build passed.</p>
+<h3>Build a web app (1:39)</h3>
+<p>And it builds software. A Microsoft Form would cover a basic sign-up, but Jordan's team wants the campus look and every sign-up in its own n8n workflow. Here's that app, on the official campus design system. Coming soon: self-service hosting, so the apps you build in the Harness can go live for campus.</p>
+<h3>Campus tools first (2:01)</h3>
+<p>When a campus tool does the job, use it. When you need it your way, build it with the Harness. That's TritonAI Harness: real work, finished on your desktop, with campus tools built in.</p>
+</section>
 </section>
 
 <section class="hub-section harness-compare" id="what-a-harness-adds" aria-labelledby="harness-compare-heading">

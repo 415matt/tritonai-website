@@ -658,6 +658,10 @@
   width: 100%;
 }
 
+main#main-content #heroslider .carousel-control {
+  z-index: 3;
+}
+
 @media (min-width: 768px) {
   .agent-page #heroslider .item > .first-slide,
   .agent-page #heroslider .item > .home-hero-media {
@@ -3591,6 +3595,11 @@ main#main-content .skills-setup {
   border-top-color: var(--triton-blue);
 }
 
+.developer-start-platforms article {
+  display: flex;
+  flex-direction: column;
+}
+
 .developer-start-platforms article > .glyphicon {
   color: var(--triton-blue);
   font-size: 28px;
@@ -3632,6 +3641,10 @@ a.developer-download-button:visited {
   text-align: left;
   width: 100%;
   white-space: normal;
+}
+
+.developer-start-platforms a.developer-download-button {
+  margin-top: auto;
 }
 
 .developer-download-button > span,
@@ -3703,6 +3716,16 @@ a.developer-download-button:visited {
 
 .developer-start-actions p {
   margin: 0;
+}
+
+.developer-start-actions .developer-start-training-action {
+  margin-top: 12px;
+}
+
+@media (min-width: 768px) {
+  #verify .developer-start-help {
+    margin-top: 0;
+  }
 }
 
 .developer-start-help {
@@ -3917,7 +3940,13 @@ a.developer-download-button:visited {
 .delivery-pathway a:focus {
   background: #fff;
   border-color: var(--triton-bright-blue);
+  color: var(--triton-navy);
   text-decoration: none;
+}
+
+.delivery-pathway a:hover small,
+.delivery-pathway a:focus small {
+  color: #52616b;
 }
 
 .delivery-pathway-current a {
@@ -4308,17 +4337,10 @@ a.developer-download-button:visited {
     font-size: 24px;
   }
 
-  .delivery-pathway ol {
+  .delivery-pathway ol,
+  .delivery-pathway ul,
+  .delivery-pathway-grid {
     grid-template-columns: 1fr;
-  }
-
-  .delivery-pathway li:not(:last-child)::after {
-    bottom: -20px;
-    content: "\2193";
-    left: 50%;
-    right: auto;
-    top: auto;
-    transform: translateX(-50%);
   }
 
   .triton-updates-intro {
@@ -6075,6 +6097,52 @@ main#main-content .harness-release-card li { margin-bottom: 10px; }
 main#main-content .harness-release-archive li { margin-bottom: 12px; }
 main#main-content .harness-release-archive time { display: block; color: #53616c; }
 main#main-content .harness-release-card .btn { margin-bottom: 8px; }
+.tutor-guide-note {
+  background-color: #faf6e9;
+  border-left: 4px solid #c69214;
+  padding: 1rem 1.25rem;
+}
+
+.tutor-guide-examples {
+  background-color: #f5f5f5;
+  border-left: 4px solid #c69214;
+  padding: 1rem 1.25rem;
+}
+
+.tutor-guide-examples-label {
+  color: #182b49;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+pre.tutor-guide-prompt {
+  background-color: #f5f5f5;
+  border: 1px solid #00629b;
+  overflow-x: auto;
+  padding: 1rem;
+  white-space: pre-wrap;
+}
+
+.tutor-guide-tests {
+  list-style: none;
+  padding-left: 2rem;
+}
+
+.tutor-guide-tests li {
+  margin-bottom: 0.5rem;
+}
+
+.tutor-guide-tests li::before {
+  color: #00629b;
+  content: counter(list-item) ".";
+  display: inline-block;
+  font-weight: 700;
+  margin-left: -2rem;
+  width: 2rem;
+}
+
 
 /* Harness course promotion stays inside the page canvas. */
 main#main-content .harness-training-grid {

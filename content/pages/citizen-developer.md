@@ -29,8 +29,14 @@ bannerMode: abstract
 </div></div>
 </section>
 
-<section class="hub-section" id="harness-practice" aria-labelledby="harness-practice-heading">
-<div class="hub-heading"><p class="home-kicker">Hands-on with TritonAI Harness</p><h2 id="harness-practice-heading">Try a task with your connected tools</h2><p>Start with one of the <a href="/developer-apis/harness.html#harness-example-heading">Harness examples</a> and follow the exercise below. Replace the meeting, workshop, or department details with your own. Each exercise produces something you can inspect in your workspace.</p></div>
+<!-- AGENT_SECTION: harness-training -->
+<section class="hub-section hub-section-cool" id="harness-training" aria-labelledby="harness-training-heading">
+<div class="row hub-split hub-split-align-center"><div class="col-md-8 hub-split-copy"><p class="home-kicker">Self-paced training</p><h2 id="harness-training-heading">Learn to use TritonAI Harness</h2><p>Start with Essentials, then try a task with the fictional practice files. Narrated chapters, captions, a transcript, and knowledge checks help you learn the workspace and check your results.</p></div><div class="col-md-4 hub-subscribe-action"><p><a class="btn btn-primary" href="/training/harness/">Start TritonAI Harness training</a></p><p><a href="/developer-apis/start.html">Need the Harness? Download and set up</a></p></div></div>
+</section>
+<!-- END_AGENT_SECTION -->
+
+<section class="hub-section hub-section-cool hub-full-bleed" id="harness-practice" aria-labelledby="harness-practice-heading">
+<div class="container"><div class="hub-heading"><p class="home-kicker">Hands-on with TritonAI Harness</p><h2 id="harness-practice-heading">Try a task with your connected tools</h2><p>Start with one of the <a href="/developer-apis/harness.html#harness-example-heading">Harness examples</a> and follow the exercise below. Replace the meeting, workshop, or department details with your own. Each exercise produces something you can inspect in your workspace.</p></div>
 <h3>Set up your workspace</h3>
 <ol>
 <li><strong>Open the Harness and a project folder.</strong> If you are starting from scratch, follow <a href="/developer-apis/start.html">access and setup</a> to get a Gateway key and install the Harness. Use a folder where you can keep the draft and its supporting files.</li>
@@ -97,6 +103,7 @@ bannerMode: abstract
 <h3>Keep a prompt that works</h3>
 <p>Once you have checked a result, ask the Harness to save the instructions in your project folder with the meeting name, dates, or source files marked as details to change next time. Include the output format and review steps. You can rerun the task yourself, or use the <a href="#first-project-heading">project-planning questions</a> below when you want to turn it into a recurring team workflow.</p>
 <p class="hub-section-action"><a class="btn btn-default" href="/developer-apis/harness.html#harness-example-heading">Back to the Harness examples</a></p>
+</div>
 </section>
 
 <section class="hub-section hub-section-sand hub-full-bleed" aria-labelledby="patterns-heading">
@@ -139,7 +146,7 @@ bannerMode: abstract
 <article><span class="glyphicon glyphicon-random" aria-hidden="true"></span><p class="build-tool-label">Repeatable workflow</p><h3>n8n</h3><p>Run a process you already understand. n8n starts the steps on a schedule, when a message or file arrives, or when another system sends a request. It fits best once you know the process and how it should handle exceptions.</p></article>
 <article><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span><p class="build-tool-label">Application or shared capability</p><h3>APIs and skills</h3><p>Add approved AI models to software you already run, or package instructions and reference material into a skill that others can review and reuse.</p></article>
 </div>
-<p class="hub-section-action"><a class="btn btn-primary" href="/developer-apis/harness.html">Get TritonAI Harness</a> <a class="btn btn-default" href="/developer-apis/index.html">Compare build paths</a> <a class="btn btn-default" href="/skills/index.html">Browse the Skills Library</a></p>
+<p class="hub-section-action"><a class="btn btn-primary" href="/developer-apis/harness.html">Get TritonAI Harness</a> <a class="btn btn-default" href="/developer-apis/harness-release-notes.html">Harness release notes</a> <a class="btn btn-default" href="/developer-apis/index.html">Compare build paths</a> <a class="btn btn-default" href="/skills/index.html">Browse the Skills Library</a></p>
 </div>
 </section>
 
@@ -243,4 +250,11 @@ bannerMode: abstract
 
 <section class="hub-section hub-section-dark hub-full-bleed" aria-labelledby="training-heading">
 <div class="container"><div class="row hub-split hub-split-align-center"><div class="col-md-7 hub-split-copy"><p class="home-kicker">Training conversation</p><h2 id="training-heading">Describe the task in one page</h2><p>Bring a short problem statement to a citizen-developer session or the AI Use-Case Meeting. Cover the need, the owner, the data, the review point, and the outcome you expect. That is enough to choose a pattern and test a first version.</p><p><a class="btn btn-primary" href="/use-cases/ai-use-case-meeting.html">Join a use-case meeting</a></p></div><div class="col-md-5"><div class="hub-quote-card citizen-training-card"><span class="glyphicon glyphicon-check" aria-hidden="true"></span><h3>Ready for a first experiment?</h3><p>Until you build something, it is hard to see which parts of your work have software-shaped solutions. Take the idea that seemed most interesting on this page and find out what it would take to build. Maybe it amounts to nothing and you abandon it. Either way you will know your work better than you did before.</p><p>Start with one small task and data you are approved to use, and keep the current process running while you test.</p><p><a class="btn btn-primary" href="/developer-apis/start.html">Review access and setup</a></p></div></div></div></div>
+</section>
+
+<section class="hub-section" data-harness-current-guidance-section aria-labelledby="harness-current-citizen">
+<div class="hub-heading"><h2 id="harness-current-citizen">Build with the current stable release</h2>
+<p>TritonAI Harness <strong data-harness-version></strong>.</p></div>
+<p class="hub-section-action"><a class="btn btn-default" data-harness-release>Read the release notes</a></p>
+<ul data-harness-guidance="citizen"></ul>
 </section>

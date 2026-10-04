@@ -3,7 +3,7 @@ title: TritonAI Learn
 path: /training-resources/index.html
 description: Generative AI training, prompting guides, webinars, and role-based learning paths for the UC San Diego community.
 eyebrow: Training and resources
-lastReviewed: 2026-09-25
+lastReviewed: 2026-10-01
 audiences: [students, faculty, staff, developers, leaders]
 source: TritonAI training catalog and UC San Diego learning resources
 canonicalUrl: /training-resources/index.html
@@ -24,6 +24,11 @@ bannerMode: abstract
 <article class="tritongpt-capability-card"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><div><h3>TritonAI Connect</h3><p>Stay connected through communities and channels.</p></div></article>
 </div></div>
 </section>
+<!-- AGENT_SECTION: harness-training -->
+<section class="hub-section hub-section-cool" id="harness-training" aria-labelledby="harness-training-heading">
+<div class="row hub-split hub-split-align-center"><div class="col-md-8 hub-split-copy"><p class="home-kicker">Self-paced training</p><h2 id="harness-training-heading">Learn to use TritonAI Harness</h2><p>Start with Essentials, then try a task with the fictional practice files. Narrated chapters, captions, a transcript, and knowledge checks help you learn the workspace and check your results.</p></div><div class="col-md-4 hub-subscribe-action"><p><a class="btn btn-primary" href="/training/harness/">Start TritonAI Harness training</a></p><p><a href="/developer-apis/start.html">Need the Harness? Download and set up</a></p></div></div>
+</section>
+<!-- END_AGENT_SECTION -->
 
 <section class="hub-section" aria-labelledby="discovery-heading">
 <div class="row hub-split hub-split-align-center"><div class="col-md-6 hub-split-copy"><p class="home-kicker">Step 01 — Start here</p><h2 id="discovery-heading">Start with the TritonAI Discovery Series</h2><p>Whether you are new to AI at UC San Diego or want a map of everything available, the TritonAI Discovery Series is a strong first step. These short videos introduce the TritonAI ecosystem and show you how to use it safely and responsibly. No experience is required.</p><p>Watch the videos individually or in sequence; they are most valuable when teams work through them together, support broader discussion, and build shared understanding.</p><p><a class="btn btn-primary" href="/training-resources/videos/index.html">Watch the TritonAI Discovery Series</a></p></div><div class="col-md-6"><figure class="triton-graphic triton-review-loop" aria-label="Discovery Series overview"><ol><li><span>01</span><strong>Explore</strong><small>See the tools and campus pathways.</small></li><li><span>02</span><strong>Learn</strong><small>Build a shared understanding.</small></li><li><span>03</span><strong>Practice</strong><small>Use AI safely and responsibly.</small></li><li><span>04</span><strong>Connect</strong><small>Bring your team into the conversation.</small></li></ol></figure></div></div>

@@ -4,7 +4,9 @@ import path from "node:path";
 import { load } from "cheerio";
 import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
-import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues } from "./lib/harness-releases.mjs";
+import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues, guidedInstallerIssues } from "./lib/harness-releases.mjs";
+import { applyHarnessPageMetadata } from "./lib/harness-page-metadata.mjs";
+
 
 const SOURCE_DIR = path.resolve("src/site");
 const CONTENT_DIR = path.resolve("content");
@@ -194,7 +196,8 @@ function renderHarnessReleases(snapshot, summaries, installer) {
   const notes = detailed.map((release) => {
     const summary = summaries.releases[release.tag];
     const latest = release.tag === snapshot.latestTag;
-    const downloads = latest ? `<p><a class="btn btn-primary" href="${escapeHtml(installer.platforms.mac.downloadUrl)}">Download ${escapeHtml(release.tag)} for Mac</a> <a class="btn btn-primary" href="${escapeHtml(installer.platforms.windows.downloadUrl)}">Download ${escapeHtml(release.tag)} for Windows</a></p>` : "";
+    const downloads = latest ? `<p><a class="btn btn-primary" href="${escapeHtml(installer.platforms.mac.downloadUrl)}">Download for Mac</a> <a class="btn btn-primary" href="${escapeHtml(installer.platforms.windows.downloadUrl)}">Download for Windows</a></p>` : "";
+
     return `<article class="harness-release-card" id="${releaseFragment(release.tag)}"><p class="home-kicker">${latest ? "Current stable release" : "Previous release"}</p><h2>TritonAI Harness ${escapeHtml(release.tag)}</h2><p>Published <time datetime="${escapeHtml(release.publishedAt)}">${escapeHtml(date(release.publishedAt))}</time></p><ul>${summary.highlights.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>${downloads}<p><a href="${escapeHtml(release.notesUrl)}">Full ${escapeHtml(release.tag)} release notes on GitHub</a></p></article>`;
   }).join("");
   const history = archive.map((release) => `<li><a href="${escapeHtml(release.notesUrl)}">TritonAI Harness ${escapeHtml(release.tag)}</a> <time datetime="${escapeHtml(release.publishedAt)}">${escapeHtml(date(release.publishedAt))}</time></li>`).join("");
@@ -270,7 +273,7 @@ function renderLatestNewsletters(newsletters) {
         `<div class="col-sm-6"><article class="panel panel-default home-update-card"><div class="panel-body"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span><p class="home-kicker">Recent update</p><h3>${escapeHtml(newsletter.title)}</h3><p>${newsletter.items} ${newsletter.items === 1 ? "item" : "items"} on campus AI tools, training, and news.</p><a href="/about/ai-updates.html#${escapeHtml(newsletter.date.toISOString().slice(0, 10))}">Read this update <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></a></div></article></div>`,
     )
     .join("");
-  return `<article class="panel panel-default home-latest-update"><div class="panel-heading"><div><p class="home-kicker">This week</p><h3>${escapeHtml(latest.title)}</h3></div><span class="home-update-count">${latest.items} ${latest.items === 1 ? "item" : "items"}</span></div><div class="panel-body"><p class="home-update-topics">${topicBadges}</p><p>${escapeHtml(excerpt)}${excerptWasTruncated ? "…" : ""}</p><p><a class="btn btn-primary" href="/about/ai-updates.html#${dateId}">Read the latest update</a></p></div></article>${recentCards ? `<div class="row agent-card-grid home-recent-updates">${recentCards}</div>` : ""}`;
+  return `<article class="panel panel-default home-latest-update"><div class="panel-heading"><div><p class="home-kicker">Latest edition</p><h3>${escapeHtml(latest.title)}</h3></div><span class="home-update-count">${latest.items} ${latest.items === 1 ? "item" : "items"}</span></div><div class="panel-body"><p class="home-update-topics">${topicBadges}</p><p>${escapeHtml(excerpt)}${excerptWasTruncated ? "…" : ""}</p><p><a class="btn btn-primary" href="/about/ai-updates.html#${dateId}">Read the latest update</a></p></div></article>${recentCards ? `<div class="row agent-card-grid home-recent-updates">${recentCards}</div>` : ""}`;
 }
 
 function statusClass(status) {
@@ -869,6 +872,11 @@ function navigationOwner(items, route) {
   return items.find((item) => (item.href.split("/").filter(Boolean)[0] || "") === section) || null;
 }
 
+function navigationContainsRoute(item, route) {
+  if (item.href === route) return true;
+  return (item.items || []).some((child) => navigationContainsRoute(child, route));
+}
+
 function renderNavigation(items, route, mobile = false) {
   const owner = navigationOwner(items, route);
   return items
@@ -907,10 +915,41 @@ function renderSidebarItems(navigation, route) {
   // expanded. Do not repeat a child that merely aliases the section landing.
   const children = (owner.items || []).filter((child) => child.href !== owner.href);
   const activeChild = children.find((child) => child.href === route);
+  const activeDescendantChild = children.find((child) =>
+    child.href !== route && navigationContainsRoute(child, route)
+  );
+  const descendantNavLinks = (item) =>
+    (item.items || [])
+      .map((grandchild) =>
+        grandchild.href === route
+          ? `<li class="${(grandchild.items || []).length ? "expanded active" : "active"}">${escapeHtml(grandchild.label)}${(grandchild.items || []).length ? `<ul>${childNavLinks(grandchild)}</ul>` : ""}</li>`
+          : navigationContainsRoute(grandchild, route)
+            ? `<li class="expanded active">${escapeHtml(grandchild.label)}<ul>${descendantNavLinks(grandchild)}</ul></li>`
+            : `<li><a href="${escapeHtml(grandchild.href)}">${escapeHtml(grandchild.label)}</a></li>`
+      )
+      .join("");
+  const childNavLinks = (item) =>
+    (item.items || [])
+      .map((child) => `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`)
+      .join("");
   if (activeChild) {
     return children
       .map((child) => {
-        if (child.href === route) return `<li class="active">${escapeHtml(child.label)}</li>`;
+        if (child.href === route) {
+          const grandchildMenu = descendantNavLinks(child);
+          return `<li class="${grandchildMenu ? "expanded active" : "active"}">${escapeHtml(child.label)}${grandchildMenu ? `<ul>${grandchildMenu}</ul>` : ""}</li>`;
+        }
+        return `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`;
+      })
+      .join("");
+  }
+
+  if (activeDescendantChild) {
+    return children
+      .map((child) => {
+        if (child === activeDescendantChild) {
+          return `<li class="expanded active">${escapeHtml(child.label)}<ul>${descendantNavLinks(child)}</ul></li>`;
+        }
         return `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`;
       })
       .join("");
@@ -935,7 +974,10 @@ function renderSidebarInner(navigation, route) {
   const owner = navigationOwner(navigation, route);
   const children = owner ? (owner.items || []).filter((child) => child.href !== owner.href) : [];
   const activeChild = children.find((child) => child.href === route);
-  const heading = activeChild && owner
+  const activeDescendantChild = children.find((child) =>
+    child.href !== route && navigationContainsRoute(child, route)
+  );
+  const heading = (activeChild || activeDescendantChild) && owner
     ? `<a href="${escapeHtml(owner.href)}">${escapeHtml(owner.label)}</a>`
     : '<a href="/index.html">TritonAI</a>';
   return `<h2>${heading}</h2><ul class="navbar-list">${renderSidebarItems(navigation, route)}</ul>`;
@@ -1263,20 +1305,22 @@ function normalizeNavigationMarkup($) {
   }
 }
 
-function applyHarnessInstallerMetadata($, installer) {
+function applyHarnessInstallerMetadata($, installer, notesVersion = installer.version) {
   for (const [platformId, platform] of Object.entries(installer.platforms)) {
     const download = $(`[data-harness-download='${platformId}']`).first();
     if (!download.length) continue;
     download.attr({
       href: platform.downloadUrl,
-      "aria-label": `${platform.label}, version ${installer.version}, ${platform.architecture}, ${platform.format}`,
+      "aria-label": `${platform.label}, ${platform.architecture}, ${platform.format}`,
+
     });
     download.find("[data-harness-download-label]").text(platform.label);
     download
       .find("[data-harness-download-detail]")
-      .text(`Version ${installer.version} · ${platform.architecture} · ${platform.format}`);
+      .text(`${platform.architecture} · ${platform.format}`);
   }
-  $("[data-harness-release]").attr("href", `${HARNESS_RELEASE_PAGE}#${releaseFragment(`v${installer.version}`)}`);
+  $("[data-harness-release]").attr("href", `${HARNESS_RELEASE_PAGE}${notesVersion ? `#${releaseFragment(`v${notesVersion}`)}` : ""}`);
+
 }
 
 function transformHtml(html, relativePath, context) {
@@ -1290,7 +1334,7 @@ function transformHtml(html, relativePath, context) {
   const seo = context.seo.routes[route] || {};
   const title = seo.title || generated?.title || $("meta[name='PAGETITLE']").attr("content") || $("title").text().trim() || context.site.name;
   const description = seo.description || generated?.description || $("meta[name='DESCRIPTION']").attr("content") || context.site.description;
-  const canonicalPath = generated?.canonicalUrl || route;
+  const canonicalPath = generated?.canonicalUrl || seo.canonicalUrl || route;
   const canonicalUrl = new URL(canonicalPath, OFFICIAL_ORIGIN).href;
   const useCaseImage = generated?.slug ? USE_CASE_MEDIA[generated.slug]?.src : null;
   const socialImagePath = seo.socialImage || generated?.socialImage || generated?.bannerImage || useCaseImage || context.seo.defaultSocialImage;
@@ -1413,9 +1457,10 @@ function transformHtml(html, relativePath, context) {
   $("[data-gateway-usage='true']").html(renderGatewayUsage(context.gatewayUsage));
   $("[data-skills-library='true']").html(renderSkillsLibrary(context.skills));
   if (route === "/developer-apis/start.html" || route === "/tools/harness.html" || route === "/developer-apis/harness.html") {
-    applyHarnessInstallerMetadata($, context.harnessInstaller);
+    applyHarnessInstallerMetadata($, route === "/developer-apis/start.html" ? context.harnessInstaller.guided : context.harnessInstaller, route === "/developer-apis/start.html" ? null : context.harnessInstaller.version);
   }
   $("[data-harness-release-notes]").html(renderHarnessReleases(context.harnessReleases, context.harnessReleaseSummaries, context.harnessInstaller));
+  applyHarnessPageMetadata($, context.harnessReleases, context.harnessReleaseSummaries);
 
   $("[data-tritonai-updates]").each((_, element) => {
     const target = $(element);
@@ -1427,6 +1472,9 @@ function transformHtml(html, relativePath, context) {
   // muted autoplay-when-visible treatment.
   $("video").not("[data-progress-slug]").each((_, element) => {
     const video = $(element);
+    // User-started players retain native sources so a tap can start playback
+    // without waiting for viewport hydration or an autoplay promise.
+    if (video.attr("data-playback") === "manual") return;
     video
       .removeAttr("autoplay")
       .attr("data-autoplay-when-visible", "true")
@@ -1559,7 +1607,8 @@ const gatewayUsage = await readJson(GATEWAY_USAGE_FILE);
 const harnessInstaller = await readJson(HARNESS_INSTALLER_FILE);
 const harnessReleases = await readJson(path.join(CONTENT_DIR, "harness/releases.json"));
 const harnessReleaseSummaries = await readJson(path.join(CONTENT_DIR, "harness/release-summaries.json"));
-const harnessReleaseIssues = releaseSummaryIssues(harnessReleases, harnessReleaseSummaries, harnessInstaller);
+const harnessReleaseIssues = [...releaseSummaryIssues(harnessReleases, harnessReleaseSummaries, harnessInstaller), ...guidedInstallerIssues(harnessInstaller.guided)];
+
 if (harnessReleaseIssues.length) throw new Error(harnessReleaseIssues.join("\n"));
 const seo = await readJson(SEO_FILE);
 const tritonAiUpdates = await readJson(TRITONAI_UPDATES_FILE);
@@ -1770,7 +1819,7 @@ htmlFiles = (await listFiles(OUTPUT_DIR)).filter((file) => file.endsWith(".html"
 const routes = htmlFiles
   .map((relativePath) => ({
     path: routeForRelativePath(relativePath),
-    canonicalUrl: new URL(generatedByPath.get(relativePath)?.canonicalUrl || routeForRelativePath(relativePath), OFFICIAL_ORIGIN).href,
+    canonicalUrl: new URL(generatedByPath.get(relativePath)?.canonicalUrl || seo.routes[routeForRelativePath(relativePath)]?.canonicalUrl || routeForRelativePath(relativePath), OFFICIAL_ORIGIN).href,
     redirectTo: generatedByPath.get(relativePath)?.redirectTo || null,
     source: generatedByPath.has(relativePath) ? "structured-content" : "cascade-snapshot",
     lastModified: seo.routes[routeForRelativePath(relativePath)]?.lastModified || generatedByPath.get(relativePath)?.lastReviewed || site.lastReviewed,

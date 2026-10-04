@@ -1,10 +1,22 @@
 {
   "schemaVersion": 1,
   "owner": "TritonAI",
-  "source": "https://tritonai.ucsd.edu/",
-  "lastReviewed": "2026-08-22",
+  "source": "https://tritonai.ucsd.edu/ and the published TritonAI Discovery Series",
+  "lastReviewed": "2026-10-04",
   "rotationIntervalMs": 7000,
   "slides": [
+    {
+      "id": "discovery-series",
+      "title": "TritonAI Discovery Series",
+      "accent": "Learn at your own pace",
+      "description": "Explore campus AI tools, data privacy, and responsible use in short videos. Watch on your own or learn with your team.",
+      "image": "/_images/homepage/discovery-series-geisel.png",
+      "optimizedImage": "/_images/homepage/discovery-series-geisel-2048.webp",
+      "mobileImage": "/_images/homepage/discovery-series-geisel-828.webp",
+      "imageAlt": "Geisel Library illustrated in navy blue and warm gold",
+      "link": "/training-resources/videos/index.html",
+      "linkLabel": "Watch the training videos"
+    },
     {
       "id": "tritonai-hub",
       "title": "TritonAI",

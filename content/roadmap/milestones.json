@@ -182,23 +182,22 @@
         "BearGPT is live at UC Berkeley as a partner deployment of the shared TritonAI gateway and governance model.",
         "ANR AI serves staff at UC Agriculture and Natural Resources. Partner service renewal work continues.",
         "FredGPT is live at Fairleigh Dickinson University as a research-oriented institution instance.",
-        "UC Merced offers SCOUT in early access for faculty and staff, with a waitlist for additional participants.",
+        "UC Merced's SCOUT assistant is now broadly available to the campus, moving from production beta into full launch.",
         "Partner instances inherit the same hosting, model choice, trust, and observability controls as the UC San Diego deployment.",
         "Partner expansion reuses the existing platform and shared infrastructure."
       ],
       "links": [
         { "label": "About TritonAI", "href": "/about/index.html" },
         { "label": "BearGPT at UC Berkeley", "href": "/about/media-articles.html" },
-        { "label": "SCOUT early access", "href": "https://ai.ucmerced.edu/scout" }
+        { "label": "SCOUT at UC Merced", "href": "https://ai.ucmerced.edu/scout" }
       ],
       "owner": "TritonAI platform team",
-      "lastReviewed": "2026-09-06",
-      "source": "Public partner pages including ai.ucmerced.edu/scout; September 1, 2026 partner renewal planning; reviewed September 6, 2026",
+      "lastReviewed": "2026-09-18",
+      "source": "Public partner pages including ai.ucmerced.edu/scout, the September 3, 2026 SCOUT production-beta program update, and the UC Merced public launch; reviewed September 18, 2026",
       "relatedSlides": ["TritonGPT Initiative", "Multi-Tenant"],
       "icon": "globe",
       "highlights": [
-        { "value": "Live", "label": "UC Berkeley, UC ANR, and FDU" },
-        { "value": "Early access", "label": "UC Merced" },
+        { "value": "Live", "label": "UC Berkeley, UC ANR, FDU, and UC Merced" },
         { "value": "Shared", "label": "Platform and governance" }
       ]
     },
@@ -209,11 +208,11 @@
       "summary": "The TritonAI Harness now has a public access and installation path. The pilot is expanding through reusable skills, supported hosting, shared project knowledge, and governance for broader agent work.",
       "details": [
         "The TritonAI Harness pilot now has a public Gateway request, billing, installer, and setup path. Broader adoption remains staged.",
-        "Class Planner is in production. Current integration work prioritizes sign-in and saved plans; degree-audit guidance and registration integrations depend on additional campus APIs.",
+        "Class Planner is in production for schedule planning. Further integration work covers campus sign-in, schedule-of-classes data, and seat counts. In-app booking, degree-audit integration, and later AI features depend on additional campus APIs and review.",
         "Fall instructional AI signup is open for instructors to request a Canvas course tutor. Self-service course activation remains in development.",
         "Campus App Hosting continues with limited-scope proof-of-concept apps and a shared-responsibility path to support.",
         "The live UCSD Skills Library publishes reusable skills and is preparing a reviewed path for community contributions, MCP integrations, and data-source patterns. The Citizen Developer Guide now helps teams scope a first project and choose a supported delivery path.",
-        "Shared project knowledge is defining named ownership, authoritative sources, approval boundaries, and freshness checks before agents can reuse it.",
+        "Personal Harness memory is available in the stable desktop release. Shared team and project memory remains in design, including ownership, access, de-identification, and source review before reuse.",
         "Academic advising remains in a scoped prototype and build phase.",
         "Governance and observability work is documenting data, security, reliability, and operational requirements before broader access."
       ],
@@ -227,8 +226,8 @@
         { "label": "View the Harness access update", "href": "/about/tritonai-updates.html#2026-08-21-harness-builder-resources" }
       ],
       "owner": "TritonAI platform and solutions teams",
-      "lastReviewed": "2026-09-06",
-      "source": "Public builder and instructional AI pages; August 25 Class Planner planning and September 1-3, 2026 Canvas integration discussions; reviewed September 6, 2026",
+      "lastReviewed": "2026-10-04",
+      "source": "Public builder pages and Harness stable v0.3.5 release; September 30 and October 1, 2026 TritonAI team planning review",
       "relatedSlides": ["TritonGPT Initiative", "AI Roadmap 2026 — Quarter 3", "Citizen Developer Ecosystem", "Campus App Hosting", "harness-memory-architecture", "harness-memory-scale-ucsd"],
       "icon": "wrench",
       "highlights": [
@@ -241,23 +240,25 @@
       "period": "Q3–Q4 2026 — Adoption",
       "title": "Supported Rollout",
       "status": "In development",
-      "summary": "Preparing more UC San Diego teams to use the TritonAI Harness and related builder tools through staged onboarding, training, peer support, and rollout measurement.",
+      "summary": "Expanding learning and community support for faculty and staff while testing staged Harness onboarding and the path from prototypes to supported services.",
       "details": [
-        "Pilot groups are testing onboarding, installation, training, and support before broader outreach.",
+        "The Discovery Series provides short learning videos, with further tool walkthroughs listed for October 15. The certificate offers staff and leadership streams, and Connect brings together campus communities of practice.",
         "AI use-case office hours are sharing staff-built agent workflows and lessons from supervised development.",
-        "An early-adopter community will focus on the TritonAI Harness, skills, MCP integrations, and n8n workflows.",
+        "Campus outreach focuses on faculty and staff in this launch wave. Student outreach remains a separate coordination effort with teaching and learning partners.",
         "Readiness and follow-up measures will track access, use, connected tools, and safeguards.",
         "The Skills Library contribution path will combine automated checks with human review before publication."
       ],
       "links": [
         { "label": "Get Harness access", "href": "/developer-apis/start.html" },
         { "label": "Explore learning resources", "href": "/training-resources/index.html" },
+        { "label": "Watch the Discovery Series", "href": "/training-resources/videos/index.html" },
         { "label": "Browse the Skills Library", "href": "/skills/index.html" },
-        { "label": "Get involved", "href": "/about/get-involved.html" }
+        { "label": "Get involved", "href": "/about/get-involved.html" },
+        { "label": "Explore Connect", "href": "/connect/index.html" }
       ],
       "owner": "TritonAI program, platform team, and learning partners",
-      "lastReviewed": "2026-09-06",
-      "source": "Public learning and builder pages; August 14 training rollout decision and September 4, 2026 AI Use Case Office Hours; reviewed September 6, 2026",
+      "lastReviewed": "2026-10-04",
+      "source": "Published Discovery Series, certificate, Connect, and builder pages; October 2, 2026 TritonAI launch planning review",
       "relatedSlides": ["AI Roadmap 2026 — Quarter 3", "Citizen Developer Ecosystem"],
       "icon": "user",
       "highlights": [

@@ -102,7 +102,37 @@ async function readSource(sourceUrl, sourceFile) {
   return response.text();
 }
 
-function extractEditions(html, sourceUrl) {
+function editionUrl(sourceUrl, date) {
+  const base = new URL(sourceUrl);
+  return `${base.origin}/ucsd-ai-news/${date}`;
+}
+
+async function fetchEdition(sourceUrl, date) {
+  const url = editionUrl(sourceUrl, date);
+  const response = await fetch(url, {
+    headers: {
+      Accept: "text/html",
+      "User-Agent": "TritonAI-Website-Newsletter-Sync/1.1",
+    },
+    redirect: "follow",
+    signal: AbortSignal.timeout(20_000),
+  });
+  if (!response.ok) throw new Error(`Edition ${date} returned HTTP ${response.status}`);
+  return response.text();
+}
+
+function extractEditionList(html) {
+  const $ = load(html, { decodeEntities: false });
+  const dates = [];
+  for (const article of $("article.editorial-panel").toArray()) {
+    const id = $(article).attr("id") || "";
+    if (/^\d{4}-\d{2}-\d{2}$/.test(id)) dates.push(id);
+  }
+  if (!dates.length) throw new Error("No newsletter editions were found in the source page");
+  return dates;
+}
+
+function extractEdition(html, sourceUrl, date) {
   const $ = load(html, { decodeEntities: false });
   const turndown = new TurndownService({
     bulletListMarker: "-",
@@ -119,64 +149,69 @@ function extractEditions(html, sourceUrl) {
     },
   });
 
-  const editions = [];
-  for (const article of $("article.editorial-panel").toArray()) {
-    const item = $(article);
-    const title = item.find("> div:first-child h2").first().text().trim();
-    const sourceText = item.find("> div:first-child p").first().text().trim();
-    const sourceMatch = sourceText.match(/([A-Za-z0-9_-]+\.md)/);
-    if (!sourceMatch) continue;
-
-    const filename = sourceMatch[1];
-    const filenameMatch = filename.match(NEWSLETTER_FILENAME);
-    if (!filenameMatch) throw new Error(`Unexpected newsletter filename: ${filename}`);
-
-    const countText = item.find("> div:first-child > div > div:last-child").text();
-    const items = Number.parseInt(countText, 10);
-    const body = item.find("> div:nth-child(2) > div").first().clone();
-    if (!title || !body.length) throw new Error(`Incomplete newsletter markup for ${filename}`);
-    if (!Number.isInteger(items) || items < 1) {
-      throw new Error(`Newsletter edition ${filename} reports no items; refusing to synchronize an empty edition`);
-    }
-
-    const headings = body.find("h2").map((_, element) => $(element).text().trim()).get();
-    if (!headings.includes("What's New in Your AI Tools") || !headings.includes("TritonAI News")) {
-      throw new Error(`Required newsletter sections are missing from ${filename}`);
-    }
-
-    sanitizeBody($, body, sourceUrl);
-    const markdown = turndown.turndown(body.html() || "").trim();
-    const frontmatter = [
-      "---",
-      `title: ${JSON.stringify(title)}`,
-      `date: ${filenameMatch[1]}`,
-      `source: ${JSON.stringify(filename)}`,
-      `items: ${items}`,
-      "---",
-      "",
-    ].join("\n");
-
-    editions.push({
-      filename,
-      content: `${frontmatter}${markdown}\n`,
-    });
+  const filename = `ucsd-ai-newsletter-${date}.md`;
+  const article = $("article.reading-copy").first();
+  const body = article.clone();
+  if (!body.length) throw new Error(`Incomplete newsletter markup for ${filename}`);
+  const items = body.find("li").length;
+  if (!Number.isInteger(items) || items < 1) {
+    throw new Error(`Newsletter edition ${filename} reports no items; refusing to synchronize an empty edition`);
   }
 
-  if (!editions.length) throw new Error("No newsletter editions were found in the source page");
-  return editions;
+  const headings = body.find("h2").map((_, element) => $(element).text().trim()).get();
+  if (!headings.includes("What's New in Your AI Tools") || !headings.includes("TritonAI News")) {
+    throw new Error(`Required newsletter sections are missing from ${filename}`);
+  }
+
+  body.find("p").each((_, element) => {
+    const text = $(element).text().trim();
+    if (/^Have feedback on this newsletter\?/.test(text)) $(element).remove();
+  });
+
+  sanitizeBody($, body, sourceUrl);
+  const markdown = turndown.turndown(body.html() || "").trim();
+  const title = `UC San Diego AI Weekly · ${new Date(`${date}T12:00:00Z`).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })}`;
+  const frontmatter = [
+    "---",
+    `title: ${JSON.stringify(title)}`,
+    `date: ${date}`,
+    `source: ${JSON.stringify(filename)}`,
+    `items: ${items}`,
+    "---",
+    "",
+  ].join("\n");
+
+  return {
+    filename,
+    content: `${frontmatter}${markdown}\n`,
+  };
 }
 
 async function main() {
   const sourceUrl = getArg("source-url", DEFAULT_SOURCE_URL);
   const sourceFile = getArg("source-file");
+  const editionFile = getArg("edition-file");
   const outputDir = path.resolve(getArg("output-dir", DEFAULT_OUTPUT_DIR));
   const checkOnly = hasFlag("check");
-  const html = await readSource(sourceUrl, sourceFile);
-  const editions = extractEditions(html, sourceUrl);
-  const changes = [];
+  const listHtml = await readSource(sourceUrl, sourceFile);
+  const dates = extractEditionList(listHtml);
 
+  const changes = [];
   await mkdir(outputDir, { recursive: true });
-  for (const edition of editions) {
+  let editions = 0;
+  for (const date of dates) {
+    let editionHtml;
+    if (editionFile) {
+      // Local fixture mode: one edition file stands in for every date (tests).
+      editionHtml = await readFile(editionFile, "utf8");
+    } else if (sourceFile) {
+      // Source-file mode without an edition file: the source itself is one edition page.
+      editionHtml = listHtml;
+    } else {
+      editionHtml = await fetchEdition(sourceUrl, date);
+    }
+    const edition = extractEdition(editionHtml, sourceUrl, date);
+    editions += 1;
     const destination = path.join(outputDir, edition.filename);
     let current = null;
     try {
@@ -190,7 +225,7 @@ async function main() {
   }
 
   process.stdout.write(
-    `${checkOnly ? "Checked" : "Synchronized"} ${editions.length} editions from ${sourceUrl}; ${changes.length} ${checkOnly ? "pending" : "written"}.\n`,
+    `${checkOnly ? "Checked" : "Synchronized"} ${editions} editions from ${sourceUrl}; ${changes.length} ${checkOnly ? "pending" : "written"}.\n`,
   );
   for (const filename of changes) process.stdout.write(`- ${filename}\n`);
   if (checkOnly && changes.length) process.exitCode = 1;

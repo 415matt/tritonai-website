@@ -3,7 +3,7 @@ title: Responsible AI, Privacy and Hosting
 path: /about/trust-architecture.html
 description: How UC San Diego governs artificial intelligence services across privacy, hosting, data access, and human responsibility.
 eyebrow: Trust, privacy and hosting
-lastReviewed: 2026-08-30
+lastReviewed: 2026-09-21
 audiences: [staff, faculty, students, developers, leaders]
 source: TritonAI architecture and memory presentations, public developer documentation, UC Protection Level Classification
 canonicalUrl: /about/trust-architecture.html
@@ -54,7 +54,7 @@ relatedSlides: [tritongpt-secure-scalable-ai-platform, tritongpt-to-tritonai-com
 <div class="container">
 <div class="hub-heading"><p class="home-kicker">The shared foundation</p><h2 id="trust-layers-heading">What the foundation separates</h2><p>Hosting, model access, information sources, and actions solve different problems. Each needs its own approval and operating boundary.</p></div>
 <div class="trust-layer-grid trust-layer-grid-four">
-<article><span>01</span><h3>Approved hosting choices</h3><p>A service can use approved enterprise cloud models or UC-hosted open models running at the San Diego Supercomputer Center. Which route it takes depends on the data involved and the controls that data requires.</p><ul><li>AWS</li><li>Microsoft Azure</li><li>Google Cloud Vertex AI</li><li>UC-hosted models</li></ul></article>
+<article><span>01</span><h3>Approved hosting choices</h3><p>A service can use approved enterprise cloud models or UC-hosted open models running at the San Diego Supercomputer Center. Which route it takes depends on the data involved and the controls that data requires.</p><p>Open-weight models used by TritonAI are hosted on UC San Diego infrastructure at the San Diego Supercomputer Center, and in some cases through enterprise cloud providers where there is a UC contract. For UC-hosted routes, inference, request context, and responses remain within the UC-managed environment and are not sent to the model provider or any third party, including providers outside the United States. UC-hosted weights are run locally, not accessed as an external hosted service.</p><ul><li>AWS</li><li>Microsoft Azure</li><li>Google Cloud Vertex AI</li><li>UC-hosted models</li></ul></article>
 <article><span>02</span><h3>One gateway for model access</h3><p>Supported applications reach models through a single managed gateway. It gives everyone the same technical path. It does not approve what data a service may send through it.</p></article>
 <article><span>03</span><h3>Approved sources at request time</h3><p>When someone asks a question, the assistant looks the answer up in sources it is cleared for. The model itself was not trained on private campus content.</p></article>
 <article><span>04</span><h3>Bounded tools and actions</h3><p>Skills and connectors expose only the capabilities approved for a service. The service defines who may use them, where a person reviews the result, and when the workflow must stop or escalate.</p></article>

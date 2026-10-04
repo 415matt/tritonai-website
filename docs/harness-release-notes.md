@@ -3,8 +3,9 @@
 ## Location and links
 
 `/developer-apis/harness-release-notes.html` is the Harness product history.
-Getting Started links to the notes for the version offered by its direct Mac
-and Windows download buttons. The Harness overview links to the full history.
+Getting Started offers the guided TritonAI Installer for first-time setup and
+links to the Harness product history. The notes page offers standalone Harness
+app downloads for existing installations. The Harness overview links to the full history.
 
 The shared links within the page canvas connect:
 
@@ -31,6 +32,12 @@ GitHub Markdown, embedded images, or downloads. Public summaries live in
 and its fingerprint. The build refuses a missing current summary, an edited
 source note with an outdated summary, or a mismatch between notes and installers.
 Older stable releases can link directly to the original notes without a summary.
+
+First-time setup downloads come from the latest stable release of
+`dbalders/TritonAI-Installer`. Their independent version, source, direct asset URLs,
+sizes, and SHA-256 digests are saved under `guided` in `content/harness/installer.json`.
+The sync validates both products before writing. Installer and Harness version
+numbers can differ; the website does not assume they are the same.
 
 The website is built from saved content. It makes no release API calls in the
 visitor's browser, and builds do not require GitHub to be available.
@@ -65,53 +72,63 @@ release notes into the campus feature history. Verify what was deployed,
 then update that product stream; significant program milestones can also receive
 a separate entry in the TritonAI program stream.
 
-## n8n initiates the Harness job
+## Daily n8n maintenance
 
-The requested arrangement is a daily n8n trigger at 8 AM Pacific followed by
-an update task in the installed TritonAI Harness on the maintainer's Mac.
-The workflow template is `integrations/n8n/harness-release-trigger.draft.json`.
-It is inactive, and both Harness write nodes are disabled until the incoming
-connection and complete publication path have been verified. No Codex app
-schedule or local launchd schedule is active.
+The workflow `TritonAI Harness stable release website update` checks every day
+at 8 AM in `America/Los_Angeles`, including weekends and daylight-saving changes.
+Its reviewed template is `integrations/n8n/harness-release-trigger.draft.json`.
+The exported template remains inactive and contains no credentials. The live
+workflow is activated only after its dedicated credential and publication test.
 
-The read-only part fetches the designated latest stable GitHub release, hashes
-its original notes, and compares the saved website snapshot. It excludes drafts,
-prereleases, and nonstable tags. Unchanged releases stop without another model
-run. Changed notes for the same version also trigger an update. HTTP requests
-have timeouts and bounded read retries; failed reads stop the workflow.
+n8n starts `.github/workflows/harness-release-maintenance.yml` on `main` and
+waits for the exact returned run ID. The worker runs in GitHub Actions, so a
+sleeping or disconnected maintainer Mac does not interrupt maintenance. No
+second local or Codex schedule runs this job.
 
-The intended worker is pinned to `tritonai_onprem` / `api-glm-5.3` (GLM 5.3).
-It re-fetches and validates the stable release and both installer assets,
-produces three to five plain-language highlights for staff and faculty, and
-records the exact source fingerprint and model provenance. Source notes are
-untrusted data. There is no cloud model fallback.
+The worker validates the separately versioned stable Harness and guided Installer
+releases. Drafts, prereleases and nightly tags are excluded. New releases or
+edited source notes receive a UC-hosted GLM 5.3 summary and guidance for setup,
+FAQs, privacy, skills, citizen development and model selection.
 
-The update task is restricted by its instructions to the three saved content
-files in `content/harness/`. It must verify claims against the source, preserve
-configuration and permission qualifiers, run all required site checks, and
-publish a scoped commit through the existing branch deployment path. A trigger
-accepted by Harness does not mean the page was published. Completion requires
-the matching successful production workflow and verification of the public
-notes page and direct installer links.
+Release highlights are written for nontechnical staff and faculty: what they
+will notice, what they can do, and any action they need to take. Engineering
+jargon is rejected, and the source reviewer also checks audience suitability.
+An audience policy change refreshes the current summary even without a new
+release. Each statement carries an exact source quotation; another GLM 5.3
+request checks whether the source supports it. Rejected or malformed output stops without changing saved
+website content. No cloud model fallback is used. `source-verified` records an
+automated source check, not a human review.
 
-Before activation:
+The build fills current-version text, source-note links, tagged-document links,
+highlights and page guidance from this same snapshot. The worker changes only
+`content/harness/releases.json`, `installer.json` and `release-summaries.json`.
+It cannot rewrite arbitrary page markup or the Decorator shell. Stable content
+outside those generated sections continues to need editorial maintenance.
 
-1. Restore the disconnected Harness backend and verify its supported API.
-2. Approve and create a dedicated incoming connection for n8n with only
-   `orchestration:read` and `orchestration:operate`. The existing Harness-to-n8n
-   connection is outbound and does not authorize this reverse connection.
-3. Configure the template's private endpoint, job-only Harness project, and an
-   n8n HTTP Bearer credential. Keep credentials and private endpoint details out
-   of the public repository. Verify n8n can reach the Mac; the Mac and Harness
-   must be running when the job is initiated.
-4. Promote and verify the initial release page and helpers, then change the
-   snapshot URL from `playground` to `main`.
-5. Review the exact workflow, enable both worker nodes, test a complete update
-   through publication and failure reporting, and only then activate its schedule.
+Before pushing, the worker runs `npm test` and the required GitHub Pages
+build and validation. A dedicated repository credential pushes the scoped
+commit to `main`, which starts the normal Cascade publication workflow.
+The worker waits for the matching commit's successful Cascade run and verifies
+eight public pages and the exact guided download links. n8n reports success
+only when this worker finishes successfully; HTTP dispatch acceptance is not
+completion. Unchanged source snapshots stop without another model call or push.
 
-The worker prompt is a draft, not proof of an enforced filesystem boundary.
-The read-only detection path can be tested now; the write and publication path
-cannot be tested until the incoming connection is configured.
+Repository secrets:
+
+- `TRITONAI_RELEASE_API_KEY`: the existing UC-hosted model credential.
+- `HARNESS_RELEASE_PUSH_TOKEN`: a dedicated token for this website repository,
+  with Contents write and Actions write permissions. GitHub's default job token
+  cannot start the normal publication workflows when it pushes a commit.
+
+The n8n GitHub credential uses that dedicated repository token. Keep it out of
+exported workflow JSON and logs; record and monitor its expiration. Source reads,
+model failures, site-check failures, push conflicts and publication failures
+fail the worker visibly. A new commit on main during validation causes the push
+to fail safely; the next run starts from current main.
+
+Manual validation is available with `npm run maintain:harness`; the model key
+must be provided through `TRITONAI_RELEASE_API_KEY`. The `--refresh-summary`
+flag refreshes the current summary even when source fingerprints are unchanged.
 
 ## Manual candidate generation
 

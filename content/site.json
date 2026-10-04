@@ -149,8 +149,32 @@
           "href": "/training-resources/tritongpt/index.html"
         },
         {
-          "label": "Instructional AI Pilot",
-          "href": "/tritongpt/instruction.html"
+          "label": "Instructional Tutor",
+          "href": "/tritongpt/instruction.html",
+          "items": [
+            {
+              "label": "Tutor FAQ",
+              "href": "/tritongpt/instruction-faq.html"
+            },
+            {
+              "label": "Tutor Guide",
+              "href": "/tritongpt/tutor-guide/index.html",
+              "items": [
+                {
+                  "label": "Update the Knowledge Base",
+                  "href": "/tritongpt/tutor-guide/knowledge-base.html"
+                },
+                {
+                  "label": "Update the System Prompt",
+                  "href": "/tritongpt/tutor-guide/edit-system-prompt.html"
+                },
+                {
+                  "label": "Write an Effective System Prompt",
+                  "href": "/tritongpt/tutor-guide/write-system-prompt.html"
+                }
+              ]
+            }
+          ]
         },
         {
           "label": "Chatbot Widget",

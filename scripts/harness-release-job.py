@@ -195,7 +195,7 @@ def run(repo, state, node, force=False, hour=8):
     if synced.returncode: raise JobError('Release API or installer validation failed; the existing website was preserved')
     snapshot = read_json(staging / 'releases.json')
     installers = read_json(staging / 'installer.json')
-    digest = hashlib.sha256(json.dumps({'releases': snapshot['releases'], 'latest': snapshot['latestTag'], 'installers': installers['platforms']}, sort_keys=True).encode()).hexdigest()[:20]
+    digest = hashlib.sha256(json.dumps({'releases': snapshot['releases'], 'latest': snapshot['latestTag'], 'installers': {'platforms': installers['platforms'], 'guided': installers.get('guided')}}, sort_keys=True).encode()).hexdigest()[:20]
     candidate = state / 'candidates' / digest
     if (candidate / 'complete.json').exists():
         result = {'status': 'unchanged', 'checkedDate': now.date().isoformat(), 'latestTag': snapshot['latestTag'], 'candidate': str(candidate)}

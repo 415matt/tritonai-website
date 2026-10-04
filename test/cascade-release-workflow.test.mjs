@@ -80,3 +80,24 @@ test("the hourly Pages run validates without deploying", async () => {
     /deploy:\n(?:.|\n)*?if: github\.event_name == 'push' \|\| github\.event_name == 'workflow_dispatch'/,
   );
 });
+
+
+test("production path guard permits external courses and rejects local base paths", async () => {
+  const { hasProductionBasePathLeak } = await import("../scripts/check-production-base-path.mjs");
+  for (const value of [
+    '<a href="https://bpollak.github.io/tritonai-website/training/harness/">Training</a>',
+    '<a href="https://github.com/bpollak/tritonai-website">Source</a>',
+    '<a href="//bpollak.github.io/tritonai-website/training/harness/">Training</a>',
+    '<a href="/training/harness/">Training</a>',
+  ]) assert.equal(hasProductionBasePathLeak(value), false, value);
+  for (const value of [
+    '<a href="/tritonai-website/training/harness/">Training</a>',
+    'url(/tritonai-website/_images/banner.webp)',
+    '{"path":"/tritonai-website/"}',
+    '<loc>https://tritonai.ucsd.edu/tritonai-website/training/harness/</loc>',
+    '<a href="//tritonai.ucsd.edu/tritonai-website/">Training</a>',
+    '<a href="https://bpollak.github.io/tritonai-website/"></a><img src="/tritonai-website/banner.webp">',
+  ]) assert.equal(hasProductionBasePathLeak(value), true, value);
+  const workflow = await readFile(cascadeUrl, "utf8");
+  assert.match(workflow, /run: node scripts\/check-production-base-path\.mjs/);
+});

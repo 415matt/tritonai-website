@@ -51,7 +51,16 @@ jobs:
         if: steps.changes.outputs.changed == 'true'
         shell: bash
         run: |
-          mapfile -t newsletters < <(git diff --name-only --diff-filter=ACM -- content/newsletters)
+          mapfile -t newsletters < <(
+            {
+              git diff --name-only --diff-filter=ACM -- content/newsletters
+              git ls-files --others --exclude-standard -- content/newsletters
+            } | sort -u
+          )
+          if [[ ${#newsletters[@]} -eq 0 ]]; then
+            echo "No new or modified newsletter files to check."
+            exit 0
+          fi
           npm run check:newsletter-links -- "${newsletters[@]}"
 
       - name: Validate the updated site

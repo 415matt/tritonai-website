@@ -3,7 +3,7 @@
   "product": "TritonAI Harness",
   "owner": "TritonAI service team",
   "source": "https://github.com/dbalders/TritonAI-Harness/releases/latest",
-  "lastReviewed": "2026-10-01",
+  "lastReviewed": "2026-10-03",
   "dataClassification": "Public",
   "canonicalUrl": "/developer-apis/start.html",
   "releaseUrl": "https://github.com/dbalders/TritonAI-Harness/releases/latest",
@@ -12,21 +12,52 @@
       "label": "Download for Mac",
       "architecture": "Apple Silicon",
       "format": "DMG",
-      "downloadUrl": "https://github.com/dbalders/TritonAI-Harness/releases/download/v0.3.4/TritonAI-Harness-0.3.4-arm64.dmg",
-      "filename": "TritonAI-Harness-0.3.4-arm64.dmg",
-      "sizeBytes": 321699572,
-      "sha256": "b7a894497f0573b1ce248fb6b44eea60be0bc4be21fcc8c04719ef500b3dc4a0"
+      "downloadUrl": "https://github.com/dbalders/TritonAI-Harness/releases/download/v0.3.5/TritonAI-Harness-0.3.5-arm64.dmg",
+      "filename": "TritonAI-Harness-0.3.5-arm64.dmg",
+      "sizeBytes": 307221004,
+      "sha256": "960b0f21bb215577f851e3b727a5efa66c63d67a1a4f227f6b6a0501386622a6"
     },
     "windows": {
       "label": "Download for Windows",
       "architecture": "x64",
       "format": "Setup EXE",
-      "downloadUrl": "https://github.com/dbalders/TritonAI-Harness/releases/download/v0.3.4/TritonAI-Harness-0.3.4-x64.exe",
-      "filename": "TritonAI-Harness-0.3.4-x64.exe",
-      "sizeBytes": 218791040,
-      "sha256": "133ba9dcddfc0993939351ce53281ceb740ea17e2560c6f1c6e4b99ef961af1d"
+      "downloadUrl": "https://github.com/dbalders/TritonAI-Harness/releases/download/v0.3.5/TritonAI-Harness-0.3.5-x64.exe",
+      "filename": "TritonAI-Harness-0.3.5-x64.exe",
+      "sizeBytes": 247659112,
+      "sha256": "a897bcc014799143fb297c3fef4113afd648950d171b1257d7c0a9b5e58326a9"
     }
   },
-  "version": "0.3.4",
-  "publishedAt": "2026-09-23T02:59:43Z"
+  "version": "0.3.5",
+  "publishedAt": "2026-10-03T03:41:54Z",
+  "guided": {
+    "owner": "TritonAI service team",
+    "dataClassification": "Public",
+    "canonicalUrl": "/developer-apis/start.html",
+    "platforms": {
+      "mac": {
+        "label": "Download for Mac",
+        "architecture": "Apple Silicon",
+        "format": "DMG",
+        "filename": "TritonAI-Installer-0.3.5-arm64.dmg",
+        "sizeBytes": 611952811,
+        "sha256": "0d550192c29b9bb9b210ea39c3a9353075a3ff68be22f425142fd791833ecb02",
+        "downloadUrl": "https://github.com/dbalders/TritonAI-Installer/releases/download/v0.3.5/TritonAI-Installer-0.3.5-arm64.dmg"
+      },
+      "windows": {
+        "label": "Download for Windows",
+        "architecture": "x64",
+        "format": "Setup EXE",
+        "filename": "TritonAI-Installer-Setup-0.3.5-x64.exe",
+        "sizeBytes": 493309216,
+        "sha256": "80d4d21ae6b5a4271444c3307de44d6f19e31ad460a20f98d7c2652d8d702a6c",
+        "downloadUrl": "https://github.com/dbalders/TritonAI-Installer/releases/download/v0.3.5/TritonAI-Installer-Setup-0.3.5-x64.exe"
+      }
+    },
+    "version": "0.3.5",
+    "publishedAt": "2026-10-03T15:22:03Z",
+    "lastReviewed": "2026-10-03",
+    "product": "TritonAI Installer",
+    "source": "https://github.com/dbalders/TritonAI-Installer/releases/latest",
+    "releaseUrl": "https://github.com/dbalders/TritonAI-Installer/releases/tag/v0.3.5"
+  }
 }

@@ -31,3 +31,10 @@ relatedSlides: [Citizen Developer Ecosystem, Reusable Skills and MCP]
 <div data-skills-library="true"></div>
 
 <script defer src="/_resources/js/skills-library.js"></script>
+
+<section class="hub-section" data-harness-current-guidance-section aria-labelledby="harness-current-skills">
+<div class="hub-heading"><h2 id="harness-current-skills">Skills in the current stable release</h2>
+<p>TritonAI Harness <strong data-harness-version></strong>.</p></div>
+<p class="hub-section-action"><a class="btn btn-default" data-harness-release>Read the release notes</a></p>
+<ul data-harness-guidance="skills"></ul>
+</section>

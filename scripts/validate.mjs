@@ -16,7 +16,8 @@ import {
 import { collectTokens } from "./lib/chrome-styling.mjs";
 import { collectStyling } from "./chrome-contract.mjs";
 import { loadSkillsSource } from "./lib/skills-source.mjs";
-import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues } from "./lib/harness-releases.mjs";
+import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues, guidedInstallerIssues } from "./lib/harness-releases.mjs";
+
 
 const DIST_DIR = path.resolve("dist");
 const REPORT_DIR = path.resolve("reports");
@@ -29,6 +30,7 @@ const standaloneRoutes = new Set([
   "/presentations/managing-the-tritonai-website.html",
   "/tritongpt/bgpt-chat-generator/index.html",
 ]);
+const unlistedStandaloneRoutes = new Set(standaloneRoutes);
 const renderedProvenancePatterns = [
   { pattern: /\bSource:\s*[^<\n]*\.md\b/i, label: "internal content filename" },
   { pattern: /\bcurrent public (?:deck|presentation|version)\b/i, label: "public-version framing" },
@@ -275,6 +277,10 @@ for (const platformId of ["mac", "windows"]) {
     contentFindings.push({ source: `harness/installer.json#${platformId}`, issue: "Installer size and SHA-256 must identify the published artifact" });
   }
 }
+for (const issue of guidedInstallerIssues(harnessInstallerContent.guided)) {
+  contentFindings.push({ source: "harness/installer.json#guided", issue });
+}
+
 for (const issue of releaseSummaryIssues(harnessReleasesContent, harnessReleaseSummaries, harnessInstallerContent)) {
   contentFindings.push({ source: "harness/releases.json", issue });
 }
@@ -760,8 +766,8 @@ for (const page of htmlFiles) {
 
   $("video").each((_, element) => {
     const video = $(element);
+    const manualPlayback = video.attr("data-playback") === "manual";
     if (video.attr("controls") === undefined) accessibility.push({ page: route, issue: "Video missing controls" });
-    if (video.attr("playsinline") === undefined) accessibility.push({ page: route, issue: "Autoplay video must play inline" });
     if (video.attr("autoplay") !== undefined) performance.push({ page: route, issue: "Video must not load through eager autoplay" });
     if (video.attr("data-progress-slug") !== undefined) {
       // Training-video players: user-initiated playback with sound. They must
@@ -773,10 +779,15 @@ for (const page of htmlFiles) {
       if (!video.siblings("[data-video-play]").length) accessibility.push({ page: route, issue: "Training video missing explicit play control" });
       return;
     }
-    if (video.attr("data-autoplay-when-visible") !== "true") accessibility.push({ page: route, issue: "Video must autoplay when visible" });
+    if (!manualPlayback && video.attr("data-autoplay-when-visible") !== "true") accessibility.push({ page: route, issue: "Video must autoplay when visible or use manual playback" });
     if (video.attr("muted") === undefined) accessibility.push({ page: route, issue: "Autoplay video must be muted" });
+
+    if (video.attr("playsinline") === undefined) accessibility.push({ page: route, issue: "Autoplay video must play inline" });
     if (video.attr("preload") !== "none") performance.push({ page: route, issue: "Deferred video must use preload=none" });
-    if (video.attr("src") || video.find("source[src]").length) performance.push({ page: route, issue: "Video source must be deferred to data-src" });
+    if (manualPlayback) {
+      if (video.attr("data-autoplay-when-visible") || video.attr("data-src") || video.find("source[data-src]").length) performance.push({ page: route, issue: "Manual video must bypass autoplay and deferred hydration" });
+      if (!video.attr("src") && !video.find("source[src]").length) accessibility.push({ page: route, issue: "Manual video needs a native source" });
+    } else if (video.attr("src") || video.find("source[src]").length) performance.push({ page: route, issue: "Video source must be deferred to data-src" });
     const descriptionId = video.attr("aria-describedby");
     const described = descriptionId && $(`#${descriptionId}`).length === 1;
     const silentDemo = video.attr("data-silent-demo") === "true" && video.attr("muted") !== undefined && described;
@@ -1189,6 +1200,7 @@ for (const page of htmlFiles) {
     }
   }
   if (route === "/developer-apis/start.html") {
+    const guidedInstaller = harnessInstallerContent.guided;
     const setupPage = $(".developer-start-page");
     const setupText = setupPage.text().replace(/\s+/g, " ").trim();
     const setupSteps = setupPage.find(".developer-start-step, .workbench-card");
@@ -1206,20 +1218,22 @@ for (const page of htmlFiles) {
     if (
       macDownload.length !== 1 ||
       windowsDownload.length !== 1 ||
-      macDownload.attr("href") !== harnessInstallerContent.platforms.mac.downloadUrl ||
-      windowsDownload.attr("href") !== harnessInstallerContent.platforms.windows.downloadUrl ||
+      macDownload.attr("href") !== guidedInstaller.platforms.mac.downloadUrl ||
+      windowsDownload.attr("href") !== guidedInstaller.platforms.windows.downloadUrl ||
       macDownload.attr("href") === harnessInstallerContent.releaseUrl ||
       windowsDownload.attr("href") === harnessInstallerContent.releaseUrl ||
-      setupPage.find("[data-harness-release]").attr("href") !== `${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}${HARNESS_RELEASE_PAGE}#${releaseFragment(`v${harnessInstallerContent.version}`)}`
+      setupPage.find("[data-harness-release]").attr("href") !== `${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}${HARNESS_RELEASE_PAGE}`
+
     ) {
       contentFindings.push({ source: route, issue: "Harness setup buttons must download the platform installers directly and link to the matching website release notes" });
     }
     if (
-      !macDownload.find("[data-harness-download-detail]").text().includes(`Version ${harnessInstallerContent.version}`) ||
-      !windowsDownload.find("[data-harness-download-detail]").text().includes(`Version ${harnessInstallerContent.version}`) ||
+      macDownload.find("[data-harness-download-detail]").text() !== `${guidedInstaller.platforms.mac.architecture} · ${guidedInstaller.platforms.mac.format}` ||
+      windowsDownload.find("[data-harness-download-detail]").text() !== `${guidedInstaller.platforms.windows.architecture} · ${guidedInstaller.platforms.windows.format}` ||
       setupText.includes("Choose the installer for your operating system under Assets on GitHub")
     ) {
-      contentFindings.push({ source: route, issue: "Harness setup page must identify the installer version without directing users to select release assets" });
+      contentFindings.push({ source: route, issue: "Harness setup buttons must identify the platform and file format without directing users to select release assets" });
+
     }
     if (
       setupPage.find("a[href='mailto:tritonai@ucsd.edu']").length < 1 ||
@@ -1240,6 +1254,10 @@ for (const page of htmlFiles) {
       if (setupText.includes(requiredTerm) === false) {
         contentFindings.push({ source: route, issue: `Harness setup intake guidance is missing: ${requiredTerm}` });
       }
+    }
+    const orderedSteps = setupPage.find(".developer-start-flow > .developer-start-step").slice(0, 3).map((_, element) => $(element).attr("id")).get();
+    if (orderedSteps.join(",") !== "harness,request-access,verify" || !setupText.includes("one-time link") || !setupText.includes("key itself is not in the email") || !setupPage.find("#verify").text().includes("Check access & install")) {
+      contentFindings.push({ source: route, issue: "Setup must follow download, retrieve key, and finish installation in that order" });
     }
     const catalogIds = new Set((modelCatalogContent.models || []).map((model) => model.id));
     setupPage.find("code").each((_, element) => {
@@ -1344,6 +1362,7 @@ for (const page of htmlFiles) {
   }
   if (route === "/training-resources/pathways.html") {
     const pathwayCards = $(".learning-pathway-card");
+    const programCards = $(".learning-program");
     if (pathwayCards.length !== 5) {
       contentFindings.push({ source: route, issue: `Expected 5 role pathways; found ${pathwayCards.length}` });
     }
@@ -1359,6 +1378,16 @@ for (const page of htmlFiles) {
       }
       if (card.find(".learning-pathway-action").attr("href") === "") {
         accessibility.push({ page: route, issue: `${label} has an empty next-step destination` });
+      }
+    });
+    if (programCards.length !== 7) {
+      contentFindings.push({ source: route, issue: `Expected 7 training programs; found ${programCards.length}` });
+    }
+    programCards.each((_, element) => {
+      const card = $(element);
+      const label = card.find("h3").first().text().trim() || "Unnamed program";
+      if (card.find("h3").length !== 1 || card.find("a").length !== 1) {
+        accessibility.push({ page: route, issue: `${label} is missing a heading or destination` });
       }
     });
     if ($("#keep-going-heading").length !== 1 || $("#keep-going-heading").text().trim().length < 20) {
@@ -1391,10 +1420,14 @@ for (const page of htmlFiles) {
     }
     const activeHeroImage = $("#heroslider .item.active img.first-slide");
     const desktopHeroSource = $("#heroslider .item.active picture source[media='(min-width: 768px)']");
-    if (!/TritonAI_Hero_828\.webp(?:$|[?#])/.test(activeHeroImage.attr("src") || "") || activeHeroImage.attr("fetchpriority") !== "high") {
+    const firstHeroSlide = homeHeroContent.slides?.[0];
+    const mobileHeroPath = toLocalPath(activeHeroImage.attr("src"), page);
+    const desktopHeroPath = toLocalPath(desktopHeroSource.attr("srcset"), page);
+    const mobileHeroBytes = await localAssetSize(activeHeroImage.attr("src"), page);
+    if (!firstHeroSlide?.mobileImage || mobileHeroPath !== firstHeroSlide.mobileImage || !/\.webp$/i.test(mobileHeroPath || "") || !mobileHeroBytes || mobileHeroBytes > 100_000 || activeHeroImage.attr("fetchpriority") !== "high") {
       performance.push({ page: route, issue: "Homepage must prioritize the mobile-sized hero image" });
     }
-    if (!/TritonAI_Hero_2500\.webp(?:$|[?#])/.test(desktopHeroSource.attr("srcset") || "")) {
+    if (!firstHeroSlide?.optimizedImage || desktopHeroPath !== firstHeroSlide.optimizedImage || !/\.webp$/i.test(desktopHeroPath || "") || desktopHeroPath === mobileHeroPath) {
       performance.push({ page: route, issue: "Homepage hero must provide the full-width source at the desktop breakpoint" });
     }
     if ($("[data-today-news]").length !== 1 || $("[data-today-news-cards]").length !== 1 || $("[data-today-news-status]").length !== 1) {
@@ -1458,7 +1491,7 @@ try {
 }
 const sitemap = await readFile(path.join(DIST_DIR, "sitemap.xml"), "utf8").catch(() => "");
 const routeFindings = [];
-const listedHtmlFiles = htmlFiles.filter((file) => !standaloneRoutes.has(normalizeRoute(`/${file}`)));
+const listedHtmlFiles = htmlFiles.filter((file) => !unlistedStandaloneRoutes.has(normalizeRoute(`/${file}`)));
 if (!routeManifest || routeManifest.routes?.length !== listedHtmlFiles.length) {
   routeFindings.push({ issue: `Route manifest count does not match listed HTML count (${routeManifest?.routes?.length || 0} vs ${listedHtmlFiles.length})` });
 } else {
@@ -1468,7 +1501,7 @@ if (!routeManifest || routeManifest.routes?.length !== listedHtmlFiles.length) {
     if (!route.indexable && !route.redirectTo && included) routeFindings.push({ path: route.path, issue: "Non-indexable route appears in sitemap" });
   }
 }
-for (const route of standaloneRoutes) {
+for (const route of unlistedStandaloneRoutes) {
   if (routeManifest?.routes?.some((entry) => entry.path === route)) {
     routeFindings.push({ path: route, issue: "Unlisted standalone route appears in the public route manifest" });
   }
