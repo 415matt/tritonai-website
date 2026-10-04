@@ -3,6 +3,15 @@ import assert from "node:assert/strict";
 import { load } from "cheerio";
 import { applyHarnessPageMetadata } from "../scripts/lib/harness-page-metadata.mjs";
 import { DOCUMENTS, validateSynthesis } from "../scripts/maintain-harness-release.mjs";
+import { readPublicPage } from "../scripts/lib/public-page-fetch.mjs";
+
+test("public verification retries interrupted connections but fails on HTTP errors", async () => {
+  const url = "https://tritonai.ucsd.edu/developer-apis/harness-release-notes.html";
+  assert.equal(await readPublicPage(url, async () => { throw new TypeError("fetch failed"); }), null);
+  assert.equal(await readPublicPage(url, async () => ({ ok: true, text: async () => { throw new TypeError("terminated"); } })), null);
+  assert.equal(await readPublicPage(url, async () => ({ ok: true, text: async () => "published text" })), "published text");
+  await assert.rejects(readPublicPage(url, async () => ({ ok: false, status: 404 })), /returned 404/);
+});
 
 test("a new stable release updates related page markers without changing chrome", () => {
   const $ = load('<header><span data-harness-version>old chrome</span></header><main id="main-content"><strong data-harness-version>old</strong><a data-harness-doc="docs/user/memory.md">Memory</a><a data-harness-release>History</a><ul data-harness-current-highlights></ul></main>');

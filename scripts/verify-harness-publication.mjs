@@ -1,6 +1,7 @@
 import { execFileSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import * as cheerio from "cheerio";
+import { readPublicPage } from "./lib/public-page-fetch.mjs";
 
 const sha = execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim();
 const installer = JSON.parse(await readFile("content/harness/installer.json", "utf8"));
@@ -26,9 +27,11 @@ const routes = ["/developer-apis/start.html", "/developer-apis/harness.html", "/
 while (Date.now() < deadline) {
   let current = true;
   for (const route of routes) {
-    const response = await fetch(`https://tritonai.ucsd.edu${route}?release=${sha.slice(0, 12)}`, { cache: "no-store", signal: AbortSignal.timeout(30000) });
-    if (!response.ok) throw new Error(`Public route ${route} returned ${response.status}.`);
-    const html = await response.text();
+    const html = await readPublicPage(`https://tritonai.ucsd.edu${route}?release=${sha.slice(0, 12)}`);
+    if (html === null) {
+      current = false;
+      break;
+    }
     const $ = cheerio.load(html);
     if (route.endsWith("harness-release-notes.html")) {
       if (!$("main#main-content").text().includes(releases.latestTag)) current = false;
