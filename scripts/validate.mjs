@@ -1420,10 +1420,14 @@ for (const page of htmlFiles) {
     }
     const activeHeroImage = $("#heroslider .item.active img.first-slide");
     const desktopHeroSource = $("#heroslider .item.active picture source[media='(min-width: 768px)']");
-    if (!/TritonAI_Hero_828\.webp(?:$|[?#])/.test(activeHeroImage.attr("src") || "") || activeHeroImage.attr("fetchpriority") !== "high") {
+    const firstHeroSlide = homeHeroContent.slides?.[0];
+    const mobileHeroPath = toLocalPath(activeHeroImage.attr("src"), page);
+    const desktopHeroPath = toLocalPath(desktopHeroSource.attr("srcset"), page);
+    const mobileHeroBytes = await localAssetSize(activeHeroImage.attr("src"), page);
+    if (!firstHeroSlide?.mobileImage || mobileHeroPath !== firstHeroSlide.mobileImage || !/\.webp$/i.test(mobileHeroPath || "") || !mobileHeroBytes || mobileHeroBytes > 100_000 || activeHeroImage.attr("fetchpriority") !== "high") {
       performance.push({ page: route, issue: "Homepage must prioritize the mobile-sized hero image" });
     }
-    if (!/TritonAI_Hero_2500\.webp(?:$|[?#])/.test(desktopHeroSource.attr("srcset") || "")) {
+    if (!firstHeroSlide?.optimizedImage || desktopHeroPath !== firstHeroSlide.optimizedImage || !/\.webp$/i.test(desktopHeroPath || "") || desktopHeroPath === mobileHeroPath) {
       performance.push({ page: route, issue: "Homepage hero must provide the full-width source at the desktop breakpoint" });
     }
     if ($("[data-today-news]").length !== 1 || $("[data-today-news-cards]").length !== 1 || $("[data-today-news-status]").length !== 1) {

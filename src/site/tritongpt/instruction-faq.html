@@ -341,7 +341,7 @@
       <li>Files and Modules</li>
       <li>Quizzes (Classic and New Quizzes)</li>
       </ul>
-      <p>It fetches content <strong>by type</strong>, so material can be indexed even if it is not placed in a Module. You choose which sources are selected in the tutor’s knowledge settings, and the tutor learns or unlearns content as you select or deselect it during the term.</p>
+      <p>It fetches content <strong>by type</strong>, so material can be indexed even if it is not placed in a Module. You choose which indexed sources the tutor may retrieve from in its knowledge settings. Changing a Canvas item’s availability does not immediately remove an indexed copy; see the refresh guidance below.</p>
     </div>
     <h2><a href="#">Can the tutor read my quizzes?</a></h2>
     <div>
@@ -358,8 +358,8 @@
     </div>
     <h2><a href="#">Does the tutor respect module and item lock dates?</a></h2>
     <div>
-      <p>Yes. The connector checks whether each item is published, hidden, locked, or outside its unlock/lock dates. It also checks the parent Module, so items in a locked Module are excluded.</p>
-      <p><strong>Due dates are not the same as availability.</strong> A due date alone does not hide content. To keep problem-set solutions away from the tutor until after the deadline, use an unlock date, a locked Module, or leave the item unpublished.</p>
+      <p>The connector checks item and parent Module availability when indexing content. It does not check lock status during each conversation. Material indexed before you re-lock it can remain searchable until cleanup; deselect it in the tutor’s knowledge settings or contact the TritonAI team to remove it promptly.</p>
+      <p><strong>Due dates do not hide content.</strong> Keep solutions and exam keys unpublished until release, and review the selected sources before students use the tutor.</p>
     </div>
     <h2><a href="#">How quickly do content changes reach the tutor?</a></h2>
     <div>
@@ -398,7 +398,7 @@
     </div>
     <h2><a href="#">Will it help with quizzes, exams, or graded work?</a></h2>
     <div>
-      <p>Follow your instructor’s AI policy for the course. Tutors can be set to decline quiz questions, and content your instructor has locked or not yet released is not available to the tutor.</p>
+      <p>Follow your instructor’s AI policy for the course. Tutors can be set to decline quiz questions. The tutor uses indexed course sources selected by your instructor; changes to Canvas availability may take time to reach that index. Ask your instructor if the tutor shows material you believe should not be available.</p>
     </div>
     <h2><a href="#">What does the tutor know about?</a></h2>
     <div>

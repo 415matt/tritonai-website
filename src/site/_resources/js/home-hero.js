@@ -6,7 +6,7 @@
     var toggle = document.querySelector("[data-home-hero-toggle]");
     if (!carousel || !toggle) return;
 
-    var isPaused = false;
+    var isPaused = Boolean(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     var icon = toggle.querySelector(".glyphicon");
     var label = toggle.querySelector(".sr-only");
     var fallbackTimer = null;
@@ -90,21 +90,37 @@
     var previous = carousel.querySelector("[data-home-hero-direction='prev']");
     var next = carousel.querySelector("[data-home-hero-direction='next']");
 
+    function setPaused(paused) {
+      isPaused = paused;
+      carousel.classList.toggle("paused", paused);
+      if (hasNativeCarousel) window.jQuery(carousel).carousel(paused ? "pause" : "cycle");
+      else if (paused) stopFallbackCycle();
+      else startFallbackCycle();
+      updateToggle();
+    }
+
+    // Keep the focused slide in place until the visitor chooses to resume.
+    carousel.addEventListener("focusin", function (event) {
+      if (event.target !== toggle) setPaused(true);
+    });
+
+    // The native Decorator click handler also targets this content control.
+    // Handle it in capture so a single click changes the playback state once.
+    toggle.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      setPaused(!isPaused);
+    }, true);
+
     if (hasNativeCarousel) {
       window.jQuery(carousel).on("slide.bs.carousel", function (event) {
         hydrateSlideImage(event.relatedTarget);
       });
       window.jQuery(carousel).on("slid.bs.carousel", updateSlides);
       updateSlides();
+      setPaused(isPaused);
       return;
     }
-
-    toggle.addEventListener("click", function () {
-      isPaused = !isPaused;
-      if (isPaused) stopFallbackCycle();
-      else startFallbackCycle();
-      updateToggle();
-    });
 
     if (previous) previous.addEventListener("click", function (event) {
       event.preventDefault();
