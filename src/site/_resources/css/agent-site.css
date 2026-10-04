@@ -662,6 +662,82 @@ main#main-content #heroslider .carousel-control {
   z-index: 3;
 }
 
+main#main-content .home-training-artwork {
+  left: 55%;
+  pointer-events: none;
+  position: absolute;
+  right: 7%;
+  top: 18%;
+}
+
+main#main-content .home-training-brand {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+main#main-content .home-training-brand > img {
+  height: 72px;
+  width: 72px;
+}
+
+main#main-content .home-training-wordmark {
+  color: #fff;
+  display: block;
+  font-size: clamp(22px, 3vw, 48px);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+main#main-content .home-training-wordmark > span {
+  color: #00bfd1;
+}
+
+main#main-content .home-training-series {
+  color: #fff;
+  display: block;
+  font-size: clamp(12px, 1.3vw, 20px);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+main#main-content .home-training-lessons {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+main#main-content .home-training-lessons > img {
+  border: 1px solid rgba(255, 255, 255, .25);
+  border-radius: 4px;
+  height: auto;
+  width: 100%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  main#main-content .home-training-artwork {
+    left: 64%;
+    right: 5%;
+    top: 22%;
+  }
+
+  main#main-content .home-training-brand {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  main#main-content .home-training-brand > img {
+    height: 40px;
+    width: 40px;
+  }
+
+  main#main-content .home-training-lessons {
+    gap: 8px;
+  }
+}
+
 @media (min-width: 768px) {
   .agent-page #heroslider .item > .first-slide,
   .agent-page #heroslider .item > .home-hero-media {
@@ -1669,6 +1745,45 @@ main#main-content .skills-setup {
 
   .agent-page .home-main-content {
     padding-top: 0;
+  }
+
+  main#main-content #heroslider [data-home-hero-id="discovery-series"] {
+    background: var(--triton-navy);
+    padding-bottom: 36px;
+  }
+
+  main#main-content #heroslider [data-home-hero-id="discovery-series"] > .home-hero-media,
+  main#main-content #heroslider [data-home-hero-id="discovery-series"] > .home-hero-media .first-slide {
+    height: 100%;
+    min-height: 0;
+    object-fit: cover;
+  }
+
+  main#main-content .home-training-artwork {
+    grid-area: 1 / 1;
+    left: auto;
+    margin: 24px 35px 12px;
+    position: relative;
+    right: auto;
+    top: auto;
+  }
+
+  main#main-content .home-training-brand {
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  main#main-content .home-training-brand > img {
+    height: 44px;
+    width: 44px;
+  }
+
+  main#main-content .home-training-wordmark {
+    font-size: 28px;
+  }
+
+  main#main-content #heroslider [data-home-hero-id="discovery-series"] > .container {
+    grid-area: 2 / 1;
   }
 
   .agent-page .lead {

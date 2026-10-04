@@ -706,6 +706,12 @@ function renderGatewayUsage(usage) {
   return `<div class="hub-heading gateway-usage-heading"><p class="home-kicker">Gateway usage</p><h2 id="gateway-usage-heading">${escapeHtml(usage.title)}</h2><p>${escapeHtml(usage.summary)}</p></div><ul class="gateway-usage-metrics" aria-label="Gateway usage summary">${metrics}</ul><div class="gateway-usage-trend"><div class="gateway-usage-trend-heading"><div><h3>Monthly token volume</h3><p>${volumeSummary}</p></div><ul class="gateway-usage-legend" aria-label="Chart legend"><li><span class="gateway-usage-key-self-hosted" aria-hidden="true"></span>Self-hosted and internal</li><li><span class="gateway-usage-key-cloud" aria-hidden="true"></span>Cloud</li></ul></div><ol class="gateway-usage-months">${monthRows}</ol></div><details class="gateway-usage-details"><summary>View monthly data and measurement notes</summary><div class="table-responsive"><table class="table"><caption>Gateway token volume by model route, ${escapeHtml(usage.measurementPeriod.label)}</caption><thead><tr><th scope="col">Month</th><th scope="col">Self-hosted and internal</th><th scope="col">Cloud</th><th scope="col">Total tokens</th></tr></thead><tbody>${tableRows}</tbody></table></div>${monthlyDrivers}<dl class="gateway-usage-meta"><div><dt>Measurement period</dt><dd>${escapeHtml(usage.measurementPeriod.label)}</dd></div><div><dt>Owner</dt><dd>${escapeHtml(usage.owner)}</dd></div><div><dt>Data classification</dt><dd>${escapeHtml(usage.dataClassification)}</dd></div><div><dt>Last reviewed</dt><dd>${escapeHtml(usage.lastReviewed)}</dd></div></dl><ul class="gateway-usage-notes">${usage.notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}</ul></details>`;
 }
 
+function renderHomeTrainingArtwork(artwork) {
+  if (!artwork) return "";
+  const lessons = artwork.lessons.map((lesson) => `<img alt="${escapeHtml(lesson.imageAlt)}" src="${escapeHtml(lesson.image)}" width="720" height="405" decoding="async">`).join("");
+  return `<div class="home-training-artwork" role="group" aria-label="TritonAI Discovery Series lesson artwork"><div class="home-training-brand" aria-hidden="true"><img alt="" src="${escapeHtml(artwork.logo)}" width="128" height="128"><div><span class="home-training-wordmark">TRITON<span>AI</span></span><span class="home-training-series">Discovery Series</span></div></div><div class="home-training-lessons">${lessons}</div></div>`;
+}
+
 function renderHomeHero(hero) {
   const multipleSlides = hero.slides.length > 1;
   const indicators = multipleSlides ? hero.slides
@@ -717,6 +723,8 @@ function renderHomeHero(hero) {
   const slides = hero.slides
     .map((slide, index) => {
       const accent = slide.accent ? `<br><span>${escapeHtml(slide.accent)}</span>` : "";
+      const imageAlt = slide.trainingArtwork ? "" : slide.imageAlt;
+      const trainingArtwork = renderHomeTrainingArtwork(slide.trainingArtwork);
       const imageSource = slide.optimizedImage || slide.image;
       const imageAttributes =
         index === 0
@@ -730,9 +738,9 @@ function renderHomeHero(hero) {
         ? `src="${escapeHtml(slide.mobileImage)}" fetchpriority="high"`
         : imageAttributes;
       const heroImage = mobileSource
-        ? `<picture class="home-hero-media">${mobileSource}<img alt="${escapeHtml(slide.imageAlt)}" class="first-slide" ${responsiveImageAttributes}${fallback} decoding="async"></picture>`
-        : `<img alt="${escapeHtml(slide.imageAlt)}" class="first-slide" ${imageAttributes}${fallback} decoding="async">`;
-      return `<div aria-label="${index + 1} out of ${hero.slides.length}" aria-roledescription="slide" aria-hidden="${index === 0 ? "false" : "true"}" class="item${index === 0 ? " active" : ""}" role="group">${heroImage}<div class="container"><div class="cr-item-container"><div class="row"><div class="col-sm-12"><div class="animated fadeInUp herotextbg-dark-opaque"><h2 class="rt-text-light hero-slide-heading" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.title)}${accent}</h2><p class="rt-text-light" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.description)}</p><a class="btn btn-lg btn-default" data-module="hero-homepage" href="${escapeHtml(slide.link)}" role="button" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.linkLabel)}</a></div></div></div></div></div></div>`;
+        ? `<picture class="home-hero-media">${mobileSource}<img alt="${escapeHtml(imageAlt)}" class="first-slide" ${responsiveImageAttributes}${fallback} decoding="async"></picture>`
+        : `<img alt="${escapeHtml(imageAlt)}" class="first-slide" ${imageAttributes}${fallback} decoding="async">`;
+      return `<div aria-label="${index + 1} out of ${hero.slides.length}" aria-roledescription="slide" aria-hidden="${index === 0 ? "false" : "true"}" class="item${index === 0 ? " active" : ""}" data-home-hero-id="${escapeHtml(slide.id)}" role="group">${heroImage}${trainingArtwork}<div class="container"><div class="cr-item-container"><div class="row"><div class="col-sm-12"><div class="animated fadeInUp herotextbg-dark-opaque"><h2 class="rt-text-light hero-slide-heading" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.title)}${accent}</h2><p class="rt-text-light" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.description)}</p><a class="btn btn-lg btn-default" data-module="hero-homepage" href="${escapeHtml(slide.link)}" role="button" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.linkLabel)}</a></div></div></div></div></div></div>`;
     })
     .join("");
   const controls = multipleSlides
@@ -1631,6 +1639,12 @@ requireFields(homeHero, ["schemaVersion", "owner", "source", "lastReviewed", "ro
 homeHero.lastReviewed = isoDate(homeHero.lastReviewed);
 for (const [index, slide] of homeHero.slides.entries()) {
   requireFields(slide, ["id", "title", "description", "image", "imageAlt", "link", "linkLabel"], `homepage hero slide ${index + 1}`);
+  if (slide.trainingArtwork) {
+    requireFields(slide.trainingArtwork, ["logo", "lessons"], `homepage hero artwork ${slide.id}`);
+    for (const lesson of slide.trainingArtwork.lessons) {
+      requireFields(lesson, ["image", "imageAlt", "source"], `homepage hero lesson ${slide.id}`);
+    }
+  }
 }
 requireFields(gatewayUsage, ["schemaVersion", "title", "summary", "owner", "source", "measurementPeriod", "generatedAt", "lastReviewed", "dataClassification", "canonicalUrl", "relatedSlides", "metrics", "monthly", "notes"], "content/facts/gateway-usage.json");
 requireFields(gatewayUsage.measurementPeriod, ["start", "end", "label"], "content/facts/gateway-usage.json measurement period");
