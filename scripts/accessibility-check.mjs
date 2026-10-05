@@ -33,7 +33,12 @@ async function homeHeroLayoutChecks(page) {
 }
 
 async function homeHeroSlideChecks(page) {
-  await page.evaluate(() => document.fonts.ready);
+  // Viewport changes can return before the browser paints the new grid layout.
+  // Compare rotation positions only after that resize has finished rendering.
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  });
   const issues = [];
   const positions = [];
   const count = await page.locator("#heroslider .item").count();
