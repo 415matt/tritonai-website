@@ -1707,7 +1707,7 @@ main#main-content .skills-setup {
 }
 
 @media (max-width: 767px) {
-  /* Share the tallest slide's size when TritonAI artwork adds content. */
+  /* Keep the department banner proportions without stacking desktop artwork. */
   main#main-content #heroslider .carousel-inner {
     display: grid;
   }
@@ -1716,7 +1716,7 @@ main#main-content .skills-setup {
     display: grid;
     grid-area: 1 / 1;
     grid-template-columns: minmax(0, 1fr);
-    min-height: 320px;
+    min-height: max(160px, calc(100vw * 46 / 125));
     position: relative;
     visibility: hidden;
   }
@@ -1749,43 +1749,32 @@ main#main-content .skills-setup {
     z-index: 1;
   }
 
-  main#main-content #heroslider [data-home-hero-id="discovery-series"] > .container {
-    grid-area: 2 / 1;
-  }
-
   main#main-content #heroslider .cr-item-container {
-    margin: 12px 20px 64px;
+    margin: 20px 34px 60px;
     position: relative;
     top: auto;
     width: auto;
   }
 
   main#main-content .home-training-artwork {
-    grid-area: 1 / 1;
-    left: auto;
-    margin: 16px 20px 0;
-    position: relative;
-    right: auto;
-    top: auto;
+    display: none;
   }
 
-  main#main-content .home-training-brand {
-    gap: 10px;
-    margin-bottom: 12px;
+  main#main-content #heroslider .herotextbg-dark-opaque {
+    background: transparent;
+    padding: 0;
   }
 
-  main#main-content .home-training-brand > img {
-    height: 40px;
-    width: 40px;
-  }
-
-  main#main-content .home-training-wordmark {
-    font-size: 24px;
+  main#main-content #heroslider .hero-slide-heading {
+    margin: 0 0 12px;
   }
 
   main#main-content #heroslider [data-module="hero-homepage"] {
+    font-size: 14px;
+    line-height: 20px;
     max-width: 100%;
     min-height: 44px;
+    padding: 10px 16px;
     white-space: normal;
   }
 

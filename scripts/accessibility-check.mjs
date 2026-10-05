@@ -53,6 +53,7 @@ async function homeHeroSlideChecks(page) {
       return {
         id: slide.getAttribute("data-home-hero-id"),
         followingContentTop: document.querySelector(".home-main-content").getBoundingClientRect().top,
+        oversizedHero: heroRect.height > Math.max(190, window.innerWidth * 46 / 125 + 1),
         clippedButton: button.scrollWidth > button.clientWidth + 1 || buttonRect.left < heroRect.left || buttonRect.right > heroRect.right || buttonRect.bottom > controlsRect.top,
         overflow: document.documentElement.scrollWidth > window.innerWidth + 1,
       };
@@ -60,6 +61,7 @@ async function homeHeroSlideChecks(page) {
     positions.push(state.followingContentTop);
     if (state.clippedButton) issues.push(`${state.id}: call to action is clipped or overlaps carousel controls`);
     if (state.overflow) issues.push(`${state.id}: horizontal overflow`);
+    if (state.oversizedHero) issues.push(`${state.id}: mobile banner exceeds the compact department proportions`);
     await page.locator("[data-home-hero-direction='next']").click();
     await page.waitForFunction((previousId) => {
       const active = document.querySelector("#heroslider .item.active");
