@@ -712,6 +712,7 @@ function renderHomeTrainingArtwork(artwork) {
   return `<div class="home-training-artwork" role="group" aria-label="TritonAI Discovery Series lesson artwork"><div class="home-training-brand" aria-hidden="true"><img alt="" src="${escapeHtml(artwork.logo)}" width="128" height="128"><div><span class="home-training-wordmark">TRITON<span>AI</span></span><span class="home-training-series">Discovery Series</span></div></div><div class="home-training-lessons">${lessons}</div></div>`;
 }
 
+// Hero canvas follows the source structure at https://department.ucsd.edu/.
 function renderHomeHero(hero) {
   const multipleSlides = hero.slides.length > 1;
   const indicators = multipleSlides ? hero.slides
@@ -722,7 +723,7 @@ function renderHomeHero(hero) {
     .join("") : "";
   const slides = hero.slides
     .map((slide, index) => {
-      const accent = slide.accent ? `<br><span>${escapeHtml(slide.accent)}</span>` : "";
+      const accent = slide.accent ? `<strong>${escapeHtml(slide.accent)}</strong><br>` : "";
       const imageAlt = slide.trainingArtwork ? "" : slide.imageAlt;
       const trainingArtwork = renderHomeTrainingArtwork(slide.trainingArtwork);
       const imageSource = slide.optimizedImage || slide.image;
@@ -740,14 +741,17 @@ function renderHomeHero(hero) {
       const heroImage = mobileSource
         ? `<picture class="home-hero-media">${mobileSource}<img alt="${escapeHtml(imageAlt)}" class="first-slide" ${responsiveImageAttributes}${fallback} decoding="async"></picture>`
         : `<img alt="${escapeHtml(imageAlt)}" class="first-slide" ${imageAttributes}${fallback} decoding="async">`;
-      return `<div aria-label="${index + 1} out of ${hero.slides.length}" aria-roledescription="slide" aria-hidden="${index === 0 ? "false" : "true"}" class="item${index === 0 ? " active" : ""}" data-home-hero-id="${escapeHtml(slide.id)}" role="group">${heroImage}${trainingArtwork}<div class="container"><div class="cr-item-container"><div class="row"><div class="col-sm-12"><div class="animated fadeInUp herotextbg-dark-opaque"><h2 class="rt-text-light hero-slide-heading" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.title)}${accent}</h2><p class="rt-text-light" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.description)}</p><a class="btn btn-lg btn-default" data-module="hero-homepage" href="${escapeHtml(slide.link)}" role="button" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.linkLabel)}</a></div></div></div></div></div></div>`;
+      return `<div aria-label="${index + 1} out of ${hero.slides.length}" aria-roledescription="slide" aria-hidden="${index === 0 ? "false" : "true"}" class="item${index === 0 ? " active" : ""}" data-home-hero-id="${escapeHtml(slide.id)}" role="group">${heroImage}${trainingArtwork}<div class="container"><div class="cr-item-container"><div class="row"><div class="col-sm-12"><div class="animated fadeInUp herotextbg-dark-opaque"><h2 class="rt-text-light hero-slide-heading" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.title)}</h2><p class="rt-text-light" tabindex="${index === 0 ? "0" : "-1"}">${accent}${escapeHtml(slide.description)}</p><a class="btn btn-lg btn-default rt-btn-yellow" data-h1="${escapeHtml(slide.title)}" data-module="hero-homepage" href="${escapeHtml(slide.link)}" role="button" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.linkLabel)}</a></div></div></div></div></div></div>`;
     })
     .join("");
-  const controls = multipleSlides
-    ? `<div id="indicators-container"><button aria-label="carousel is playing, click to pause" data-home-hero-toggle id="toggleCarousel" type="button"><span aria-hidden="true" class="glyphicon glyphicon-pause"></span></button><ol aria-hidden="true" class="carousel-indicators">${indicators}</ol></div><a aria-controls="heroslider" aria-label="previous slide" class="left carousel-control" data-home-hero-direction="prev" data-slide="prev" href="#heroslider" role="button" tabindex="0"><span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span><span class="sr-only">Previous</span></a><a aria-controls="heroslider" aria-label="next slide" class="right carousel-control" data-home-hero-direction="next" data-slide="next" href="#heroslider" role="button" tabindex="0"><span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span><span class="sr-only">Next</span></a>`
+  const playbackControl = multipleSlides
+    ? `<div id="indicators-container"><button aria-label="carousel is playing, click to pause" data-home-hero-toggle id="toggleCarousel" type="button"><span aria-hidden="true" class="glyphicon glyphicon-pause"></span></button><ol aria-hidden="true" class="carousel-indicators">${indicators}</ol></div>`
+    : "";
+  const navigationControls = multipleSlides
+    ? `<a aria-controls="heroslider" aria-label="previous slide" class="left carousel-control" data-home-hero-direction="prev" data-slide="prev" href="#heroslider" role="button" tabindex="0"><span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span><span class="sr-only">Previous</span></a><a aria-controls="heroslider" aria-label="next slide" class="right carousel-control" data-home-hero-direction="next" data-slide="next" href="#heroslider" role="button" tabindex="0"><span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span><span class="sr-only">Next</span></a>`
     : "";
   const carouselAttributes = multipleSlides ? ` data-interval="${hero.rotationIntervalMs}" data-ride="carousel"` : "";
-  return `<div class="carousel slide jumbotron jumbotron-hero hm"${carouselAttributes} id="heroslider"><div aria-label="${multipleSlides ? `Revolving Banners with ${hero.slides.length} items` : "TritonAI introduction"}" class="carousel-inner" role="region" tabindex="0">${controls}${slides}</div></div>${multipleSlides ? '<script defer src="/_resources/js/home-hero.js"></script>' : ""}`;
+  return `<div class="carousel slide jumbotron jumbotron-hero hm"${carouselAttributes} id="heroslider"><div aria-label="${multipleSlides ? `Revolving Banners with ${hero.slides.length} items` : "TritonAI introduction"}" class="carousel-inner" role="region" tabindex="0">${playbackControl}${slides}${navigationControls}</div></div>${multipleSlides ? '<script defer src="/_resources/js/home-hero.js"></script>' : ""}`;
 }
 
 // Public-facing guidance is separate from the agent trigger descriptions synced upstream.
