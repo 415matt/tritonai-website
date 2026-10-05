@@ -949,7 +949,8 @@ function renderSidebarItems(navigation, route) {
       .map((child) => {
         if (child.href === route) {
           const grandchildMenu = descendantNavLinks(child);
-          return `<li class="${grandchildMenu ? "expanded active" : "active"}">${escapeHtml(child.label)}${grandchildMenu ? `<ul>${grandchildMenu}</ul>` : ""}</li>`;
+          const label = grandchildMenu ? `<a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a>` : escapeHtml(child.label);
+          return `<li class="${grandchildMenu ? "expanded active" : "active"}">${label}${grandchildMenu ? `<ul>${grandchildMenu}</ul>` : ""}</li>`;
         }
         return `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`;
       })
@@ -960,7 +961,7 @@ function renderSidebarItems(navigation, route) {
     return children
       .map((child) => {
         if (child === activeDescendantChild) {
-          return `<li class="expanded active">${escapeHtml(child.label)}<ul>${descendantNavLinks(child)}</ul></li>`;
+          return `<li class="expanded active"><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a><ul>${descendantNavLinks(child)}</ul></li>`;
         }
         return `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`;
       })
