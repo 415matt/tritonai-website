@@ -476,8 +476,7 @@ function formatCueTime(seconds) {
 
 const TRAINING_VIDEO_SERIES_ORDER = ["Foundations", "Using the Tools", "Building"];
 
-// Swap for the updated team-training intake form URL when it is ready.
-const TRAINING_INTAKE_URL = "/about/get-involved.html";
+const TRAINING_INTAKE_URL = "https://osi.ucsd.edu/contact-us/index.html";
 
 const TRAINING_VIDEO_SERIES_DESCRIPTIONS = {
   Foundations:
