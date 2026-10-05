@@ -117,6 +117,20 @@ try {
             }
             return issues;
           }),
+          harnessTrainingFrameIssues: await page.evaluate(() => {
+            const grid = document.querySelector(".harness-training-grid");
+            if (!grid) return [];
+            const reference = document.querySelector("#harness-stable-release");
+            if (!reference) return ["missing neighboring section for frame comparison"];
+            const bounds = grid.getBoundingClientRect();
+            const frame = reference.getBoundingClientRect();
+            const styles = getComputedStyle(reference);
+            const left = frame.left + parseFloat(styles.paddingLeft);
+            const right = frame.right - parseFloat(styles.paddingRight);
+            return Math.abs(bounds.left - left) > 1 || Math.abs(bounds.right - right) > 1
+              ? ["training module does not align with the neighboring section's content frame"]
+              : [];
+          }),
           collapsedHubMedia: width <= 991
             ? await page.evaluate(() => Array.from(document.querySelectorAll(".hub-split-media")).filter((media) => {
               const mediaRect = media.getBoundingClientRect();
@@ -215,6 +229,7 @@ for (const result of pages) {
     if (viewport.horizontalOverflow) failures.push(`${label}: horizontal overflow`);
     for (const issue of viewport.homeHeroIssues || []) failures.push(`${label}: homepage hero ${issue}`);
     for (const issue of viewport.comparisonTableIssues || []) failures.push(`${label}: comparison table ${issue}`);
+    for (const issue of viewport.harnessTrainingFrameIssues || []) failures.push(`${label}: Harness training ${issue}`);
     if (viewport.collapsedHubMedia) failures.push(`${label}: collapsed split media (${viewport.collapsedHubMedia} ${viewport.collapsedHubMedia === 1 ? "node" : "nodes"})`);
     for (const mismatch of viewport.adjacentButtonSizeMismatches || []) {
       failures.push(`${label}: adjacent button size mismatch (${mismatch.map((button) => `${button.text}: ${button.height}px, ${button.fontSize}, ${button.paddingBlock}`).join("; ")})`);

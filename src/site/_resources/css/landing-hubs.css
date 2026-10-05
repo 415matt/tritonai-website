@@ -374,12 +374,13 @@ body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-full-bleed 
   border-top: 1px solid rgba(0, 98, 155, .12);
 }
 
-main#main-content #harness-training {
+/* The boxed homepage banner needs its own inset; landing pages use the shared frame. */
+main#main-content .home-main-content #harness-training {
   padding-left: clamp(24px, 4vw, 48px);
   padding-right: clamp(24px, 4vw, 48px);
 }
 
-main#main-content #harness-training .btn {
+main#main-content .home-main-content #harness-training .btn {
   max-width: 100%;
   white-space: normal;
 }
