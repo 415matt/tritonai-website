@@ -1699,11 +1699,23 @@ main#main-content .skills-setup {
 }
 
 @media (max-width: 767px) {
-  .agent-page #heroslider .item.active,
-  .agent-page #heroslider .item.next,
-  .agent-page #heroslider .item.prev {
+  main#main-content #heroslider .carousel-inner {
     display: grid;
+  }
+
+  main#main-content #heroslider .item {
+    display: grid;
+    grid-area: 1 / 1;
     grid-template-columns: minmax(0, 1fr);
+    min-height: 420px;
+    position: relative;
+    visibility: hidden;
+  }
+
+  main#main-content #heroslider .item.active,
+  main#main-content #heroslider .item.next,
+  main#main-content #heroslider .item.prev {
+    visibility: visible;
   }
 
   .agent-page #heroslider .item > .first-slide,
@@ -1716,7 +1728,14 @@ main#main-content .skills-setup {
   .agent-page #heroslider .item > .home-hero-media,
   .agent-page #heroslider .item > .home-hero-media .first-slide {
     height: 100%;
-    min-height: 310px;
+    min-height: 0;
+  }
+
+  main#main-content #heroslider .item > .first-slide,
+  main#main-content #heroslider .item > .home-hero-media {
+    inset: 0;
+    position: absolute;
+    width: 100%;
   }
 
   .agent-page #heroslider .item > .first-slide,
@@ -1732,15 +1751,96 @@ main#main-content .skills-setup {
     height: auto;
     position: relative;
     z-index: 1;
+    padding: 0;
+    width: 100%;
   }
 
   .agent-page #heroslider .cr-item-container {
     left: auto;
-    margin: 8px 20px 20px;
+    margin: 12px 20px 64px;
     position: relative;
     right: auto;
     top: auto;
     width: auto;
+  }
+
+  main#main-content #heroslider .herotextbg-dark-opaque {
+    padding: 16px 20px;
+  }
+
+  main#main-content #heroslider .hero-slide-heading {
+    font-size: clamp(28px, 7.5vw, 32px);
+    line-height: 1.1;
+    margin: 8px 0 12px;
+  }
+
+  main#main-content #heroslider .hero-slide-heading > span {
+    font-size: 22px;
+    line-height: 1.2;
+  }
+
+  main#main-content #heroslider [data-module="hero-homepage"] {
+    font-size: 14px;
+    max-width: 100%;
+    min-height: 44px;
+    padding: 12px 14px;
+    white-space: normal;
+  }
+
+  main#main-content #heroslider .carousel-control {
+    align-items: center;
+    background: none;
+    bottom: 12px;
+    display: flex;
+    height: 44px;
+    justify-content: center;
+    top: auto;
+    width: 44px;
+  }
+
+  main#main-content #heroslider .carousel-control.left {
+    left: 20px;
+  }
+
+  main#main-content #heroslider .carousel-control.right {
+    right: 20px;
+  }
+
+  main#main-content #heroslider .carousel-control .glyphicon {
+    margin: 0;
+    position: static;
+  }
+
+  main#main-content #heroslider #indicators-container {
+    align-items: center;
+    bottom: 12px;
+    display: flex;
+    gap: 6px;
+    left: 50%;
+    margin: 0;
+    min-height: 44px;
+    padding: 0 6px;
+    transform: translateX(-50%);
+    width: max-content;
+  }
+
+  main#main-content #heroslider .carousel-indicators {
+    align-items: center;
+    display: flex;
+    gap: 4px;
+    margin: 0;
+    order: 0;
+    padding: 0;
+    position: static;
+    width: auto;
+  }
+
+  main#main-content #heroslider #toggleCarousel {
+    float: none;
+    min-height: 44px;
+    min-width: 44px;
+    order: 1;
+    padding: 0;
   }
 
   .agent-page .home-main-content {
@@ -1749,20 +1849,12 @@ main#main-content .skills-setup {
 
   main#main-content #heroslider [data-home-hero-id="discovery-series"] {
     background: var(--triton-navy);
-    padding-bottom: 36px;
-  }
-
-  main#main-content #heroslider [data-home-hero-id="discovery-series"] > .home-hero-media,
-  main#main-content #heroslider [data-home-hero-id="discovery-series"] > .home-hero-media .first-slide {
-    height: 100%;
-    min-height: 0;
-    object-fit: cover;
   }
 
   main#main-content .home-training-artwork {
     grid-area: 1 / 1;
     left: auto;
-    margin: 24px 35px 12px;
+    margin: 16px 20px 0;
     position: relative;
     right: auto;
     top: auto;
@@ -1770,7 +1862,7 @@ main#main-content .skills-setup {
 
   main#main-content .home-training-brand {
     gap: 10px;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
   }
 
   main#main-content .home-training-brand > img {
