@@ -43,7 +43,42 @@
     Array.prototype.forEach.call(document.querySelectorAll(".drawer"), initializeDrawer);
   }
 
+  function setAllExpanded(drawer, expanded) {
+    Array.prototype.forEach.call(drawer.querySelectorAll(":scope > h2"), function (header) {
+      var trigger = header.querySelector(":scope > a");
+      var panel = panelFor(header);
+      if (!trigger || !panel) return;
+      setExpanded(header, trigger, panel, expanded);
+    });
+  }
+
+  function initializeDrawerControl(control, expanded) {
+    if (control.dataset.tritonaiDrawerControlInitialized === "true") return;
+    control.dataset.tritonaiDrawerControlInitialized = "true";
+
+    var drawerControls = control.closest(".drawer-controls");
+    var drawerWrapper = drawerControls ? drawerControls.nextElementSibling : null;
+    var drawer = drawerWrapper ? drawerWrapper.querySelector(".drawer") : null;
+    if (!drawer) return;
+
+    control.addEventListener("click", function (event) {
+      event.preventDefault();
+      setAllExpanded(drawer, expanded);
+    });
+  }
+
+  function initializeDrawerControls() {
+    Array.prototype.forEach.call(document.querySelectorAll("[data-drawer-expand-all]"), function (control) {
+      initializeDrawerControl(control, true);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-drawer-collapse-all]"), function (control) {
+      initializeDrawerControl(control, false);
+    });
+  }
+
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initializeDrawers);
   else initializeDrawers();
   document.addEventListener("tritonai:decorator-ready", initializeDrawers);
+  document.addEventListener("DOMContentLoaded", initializeDrawerControls);
+  document.addEventListener("tritonai:decorator-ready", initializeDrawerControls);
 })();

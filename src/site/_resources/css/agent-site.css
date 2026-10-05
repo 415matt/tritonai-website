@@ -6287,6 +6287,14 @@ pre.tutor-guide-prompt {
   width: 2rem;
 }
 
+.drawer-controls {
+  margin-bottom: 4px;
+}
+
+.drawer-controls a {
+  color: var(--triton-blue);
+  font-size: 14px;
+}
 
 /* Harness course promotion stays inside the page canvas. */
 main#main-content .harness-training-grid {
