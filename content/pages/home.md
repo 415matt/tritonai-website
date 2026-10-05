@@ -93,7 +93,3 @@ relatedSlides: [uc-san-diego-ai-strategy-2026, citizen-developer-ecosystem, plat
 <p class="today-news-fallback" data-today-news-fallback>Browse current AI coverage on <a href="https://today.ucsd.edu/search/results?q=ai#gsc.tab=0&amp;gsc.q=ai&amp;gsc.page=1">Today@UCSD</a>.</p>
 </div>
 </section>
-
-<section class="hub-section hub-subscribe" aria-labelledby="stay-informed-heading" data-home-subscribe>
-<div class="row hub-split hub-split-align-center"><div class="col-md-8"><p class="home-kicker">Stay informed</p><h2 id="stay-informed-heading">Get the weekly update by email</h2><p>A short email on what changed in the campus AI tools and what training is coming up.</p></div><div class="col-md-4 hub-subscribe-action"><a class="btn btn-primary btn-lg" href="https://signup.e2ma.net/signup/2010404/1972820/">Subscribe to updates</a></div></div>
-</section>

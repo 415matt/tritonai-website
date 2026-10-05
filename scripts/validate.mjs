@@ -1436,9 +1436,6 @@ for (const page of htmlFiles) {
     if ($("script[src$='/_resources/js/today-news.js'][defer]").length !== 1) {
       performance.push({ page: route, issue: "Today@UCSD lazy loader is missing or not deferred" });
     }
-    if ($("[data-home-subscribe]").length !== 1 || $("[data-home-subscribe] .btn-primary").length !== 1) {
-      contentFindings.push({ source: route, issue: "Homepage subscription CTA is missing" });
-    }
     if (/background-image/i.test($(".home-feature").attr("style") || "")) {
       performance.push({ page: route, issue: "Homepage feature background must be managed by responsive CSS" });
     }
