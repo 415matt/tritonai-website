@@ -3196,7 +3196,7 @@ main#main-content .home-main-content #harness-training .btn {
   align-items: center;
   display: grid;
   gap: 14px;
-  grid-template-columns: 76px minmax(0, 1fr) 56px;
+  grid-template-columns: 6em minmax(0, 1fr) 56px;
   margin-top: 14px;
 }
 
@@ -6138,7 +6138,7 @@ main#main-content .home-main-content #harness-training .btn {
   .gateway-usage-metrics li { min-height: 0; }
   .gateway-usage-trend { padding: 28px 22px 25px; }
   .gateway-usage-trend-heading { align-items: flex-start; flex-direction: column; gap: 18px; }
-  .gateway-usage-month { gap: 9px; grid-template-columns: 66px minmax(0, 1fr) 50px; }
+  .gateway-usage-month { gap: 9px; grid-template-columns: 6em minmax(0, 1fr) 50px; }
   .gateway-usage-details { padding: 0 18px 22px; }
   .gateway-usage-meta { grid-template-columns: 1fr; }
   .build-harness-detail { margin-top: 38px; }
