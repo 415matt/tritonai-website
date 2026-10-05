@@ -43,6 +43,264 @@
         "generatedAt": "2026-10-01T19:58:16.202790+00:00",
         "responseId": "chatcmpl-ab2babb55ccec538"
       }
+    },
+    "v0.3.5": {
+      "source": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.5",
+      "sourceDigest": "a4e46103a4de8810d9d62aab6769a96072e54adf2cce78f35dc41234485d4863",
+      "lastReviewed": "2026-10-03",
+      "reviewStatus": "source-verified",
+      "highlights": [
+        "Memory now keeps daily notes of your work by default, and you can optionally sync them between your computers through OneDrive.",
+        "New chats now start with the Flash model, and GPT-6.1 Sol is among the updated cloud models.",
+        "Finished tasks are now marked Done, and you can reopen them if you want to continue.",
+        "On Windows, the app no longer opens an extra console window when it works with your desktop applications."
+      ],
+      "guidance": {
+        "setup": [
+          "To update the app, open Settings, then About, and choose Check for Updates."
+        ],
+        "faq": [
+          "Computer use is off by default; turn it on in Settings under General if you want the agent to work with local applications.",
+          "New tasks start in Full access, where the agent works without asking. Pick a different mode before sending if you want approvals first."
+        ],
+        "privacy": [
+          "Memory is on by default and keeps daily notes of your conversations on your own computer. You can turn it off under Settings, General, Memory.",
+          "Syncing notes to your other computers through OneDrive is optional. Turn it on under Settings, General, Memory, and sign in with your UC San Diego account."
+        ],
+        "skills": [
+          "Find reusable skills for recurring work in TritonAI Commons, the public skill library under Settings, Skills."
+        ],
+        "citizen": [
+          "Bring back a prompt you already sent by pressing the up arrow in an empty message box.",
+          "If you want the agent to pause for your approval before changing files, choose Supervised mode before sending your task."
+        ],
+        "models": [
+          "Check which access key is in use under Settings, Runtime. It shows only the last four characters, so the full key stays hidden.",
+          "To replace an access key, choose Change key, enter the new one, and pick Check access and save. The connection briefly restarts afterward."
+        ]
+      },
+      "audience": {
+        "kind": "nontechnical-staff-and-faculty",
+        "policyVersion": 2
+      },
+      "claimEvidence": {
+        "version": "v0.3.5",
+        "highlights": [
+          {
+            "text": "Memory now keeps daily notes of your work by default, and you can optionally sync them between your computers through OneDrive.",
+            "evidence": [
+              {
+                "source": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.5",
+                "quote": "Memory is enabled by default, with a seven-day backfill, and can sync between your computers through OneDrive."
+              }
+            ]
+          },
+          {
+            "text": "New chats now start with the Flash model, and GPT-6.1 Sol is among the updated cloud models.",
+            "evidence": [
+              {
+                "source": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.5",
+                "quote": "Updated Cloud models include GPT-6.1 Sol, with Flash as the default for new chats."
+              }
+            ]
+          },
+          {
+            "text": "Finished tasks are now marked Done, and you can reopen them if you want to continue.",
+            "evidence": [
+              {
+                "source": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.5",
+                "quote": "Threads use Done/Reopen wording, with improved sidebar presentation and folder-opening actions for memory and logs."
+              }
+            ]
+          },
+          {
+            "text": "On Windows, the app no longer opens an extra console window when it works with your desktop applications.",
+            "evidence": [
+              {
+                "source": "https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.5",
+                "quote": "Windows computer use no longer opens an extra console window."
+              }
+            ]
+          }
+        ],
+        "guidance": {
+          "setup": [
+            {
+              "text": "To update the app, open Settings, then About, and choose Check for Updates.",
+              "evidence": [
+                {
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/updates.md",
+                  "quote": "**Harness application:** use **Settings > About > Check for Updates**."
+                }
+              ]
+            }
+          ],
+          "faq": [
+            {
+              "text": "Computer use is off by default; turn it on in Settings under General if you want the agent to work with local applications.",
+              "evidence": [
+                {
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/computer-use.md",
+                  "quote": "Computer use is off by default. In the desktop app, open **Settings > General** and turn on **Computer use** to opt in."
+                }
+              ]
+            },
+            {
+              "text": "New tasks start in Full access, where the agent works without asking. Pick a different mode before sending if you want approvals first.",
+              "evidence": [
+                {
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/permission-modes.md",
+                  "quote": "otherwise new threads start in **Full access** unless you pick something else\nbefore sending."
+                }
+              ]
+            }
+          ],
+          "privacy": [
+            {
+              "text": "Memory is on by default and keeps daily notes of your conversations on your own computer. You can turn it off under Settings, General, Memory.",
+              "evidence": [
+                {
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/memory.md",
+                  "quote": "Memory is on by default for new and existing installations, including Nightly."
+                },
+                {
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/memory.md",
+                  "quote": "The switch is under **Settings > General > Memory**."
+                }
+              ]
+            },
+            {
+              "text": "Syncing notes to your other computers through OneDrive is optional. Turn it on under Settings, General, Memory, and sign in with your UC San Diego account.",
+              "evidence": [
+                {
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/memory.md",
+                  "quote": "To see every computer's notes on each of them, turn on **Sync memory with OneDrive** under **Settings > General > Memory**."
+                },
+                {
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/memory.md",
+                  "quote": "Otherwise Memory shows a code to enter at Microsoft's sign-in page with your UC San Diego account."
+                }
+              ]
+            }
+          ],
+          "skills": [
+            {
+              "text": "Find reusable skills for recurring work in TritonAI Commons, the public skill library under Settings, Skills.",
+              "evidence": [
+                {
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/tritonai-commons.md",
+                  "quote": "TritonAI Commons is the public skill library in **Settings → Skills**."
+                }
+              ]
+            }
+          ],
+          "citizen": [
+            {
+              "text": "Bring back a prompt you already sent by pressing the up arrow in an empty message box.",
+              "evidence": [
+                {
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/composer.md",
+                  "quote": "Press `ArrowUp` in an empty composer to bring back the last prompt you sent in this thread."
+                }
+              ]
+            },
+            {
+              "text": "If you want the agent to pause for your approval before changing files, choose Supervised mode before sending your task.",
+              "evidence": [
+                {
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/permission-modes.md",
+                  "quote": "Use **Supervised** when you want commands needing additional permissions and file changes to wait\nfor approval, or the first time you run an unfamiliar task."
+                }
+              ]
+            }
+          ],
+          "models": [
+            {
+              "text": "Check which access key is in use under Settings, Runtime. It shows only the last four characters, so the full key stays hidden.",
+              "evidence": [
+                {
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/tritonai-access-keys.md",
+                  "quote": "The **Access key** status shows the last four characters of its configured key as\n**Ends in abcd**, so you can identify it without revealing the full key."
+                }
+              ]
+            },
+            {
+              "text": "To replace an access key, choose Change key, enter the new one, and pick Check access and save. The connection briefly restarts afterward.",
+              "evidence": [
+                {
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/tritonai-access-keys.md",
+                  "quote": "Select **Change key**, enter the replacement, and choose **Check access & save**."
+                },
+                {
+                  "source": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/tritonai-access-keys.md",
+                  "quote": "After access is verified, the local runtime restarts."
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "sourceDocuments": {
+        "docs/user/install.md": {
+          "url": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/install.md",
+          "sha256": "2ecb1ed79d82eccbc56aa1e36ecd7d9b2e3f745d63aca7f2ae059bf9a35a7683"
+        },
+        "docs/user/updates.md": {
+          "url": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/updates.md",
+          "sha256": "c1a4ead3a9a1a7e66676103653a3ac26840cdb0383797fc431cb51c99000f5b1"
+        },
+        "docs/user/computer-use.md": {
+          "url": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/computer-use.md",
+          "sha256": "a3469539e97311244af264677a34bb768ae4e819648aeb42ac45220e9b0afd08"
+        },
+        "docs/user/permission-modes.md": {
+          "url": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/permission-modes.md",
+          "sha256": "58a4e5b6e7a6a38a61bc6d530b121dd80cda5f1d61e51414077c2ac3659e87ea"
+        },
+        "docs/user/memory.md": {
+          "url": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/memory.md",
+          "sha256": "6713b2708e7513b29d93a82213c281ebd9175b51af2a3acbc7919f8f16bbfc07"
+        },
+        "docs/user/telemetry.md": {
+          "url": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/telemetry.md",
+          "sha256": "49bb48bedb378a0cb9d8c01f2ae63bfc14a0d5fb56f3edd03e29d1b1b4861906"
+        },
+        "docs/user/tritonai-commons.md": {
+          "url": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/tritonai-commons.md",
+          "sha256": "a40fdb5c2df1e9b7749b335cd8c56529c694d767b8c77bd5b8ee6610902830cd"
+        },
+        "docs/user/composer.md": {
+          "url": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/composer.md",
+          "sha256": "9e14659f38ba94fdbc31a11e3c799dbd750f3e0e4731dc4b1c25ea08414b7198"
+        },
+        "README.md": {
+          "url": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/README.md",
+          "sha256": "904b26d3a6c8abdc8b028533585c5f971c0cdc96e9de9008b3ed082acd04c069"
+        },
+        "docs/user/tritonai-access-keys.md": {
+          "url": "https://github.com/dbalders/TritonAI-Harness/blob/v0.3.5/docs/user/tritonai-access-keys.md",
+          "sha256": "dd5ed69543e057ae1737c3fb940cdf5efff4c00988f5b0695f2e336c4a75baca"
+        }
+      },
+      "generatedBy": {
+        "kind": "on-premises-llm",
+        "method": "gateway-api",
+        "providerInstance": "tritonai_onprem",
+        "model": "api-glm-5.3",
+        "generatedAt": "2026-10-03T23:41:20.116Z",
+        "responseId": "chatcmpl-bcd5c4ca33e90b84"
+      },
+      "sourceReview": {
+        "method": "gateway-api",
+        "model": "api-glm-5.3",
+        "responseId": "chatcmpl-95b4cd488a3e22ca",
+        "approved": true
+      },
+      "editorialReview": {
+        "date": "2026-10-03",
+        "method": "agent-editorial-review",
+        "note": "Omitted an internal component update and simplified task labels and Windows desktop-use wording for a nontechnical audience, preserving cited source evidence."
+      }
     }
   }
 }

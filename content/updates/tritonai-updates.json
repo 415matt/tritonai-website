@@ -58,6 +58,15 @@
   ],
   "updates": [
     {
+      "id": "2026-10-04-learning-resources",
+      "stream": "program",
+      "date": "2026-10-04",
+      "displayDate": "October 4, 2026",
+      "area": "developer",
+      "title": "Learning videos and certificate resources available",
+      "details": "<p>The <a href=\"/training-resources/videos/index.html\">TritonAI Discovery Series</a> introduces campus AI tools, data privacy, and responsible use through short videos and discussion prompts. The first lessons are available, and the remaining tool and builder lessons are listed for October 15.</p><p>Faculty and staff can explore <a href=\"/connect/index.html\">TritonAI Connect</a> communities. The <a href=\"/training-resources/certificate.html\">Certificate in AI for Higher Education</a> offers staff and leadership streams. The <a href=\"/training/harness/\">Harness training</a> provides exercises with fictional practice files.</p>"
+    },
+    {
       "id": "2026-09-18-scout-public-launch",
       "stream": "program",
       "date": "2026-09-18",

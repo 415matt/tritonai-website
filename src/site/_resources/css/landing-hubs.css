@@ -81,6 +81,16 @@
   display: none;
 }
 
+.landing-hub-page .sidebar-section {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .landing-hub-page .sidebar-section {
+    display: block;
+  }
+}
+
 /* About subpages keep the section navigation visible while preserving the
    stronger visual language used on the About landing page. */
 .about-subpage .about-subpage-hero {
@@ -280,6 +290,11 @@
   padding: 70px 0;
 }
 
+body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-section {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
 .landing-hub-content > .hub-section,
 .hub-full-bleed {
   padding-left: max(30px, calc((100vw - 1170px) / 2 + 15px));
@@ -295,14 +310,38 @@
   padding-top: 66px;
 }
 
+.landing-hub-content > .connect-intro .hub-heading {
+  margin-bottom: 0;
+}
+
+.landing-hub-content > .connect-intro {
+  padding-block: 66px 24px;
+}
+
+.landing-hub-content > .connect-communities {
+  padding-block: 24px;
+}
+
 .hub-full-bleed {
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
 }
 
-.landing-hub-content > .hub-full-bleed {
+body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-full-bleed {
   margin-left: 0;
   margin-right: 0;
+}
+
+body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-full-bleed {
+  padding: 70px 30px;
+}
+
+body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-full-bleed > .container {
+  margin: 0;
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  width: auto;
 }
 
 .hub-section-dark {
@@ -313,6 +352,18 @@
   color: #fff;
 }
 
+.hub-section.certificate-close {
+  margin-top: 70px;
+}
+
+.hub-section-intro.certificate-tight {
+  padding-bottom: 0;
+}
+
+.hub-section.certificate-tight {
+  padding-top: 0;
+}
+
 .hub-section-sand {
   background: var(--triton-sand);
 }
@@ -321,6 +372,17 @@
   background: #f0f6fa;
   border-bottom: 1px solid rgba(0, 98, 155, .12);
   border-top: 1px solid rgba(0, 98, 155, .12);
+}
+
+/* The boxed homepage banner needs its own inset; landing pages use the shared frame. */
+main#main-content .home-main-content #harness-training {
+  padding-left: clamp(24px, 4vw, 48px);
+  padding-right: clamp(24px, 4vw, 48px);
+}
+
+main#main-content .home-main-content #harness-training .btn {
+  max-width: 100%;
+  white-space: normal;
 }
 
 .hub-section-cool .harness-worked-example {
@@ -353,6 +415,12 @@
   line-height: 1.58;
 }
 
+.hub-heading p.hub-body {
+  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
 .hub-section-dark h2,
 .hub-section-dark h3,
 .hub-section-dark .hub-heading > p:last-child,
@@ -362,6 +430,19 @@
 
 .hub-section-dark .home-kicker {
   color: var(--triton-gold);
+}
+
+.hub-section-dark .hub-heading a:not(.btn) {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: var(--triton-bright-blue);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.hub-section-dark .hub-heading a:hover,
+.hub-section-dark .hub-heading a:focus {
+  color: var(--triton-bright-blue);
 }
 
 .hub-split {
@@ -546,6 +627,15 @@ main#main-content .home-starting-points {
 
 .about-feature .hub-quote-card .glyphicon {
   color: var(--triton-gold);
+}
+
+.about-feature .hub-quote-card .home-kicker {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
 }
 
 .about-feature .hub-quote-card h3,
@@ -3122,7 +3212,7 @@ main#main-content .home-starting-points {
   align-items: center;
   display: grid;
   gap: 14px;
-  grid-template-columns: 76px minmax(0, 1fr) 56px;
+  grid-template-columns: 6em minmax(0, 1fr) 56px;
   margin-top: 14px;
 }
 
@@ -3922,6 +4012,10 @@ main#main-content .home-starting-points {
   display: none;
 }
 
+.connect-departmental .hub-link-panel {
+  border-top: 0;
+}
+
 .hub-link-columns > div {
   float: none;
   margin-bottom: 0;
@@ -4078,6 +4172,23 @@ main#main-content .home-starting-points {
 .hub-feature-list a {
   color: var(--triton-gold);
   font-weight: 700;
+}
+
+.hub-feature-list a:hover,
+.hub-feature-list a:focus {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: var(--triton-bright-blue);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.hub-feature-list-light strong {
+  color: var(--triton-navy);
+}
+
+.hub-feature-list-light span {
+  color: #344c5a;
 }
 
 .hub-subscribe {
@@ -5229,6 +5340,43 @@ main#main-content .home-starting-points {
   padding-top: 10px;
 }
 
+/* Training video library: card meta line, watch-state chip, continue strip */
+.training-video-card-meta {
+  color: #52616b;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.training-video-card-state {
+  color: var(--triton-blue);
+}
+
+.training-video-continue-list {
+  list-style: none;
+  margin: 0;
+  max-width: 820px;
+  padding: 0;
+}
+
+.training-video-continue-list li {
+  border-top: 1px solid var(--triton-border);
+  padding: 13px 0;
+}
+
+.training-video-continue-list li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.training-video-continue-list a {
+  color: var(--triton-blue);
+  font-size: 18px;
+  font-weight: 700;
+}
+
 .cms-link-tile {
   background: #fff;
   border: 1px solid var(--triton-border);
@@ -5745,7 +5893,9 @@ main#main-content .home-starting-points {
   .landing-hub-content > .hub-section,
   .hub-full-bleed { padding-left: 22px; padding-right: 22px; }
   .hub-full-bleed { margin-left: -15px; margin-right: -15px; }
-  .landing-hub-content > .hub-full-bleed { margin-left: 0; margin-right: 0; }
+  body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-full-bleed { margin-left: 0; margin-right: 0; }
+  body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-full-bleed { padding: 48px 22px; }
+  body:not(.landing-hub-page):not(.about-subpage) .main-section > .hub-section { padding-left: 22px; padding-right: 22px; }
   .build-architecture {
     padding: 22px 18px;
   }
@@ -6004,7 +6154,7 @@ main#main-content .home-starting-points {
   .gateway-usage-metrics li { min-height: 0; }
   .gateway-usage-trend { padding: 28px 22px 25px; }
   .gateway-usage-trend-heading { align-items: flex-start; flex-direction: column; gap: 18px; }
-  .gateway-usage-month { gap: 9px; grid-template-columns: 66px minmax(0, 1fr) 50px; }
+  .gateway-usage-month { gap: 9px; grid-template-columns: 6em minmax(0, 1fr) 50px; }
   .gateway-usage-details { padding: 0 18px 22px; }
   .gateway-usage-meta { grid-template-columns: 1fr; }
   .build-harness-detail { margin-top: 38px; }

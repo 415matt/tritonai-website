@@ -6,12 +6,16 @@ import matter from "gray-matter";
 import MarkdownIt from "markdown-it";
 import { loadCatalog, renderSection } from "./lib/model-catalog.mjs";
 import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues, guidedInstallerIssues } from "./lib/harness-releases.mjs";
+import { applyHarnessPageMetadata } from "./lib/harness-page-metadata.mjs";
+
 
 const modelCatalog = await loadCatalog();
 const SOURCE_DIR = path.resolve("src/site");
 const CONTENT_DIR = path.resolve("content");
+const ROOT_DIR = path.resolve(".");
 const PAGE_DIR = path.join(CONTENT_DIR, "pages");
 const USE_CASE_DIR = path.join(CONTENT_DIR, "use-cases");
+const TRAINING_VIDEO_DIR = path.join(CONTENT_DIR, "training-videos");
 const NEWSLETTER_DIR = path.join(CONTENT_DIR, "newsletters");
 const SKILLS_FILE = path.join(CONTENT_DIR, "skills/library.json");
 const HOME_HERO_FILE = path.join(CONTENT_DIR, "home/hero.json");
@@ -31,6 +35,11 @@ const LANDING_HUBS_CSS_VERSION = createHash("sha256")
   .update(await readFile(path.join(SOURCE_DIR, "_resources/css/landing-hubs.css")))
   .digest("hex")
   .slice(0, 12);
+const VIDEO_PROGRESS_JS_VERSION = createHash("sha256")
+  .update(await readFile(path.join(SOURCE_DIR, "_resources/js/video-progress.js")))
+  .digest("hex")
+  .slice(0, 12);
+const VIDEO_QUIZ_JS_VERSION = createHash("sha256").update(await readFile(path.join(SOURCE_DIR, "_resources/js/video-quiz.js"))).digest("hex").slice(0, 12);
 const OFFICIAL_ORIGIN = "https://tritonai.ucsd.edu";
 const SITE_BASE_PATH = normalizeBasePath(process.env.SITE_BASE_PATH || "");
 // Cascade serves the site at a domain root, so a production build carries no
@@ -40,6 +49,7 @@ const IS_PRODUCTION_BUILD = SITE_BASE_PATH === "";
 const UNLISTED_ROUTES = new Set([
   "/presentations/managing-the-tritonai-website.html",
   "/tritongpt/bgpt-chat-generator/index.html",
+  "/training/harness/index.html",
 ]);
 const AFTER_RENDER_SCRIPTS = new Set([
   "https://cdn.ucsd.edu/cms/decorator-5/scripts/modernizr.min.js",
@@ -189,6 +199,7 @@ function renderHarnessReleases(snapshot, summaries, installer) {
     const summary = summaries.releases[release.tag];
     const latest = release.tag === snapshot.latestTag;
     const downloads = latest ? `<p><a class="btn btn-primary" href="${escapeHtml(installer.platforms.mac.downloadUrl)}">Download for Mac</a> <a class="btn btn-primary" href="${escapeHtml(installer.platforms.windows.downloadUrl)}">Download for Windows</a></p>` : "";
+
     return `<article class="harness-release-card" id="${releaseFragment(release.tag)}"><p class="home-kicker">${latest ? "Current stable release" : "Previous release"}</p><h2>TritonAI Harness ${escapeHtml(release.tag)}</h2><p>Published <time datetime="${escapeHtml(release.publishedAt)}">${escapeHtml(date(release.publishedAt))}</time></p><ul>${summary.highlights.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>${downloads}<p><a href="${escapeHtml(release.notesUrl)}">Full ${escapeHtml(release.tag)} release notes on GitHub</a></p></article>`;
   }).join("");
   const history = archive.map((release) => `<li><a href="${escapeHtml(release.notesUrl)}">TritonAI Harness ${escapeHtml(release.tag)}</a> <time datetime="${escapeHtml(release.publishedAt)}">${escapeHtml(date(release.publishedAt))}</time></li>`).join("");
@@ -435,6 +446,188 @@ function renderUseCasePage(useCase) {
   return `${primaryGuidanceHtml}${overviewHtml}${governanceHtml}${evidenceHtml}${renderUseCaseNarrative(useCase.html, useCase.slug)}${actionsHtml}`;
 }
 
+async function parseVttCues(sitePath) {
+  try {
+    const file = sitePath.startsWith("/presentations/")
+      ? path.join(ROOT_DIR, sitePath.slice(1))
+      : path.join(SOURCE_DIR, sitePath.replace(/^\//, ""));
+    const raw = await readFile(file, "utf8");
+    const cues = [];
+    const blocks = raw.replace(/\r/g, "").split("\n\n");
+    for (const block of blocks) {
+      const match = block.match(/((?:\d{1,2}:)?\d{1,2}:\d{2})[.,]\d{3}\s*-->/);
+      if (!match) continue;
+      const parts = match[1].split(":").map(Number);
+      const seconds = parts.length === 3 ? parts[0] * 3600 + parts[1] * 60 + parts[2] : parts[0] * 60 + parts[1];
+      const text = block
+        .split("\n")
+        .filter((line) => !line.includes("-->") && !/^\d+$/.test(line.trim()) && line.trim() !== "WEBVTT")
+        .join(" ")
+        .trim();
+      if (text) cues.push({ seconds, text });
+    }
+    return cues;
+  } catch {
+    return [];
+  }
+}
+
+function formatCueTime(seconds) {
+  return `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
+}
+
+const TRAINING_VIDEO_SERIES_ORDER = ["Foundations", "Using the Tools", "Building"];
+
+const TRAINING_INTAKE_URL = "https://osi.ucsd.edu/contact-us/index.html";
+
+const TRAINING_VIDEO_SERIES_DESCRIPTIONS = {
+  Foundations:
+    "Start here for shared ground. Before using AI tools, understand the vision and the concepts around data, privacy, and ethics of AI use.",
+  "Using the Tools":
+    "Hands-on walkthroughs of the approved tools, from TritonGPT to Gemini, NotebookLM, Copilot, and Zoom. Each video pairs one tool with campus use cases you can repeat at your own desk.",
+  Building:
+    "The move from using AI to building with it. These videos cover the strategy of when to build and how, from harnesses and automation to the review path that turns an idea into a supported service.",
+};
+
+function trainingVideoSeriesRank(name) {
+  const index = TRAINING_VIDEO_SERIES_ORDER.indexOf(name);
+  return index === -1 ? TRAINING_VIDEO_SERIES_ORDER.length : index;
+}
+
+function formatAudiences(audiences) {
+  const joined = audiences.join(", ");
+  return joined.charAt(0).toUpperCase() + joined.slice(1);
+}
+
+function renderInteractiveTranscript(video, cues) {
+  // Follow-along transcript beneath the player: the transcript reads as
+  // paragraphs, the sentence being spoken is highlighted as playback
+  // advances, and selecting any sentence plays the video from that point.
+  const sentences = cues
+    .map(
+      (cue, index) =>
+        `<button type="button" class="training-video-sentence" data-seek="${cue.seconds}" data-cue-index="${index}" data-seek-target="${escapeHtml(video.slug)}" aria-label="Play from ${formatCueTime(cue.seconds)}">${escapeHtml(cue.text)}</button>`,
+    )
+    .join(" ");
+  return `<div class="training-video-follow" data-follow-for="${escapeHtml(video.slug)}" role="region" aria-label="Follow-along transcript. The current sentence is highlighted during playback, and any sentence plays the video from that point." tabindex="0">${sentences}</div>`;
+}
+
+function renderTrainingVideoBlock(video) {
+  if (video.videoEmbedSrc) {
+    const embedUrl = new URL(video.videoEmbedSrc);
+    embedUrl.searchParams.set("config[playback]", JSON.stringify({ inBrowserFullscreen: false }));
+    return `<div class="use-case-demo"><div class="use-case-demo-frame training-video-embed-frame"><iframe id="kaltura_player" type="text/javascript" src="${escapeHtml(embedUrl.toString())}" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" title="${escapeHtml(video.videoEmbedTitle || video.title)}"></iframe></div></div>`;
+  }
+  return `<div class="use-case-demo" data-video-progress><div class="use-case-demo-frame"><video class="img-responsive" controls playsinline preload="metadata" data-progress-slug="${escapeHtml(video.slug)}" data-progress-title="${escapeHtml(video.title)}"${video.videoPoster ? ` poster="${escapeHtml(video.videoPoster)}"` : ""} aria-label="${escapeHtml(video.videoLabel || video.title)}"><source src="${escapeHtml(video.videoSrc)}" type="video/mp4">${video.videoCaptionsSrc ? `<track kind="captions" src="${escapeHtml(video.videoCaptionsSrc)}" srclang="en" label="${escapeHtml(video.videoCaptionsLabel || "English")}">` : ""}${video.videoChaptersSrc ? `<track kind="chapters" src="${escapeHtml(video.videoChaptersSrc)}" srclang="en" label="Chapters">` : ""}Your browser does not support the video element.</video><button type="button" class="video-play-overlay" data-video-play hidden><span class="glyphicon glyphicon-play" aria-hidden="true"></span><span data-video-play-label>Play video</span></button><div class="video-resume-host" data-resume-for="${escapeHtml(video.slug)}"></div></div></div>`;
+}
+
+function splitTrainingVideoBody(html) {
+  const marker = /<h2[^>]*>\s*Transcript\s*<\/h2>/i;
+  const match = html.match(marker);
+  if (!match) return { learn: html, transcript: "" };
+  const index = html.indexOf(match[0]);
+  return { learn: html.slice(0, index), transcript: html.slice(index + match[0].length) };
+}
+
+function videoAvailability(video) {
+  if (video.videoEmbedSrc && !video.durationMinutes) return "Video available";
+  return video.status === "Coming soon" ? "Video coming soon" : `${escapeHtml(String(video.durationMinutes))} min`;
+}
+
+function renderVideoPresenters(video, variant = "theater", linkUrl = null) {
+  const presenters = video.presenters || (video.presenter ? [{ name: video.presenter, title: video.presenterTitle, image: video.presenterImage }] : []);
+  const renderCardImage = (src, altText) => {
+    const image = `<img class="discovery-presenter-card-image" src="${escapeHtml(src)}" alt="${escapeHtml(altText)}" loading="lazy">`;
+    return `<div class="discovery-presenter">${linkUrl ? `<a class="discovery-presenter-card-link" href="${escapeHtml(linkUrl)}">${image}</a>` : image}</div>`;
+  };
+  if (variant === "card" && video.presenterCardImage) {
+    const altText = presenters.map((presenter) => presenter.title ? `${presenter.name}, ${presenter.title}` : presenter.name).join(" and ");
+    return renderCardImage(video.presenterCardImage, altText);
+  }
+  return presenters.map((presenter) => {
+    if (variant === "card" && presenter.cardImage) {
+      const altText = presenter.title ? `${presenter.name}, ${presenter.title}` : presenter.name;
+      return renderCardImage(presenter.cardImage, altText);
+    }
+    return `<div class="discovery-presenter">${presenter.image ? `<img src="${escapeHtml(presenter.image)}" alt="" loading="lazy">` : ""}<span><span class="discovery-presenter-name">${escapeHtml(presenter.name)}</span>${presenter.title ? `<span class="discovery-presenter-title">${escapeHtml(presenter.title)}</span>` : ""}</span></div>`;
+  }).join("");
+}
+
+function renderTrainingVideoKeyLinks(video) {
+  if (!video.keyLinks?.length) return "";
+  const links = video.keyLinks.map((link) => `<li><a href="${escapeHtml(link.href)}">${escapeHtml(link.label)}</a></li>`).join("");
+  return `<section class="landing-section video-key-links-section" aria-labelledby="${escapeHtml(video.slug)}-key-links-heading"><div class="container video-theater-about-inner"><div class="landing-section-heading"><h2 id="${escapeHtml(video.slug)}-key-links-heading">Key links</h2></div><ul class="video-key-links-list">${links}</ul></div></section>`;
+}
+
+function renderTrainingVideoKeyTerms(video) {
+  if (!video.keyTerms?.length) return "";
+  const terms = video.keyTerms.map((term) => `<li><strong>${escapeHtml(term.term)}:</strong> ${escapeHtml(term.description)}</li>`).join("");
+  return `<section class="landing-section video-key-terms-section" aria-labelledby="${escapeHtml(video.slug)}-key-terms-heading"><div class="container video-theater-about-inner"><div class="landing-section-heading"><h2 id="${escapeHtml(video.slug)}-key-terms-heading">Key terms</h2></div><ul class="video-key-terms-list">${terms}</ul></div></section>`;
+}
+
+function renderTrainingVideoQuiz(video) {
+  if (!video.quiz?.length) return "";
+  const version = createHash("sha256").update(JSON.stringify(video.quiz)).digest("hex").slice(0, 12);
+  const questions = video.quiz.map((item, qIndex) => {
+    const options = item.options.map((option, oIndex) => `<li><button type="button" class="video-quiz-option" data-quiz-question="${qIndex}" data-quiz-option="${oIndex}" data-quiz-correct="${oIndex === item.answer}" aria-pressed="false"><span aria-hidden="true">${String.fromCharCode(65 + oIndex)}. </span>${escapeHtml(option)}</button></li>`).join("");
+    return `<fieldset class="video-quiz-question" data-quiz-block="${qIndex}"><legend>${qIndex + 1}. ${escapeHtml(item.question)}</legend><ul class="video-quiz-options">${options}</ul><p class="video-quiz-result" data-quiz-result></p><p class="video-quiz-explanation" data-quiz-explanation hidden>${escapeHtml(item.explanation)}</p></fieldset>`;
+  }).join("");
+  return `<section class="landing-section video-quiz-section" data-video-quiz="${escapeHtml(video.slug)}" data-quiz-version="${version}" aria-labelledby="${escapeHtml(video.slug)}-quiz-heading"><div class="container video-theater-about-inner"><div class="landing-section-heading"><h2 id="${escapeHtml(video.slug)}-quiz-heading">Test your knowledge</h2><p>Select an answer to see Correct or Incorrect and an explanation. Dismiss the popup to continue. Your score counts your first answer to each question; you can try again.</p><p data-quiz-storage>Your answers and progress are saved only in this browser. Clearing browser data removes them.</p><noscript><p>Turn on JavaScript to take this quiz and see your results.</p></noscript></div>${questions}<p class="video-quiz-score" data-quiz-score role="status"></p><button type="button" class="btn btn-default" data-quiz-reset>Reset Quiz</button><dialog class="video-quiz-dialog" aria-labelledby="quiz-feedback-heading" aria-describedby="quiz-feedback-explanation"><h2 id="quiz-feedback-heading" data-dialog-result tabindex="-1"></h2><p id="quiz-feedback-explanation" data-dialog-explanation></p><button type="button" class="btn btn-primary" data-dialog-close>Continue</button></dialog></div></section>`;
+}
+
+function renderTrainingVideoDiscussion(video) {
+  if (!video.discussionPoints?.length) return "";
+  return `<section class="landing-section landing-section-sand video-discussion-section" aria-labelledby="${escapeHtml(video.slug)}-discussion-heading"><div class="container video-theater-about-inner"><div class="landing-section-heading"><p class="home-kicker">For team meetings</p><h2 id="${escapeHtml(video.slug)}-discussion-heading">Discussion topics</h2></div><ul class="video-discussion-list">${video.discussionPoints.map((point) => `<li>${escapeHtml(point)}</li>`).join("")}</ul></div></section>`;
+}
+
+function renderTrainingVideoCta(video, { nextVideo } = {}) {
+  const headingId = `${escapeHtml(video.slug)}-cta-heading`;
+  if (nextVideo) return `<section class="landing-section video-training-cta" aria-labelledby="${headingId}"><div class="container video-theater-about-inner"><div class="video-training-cta-panel"><div><p class="home-kicker">Up next</p><h2 id="${headingId}">${escapeHtml(nextVideo.title)}</h2><p>${escapeHtml(nextVideo.summary)}</p><p class="video-training-cta-meta">${escapeHtml(nextVideo.series)} · ${videoAvailability(nextVideo)}</p></div><a class="btn btn-primary btn-lg" href="${escapeHtml(nextVideo.canonicalUrl)}">Go to next lesson</a></div></div></section>`;
+  return `<section class="landing-section video-training-cta" aria-labelledby="${headingId}"><div class="container video-theater-about-inner"><div class="video-training-cta-panel"><div><p class="home-kicker">Keep learning</p><h2 id="${headingId}">Explore more training</h2><p>Find learning paths and training for your team.</p></div><a class="btn btn-primary btn-lg" href="/training-resources/index.html">Explore TritonAI Learn</a></div></div></section>`;
+}
+
+async function renderTrainingVideoPage(video, siblings = []) {
+  const pending = video.status === "Coming soon";
+  const { transcript } = splitTrainingVideoBody(video.html);
+  const cues = !pending && video.videoCaptionsSrc ? await parseVttCues(video.videoCaptionsSrc) : [];
+  const transcriptHtml = pending ? "" : cues.length
+    ? `<details class="training-video-transcript-details training-video-follow-details"><summary>Show transcript</summary><div class="training-video-follow-wrap">${renderInteractiveTranscript(video, cues)}</div></details>`
+    : transcript.trim() ? `<details class="training-video-transcript-details"><summary>Full transcript</summary>${transcript}</details>` : "";
+  const progression = siblings.filter((entry) => entry.discoverySeries === true).sort((a, b) => a.order - b.order);
+  const position = progression.findIndex((entry) => entry.slug === video.slug);
+  const upcoming = position >= 0 ? progression.slice(position + 1, position + 6) : [];
+  const railCards = upcoming.map((entry, index) => {
+    const isStaticCard = entry.order >= 10 && entry.order <= 15 && !entry.linkFromIndex;
+    const cardClass = `video-rail-card${index === 0 ? " video-rail-card-next" : ""}`;
+    const cardContent = `<span class="discovery-rail-number" aria-hidden="true">${String(entry.order).padStart(2, "0")}</span><span class="video-rail-card-copy">${index === 0 ? '<span class="video-rail-card-flag">Up next</span>' : ""}<span class="video-rail-card-title">${escapeHtml(entry.title)}</span><span class="video-rail-card-meta">${escapeHtml(entry.series)} · ${videoAvailability(entry)}</span></span>`;
+    return `<li>${isStaticCard ? `<span class="${cardClass}">${cardContent}</span>` : `<a class="${cardClass}" href="${escapeHtml(entry.canonicalUrl)}">${cardContent}</a>`}</li>`;
+  }).join("");
+  const railHtml = `<aside class="video-theater-rail" aria-label="Series navigation"><p class="video-theater-rail-heading">In this series</p>${position >= 0 ? `<p class="video-theater-rail-position">Lesson ${position + 1} of ${progression.length}</p>` : ""}${railCards ? `<ul class="video-rail-list">${railCards}</ul>` : ""}<a class="video-theater-rail-all" href="/training-resources/videos/index.html">TritonAI Discovery Series <span aria-hidden="true">→</span></a></aside>`;
+  const media = pending ? `<div class="discovery-video-pending"><span class="glyphicon glyphicon-film" aria-hidden="true"></span><h2>Video coming soon</h2><p>The recording, captions, and transcript will be added when available.</p><a href="#${escapeHtml(video.slug)}-quiz-heading">Explore the knowledge check</a></div>` : renderTrainingVideoBlock(video);
+  const theaterHtml = `<section class="video-theater" aria-label="${escapeHtml(video.title)} viewing area"><div class="video-theater-layout"><div class="video-theater-primary"><div class="discovery-lesson-header"><div class="discovery-lesson-copy"><p class="video-theater-kicker">${escapeHtml(video.series)} · ${videoAvailability(video)}</p><h1 class="video-theater-title">${escapeHtml(video.title)}</h1><p class="video-theater-description">${escapeHtml(video.summary)}</p></div><div class="discovery-presenters">${renderVideoPresenters(video)}</div></div>${media}${transcriptHtml}</div>${railHtml}</div></section>`;
+  return `${theaterHtml}${renderTrainingVideoKeyTerms(video)}${renderTrainingVideoKeyLinks(video)}${renderTrainingVideoQuiz(video)}${renderTrainingVideoDiscussion(video)}${renderTrainingVideoCta(video, { nextVideo: position >= 0 ? progression[position + 1] : undefined })}`;
+}
+
+function renderTrainingVideoIndex(allVideos) {
+  const videos = allVideos.filter((video) => video.discoverySeries === true).sort((a, b) => a.order - b.order);
+  const seriesHtml = TRAINING_VIDEO_SERIES_ORDER.map((series, index) => {
+    const cards = videos.filter((video) => video.series === series).map((video) => {
+      const isStaticCard = video.order >= 9 && video.order <= 15 && !video.linkFromIndex;
+      const titleHtml = isStaticCard
+        ? escapeHtml(video.title)
+        : `<a href="${escapeHtml(video.canonicalUrl)}">${escapeHtml(video.title)}</a>`;
+      const exploreHtml = isStaticCard ? "" : `<p class="discovery-card-link"><a class="text-link" href="${escapeHtml(video.canonicalUrl)}">Explore lesson <span class="sr-only">${String(video.order)}: ${escapeHtml(video.title)}</span><span aria-hidden="true">→</span></a></p>`;
+      const availabilityLabel = video.availabilityLabel || videoAvailability(video);
+      return `<article class="panel panel-default cms-news-card cms-use-case-card discovery-card" data-video-card="${escapeHtml(video.slug)}" data-video-available="${video.status === "Published"}" data-quiz-version="${createHash("sha256").update(JSON.stringify(video.quiz)).digest("hex").slice(0, 12)}"><div class="panel-body"><div class="discovery-card-intro"><p class="training-video-card-meta">${String(video.order).padStart(2, "0")} · ${escapeHtml(availabilityLabel)}<span class="training-video-card-state" data-video-state hidden></span></p>${video.videoPoster ? `<a class="cms-news-image" href="${escapeHtml(video.canonicalUrl)}"><img src="${escapeHtml(video.videoPoster)}" alt="${escapeHtml(video.title)} video poster" loading="lazy"></a>` : ""}<h3>${titleHtml}</h3><p>${escapeHtml(video.summary)}</p></div><div class="discovery-presenters">${renderVideoPresenters(video, "card", isStaticCard ? null : video.canonicalUrl)}</div><div class="discovery-card-footer">${exploreHtml}<p class="discovery-quiz-state" data-quiz-card-state hidden></p></div></div></article>`;
+    }).join("");
+    const sectionId = `series-${series.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+    return `<section aria-labelledby="${sectionId}" class="landing-section cms-news-module${index % 2 ? " landing-section-sand" : ""}"><div class="container"><div class="landing-section-heading"><p class="home-kicker">Series</p><h2 id="${sectionId}">${escapeHtml(series)}</h2><p>${escapeHtml(TRAINING_VIDEO_SERIES_DESCRIPTIONS[series])}</p></div><div class="discovery-grid">${cards}</div></div></section>`;
+  }).join("");
+  const continueHtml = `<section class="landing-section training-video-continue-strip" data-continue-watching data-video-progress hidden aria-label="Continue watching"><div class="container"><div class="training-video-continue-bar"><span class="training-video-continue-label" data-continue-label>Continue watching</span><ul class="training-video-continue-list"></ul></div></div></section>`;
+  const intro = `<section class="landing-section training-video-journey-intro" aria-labelledby="video-journey-heading"><div class="container"><div class="training-video-journey-panel"><div class="landing-section-heading"><p class="home-kicker">How to use this series</p><h2 id="video-journey-heading">Learn your way</h2><p class="training-video-journey-description">Where many TritonAI learning journeys begin. The series builds from understanding the TritonAI ecosystem, to using campus tools, to creating with them, and each short video is designed to be watched in order.</p><ul class="training-video-pace-list"><li><strong>Learn at your own pace</strong><p>Work through the videos in order, and test your knowledge with the questions at the end of each video.</p></li><li><strong>Learn together</strong><p>The series works well as a team activity. Watch one video per meeting and use each video’s discussion points to spark a wider conversation.</p></li><li><strong>Pick up where you left off</strong><p>Your progress is saved automatically in your browser, so you can leave and come back at any time.</p></li></ul><p class="discovery-storage-note">Progress stays in this browser on this device. Private browsing or blocked storage may prevent saving.</p></div></div></div></section>`;
+  return `${continueHtml}${intro}${seriesHtml}<section class="landing-section training-video-completion" aria-labelledby="video-completion-heading"><div class="container"><div class="video-training-cta-panel"><div><p class="home-kicker">After the series</p><h2 id="video-completion-heading">Continue learning with your team</h2><p>Explore the <a href="/training-resources/certificate.html">certificate</a> or request a session around your team’s work.</p></div><a class="btn btn-primary btn-lg" data-same-tab href="${escapeHtml(TRAINING_INTAKE_URL)}">Start the team training intake</a></div></div></section>`;
+}
+
 function renderRoadmap(roadmap) {
   const currentItems = roadmap.items.filter((item) => /2026/.test(item.period));
   const historyItems = roadmap.items.filter((item) => !/2026/.test(item.period));
@@ -514,6 +707,13 @@ function renderGatewayUsage(usage) {
   return `<div class="hub-heading gateway-usage-heading"><p class="home-kicker">Gateway usage</p><h2 id="gateway-usage-heading">${escapeHtml(usage.title)}</h2><p>${escapeHtml(usage.summary)}</p></div><ul class="gateway-usage-metrics" aria-label="Gateway usage summary">${metrics}</ul><div class="gateway-usage-trend"><div class="gateway-usage-trend-heading"><div><h3>Monthly token volume</h3><p>${volumeSummary}</p></div><ul class="gateway-usage-legend" aria-label="Chart legend"><li><span class="gateway-usage-key-self-hosted" aria-hidden="true"></span>Self-hosted and internal</li><li><span class="gateway-usage-key-cloud" aria-hidden="true"></span>Cloud</li></ul></div><ol class="gateway-usage-months">${monthRows}</ol></div><details class="gateway-usage-details"><summary>View monthly data and measurement notes</summary><div class="table-responsive"><table class="table"><caption>Gateway token volume by model route, ${escapeHtml(usage.measurementPeriod.label)}</caption><thead><tr><th scope="col">Month</th><th scope="col">Self-hosted and internal</th><th scope="col">Cloud</th><th scope="col">Total tokens</th></tr></thead><tbody>${tableRows}</tbody></table></div>${monthlyDrivers}<dl class="gateway-usage-meta"><div><dt>Measurement period</dt><dd>${escapeHtml(usage.measurementPeriod.label)}</dd></div><div><dt>Owner</dt><dd>${escapeHtml(usage.owner)}</dd></div><div><dt>Data classification</dt><dd>${escapeHtml(usage.dataClassification)}</dd></div><div><dt>Last reviewed</dt><dd>${escapeHtml(usage.lastReviewed)}</dd></div></dl><ul class="gateway-usage-notes">${usage.notes.map((note) => `<li>${escapeHtml(note)}</li>`).join("")}</ul></details>`;
 }
 
+function renderHomeTrainingArtwork(artwork) {
+  if (!artwork) return "";
+  const lessons = artwork.lessons.map((lesson) => `<img alt="${escapeHtml(lesson.imageAlt)}" src="${escapeHtml(lesson.image)}" width="720" height="405" decoding="async">`).join("");
+  return `<div class="home-training-artwork" role="group" aria-label="TritonAI Discovery Series lesson artwork"><div class="home-training-brand" aria-hidden="true"><img alt="" src="${escapeHtml(artwork.logo)}" width="128" height="128"><div><span class="home-training-wordmark">TRITON<span>AI</span></span><span class="home-training-series">Discovery Series</span></div></div><div class="home-training-lessons">${lessons}</div></div>`;
+}
+
+// Hero canvas follows the source structure at https://department.ucsd.edu/.
 function renderHomeHero(hero) {
   const multipleSlides = hero.slides.length > 1;
   const indicators = multipleSlides ? hero.slides
@@ -524,7 +724,9 @@ function renderHomeHero(hero) {
     .join("") : "";
   const slides = hero.slides
     .map((slide, index) => {
-      const accent = slide.accent ? `<br><span>${escapeHtml(slide.accent)}</span>` : "";
+      const accent = slide.accent ? `<strong>${escapeHtml(slide.accent)}</strong><br>` : "";
+      const imageAlt = slide.trainingArtwork ? "" : slide.imageAlt;
+      const trainingArtwork = renderHomeTrainingArtwork(slide.trainingArtwork);
       const imageSource = slide.optimizedImage || slide.image;
       const imageAttributes =
         index === 0
@@ -538,16 +740,19 @@ function renderHomeHero(hero) {
         ? `src="${escapeHtml(slide.mobileImage)}" fetchpriority="high"`
         : imageAttributes;
       const heroImage = mobileSource
-        ? `<picture class="home-hero-media">${mobileSource}<img alt="${escapeHtml(slide.imageAlt)}" class="first-slide" ${responsiveImageAttributes}${fallback} decoding="async"></picture>`
-        : `<img alt="${escapeHtml(slide.imageAlt)}" class="first-slide" ${imageAttributes}${fallback} decoding="async">`;
-      return `<div aria-label="${index + 1} out of ${hero.slides.length}" aria-roledescription="slide" aria-hidden="${index === 0 ? "false" : "true"}" class="item${index === 0 ? " active" : ""}" role="group">${heroImage}<div class="container"><div class="cr-item-container"><div class="row"><div class="col-sm-12"><div class="animated fadeInUp herotextbg-dark-opaque"><h2 class="rt-text-light hero-slide-heading" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.title)}${accent}</h2><p class="rt-text-light" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.description)}</p><a class="btn btn-lg btn-default" data-module="hero-homepage" href="${escapeHtml(slide.link)}" role="button" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.linkLabel)}</a></div></div></div></div></div></div>`;
+        ? `<picture class="home-hero-media">${mobileSource}<img alt="${escapeHtml(imageAlt)}" class="first-slide" ${responsiveImageAttributes}${fallback} decoding="async"></picture>`
+        : `<img alt="${escapeHtml(imageAlt)}" class="first-slide" ${imageAttributes}${fallback} decoding="async">`;
+      return `<div aria-label="${index + 1} out of ${hero.slides.length}" aria-roledescription="slide" aria-hidden="${index === 0 ? "false" : "true"}" class="item${index === 0 ? " active" : ""}" data-home-hero-id="${escapeHtml(slide.id)}" role="group">${heroImage}${trainingArtwork}<div class="container"><div class="cr-item-container"><div class="row"><div class="col-sm-12"><div class="animated fadeInUp herotextbg-dark-opaque"><h2 class="rt-text-light hero-slide-heading" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.title)}</h2><p class="rt-text-light" tabindex="${index === 0 ? "0" : "-1"}">${accent}${escapeHtml(slide.description)}</p><a class="btn btn-lg btn-default rt-btn-yellow" data-h1="${escapeHtml(slide.title)}" data-module="hero-homepage" href="${escapeHtml(slide.link)}" role="button" tabindex="${index === 0 ? "0" : "-1"}">${escapeHtml(slide.linkLabel)}</a></div></div></div></div></div></div>`;
     })
     .join("");
-  const controls = multipleSlides
-    ? `<div id="indicators-container"><button aria-label="carousel is playing, click to pause" data-home-hero-toggle id="toggleCarousel" type="button"><span aria-hidden="true" class="glyphicon glyphicon-pause"></span></button><ol aria-hidden="true" class="carousel-indicators">${indicators}</ol></div><a aria-controls="heroslider" aria-label="previous slide" class="left carousel-control" data-home-hero-direction="prev" data-slide="prev" href="#heroslider" role="button" tabindex="0"><span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span><span class="sr-only">Previous</span></a><a aria-controls="heroslider" aria-label="next slide" class="right carousel-control" data-home-hero-direction="next" data-slide="next" href="#heroslider" role="button" tabindex="0"><span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span><span class="sr-only">Next</span></a>`
+  const playbackControl = multipleSlides
+    ? `<div id="indicators-container"><button aria-label="carousel is playing, click to pause" data-home-hero-toggle id="toggleCarousel" type="button"><span aria-hidden="true" class="glyphicon glyphicon-pause"></span></button><ol aria-hidden="true" class="carousel-indicators">${indicators}</ol></div>`
+    : "";
+  const navigationControls = multipleSlides
+    ? `<a aria-controls="heroslider" aria-label="previous slide" class="left carousel-control" data-home-hero-direction="prev" data-slide="prev" href="#heroslider" role="button" tabindex="0"><span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span><span class="sr-only">Previous</span></a><a aria-controls="heroslider" aria-label="next slide" class="right carousel-control" data-home-hero-direction="next" data-slide="next" href="#heroslider" role="button" tabindex="0"><span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span><span class="sr-only">Next</span></a>`
     : "";
   const carouselAttributes = multipleSlides ? ` data-interval="${hero.rotationIntervalMs}" data-ride="carousel"` : "";
-  return `<div class="carousel slide jumbotron jumbotron-hero hm"${carouselAttributes} id="heroslider"><div aria-label="${multipleSlides ? `Revolving Banners with ${hero.slides.length} items` : "TritonAI introduction"}" class="carousel-inner" role="region" tabindex="0">${controls}${slides}</div></div>${multipleSlides ? '<script defer src="/_resources/js/home-hero.js"></script>' : ""}`;
+  return `<div class="carousel slide jumbotron jumbotron-hero hm"${carouselAttributes} id="heroslider"><div aria-label="${multipleSlides ? `Revolving Banners with ${hero.slides.length} items` : "TritonAI introduction"}" class="carousel-inner" role="region" tabindex="0">${playbackControl}${slides}${navigationControls}</div></div>${multipleSlides ? '<script defer src="/_resources/js/home-hero.js"></script>' : ""}`;
 }
 
 // Public-facing guidance is separate from the agent trigger descriptions synced upstream.
@@ -633,6 +838,15 @@ const SKILL_PRESENTATION = {
     outcome: "An organized memory folder with starter files and instructions for using it. Background updates and connected sources need your approval.",
     setup: "Choose a local folder. If you already have project memory, ask the agent to inspect it before creating another setup.",
   },
+  "ucsd-branding": {
+    title: "UC San Diego page branding",
+    category: "Retired skill",
+    icon: "glyphicon-wrench",
+    summary: "Retired. Use the ucsd-decorator skill for UC San Diego Decorator 5 page work.",
+    example: "explain which skill replaced ucsd-branding and what it covers for UC San Diego Decorator 5 page work.",
+    outcome: "A pointer to the ucsd-decorator skill, which covers the page shell, components, accessibility, and security rules.",
+    setup: "No setup needed. Load the ucsd-decorator skill for current UC San Diego web branding work.",
+  },
 };
 
 function defaultSkillPresentation(skill) {
@@ -669,6 +883,11 @@ function navigationOwner(items, route) {
   const section = route.split("/").filter(Boolean)[0] || "";
   if (!section) return null;
   return items.find((item) => (item.href.split("/").filter(Boolean)[0] || "") === section) || null;
+}
+
+function navigationContainsRoute(item, route) {
+  if (item.href === route) return true;
+  return (item.items || []).some((child) => navigationContainsRoute(child, route));
 }
 
 function renderNavigation(items, route, mobile = false) {
@@ -709,10 +928,50 @@ function renderSidebarItems(navigation, route) {
   // expanded. Do not repeat a child that merely aliases the section landing.
   const children = (owner.items || []).filter((child) => child.href !== owner.href);
   const activeChild = children.find((child) => child.href === route);
+  const activeDescendantChild = children.find((child) =>
+    child.href !== route && navigationContainsRoute(child, route)
+  );
+  const descendantNavLinks = (item) =>
+    (item.items || [])
+      .map((grandchild) =>
+        grandchild.href === route
+          ? `<li class="${(grandchild.items || []).length ? "expanded active" : "active"}">${escapeHtml(grandchild.label)}${(grandchild.items || []).length ? `<ul>${childNavLinks(grandchild)}</ul>` : ""}</li>`
+          : navigationContainsRoute(grandchild, route)
+            ? `<li class="expanded active">${escapeHtml(grandchild.label)}<ul>${descendantNavLinks(grandchild)}</ul></li>`
+            : `<li><a href="${escapeHtml(grandchild.href)}">${escapeHtml(grandchild.label)}</a></li>`
+      )
+      .join("");
+  const childNavLinks = (item) =>
+    (item.items || [])
+      .map((child) => `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`)
+      .join("");
+  const flattenedSidebarLinks = (item) => {
+    const childLinks = (child) =>
+      child.items?.length
+        ? `<li class="${navigationContainsRoute(child, route) ? "expanded active no-indent" : ""}"><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a><ul>${childNavLinks(child)}</ul></li>`
+        : child.href === route
+          ? `<li class="active no-indent">${escapeHtml(child.label)}</li>`
+          : `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`;
+    return `<li class="expanded active no-indent"><a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a></li>${(item.items || []).map(childLinks).join("")}`;
+  };
   if (activeChild) {
     return children
       .map((child) => {
-        if (child.href === route) return `<li class="active">${escapeHtml(child.label)}</li>`;
+        if (child.href === route) {
+          if (child.items?.length) return flattenedSidebarLinks(child);
+          return `<li class="active">${escapeHtml(child.label)}</li>`;
+        }
+        return `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`;
+      })
+      .join("");
+  }
+
+  if (activeDescendantChild) {
+    return children
+      .map((child) => {
+        if (child === activeDescendantChild) {
+          return flattenedSidebarLinks(child);
+        }
         return `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`;
       })
       .join("");
@@ -737,7 +996,10 @@ function renderSidebarInner(navigation, route) {
   const owner = navigationOwner(navigation, route);
   const children = owner ? (owner.items || []).filter((child) => child.href !== owner.href) : [];
   const activeChild = children.find((child) => child.href === route);
-  const heading = activeChild && owner
+  const activeDescendantChild = children.find((child) =>
+    child.href !== route && navigationContainsRoute(child, route)
+  );
+  const heading = (activeChild || activeDescendantChild) && owner
     ? `<a href="${escapeHtml(owner.href)}">${escapeHtml(owner.label)}</a>`
     : '<a href="/index.html">TritonAI</a>';
   return `<h2>${heading}</h2><ul class="navbar-list">${renderSidebarItems(navigation, route)}</ul>`;
@@ -784,6 +1046,7 @@ function relativePathForRoute(route) {
 }
 
 function breadcrumbFor(page) {
+  if (page.path === "/training-resources/videos/index.html") return `<li><a href="/">TritonAI</a></li><li><a href="/training-resources/index.html">Learn</a></li><li aria-current="page">${escapeHtml(page.title)}</li>`;
   const pieces = page.path.split("/").filter(Boolean);
   if (pieces.length <= 1) return "";
   if (pieces.at(-1) === "index.html") {
@@ -808,8 +1071,10 @@ function renderGeneratedPage(shellHtml, page, bodyHtml, homeHero) {
   const $ = load(shellHtml, { decodeEntities: false });
   $("body").addClass("agent-page");
   const landingHub = page.path === "/index.html" || page.landingHub === true;
+  const videoTheater = page.videoTheater === true;
   const aboutSubpage = page.path.startsWith("/about/") && page.path !== "/about/index.html";
   if (landingHub) $("body").addClass("landing-hub-page");
+  if (videoTheater) $("body").addClass("video-theater-page");
   if (aboutSubpage) $("body").addClass("about-subpage");
   const bannerImage = page.bannerImage || "https://cdn.ucsd.edu/cms/decorator-5/img/blue-grit.jpg";
   const bannerPosition = page.bannerPosition || "center";
@@ -822,8 +1087,10 @@ function renderGeneratedPage(shellHtml, page, bodyHtml, homeHero) {
   const mainContent =
     page.path === "/index.html"
       ? `${renderHomeHero(homeHero)}<div class="container home-main-content"><section aria-label="Main Content" class="col-xs-12 main-section">${bodyHtml}</section></div>`
+      : videoTheater
+        ? `<section aria-label="Main Content" class="col-xs-12 main-section video-theater-main">${bodyHtml}</section>`
       : landingHub
-        ? `<div class="jumbotron jumbotron-fluid intro-banner landing-hub-hero${bannerClass}" style="background-image:url('${escapeHtml(bannerImage)}');background-position:${escapeHtml(bannerPosition)};"><div class="container"><div class="cr-item-container"><div class="row"><div class="col-sm-12"><div class="landing-hub-title animated fadeInUp">${page.eyebrow ? `<p>${escapeHtml(page.eyebrow)}</p>` : ""}<h1 class="intro-banner-heading">${escapeHtml(page.title)}</h1></div></div></div></div></div></div><div class="container landing-hub-breadcrumbs"><div class="row"><ol aria-label="Breadcrumb" class="breadcrumb breadcrumbs-list">${breadcrumbFor(page)}</ol></div></div><section aria-label="Main Content" class="col-xs-12 main-section landing-hub-content">${bodyHtml}</section>${renderLandingMobileSectionNav(site.navigation, page.path)}`
+        ? `<div class="jumbotron jumbotron-fluid intro-banner landing-hub-hero${bannerClass}" style="background-image:url('${escapeHtml(bannerImage)}');background-position:${escapeHtml(bannerPosition)};"><div class="container"><div class="cr-item-container"><div class="row"><div class="col-sm-12"><div class="landing-hub-title animated fadeInUp">${page.eyebrow ? `<p>${escapeHtml(page.eyebrow)}</p>` : ""}<h1 class="intro-banner-heading">${escapeHtml(page.title)}</h1>${page.heroDescription ? `<p class="discovery-hero-description">${escapeHtml(page.heroDescription)}</p>` : ""}</div></div></div></div></div></div><div class="container landing-hub-breadcrumbs"><div class="row"><ol aria-label="Breadcrumb" class="breadcrumb breadcrumbs-list">${breadcrumbFor(page)}</ol></div></div><section aria-label="Main Content" class="col-xs-12 main-section landing-hub-content">${bodyHtml}</section>${renderLandingMobileSectionNav(site.navigation, page.path)}`
       : `${subpageHero}<div class="container"><div class="row"><ol aria-label="Breadcrumb" class="breadcrumb breadcrumbs-list">${breadcrumbFor(page)}</ol></div><div class="row${subpageLayoutClass}">${mobileAboutNav}<section aria-label="Main Content" class="col-xs-9 main-section pull-right">${bodyHtml}</section>${renderSidebar(site.navigation, page.path)}</div></div>`;
   $("main#main-content").html(mainContent);
   if (!$("#datatable-ns").length) $("script[src*='datatables']").remove();
@@ -1067,6 +1334,7 @@ function applyHarnessInstallerMetadata($, installer, notesVersion = installer.ve
     download.attr({
       href: platform.downloadUrl,
       "aria-label": `${platform.label}, ${platform.architecture}, ${platform.format}`,
+
     });
     download.find("[data-harness-download-label]").text(platform.label);
     download
@@ -1074,6 +1342,7 @@ function applyHarnessInstallerMetadata($, installer, notesVersion = installer.ve
       .text(`${platform.architecture} · ${platform.format}`);
   }
   $("[data-harness-release]").attr("href", `${HARNESS_RELEASE_PAGE}${notesVersion ? `#${releaseFragment(`v${notesVersion}`)}` : ""}`);
+
 }
 
 function transformHtml(html, relativePath, context) {
@@ -1133,7 +1402,9 @@ function transformHtml(html, relativePath, context) {
     $("head").append(`<link rel="stylesheet" href="/_resources/css/agent-site.css?v=${AGENT_SITE_CSS_VERSION}">`);
   }
   if (
-    ($("body").hasClass("landing-hub-page") || $("body").hasClass("about-subpage"))
+    ($("body").hasClass("landing-hub-page")
+      || $("body").hasClass("about-subpage")
+      || $("main#main-content").find(".hub-full-bleed").length)
     && !$("link[href*='/landing-hubs.css']").length
   ) {
     $("head").append(`<link rel="stylesheet" href="/_resources/css/landing-hubs.css?v=${LANDING_HUBS_CSS_VERSION}">`);
@@ -1213,13 +1484,17 @@ function transformHtml(html, relativePath, context) {
     applyHarnessInstallerMetadata($, route === "/developer-apis/start.html" ? context.harnessInstaller.guided : context.harnessInstaller, route === "/developer-apis/start.html" ? null : context.harnessInstaller.version);
   }
   $("[data-harness-release-notes]").html(renderHarnessReleases(context.harnessReleases, context.harnessReleaseSummaries, context.harnessInstaller));
+  applyHarnessPageMetadata($, context.harnessReleases, context.harnessReleaseSummaries);
 
   $("[data-tritonai-updates]").each((_, element) => {
     const target = $(element);
     target.html(renderTritonAiUpdates(context.tritonAiUpdates, target.attr("data-tritonai-updates")));
   });
 
-  $("video").each((_, element) => {
+  // Training-video players (data-progress-slug) keep sound, posters, inline
+  // sources, and user-initiated playback; only decorative demos get the
+  // muted autoplay-when-visible treatment.
+  $("video").not("[data-progress-slug]").each((_, element) => {
     const video = $(element);
     // User-started players retain native sources so a tap can start playback
     // without waiting for viewport hydration or an autoplay promise.
@@ -1265,6 +1540,12 @@ function transformHtml(html, relativePath, context) {
   }
   if (!$("script[src$='webmcp.js']").length) $("body").append('<script defer src="/_resources/js/webmcp.js"></script>');
   if (!$("script[src$='site-performance.js']").length) $("body").append('<script defer src="/_resources/js/site-performance.js"></script>');
+  if ($("[data-video-progress]").length && !$("script[src*='/video-progress.js']").length) {
+    $("body").append(`<script defer src="/_resources/js/video-progress.js?v=${VIDEO_PROGRESS_JS_VERSION}"></script>`);
+  }
+  if ($("[data-video-quiz], [data-quiz-card-state]").length && !$("script[src*='/video-quiz.js']").length) {
+    $("body").append(`<script defer src="/_resources/js/video-quiz.js?v=${VIDEO_QUIZ_JS_VERSION}"></script>`);
+  }
 
   $("a[href^='/cdn-cgi/l/email-protection#']").each((_, element) => {
     const anchor = $(element);
@@ -1285,6 +1566,10 @@ function transformHtml(html, relativePath, context) {
   $("a[href]").each((_, element) => {
     const anchor = $(element);
     const href = anchor.attr("href") || "";
+    if (anchor.attr("data-same-tab") !== undefined) {
+      anchor.removeAttr("target").removeAttr("rel");
+      return;
+    }
     if (/^https?:\/\//i.test(href) && new URL(href).origin !== OFFICIAL_ORIGIN) {
       anchor.attr("target", "_blank").attr("rel", "noopener noreferrer");
     }
@@ -1351,6 +1636,7 @@ const harnessInstaller = await readJson(HARNESS_INSTALLER_FILE);
 const harnessReleases = await readJson(path.join(CONTENT_DIR, "harness/releases.json"));
 const harnessReleaseSummaries = await readJson(path.join(CONTENT_DIR, "harness/release-summaries.json"));
 const harnessReleaseIssues = [...releaseSummaryIssues(harnessReleases, harnessReleaseSummaries, harnessInstaller), ...guidedInstallerIssues(harnessInstaller.guided)];
+
 if (harnessReleaseIssues.length) throw new Error(harnessReleaseIssues.join("\n"));
 const seo = await readJson(SEO_FILE);
 const tritonAiUpdates = await readJson(TRITONAI_UPDATES_FILE);
@@ -1373,6 +1659,12 @@ requireFields(homeHero, ["schemaVersion", "owner", "source", "lastReviewed", "ro
 homeHero.lastReviewed = isoDate(homeHero.lastReviewed);
 for (const [index, slide] of homeHero.slides.entries()) {
   requireFields(slide, ["id", "title", "description", "image", "imageAlt", "link", "linkLabel"], `homepage hero slide ${index + 1}`);
+  if (slide.trainingArtwork) {
+    requireFields(slide.trainingArtwork, ["logo", "lessons"], `homepage hero artwork ${slide.id}`);
+    for (const lesson of slide.trainingArtwork.lessons) {
+      requireFields(lesson, ["image", "imageAlt", "source"], `homepage hero lesson ${slide.id}`);
+    }
+  }
 }
 requireFields(gatewayUsage, ["schemaVersion", "title", "summary", "owner", "source", "measurementPeriod", "generatedAt", "lastReviewed", "dataClassification", "canonicalUrl", "relatedSlides", "metrics", "monthly", "notes"], "content/facts/gateway-usage.json");
 requireFields(gatewayUsage.measurementPeriod, ["start", "end", "label"], "content/facts/gateway-usage.json measurement period");
@@ -1433,8 +1725,29 @@ for (const useCase of useCases) {
     requireFields(link, ["label", "href"], `primary guidance link ${index + 1} for ${useCase.slug}`);
   }
 }
+const trainingVideosAll = await loadMarkdownDirectory(TRAINING_VIDEO_DIR, ["title", "slug", "summary", "series", "status", "owner", "lastReviewed", "audiences", "source", "dataClassification", "canonicalUrl", "relatedSlides"]);
+const trainingVideos = trainingVideosAll.filter((video) => ["Published", "Coming soon"].includes(video.status));
+for (const video of trainingVideos) {
+  if (video.status === "Published") {
+    requireFields(
+      video,
+      video.videoEmbedSrc ? ["videoEmbedSrc", "videoEmbedTitle"] : ["videoSrc", "videoCaptionsSrc", "durationMinutes"],
+      video.filename,
+    );
+  }
+  for (const question of video.quiz || []) {
+    if (!question.question || !Array.isArray(question.options) || question.options.length < 2 || !Number.isInteger(question.answer) || question.answer < 0 || question.answer >= question.options.length || !question.explanation) {
+      throw new Error(`${video.filename}: invalid quiz question or answer key`);
+    }
+  }
+  for (const [index, link] of (video.keyLinks || []).entries()) {
+    requireFields(link, ["label", "href"], `key link ${index + 1} for ${video.slug}`);
+  }
+}
 const newsletters = await loadNewsletters();
-const shellHtml = await readFile(path.join(SOURCE_DIR, "about/index.html"), "utf8");
+// Generated pages can live at any directory depth, so parent-relative asset
+// references in the shell must be site-absolute before reuse.
+const shellHtml = (await readFile(path.join(SOURCE_DIR, "about/index.html"), "utf8")).replaceAll('src="../_resources/', 'src="/_resources/');
 const homeShellHtml = await readFile(path.join(SOURCE_DIR, "index.html"), "utf8");
 
 await rm(OUTPUT_DIR, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
@@ -1468,6 +1781,46 @@ for (const useCase of useCases) {
     generatedByPath,
   );
 }
+
+const trainingVideoIndex = {
+  title: "TritonAI Discovery Series",
+  path: "/training-resources/videos/index.html",
+  description: "Explore the TritonAI ecosystem, use campus tools, and build with AI through short lessons and browser-based knowledge checks.",
+  eyebrow: "Start here",
+  lastReviewed: site.lastReviewed,
+  canonicalUrl: "/training-resources/videos/index.html",
+  landingHub: true,
+  bannerImage: "/_images/hero-abstract/learn.webp",
+  bannerPosition: "center",
+  bannerMode: "abstract",
+};
+await writeGeneratedPage(shellHtml, trainingVideoIndex, renderTrainingVideoIndex(trainingVideos), generatedByPath, homeHero);
+for (const video of trainingVideos) {
+  await writeGeneratedPage(
+    shellHtml,
+    { ...video, path: video.canonicalUrl, eyebrow: "AI learning video", description: video.description || video.summary, videoTheater: true },
+    await renderTrainingVideoPage(video, trainingVideos),
+    generatedByPath,
+  );
+}
+await mkdir(path.join(OUTPUT_DIR, "training-resources/videos"), { recursive: true });
+await writeFile(
+  path.join(OUTPUT_DIR, "training-resources/videos/transcripts.json"),
+  `${JSON.stringify(
+    trainingVideos.filter((video) => video.status === "Published").map((video) => ({
+      slug: video.slug,
+      title: video.title,
+      canonicalUrl: video.canonicalUrl,
+      series: video.series,
+      transcript: splitTrainingVideoBody(video.html)
+        .transcript.replace(/<[^>]+>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim(),
+    })),
+    null,
+    2,
+  )}\n`,
+);
 
 await writeGeneratedPage(shellHtml, { ...roadmap, path: roadmap.canonicalUrl, eyebrow: "About TritonAI" }, renderRoadmap(roadmap), generatedByPath);
 await writeGeneratedPage(

@@ -3,10 +3,10 @@ title: TritonAI Harness
 path: /developer-apis/harness.html
 description: A local-first agent control surface connecting campus builders to approved models, local files, and UC San Diego systems under human supervision.
 eyebrow: Build with TritonAI
-lastReviewed: 2026-10-02
+lastReviewed: 2026-10-03
 audiences: [staff, faculty, researchers, developers]
 owner: TritonAI
-source: "TritonAI Harness stable v0.3.4 release notes and tagged user documentation; packaged plugin composition; UC San Diego AI service guidance"
+source: "TritonAI Harness stable release notes and tagged user documentation; packaged plugin composition; UC San Diego AI service guidance"
 canonicalUrl: /developer-apis/harness.html
 relatedSlides: [Citizen Developer Ecosystem, Reusable Skills and MCP, platform-architecture]
 landingHub: true
@@ -26,10 +26,10 @@ bannerMode: abstract
 <p>You’ll need an approved TritonAI Gateway key to connect the Harness to campus models.</p>
 <p class="hub-section-action">
 <a class="btn btn-primary" href="/developer-apis/start.html">Get started</a>
-<a class="btn btn-default" href="/skills/index.html">Browse Skills Library</a>
-<a class="btn btn-default" href="/developer-apis/harness-release-notes.html">Release notes</a>
+<a class="btn btn-primary harness-training-link" href="/training/harness/">Start training</a>
 </p>
-<p>Already have a key? <a href="/developer-apis/start.html#harness">Download and set up</a>. Ready to learn? <a href="#harness-training">Explore the training</a>.</p>
+<p>Already have a key? <a href="/developer-apis/start.html#harness">Download and set up</a>.</p>
+<p class="small"><a href="/skills/index.html">Browse Skills Library</a> · <a href="/developer-apis/harness-release-notes.html">Release notes</a></p>
 </div>
 <div class="col-md-5 hub-split-media">
 <figure class="build-architecture" aria-describedby="harness-architecture-caption">
@@ -45,22 +45,37 @@ bannerMode: abstract
 </div>
 </section>
 
+<section class="hub-section hub-section-cool" id="harness-training" aria-labelledby="harness-training-heading">
+<div class="harness-training-grid">
+<a class="harness-training-preview" href="/training/harness/" aria-label="Open TritonAI Harness training">
+<img src="/_images/harness/training-preview.svg" width="1180" height="664" alt="" loading="lazy" decoding="async">
+<span class="harness-training-preview-label">Open the course <span aria-hidden="true">→</span></span>
+</a>
+<div class="harness-training-copy">
+<p class="home-kicker">Self-paced training</p>
+<h2 id="harness-training-heading">Learn to use TritonAI Harness</h2>
+<p>Follow narrated lessons to run your first task, guide the work, and check the result. Then explore campus plugins, reusable skills, and app building.</p>
+<p>Start with Essentials, then try the exercises using downloadable fictional files. Knowledge checks help you review what you’ve learned.</p>
+<dl class="harness-training-duration">
+<div><dt>Essentials</dt><dd>About 8 minutes</dd></div>
+<div><dt>Full presentation</dt><dd>About 24 minutes</dd></div>
+</dl>
+<p class="small">Allow additional time for practice.</p>
+<p class="hub-section-action"><a class="btn btn-primary harness-training-link" href="/training/harness/">Start the full training <span aria-hidden="true">→</span></a></p>
+</div>
+</div>
+</section>
+
 <section class="hub-section hub-section-cool" id="harness-stable-release" aria-labelledby="harness-stable-release-heading">
 <div class="hub-heading">
 <p class="home-kicker">Stable release</p>
-<h2 id="harness-stable-release-heading">Harness 0.3.4 stable release</h2>
-<p><strong>Current stable version: 0.3.4.</strong> Checked October 2, 2026 against the published release. Available for macOS Apple Silicon and Windows x64. The newer 0.3.5 nightly builds are prereleases on a separate update track.</p>
+<h2 id="harness-stable-release-heading">Harness <span data-harness-version></span> stable release</h2>
+<p><strong>Current stable version: <span data-harness-version></span>.</strong> Release information checked <span data-harness-reviewed></span> against the published release. Available for macOS Apple Silicon and Windows x64. Nightly builds use a separate update track.</p>
 </div>
-<ul>
-<li><strong>Computer use:</strong> Opt in to let the agent inspect and operate desktop apps, with visible setup and activity. In this release it works with the Codex provider on a local desktop backend.</li>
-<li><strong>Task goals and attachments:</strong> Give Codex tasks persistent goals, attach general files, and drop images into chat.</li>
-<li><strong>Search and review:</strong> Search conversation content and project files, organize tasks in the redesigned sidebar, and inspect pull requests and changed lines in the app.</li>
-<li><strong>Campus plugins:</strong> Kuali Build and n8n join the included plugin catalog with separately authorized read and write abilities.</li>
-<li><strong>Skills and sub-agents:</strong> Share a local skill with UCSD for review and follow delegated work in the Agents panel.</li>
-</ul>
+<ul data-harness-current-highlights></ul>
 <p>To update an existing installation, open <strong>Settings &gt; About &gt; Check for Updates</strong>. For first-time setup, use the <a href="/developer-apis/start.html#harness">stable TritonAI Installer</a>.</p>
 <p>Computer use starts off. Enable it in <strong>Settings &gt; General</strong>; on macOS, grant Accessibility and Screen Recording permissions and restart the Harness when prompted.</p>
-<p><a href="https://github.com/dbalders/TritonAI-Harness/releases/tag/v0.3.4">Read the Harness 0.3.4 release notes</a> · <a href="https://github.com/dbalders/TritonAI-Harness/blob/v0.3.4/docs/user/permission-modes.md">Review approval modes</a></p>
+<p><a data-harness-release>Read the Harness <span data-harness-version></span> release notes</a> · <a data-harness-doc="docs/user/permission-modes.md">Review approval modes</a></p>
 </section>
 
 <section class="hub-section" id="harness-in-action" aria-labelledby="harness-in-action-heading">
@@ -73,6 +88,7 @@ bannerMode: abstract
 <track kind="captions" src="/_files/harness/tritonai-harness-capabilities-2026-10-02-v4.vtt" srclang="en" label="English" default>
 Your browser does not support embedded video.
 </video>
+<p>Try these tasks yourself in the <a href="/training/harness/">full Harness training</a>.</p>
 <p class="small">Tap Play to start. If the embedded player does not work, <a href="/_files/harness/tritonai-harness-capabilities-2026-10-02-v4.mp4">open the video directly</a>.</p>
 <p id="harness-in-action-description" class="small">The video starts muted with captions. Turn on sound to hear the narration. It shows a survey summary, an Excel dashboard, a briefing deck on the UC San Diego template, the five campus plugins, an n8n workflow explained step by step, a GitHub code review, and a sign-up app built on the campus design system and wired to an n8n workflow.</p>
 <section class="sr-only" id="harness-in-action-transcript" aria-label="Video transcript">
@@ -91,11 +107,6 @@ Your browser does not support embedded video.
 <h3>Campus tools first (2:01)</h3>
 <p>When a campus tool does the job, use it. When you need it your way, build it with the Harness. That's TritonAI Harness: real work, finished on your desktop, with campus tools built in.</p>
 </section>
-</section>
-
-<section class="hub-section hub-section-cool" id="harness-training" aria-labelledby="harness-training-heading">
-<div class="hub-heading"><p class="home-kicker">Self-paced training</p><h2 id="harness-training-heading">Learn to use TritonAI Harness</h2><p>Start with Essentials, then try the feedback-summary exercise with fictional files. Explore the other narrated chapters and knowledge checks when you need them. The training opens as a separate course with its own player and downloadable practice kit.</p></div>
-<p class="hub-section-action"><a class="btn btn-primary" href="/training/harness/">Start TritonAI Harness training</a></p>
 </section>
 
 <section class="hub-section harness-compare" id="what-a-harness-adds" aria-labelledby="harness-compare-heading">

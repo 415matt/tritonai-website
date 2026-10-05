@@ -41,6 +41,7 @@ const STANDALONE_ROUTES = new Set([
   "/training/harness/index.html",
   "/presentations/managing-the-tritonai-website.html",
   "/tritongpt/bgpt-chat-generator/index.html",
+  "/training/harness/index.html",
 ]);
 // Tier 4 reads the sources rather than dist, so a finding points at the file to
 // edit. The copies under dist/_resources are byte-identical.

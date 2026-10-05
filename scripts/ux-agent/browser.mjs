@@ -75,7 +75,7 @@ export async function preparePage(page) {
 }
 
 export async function visit(page, url, { settleMs = 600 } = {}) {
-  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
+  await page.goto(url, { waitUntil: "load", timeout: 30000 });
   await page.waitForTimeout(settleMs);
   await preparePage(page);
 }

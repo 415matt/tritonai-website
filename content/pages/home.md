@@ -3,7 +3,7 @@ title: TritonAI
 path: /index.html
 description: Artificial intelligence tools, training, and developer services for UC San Diego students, faculty, and staff.
 eyebrow: AI at UC San Diego
-lastReviewed: 2026-10-01
+lastReviewed: 2026-10-04
 audiences: [students, faculty, staff, developers, leaders]
 source: TritonAI public services and strategy presentation
 canonicalUrl: /
@@ -18,7 +18,7 @@ relatedSlides: [uc-san-diego-ai-strategy-2026, citizen-developer-ecosystem, plat
 <p class="hub-lede">TritonAI is UC San Diego's campus artificial intelligence program. We run TritonGPT, review which generative AI tools can be used with university data, train people to use them well, and help teams build their own.</p>
 <div class="home-feature-actions"><a class="btn btn-primary btn-lg" href="https://tritongpt.ucsd.edu/">Open TritonGPT</a><a class="home-feature-link" href="/about/strategy.html">See the strategy <span aria-hidden="true">→</span></a></div>
 </div>
-<div class="col-md-6 hub-split-media"><figure class="hub-browser-frame"><img alt="Geisel Library beneath a rainbow over the UC San Diego campus" class="img-responsive" src="/_images/homepage/rainbow-over-geisel-library-768.webp" srcset="/_images/homepage/rainbow-over-geisel-library-768.webp 768w, /_images/homepage/rainbow-over-geisel-library.webp 1200w" sizes="(max-width: 767px) calc(100vw - 108px), 50vw" width="1200" height="410"></figure></div>
+<div class="col-md-6 hub-split-media"><figure class="hub-browser-frame"><img alt="Scripps Pier beneath a rainbow over the Pacific Ocean" class="img-responsive" src="/_images/homepage/scripps-pier-768.webp" srcset="/_images/homepage/scripps-pier-768.webp 768w, /_images/homepage/scripps-pier-1200.webp 1200w" sizes="(max-width: 767px) calc(100vw - 108px), 50vw" width="1200" height="410"></figure></div>
 </div>
 </section>
 <!-- END_AGENT_SECTION -->
@@ -76,8 +76,4 @@ relatedSlides: [uc-san-diego-ai-strategy-2026, citizen-developer-ecosystem, plat
 <div class="row" aria-busy="true" data-today-news-cards><div class="col-sm-4" aria-hidden="true"><article class="panel panel-default today-news-placeholder"><div class="panel-heading"><h3>Loading latest story</h3></div></article></div><div class="col-sm-4" aria-hidden="true"><article class="panel panel-default today-news-placeholder"><div class="panel-heading"><h3>Loading latest story</h3></div></article></div><div class="col-sm-4" aria-hidden="true"><article class="panel panel-default today-news-placeholder"><div class="panel-heading"><h3>Loading latest story</h3></div></article></div></div>
 <p class="today-news-fallback" data-today-news-fallback>Browse current AI coverage on <a href="https://today.ucsd.edu/search/results?q=ai#gsc.tab=0&amp;gsc.q=ai&amp;gsc.page=1">Today@UCSD</a>.</p>
 </div>
-</section>
-
-<section class="hub-section hub-subscribe" aria-labelledby="stay-informed-heading" data-home-subscribe>
-<div class="row hub-split hub-split-align-center"><div class="col-md-8"><p class="home-kicker">Stay informed</p><h2 id="stay-informed-heading">Get the weekly update by email</h2><p>A short email on what changed in the campus AI tools and what training is coming up.</p></div><div class="col-md-4 hub-subscribe-action"><a class="btn btn-primary btn-lg" href="https://signup.e2ma.net/signup/2010404/1972820/">Subscribe to updates</a></div></div>
 </section>

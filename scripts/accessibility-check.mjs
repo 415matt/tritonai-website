@@ -18,6 +18,62 @@ const context = await browser.newContext({ reducedMotion: "reduce" });
 const page = await context.newPage();
 const pages = [];
 
+async function homeHeroLayoutChecks(page) {
+  const originalViewport = page.viewportSize();
+  const issues = [];
+  try {
+    for (const width of [320, 390, 430, 767]) {
+      await page.setViewportSize({ ...originalViewport, width });
+      issues.push(...(await homeHeroSlideChecks(page)).map((issue) => `${width}px: ${issue}`));
+    }
+  } finally {
+    await page.setViewportSize(originalViewport);
+  }
+  return issues;
+}
+
+async function homeHeroSlideChecks(page) {
+  // Viewport changes can return before the browser paints the new grid layout.
+  // Compare rotation positions only after that resize has finished rendering.
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  });
+  const issues = [];
+  const positions = [];
+  const count = await page.locator("#heroslider .item").count();
+  for (let index = 0; index < count; index += 1) {
+    const state = await page.evaluate(() => {
+      const hero = document.querySelector("#heroslider");
+      const slide = hero.querySelector(".item.active");
+      const button = slide.querySelector("[data-module='hero-homepage']");
+      const buttonRect = button.getBoundingClientRect();
+      const heroRect = hero.getBoundingClientRect();
+      const controlsRect = hero.querySelector("#indicators-container").getBoundingClientRect();
+      return {
+        id: slide.getAttribute("data-home-hero-id"),
+        followingContentTop: document.querySelector(".home-main-content").getBoundingClientRect().top,
+        oversizedHero: heroRect.height > Math.max(190, window.innerWidth * 46 / 125 + 1),
+        clippedButton: button.scrollWidth > button.clientWidth + 1 || buttonRect.left < heroRect.left || buttonRect.right > heroRect.right || buttonRect.bottom > controlsRect.top,
+        overflow: document.documentElement.scrollWidth > window.innerWidth + 1,
+      };
+    });
+    positions.push(state.followingContentTop);
+    if (state.clippedButton) issues.push(`${state.id}: call to action is clipped or overlaps carousel controls`);
+    if (state.overflow) issues.push(`${state.id}: horizontal overflow`);
+    if (state.oversizedHero) issues.push(`${state.id}: mobile banner exceeds the compact department proportions`);
+    await page.locator("[data-home-hero-direction='next']").click();
+    await page.waitForFunction((previousId) => {
+      const active = document.querySelector("#heroslider .item.active");
+      return active?.getAttribute("data-home-hero-id") !== previousId && !document.querySelector("#heroslider .item.next, #heroslider .item.prev");
+    }, state.id);
+  }
+  if (Math.max(...positions) - Math.min(...positions) > 1) {
+    issues.push(`rotating slides move the following content by ${Math.round(Math.max(...positions) - Math.min(...positions))}px`);
+  }
+  return issues;
+}
+
 try {
   for (const route of routes) {
     const result = { route, viewports: [] };
@@ -60,6 +116,20 @@ try {
               }
             }
             return issues;
+          }),
+          harnessTrainingFrameIssues: await page.evaluate(() => {
+            const grid = document.querySelector(".harness-training-grid");
+            if (!grid) return [];
+            const reference = document.querySelector("#harness-stable-release");
+            if (!reference) return ["missing neighboring section for frame comparison"];
+            const bounds = grid.getBoundingClientRect();
+            const frame = reference.getBoundingClientRect();
+            const styles = getComputedStyle(reference);
+            const left = frame.left + parseFloat(styles.paddingLeft);
+            const right = frame.right - parseFloat(styles.paddingRight);
+            return Math.abs(bounds.left - left) > 1 || Math.abs(bounds.right - right) > 1
+              ? ["training module does not align with the neighboring section's content frame"]
+              : [];
           }),
           collapsedHubMedia: width <= 991
             ? await page.evaluate(() => Array.from(document.querySelectorAll(".hub-split-media")).filter((media) => {
@@ -127,6 +197,7 @@ try {
             return findings;
           }),
           axe: await axeResults(page),
+          homeHeroIssues: route === "/" && width < 768 ? await homeHeroLayoutChecks(page) : [],
         };
         const interactionResult = await interactionChecksWithRetry(
           () => interactionChecks(page, width),
@@ -156,7 +227,9 @@ for (const result of pages) {
     const label = `${result.route} at ${viewport.width}px`;
     if (viewport.error) failures.push(`${label}: browser check failed: ${viewport.error}`);
     if (viewport.horizontalOverflow) failures.push(`${label}: horizontal overflow`);
+    for (const issue of viewport.homeHeroIssues || []) failures.push(`${label}: homepage hero ${issue}`);
     for (const issue of viewport.comparisonTableIssues || []) failures.push(`${label}: comparison table ${issue}`);
+    for (const issue of viewport.harnessTrainingFrameIssues || []) failures.push(`${label}: Harness training ${issue}`);
     if (viewport.collapsedHubMedia) failures.push(`${label}: collapsed split media (${viewport.collapsedHubMedia} ${viewport.collapsedHubMedia === 1 ? "node" : "nodes"})`);
     for (const mismatch of viewport.adjacentButtonSizeMismatches || []) {
       failures.push(`${label}: adjacent button size mismatch (${mismatch.map((button) => `${button.text}: ${button.height}px, ${button.fontSize}, ${button.paddingBlock}`).join("; ")})`);

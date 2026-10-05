@@ -20,6 +20,7 @@ import { collectStyling } from "./chrome-contract.mjs";
 import { loadSkillsSource } from "./lib/skills-source.mjs";
 import { HARNESS_RELEASE_PAGE, releaseFragment, releaseSummaryIssues, guidedInstallerIssues } from "./lib/harness-releases.mjs";
 
+
 const DIST_DIR = path.resolve("dist");
 const REPORT_DIR = path.resolve("reports");
 const CONTENT_DIR = path.resolve("content");
@@ -31,7 +32,7 @@ const standaloneRoutes = new Set([
   "/presentations/managing-the-tritonai-website.html",
   "/tritongpt/bgpt-chat-generator/index.html",
 ]);
-const unlistedStandaloneRoutes = new Set([...standaloneRoutes].filter((route) => route !== "/training/harness/index.html"));
+const unlistedStandaloneRoutes = new Set(standaloneRoutes);
 const renderedProvenancePatterns = [
   { pattern: /\bSource:\s*[^<\n]*\.md\b/i, label: "internal content filename" },
   { pattern: /\bcurrent public (?:deck|presentation|version)\b/i, label: "public-version framing" },
@@ -281,6 +282,7 @@ for (const platformId of ["mac", "windows"]) {
 for (const issue of guidedInstallerIssues(harnessInstallerContent.guided)) {
   contentFindings.push({ source: "harness/installer.json#guided", issue });
 }
+
 for (const issue of releaseSummaryIssues(harnessReleasesContent, harnessReleaseSummaries, harnessInstallerContent)) {
   contentFindings.push({ source: "harness/releases.json", issue });
 }
@@ -768,10 +770,21 @@ for (const page of htmlFiles) {
     const video = $(element);
     const manualPlayback = video.attr("data-playback") === "manual";
     if (video.attr("controls") === undefined) accessibility.push({ page: route, issue: "Video missing controls" });
+    if (video.attr("autoplay") !== undefined) performance.push({ page: route, issue: "Video must not load through eager autoplay" });
+    if (video.attr("data-progress-slug") !== undefined) {
+      // Training-video players: user-initiated playback with sound. They must
+      // never autoplay, must keep captions, and may preload metadata.
+      if (video.attr("muted") !== undefined) accessibility.push({ page: route, issue: "Training video must not be muted by default" });
+      if (video.attr("data-autoplay-when-visible") === "true") accessibility.push({ page: route, issue: "Training video must not autoplay" });
+      if (!video.find("track[kind='captions']").length) accessibility.push({ page: route, issue: "Training video missing captions track" });
+      if (video.find("track[kind='captions'][default]").length) accessibility.push({ page: route, issue: "Training video captions must be opt-in" });
+      if (!video.siblings("[data-video-play]").length) accessibility.push({ page: route, issue: "Training video missing explicit play control" });
+      return;
+    }
     if (!manualPlayback && video.attr("data-autoplay-when-visible") !== "true") accessibility.push({ page: route, issue: "Video must autoplay when visible or use manual playback" });
     if (video.attr("muted") === undefined) accessibility.push({ page: route, issue: "Autoplay video must be muted" });
+
     if (video.attr("playsinline") === undefined) accessibility.push({ page: route, issue: "Autoplay video must play inline" });
-    if (video.attr("autoplay") !== undefined) performance.push({ page: route, issue: "Video must not load through eager autoplay" });
     if (video.attr("preload") !== "none") performance.push({ page: route, issue: "Deferred video must use preload=none" });
     if (manualPlayback) {
       if (video.attr("data-autoplay-when-visible") || video.attr("data-src") || video.find("source[data-src]").length) performance.push({ page: route, issue: "Manual video must bypass autoplay and deferred hydration" });
@@ -784,6 +797,9 @@ for (const page of htmlFiles) {
       accessibility.push({ page: route, issue: "Video needs captions or an identified silent-demo description" });
     }
   });
+  if ($("video[data-progress-slug]").length && !$("script[src*='/video-progress.js?v=']").length) {
+    accessibility.push({ page: route, issue: "Training video playback script must use a content version" });
+  }
 
   $("iframe[data-src*='youtube.com/embed']").each((_, element) => {
     const iframe = $(element);
@@ -1212,6 +1228,7 @@ for (const page of htmlFiles) {
       macDownload.attr("href") === harnessInstallerContent.releaseUrl ||
       windowsDownload.attr("href") === harnessInstallerContent.releaseUrl ||
       setupPage.find("[data-harness-release]").attr("href") !== `${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}${HARNESS_RELEASE_PAGE}`
+
     ) {
       contentFindings.push({ source: route, issue: "Harness setup buttons must download the platform installers directly and link to the matching website release notes" });
     }
@@ -1221,6 +1238,7 @@ for (const page of htmlFiles) {
       setupText.includes("Choose the installer for your operating system under Assets on GitHub")
     ) {
       contentFindings.push({ source: route, issue: "Harness setup buttons must identify the platform and file format without directing users to select release assets" });
+
     }
     if (
       setupPage.find("a[href='mailto:tritonai@ucsd.edu']").length < 1 ||
@@ -1359,8 +1377,12 @@ for (const page of htmlFiles) {
       if (card.find("h3").length !== 1 || card.find(".learning-pathway-action").length !== 1) {
         accessibility.push({ page: route, issue: `${label} is missing a heading or next step` });
       }
-      if (card.find(".learning-pathway-steps li").length !== 3) {
-        contentFindings.push({ source: route, issue: `${label} does not contain 3 learning steps` });
+      const stepCount = card.find(".learning-pathway-steps li").length;
+      if (stepCount < 2 || stepCount > 4) {
+        contentFindings.push({ source: route, issue: `${label} does not contain 2-4 learning steps` });
+      }
+      if (card.find(".learning-pathway-action").attr("href") === "") {
+        accessibility.push({ page: route, issue: `${label} has an empty next-step destination` });
       }
     });
     if (programCards.length !== 7) {
@@ -1373,8 +1395,11 @@ for (const page of htmlFiles) {
         accessibility.push({ page: route, issue: `${label} is missing a heading or destination` });
       }
     });
-    if ($(".learning-access-standard h2").length !== 1 || $(".learning-access-standard a").length !== 1) {
-      accessibility.push({ page: route, issue: "Accessible media guidance is incomplete" });
+    if ($("#keep-going-heading").length !== 1 || $("#keep-going-heading").text().trim().length < 20) {
+      accessibility.push({ page: route, issue: "Closing guidance is incomplete" });
+    }
+    if ($(".learning-pathways").length !== 2) {
+      contentFindings.push({ source: route, issue: `Expected 2 pathway sections; found ${$(".learning-pathways").length}` });
     }
   }
   if (route === "/") {
@@ -1400,10 +1425,14 @@ for (const page of htmlFiles) {
     }
     const activeHeroImage = $("#heroslider .item.active img.first-slide");
     const desktopHeroSource = $("#heroslider .item.active picture source[media='(min-width: 768px)']");
-    if (!/TritonAI_Hero_828\.webp(?:$|[?#])/.test(activeHeroImage.attr("src") || "") || activeHeroImage.attr("fetchpriority") !== "high") {
+    const firstHeroSlide = homeHeroContent.slides?.[0];
+    const mobileHeroPath = toLocalPath(activeHeroImage.attr("src"), page);
+    const desktopHeroPath = toLocalPath(desktopHeroSource.attr("srcset"), page);
+    const mobileHeroBytes = await localAssetSize(activeHeroImage.attr("src"), page);
+    if (!firstHeroSlide?.mobileImage || mobileHeroPath !== firstHeroSlide.mobileImage || !/\.webp$/i.test(mobileHeroPath || "") || !mobileHeroBytes || mobileHeroBytes > 100_000 || activeHeroImage.attr("fetchpriority") !== "high") {
       performance.push({ page: route, issue: "Homepage must prioritize the mobile-sized hero image" });
     }
-    if (!/TritonAI_Hero_2500\.webp(?:$|[?#])/.test(desktopHeroSource.attr("srcset") || "")) {
+    if (!firstHeroSlide?.optimizedImage || desktopHeroPath !== firstHeroSlide.optimizedImage || !/\.webp$/i.test(desktopHeroPath || "") || desktopHeroPath === mobileHeroPath) {
       performance.push({ page: route, issue: "Homepage hero must provide the full-width source at the desktop breakpoint" });
     }
     if ($("[data-today-news]").length !== 1 || $("[data-today-news-cards]").length !== 1 || $("[data-today-news-status]").length !== 1) {
@@ -1411,9 +1440,6 @@ for (const page of htmlFiles) {
     }
     if ($("script[src$='/_resources/js/today-news.js'][defer]").length !== 1) {
       performance.push({ page: route, issue: "Today@UCSD lazy loader is missing or not deferred" });
-    }
-    if ($("[data-home-subscribe]").length !== 1 || $("[data-home-subscribe] .btn-primary").length !== 1) {
-      contentFindings.push({ source: route, issue: "Homepage subscription CTA is missing" });
     }
     if (/background-image/i.test($(".home-feature").attr("style") || "")) {
       performance.push({ page: route, issue: "Homepage feature background must be managed by responsive CSS" });

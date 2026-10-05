@@ -1,0 +1,68 @@
+---
+title: UC San Diego AI tools and when to use them
+slug: ai-tools-at-uc-san-diego
+summary: 'The UC San Diego AI ecosystem, a simple framework for picking the right tool, and the four categories of AI work.'
+series: Foundations
+status: Published
+owner: TritonAI training program
+lastReviewed: '2026-09-29'
+audiences:
+  - faculty
+  - staff
+source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
+videoEmbedSrc: 'https://cdnapisec.kaltura.com/p/2323111/embedPlaykitJs/uiconf_id/52706832?iframeembed=true&entry_id=1_ha92f1f2&config[provider]={"widgetId":"1_9gy9mxku"}'
+videoEmbedTitle: 'TritonAI Discovery Series-03-Kevin Chou'
+dataClassification: Public description
+canonicalUrl: /training-resources/videos/ai-tools-at-uc-san-diego.html
+relatedSlides: []
+keyTerms:
+  - term: TritonAI Harness
+    description: UCSD's agentic coding environment where TritonAI runs an AI agent with tools, skills, and integrations to work on your files and workflows.
+  - term: Skills
+    description: Bundled instruction sets in TritonAI that teach the agent how to perform specific UC San Diego tasks or workflows (e.g., accessibility review, CMS editing, calendar management).
+  - term: Plugins
+    description: Optional add-on integrations, for example, GitHub and Google Drive that extend the Harness with external tools and data access.
+  - term: MCP Connections
+    description: Secure links between the Harness and external services via the Model Context Protocol (MCP), letting the agent read and act on those systems on your behalf.
+  - term: n8n
+    description: A workflow-automation platform used by UC San Diego to connect to the TritonAI Harness, used for building and running automated multi-step integrations and data pipelines.
+keyLinks:
+  - label: TritonAI Harness
+    href: https://stage-tritonai.ucsd.edu/developer-apis/harness.html
+order: 3
+quiz:
+  - question: What should you consider first when choosing an AI tool?
+    options:
+      - The type of work you need to do and the data involved
+      - The tool with the most features
+      - The tool your colleagues already use
+      - The tool with the lowest cost
+    answer: 0
+    explanation: 'The task and the data determine which tool is appropriate, safe, and effective.'
+  - question: What do the four categories of AI work help you do?
+    options:
+      - Replace human review
+      - Match the right tool to the right task
+      - Guarantee security
+      - Eliminate the need for further AI training
+    answer: 1
+    explanation: Categorizing the work makes it easier to choose a tool that fits the purpose and the risk level.
+  - question: Where can you find UC San Diego’s approved AI tools?
+    options:
+      - In the TritonAI ecosystem
+      - In public app stores only
+      - TritonGPT is the only approved tool
+      - In personal accounts
+    answer: 0
+    explanation: The TritonAI ecosystem is the central place to find tools approved for use at UC San Diego.
+discussionPoints:
+  - Discuss which AI tool would best fit one of your recurring tasks.
+  - Identify one example where you would need a more specialized tool.
+  - Share how your team currently decides which tool to use.
+durationMinutes: null
+discoverySeries: true
+presenters:
+  - name: Kevin Chou
+    title: Chief Information Officer
+    cardImage: /_images/training-resources/videos/kevin-chou-presenter-card.png
+---

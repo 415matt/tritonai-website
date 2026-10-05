@@ -1,10 +1,37 @@
 {
   "schemaVersion": 1,
   "owner": "TritonAI",
-  "source": "https://tritonai.ucsd.edu/",
-  "lastReviewed": "2026-08-22",
+  "source": "https://tritonai.ucsd.edu/ and the published TritonAI Discovery Series",
+  "lastReviewed": "2026-10-04",
   "rotationIntervalMs": 7000,
   "slides": [
+    {
+      "id": "discovery-series",
+      "title": "TritonAI Discovery Series",
+      "accent": "Learn at your own pace",
+      "description": "Explore campus AI tools, data privacy, and responsible use in short videos. Watch on your own or learn with your team.",
+      "image": "/_images/homepage/discovery-series-branded-background.png",
+      "optimizedImage": "/_images/homepage/discovery-series-branded-background-2048.webp",
+      "mobileImage": "/_images/homepage/discovery-series-branded-background-828.webp",
+      "imageAlt": "Muted navy and turquoise background",
+      "link": "/training-resources/videos/index.html",
+      "linkLabel": "Watch the training videos",
+      "trainingArtwork": {
+        "logo": "/_images/tools/logos/tritonai-harness.png",
+        "lessons": [
+          {
+            "image": "/_images/homepage/discovery-series-prompting-720.webp",
+            "imageAlt": "Prompting, presented by Jeniffer Lapek",
+            "source": "/_images/training-resources/videos/jeniffer-lapek-presenter-card.png"
+          },
+          {
+            "image": "/_images/homepage/discovery-series-what-is-ai-720.webp",
+            "imageAlt": "What is AI?, presented by Trevor Bonjour",
+            "source": "/_images/training-resources/videos/trevor-bonjour-presenter-card.png"
+          }
+        ]
+      }
+    },
     {
       "id": "tritonai-hub",
       "title": "TritonAI",
