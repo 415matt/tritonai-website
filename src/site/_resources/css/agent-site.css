@@ -6355,3 +6355,7 @@ main#main-content .harness-training-duration dd {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.main-content-nav>ul li.active.no-indent {
+  padding-left: 0;
+}
