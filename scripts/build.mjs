@@ -944,13 +944,21 @@ function renderSidebarItems(navigation, route) {
     (item.items || [])
       .map((child) => `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`)
       .join("");
+  const flattenedSidebarLinks = (item) => {
+    const childLinks = (child) =>
+      child.items?.length
+        ? `<li class="${navigationContainsRoute(child, route) ? "expanded active" : ""}"><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a><ul>${childNavLinks(child)}</ul></li>`
+        : child.href === route
+          ? `<li class="active">${escapeHtml(child.label)}</li>`
+          : `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`;
+    return `<li class="expanded active"><a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a></li>${(item.items || []).map(childLinks).join("")}`;
+  };
   if (activeChild) {
     return children
       .map((child) => {
         if (child.href === route) {
-          const grandchildMenu = descendantNavLinks(child);
-          const label = grandchildMenu ? `<a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a>` : escapeHtml(child.label);
-          return `<li class="${grandchildMenu ? "expanded active" : "active"}">${label}${grandchildMenu ? `<ul>${grandchildMenu}</ul>` : ""}</li>`;
+          if (child.items?.length) return flattenedSidebarLinks(child);
+          return `<li class="active">${escapeHtml(child.label)}</li>`;
         }
         return `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`;
       })
@@ -961,7 +969,7 @@ function renderSidebarItems(navigation, route) {
     return children
       .map((child) => {
         if (child === activeDescendantChild) {
-          return `<li class="expanded active"><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a><ul>${descendantNavLinks(child)}</ul></li>`;
+          return flattenedSidebarLinks(child);
         }
         return `<li><a href="${escapeHtml(child.href)}">${escapeHtml(child.label)}</a></li>`;
       })
