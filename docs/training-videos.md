@@ -21,7 +21,10 @@ included in that sequence.
   text. A lesson-level `presenterCardImage` replaces the whole presenter block
   with one image on the series index; use it when several presenters share a
   single card image. Add approved TritonAI-owned photos under `_images/`;
-  media-team hero images can use `videoPoster`.
+  media-team hero images can use `videoPoster`. On a Kaltura lesson,
+  `videoEmbedPoster` replaces the thumbnail Kaltura shows before playback on
+  this site only; the image loads from `tritonai.ucsd.edu`, so it must be on
+  `main` before the override shows anywhere.
 - `quiz` contains each `question`, an `options` array, the zero-based correct
   `answer`, and an `explanation`. `discussionPoints` contains team prompts.
 - Supplied September 29 editorial content is the source for the 15 lessons and

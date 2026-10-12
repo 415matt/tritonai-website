@@ -12,6 +12,7 @@ audiences:
 source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
 videoEmbedSrc: 'https://cdnapisec.kaltura.com/p/2323111/embedPlaykitJs/uiconf_id/52706832?iframeembed=true&entry_id=1_ha92f1f2&config[provider]={"widgetId":"1_9gy9mxku"}'
 videoEmbedTitle: 'TritonAI Discovery Series-03-Kevin Chou'
+videoEmbedPoster: /_images/training-resources/videos/kevin-chou-video-poster.jpg
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/ai-tools-at-uc-san-diego.html
 relatedSlides: []
