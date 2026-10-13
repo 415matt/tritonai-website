@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "lastReviewed": "2026-08-30",
+  "lastReviewed": "2026-10-13",
   "owner": "TritonAI program",
   "source": "Curated archive plus automated web search via scripts/sync-media-coverage.mjs",
   "queries": [
@@ -15,6 +15,24 @@
       "heading": "Current program perspective",
       "description": "Recent writing about adoption and the choices behind shared institutional AI.",
       "articles": [
+        {
+          "date": "2026-10-13",
+          "source": "tritonai.org",
+          "title": "Our Mission - Triton AI | TritonAI",
+          "url": "https://tritonai.org/about/mission",
+          "kind": "Coverage",
+          "discoveredAt": "2026-10-13T00:54:21.980Z",
+          "discoveredVia": "duckduckgo"
+        },
+        {
+          "date": "2026-08-05",
+          "source": "zonca.dev",
+          "title": "Configure opencode to use TritonAI Developer API at UC San Diego",
+          "url": "https://www.zonca.dev/posts/2026-08-05-configure-opencode-tritonai-ucsd",
+          "kind": "Coverage",
+          "discoveredAt": "2026-10-13T00:54:22.189Z",
+          "discoveredVia": "duckduckgo"
+        },
         {
           "date": "2026-08-03",
           "source": "Higher Ed AI Playbook",
@@ -93,6 +111,15 @@
           "url": "https://edtechmagazine.com/higher/article/2025/05/uc-san-diego-launches-tritongpt-generative-ai-tool",
           "kind": "News",
           "curated": true
+        },
+        {
+          "date": "2025-05-18",
+          "source": "tritonai.org",
+          "title": "Welcome to Triton AI | TritonAI",
+          "url": "https://tritonai.org/news/welcome-to-triton-ai",
+          "kind": "Coverage",
+          "discoveredAt": "2026-10-13T00:54:22.275Z",
+          "discoveredVia": "duckduckgo"
         },
         {
           "date": "2025-04-22",
