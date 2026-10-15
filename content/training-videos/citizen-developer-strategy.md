@@ -6,8 +6,9 @@ summary: >-
   How to approach AI strategy at the leadership level — who should build, how to prioritize AI work and spend, and best
   practice for harness use within a team.
 series: Building
-status: Coming soon
-availabilityLabel: 'Coming October 15th'
+status: Published
+videoEmbedSrc: 'https://cdnapisec.kaltura.com/p/2323111/embedPlaykitJs/uiconf_id/52706832?iframeembed=true&entry_id=1_u38qudmz&config[provider]={"widgetId":"1_5znqgsdx"}'
+videoEmbedTitle: 'TritonAI Discovery Series-14-Zach Johnson'
 discoverySeries: true
 owner: TritonAI training program
 lastReviewed: '2026-09-29'
@@ -18,11 +19,13 @@ source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/citizen-developer-strategy.html
 relatedSlides: []
+linkFromIndex: true
 order: 14
 durationMinutes: null
 presenters:
   - name: Zach Johnson
     title: 'Director, AI Strategy'
+    cardImage: /_images/training-resources/videos/zach-johnson-presenter-card.png
 quiz:
   - question: What should leadership consider before supporting an AI project?
     options:
