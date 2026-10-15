@@ -19,6 +19,20 @@ This repository is a static, agent-maintainable source for the public website at
 
 ## Local development
 
+The Build page loads its model catalog from `https://docs.tritonai.ucsd.edu/api/model-catalog`.
+The docs API selects current models and supplies their family names, logos, and route limits.
+Readers can expand a family to see its model variants and request IDs.
+The full catalog remains at `https://docs.tritonai.ucsd.edu/llm-api/models`.
+
+The browser saves responses for up to five minutes and refreshes expired data while the page is visible.
+If the API is unavailable, the page keeps its saved response or the committed snapshot in `content/models/catalog.json`.
+The snapshot also supports browsers with JavaScript disabled.
+
+Run `npm run sync:models` to refresh the snapshot and its generated section in `content/pages/build-landing.md`.
+For a local docs API, use `MODEL_CATALOG_BASE_URL=http://localhost:3000 npm run build`.
+This build resolves the API endpoint, model links, and logos against the local origin.
+The next normal build uses the production docs origin.
+
 ```bash
 npm install
 npx playwright install chromium
