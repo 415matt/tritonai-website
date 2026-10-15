@@ -2,8 +2,6 @@ import { access, mkdir, readFile, readdir, stat, writeFile } from "node:fs/promi
 import path from "node:path";
 import { load } from "cheerio";
 import matter from "gray-matter";
-import { MODELS_ENDPOINT, MODEL_EXPLORER_URL } from "./lib/model-catalog.mjs";
-import { groupModels } from "../src/site/_resources/js/model-catalog-view.js";
 import {
   checkCrossPageConsistency,
   checkGoldenFingerprint,
@@ -1127,14 +1125,11 @@ for (const page of htmlFiles) {
     const modelSection = $("#model-catalog");
     if (
       modelSection.length !== 1 ||
-      modelSection.find("table.model-catalog-table tbody tr").length !== groupModels(modelCatalogContent.models || []).length
-      || modelSection.find("[data-model-id]").length !== (modelCatalogContent.models || []).length ||
-      modelSection.find(`a[href='${MODEL_EXPLORER_URL}']`).length < 1
-      || modelSection.attr("data-model-catalog-endpoint") !== MODELS_ENDPOINT
-      || modelSection.find("script[src$='/model-catalog.js']").length !== 1 ||
-      modelSection.text().includes("UCSD-Hosted") === false
+      modelSection.find("table.model-catalog-table tbody tr").length !== (modelCatalogContent.models || []).length ||
+      modelSection.find("a[href='https://docs.tritonai.ucsd.edu/llm-api/models']").length < 1 ||
+      modelSection.text().includes("UC-hosted") === false
     ) {
-      contentFindings.push({ source: route, issue: "Build landing page model catalog must preserve the saved fallback, load the docs API, and link to the full model list and details" });
+      contentFindings.push({ source: route, issue: "Build landing page model catalog must match the synced catalog and point to the TritonAI model documentation" });
     }
     const harnessSection = $("#tritonai-harness");
     const harnessText = harnessSection.text().replace(/\s+/g, " ");

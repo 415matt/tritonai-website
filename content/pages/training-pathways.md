@@ -11,11 +11,11 @@ relatedSlides: [AI Essentials, Citizen Developer Ecosystem]
 sidebar: true
 ---
 
-<p class="lead">Choose the path for your role. Each path covers the rules that apply to you and links to training or a guide you can use next.</p>
+<p class="lead">Choose the pathway that fits your work. Each one builds from the same TritonAI foundation toward something specific you can put into practice. Whether you're new to AI or ready to build on the TritonAI Harness, there's a route for you.</p>
 
 <!-- AGENT_SECTION: ux-training-pathways -->
 <section class="learning-pathways" aria-labelledby="choose-pathway-heading">
-<div class="learning-section-heading"><h2 id="choose-pathway-heading">Learning paths by role</h2><p>Review the expectations for your role, then practice with the tools.</p></div>
+<div class="learning-section-heading"><p class="home-kicker">Choose your route</p><h2 id="choose-pathway-heading">A next step for every role</h2><p>Same foundation, five routes — each shaped around what you actually do.</p></div>
 <div class="learning-pathway-grid">
 <article class="learning-pathway-card"><header><span class="learning-pathway-icon glyphicon glyphicon-education" aria-hidden="true"></span><div><p>Student pathway</p><h3>Students</h3><span>Learn with confidence without losing your own voice.</span></div></header><ol class="learning-pathway-steps"><li>Check how each of your courses handles AI — instructor guidance comes first, and every class is different.</li><li>Learn prompting and verification, and use TritonGPT for study support without misrepresenting what's yours.</li></ol><a class="learning-pathway-action" href="/training-resources/prompting/index.html">Start with prompting <span aria-hidden="true">→</span></a></article>
 <article class="learning-pathway-card"><header><span class="learning-pathway-icon glyphicon glyphicon-pencil" aria-hidden="true"></span><div><p>Teaching pathway</p><h3>Faculty and instructors</h3><span>Set clear terms and design learning with evidence.</span></div></header><ol class="learning-pathway-steps"><li>Watch the <a href="/training-resources/videos/index.html">TritonAI Discovery Series</a> — get oriented on what's available and approved.</li><li>Make your course policy explicit: what's allowed, what isn't, and why.</li><li>Try instructional patterns, then check what students actually learned — outcomes and accessibility included.</li></ol><a class="learning-pathway-action" href="/training-resources/faculty-ai-symposium.html">Explore ideas from the Faculty AI Symposium <span aria-hidden="true">→</span></a></article>
@@ -26,7 +26,7 @@ sidebar: true
 </section>
 <!-- END_AGENT_SECTION -->
 
-<aside class="learning-access-standard" aria-labelledby="accessible-media-heading"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span><div><h2 id="accessible-media-heading">Accessible formats</h2><p>Recordings need captions, a transcript, a descriptive title, and an informative poster image or text alternative. Demonstration videos need visible controls and an alternative that explains the steps for people who cannot watch.</p></div><a href="/training-resources/webinars.html">Browse recorded webinars <span aria-hidden="true">→</span></a></aside>
+<aside class="learning-access-standard" aria-labelledby="accessible-media-heading"><span class="glyphicon glyphicon-facetime-video" aria-hidden="true"></span><div><p class="home-kicker">Built for access</p><h2 id="accessible-media-heading">Accessible formats</h2><p>Recordings need captions, a transcript, a descriptive title, and a poster image or text alternative that says something. Demonstration videos need visible controls, and everything they show has to be available to someone who cannot watch the motion.</p></div><a href="/training-resources/webinars.html">Browse recorded webinars <span aria-hidden="true">→</span></a></aside>
 
 <!-- AGENT_SECTION: ux-training-programs -->
 <section class="learning-programs" aria-labelledby="training-programs-heading">
