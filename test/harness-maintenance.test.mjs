@@ -4,6 +4,26 @@ import { load } from "cheerio";
 import { applyHarnessPageMetadata } from "../scripts/lib/harness-page-metadata.mjs";
 import { DOCUMENTS, validateSynthesis } from "../scripts/maintain-harness-release.mjs";
 import { readPublicPage } from "../scripts/lib/public-page-fetch.mjs";
+import { harnessPublicationIssues } from "../scripts/lib/harness-publication.mjs";
+
+test("publication verifies the redesigned Build hub while rejecting missing product versions and stale content", () => {
+  const releases = { latestTag: "v0.3.6" };
+  const summary = { highlights: ["New sign-in option."], guidance: { privacy: ["Memory is optional."] } };
+  const installer = { guided: { platforms: { mac: { downloadUrl: "https://example.com/mac.dmg" }, windows: { downloadUrl: "https://example.com/windows.exe" } } } };
+  const hub = '<main id="main-content"><a href="/developer-apis/harness.html">Harness</a><a href="/developer-apis/harness-release-notes.html">Release notes</a><a href="/developer-apis/start.html#harness">Set up</a></main>';
+  const check = (route, html) => harnessPublicationIssues(route, html, releases, summary, installer);
+  assert.deepEqual(check("/developer-apis/index.html", hub), []);
+  assert.match(check("/developer-apis/index.html", hub.replace('/developer-apis/harness.html', '/other.html')).join(), /missing Harness resource link/);
+  assert.match(check("/developer-apis/harness.html", hub).join(), /missing current version/);
+  const current = '<main id="main-content"><span data-harness-version>0.3.6</span><ul data-harness-guidance="privacy"><li>Memory is optional.</li></ul></main>';
+  assert.deepEqual(check("/developer-apis/harness.html", current), []);
+  assert.match(check("/developer-apis/harness.html", current.replace('0.3.6', '0.3.5')).join(), /version differs/);
+  assert.match(check("/developer-apis/harness.html", current.replace('optional', 'required')).join(), /privacy guidance differs/);
+  assert.match(check("/developer-apis/start.html", current).join(), /guided installer link differs/);
+  const history = '<main id="main-content"><article id="harness-v0-3-6">New sign-in option.</article></main>';
+  assert.deepEqual(check("/developer-apis/harness-release-notes.html", history), []);
+  assert.match(check("/developer-apis/harness-release-notes.html", history.replace('harness-v0-3-6', 'harness-v0-3-5')).join(), /missing current release/);
+});
 
 test("public verification retries interrupted connections but fails on HTTP errors", async () => {
   const url = "https://tritonai.ucsd.edu/developer-apis/harness-release-notes.html";

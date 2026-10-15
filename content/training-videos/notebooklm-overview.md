@@ -3,8 +3,9 @@ title: 'Gemini Notebook: An overview'
 slug: notebooklm-overview
 summary: 'Practical campus use cases for NotebookLM, from source-grounded research to study guides.'
 series: Using the Tools
-status: Coming soon
-availabilityLabel: 'Coming October 15th'
+status: Published
+videoEmbedSrc: 'https://cdnapisec.kaltura.com/p/2323111/embedPlaykitJs/uiconf_id/52706832?iframeembed=true&entry_id=1_ghk8q4x5&config[provider]={"widgetId":"1_7c7aibj5"}'
+videoEmbedTitle: 'TritonAI Discovery Series-13-Sarah Carvalho'
 owner: TritonAI training program
 lastReviewed: '2026-09-29'
 audiences:
@@ -14,6 +15,7 @@ source: 'TritonAI Discovery Series editorial feedback, September 29, 2026'
 dataClassification: Public description
 canonicalUrl: /training-resources/videos/notebooklm-overview.html
 relatedSlides: []
+linkFromIndex: true
 order: 13
 quiz:
   - question: What is NotebookLM designed to do?
@@ -47,6 +49,7 @@ discussionPoints:
 durationMinutes: null
 discoverySeries: true
 presenters:
-  - name: Christina Putrov
-    title: 'Assistant Director, Training, SIS Project'
+  - name: Sarah Carvalho
+    title: 'Education Specialist, Teaching and Learning Commons'
+    cardImage: /_images/training-resources/videos/sarah-carvalho-presenter-card.png
 ---

@@ -1,7 +1,7 @@
 import { execFileSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
-import * as cheerio from "cheerio";
 import { readPublicPage } from "./lib/public-page-fetch.mjs";
+import { HARNESS_PUBLIC_ROUTES, harnessPublicationIssues } from "./lib/harness-publication.mjs";
 
 const sha = execFileSync("git", ["rev-parse", "HEAD"], { encoding: "utf8" }).trim();
 const installer = JSON.parse(await readFile("content/harness/installer.json", "utf8"));
@@ -23,39 +23,24 @@ while (!published && Date.now() < deadline) {
   await sleep(20000);
 }
 if (!published) throw new Error("Timed out waiting for this commit's Cascade publication.");
-const routes = ["/developer-apis/start.html", "/developer-apis/harness.html", "/developer-apis/harness-release-notes.html", "/developer-apis/faq.html", "/developer-apis/harness-privacy.html", "/developer-apis/citizen-developer.html", "/developer-apis/index.html", "/skills/index.html"];
+const routes = HARNESS_PUBLIC_ROUTES;
+let lastIssues = [];
 while (Date.now() < deadline) {
-  let current = true;
+  const issues = [];
   for (const route of routes) {
     const html = await readPublicPage(`https://tritonai.ucsd.edu${route}?release=${sha.slice(0, 12)}`);
     if (html === null) {
-      current = false;
-      break;
+      issues.push(`${route}: connection interrupted`);
+      continue;
     }
-    const $ = cheerio.load(html);
-    if (route.endsWith("harness-release-notes.html")) {
-      if (!$("main#main-content").text().includes(releases.latestTag)) current = false;
-    } else {
-      const versions = $("main#main-content [data-harness-version]").toArray();
-      if (!versions.length || versions.some((element) => $(element).text().trim() !== releases.latestTag.slice(1))) current = false;
-    }
-    $("main#main-content [data-harness-guidance]").each((_, element) => {
-      const topic = $(element).attr("data-harness-guidance");
-      const expected = currentSummary.guidance[topic].map((text) => topic === "setup" ? text.replace(/(?<!TritonAI )\bHarness\b/g, "TritonAI Harness") : text);
-      const actual = $(element).find("li").toArray().map((item) => $(item).text().trim());
-      if (JSON.stringify(actual) !== JSON.stringify(expected)) current = false;
-    });
-    $("main#main-content [data-harness-current-highlights]").each((_, element) => {
-      const actual = $(element).find("li").toArray().map((item) => $(item).text().trim());
-      if (JSON.stringify(actual) !== JSON.stringify(currentSummary.highlights)) current = false;
-    });
-    if (route.endsWith("harness-release-notes.html") && currentSummary.highlights.some((text) => !$("main#main-content").text().includes(text))) current = false;
-    if (route.endsWith("start.html") && (!html.includes(installer.guided.platforms.mac.downloadUrl) || !html.includes(installer.guided.platforms.windows.downloadUrl))) current = false;
+    issues.push(...harnessPublicationIssues(route, html, releases, currentSummary, installer).map((issue) => `${route}: ${issue}`));
   }
-  if (current) {
+  if (!issues.length) {
     console.log(`Verified ${releases.latestTag} on all ${routes.length} public pages for ${sha}.`);
     process.exit(0);
   }
+  if (JSON.stringify(issues) !== JSON.stringify(lastIssues)) console.warn(`Public verification pending:\n${issues.join("\n")}`);
+  lastIssues = issues;
   await sleep(20000);
 }
-throw new Error("Cascade completed, but the public pages did not finish updating.");
+throw new Error(`Public pages did not match the saved release:\n${lastIssues.join("\n")}`);

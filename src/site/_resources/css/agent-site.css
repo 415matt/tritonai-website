@@ -675,39 +675,6 @@ main#main-content .home-training-artwork {
   top: 18%;
 }
 
-main#main-content .home-training-brand {
-  align-items: center;
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  margin-bottom: 24px;
-}
-
-main#main-content .home-training-brand > img {
-  height: 72px;
-  width: 72px;
-}
-
-main#main-content .home-training-wordmark {
-  color: #fff;
-  display: block;
-  font-size: clamp(22px, 3vw, 48px);
-  font-weight: 700;
-  line-height: 1.1;
-}
-
-main#main-content .home-training-wordmark > span {
-  color: #00bfd1;
-}
-
-main#main-content .home-training-series {
-  color: #fff;
-  display: block;
-  font-size: clamp(12px, 1.3vw, 20px);
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
 main#main-content .home-training-lessons {
   display: grid;
   gap: 16px;
@@ -726,16 +693,6 @@ main#main-content .home-training-lessons > img {
     left: 64%;
     right: 5%;
     top: 22%;
-  }
-
-  main#main-content .home-training-brand {
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-
-  main#main-content .home-training-brand > img {
-    height: 40px;
-    width: 40px;
   }
 
   main#main-content .home-training-lessons {
@@ -6358,4 +6315,29 @@ main#main-content .harness-training-duration dd {
 
 .main-content-nav>ul li.active.no-indent {
   padding-left: 0;
+}
+/* Keep the overview's setup and training actions distinct at every width. */
+main#main-content .harness-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+main#main-content .harness-actions > .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  min-height: 48px;
+}
+
+@media (max-width: 767px) {
+  main#main-content .harness-actions {
+    flex-direction: column;
+  }
+
+  main#main-content .harness-actions > .btn {
+    width: 100%;
+  }
 }

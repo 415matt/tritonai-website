@@ -20,7 +20,7 @@ items: 9
 
 ### Copilot for Microsoft 365
 
--   **[Move the Copilot button back to the Ribbon (18 hours ago)](https://windowsnews.ai/article/microsoft-lets-users-move-copilot-button-to-ribbon-office-ai-ui-backlash.419509)** – You can now place the Copilot icon on the Word/Excel/PowerPoint ribbon where it’s easy to find, undoing the floating button that many users found confusing.
+-   **Move the Copilot button back to the Ribbon** – You can now place the Copilot icon on the Word/Excel/PowerPoint ribbon where it’s easy to find, undoing the floating button that many users found confusing. The option is available from the Customize Ribbon settings in each app.
 
 ### Google Gemini & NotebookLM
 
@@ -33,5 +33,5 @@ items: 9
 
 ## TritonAI News
 
--   **[AI can seem more human than real humans in a classic Turing test (study finds)](https://today.ucsd.edu/ai-can-seem-more-human-than-real-humans-in-a-classic-turing-test-study-finds)** – Researchers show that AI‑generated responses can be judged more human‑like than actual people in blind tests.
--   **[AI‑Powered CPR Coach outperforms 911 dispatchers in guiding bystander resuscitation](https://today.ucsd.edu/ai-powered-cpr-coach-outperforms-911-dispatchers-in-guiding-bystander-resuscitation)** – A new AI assistant gives step‑by‑step CPR instructions that improve bystander performance compared with standard 911 guidance.
+-   **[AI can seem more human than real humans in a classic Turing test (study finds)](https://today.ucsd.edu/story/ai-can-seem-more-human-than-real-humans-in-a-classic-turing-test-study-finds)** – Researchers show that AI‑generated responses can be judged more human‑like than actual people in blind tests.
+-   **[AI‑Powered CPR Coach outperforms 911 dispatchers in guiding bystander resuscitation](https://today.ucsd.edu/story/ai-powered-cpr-coach-outperforms-911-dispatchers-in-guiding-bystander-resuscitation)** – A new AI assistant gives step‑by‑step CPR instructions that improve bystander performance compared with standard 911 guidance.

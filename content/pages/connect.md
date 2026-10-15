@@ -96,7 +96,7 @@ bannerMode: abstract
       <p class="home-kicker">REAL WORK, REAL USE CASES</p>
       <h2 id="connect-use-case-heading">AI Use-Case Group</h2>
       <p class="hub-body">Explore the group and see how campus teams are applying AI to real work. The group meets every other Friday for presenter-led sessions open to staff, faculty, and researchers: bring an AI idea, and leave with a scoped use case and a clear recommendation on whether to proceed. Sessions are recorded and archived, so one team's experiment becomes shared learning for the whole campus.</p>
-      <p><a class="btn btn-primary" href="/use-cases/ai-use-case-meeting.html">Explore the AI Use-Case Group</a></p>
+      <p><a class="btn btn-primary" href="https://ai-use-case-meeting.vercel.app/">Explore the AI Use-Case Group</a></p>
     </div>
   </div>
 </section>

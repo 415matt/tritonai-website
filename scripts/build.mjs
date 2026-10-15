@@ -196,7 +196,7 @@ function renderHarnessReleases(snapshot, summaries, installer) {
   const notes = detailed.map((release) => {
     const summary = summaries.releases[release.tag];
     const latest = release.tag === snapshot.latestTag;
-    const downloads = latest ? `<p><a class="btn btn-primary" href="${escapeHtml(installer.platforms.mac.downloadUrl)}">Download for Mac</a> <a class="btn btn-primary" href="${escapeHtml(installer.platforms.windows.downloadUrl)}">Download for Windows</a></p>` : "";
+    const downloads = latest ? `<p class="harness-actions"><a class="btn btn-primary" href="${escapeHtml(installer.platforms.mac.downloadUrl)}">Download for Mac</a> <a class="btn btn-primary" href="${escapeHtml(installer.platforms.windows.downloadUrl)}">Download for Windows</a></p>` : "";
 
     return `<article class="harness-release-card" id="${releaseFragment(release.tag)}"><p class="home-kicker">${latest ? "Current stable release" : "Previous release"}</p><h2>TritonAI Harness ${escapeHtml(release.tag)}</h2><p>Published <time datetime="${escapeHtml(release.publishedAt)}">${escapeHtml(date(release.publishedAt))}</time></p><ul>${summary.highlights.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>${downloads}<p><a href="${escapeHtml(release.notesUrl)}">Full ${escapeHtml(release.tag)} release notes on GitHub</a></p></article>`;
   }).join("");
@@ -514,6 +514,7 @@ function renderTrainingVideoBlock(video) {
   if (video.videoEmbedSrc) {
     const embedUrl = new URL(video.videoEmbedSrc);
     embedUrl.searchParams.set("config[playback]", JSON.stringify({ inBrowserFullscreen: false }));
+    if (video.videoEmbedPoster) embedUrl.searchParams.set("config[sources]", JSON.stringify({ poster: new URL(video.videoEmbedPoster, OFFICIAL_ORIGIN).toString() }));
     return `<div class="use-case-demo"><div class="use-case-demo-frame training-video-embed-frame"><iframe id="kaltura_player" type="text/javascript" src="${escapeHtml(embedUrl.toString())}" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" title="${escapeHtml(video.videoEmbedTitle || video.title)}"></iframe></div></div>`;
   }
   return `<div class="use-case-demo" data-video-progress><div class="use-case-demo-frame"><video class="img-responsive" controls playsinline preload="metadata" data-progress-slug="${escapeHtml(video.slug)}" data-progress-title="${escapeHtml(video.title)}"${video.videoPoster ? ` poster="${escapeHtml(video.videoPoster)}"` : ""} aria-label="${escapeHtml(video.videoLabel || video.title)}"><source src="${escapeHtml(video.videoSrc)}" type="video/mp4">${video.videoCaptionsSrc ? `<track kind="captions" src="${escapeHtml(video.videoCaptionsSrc)}" srclang="en" label="${escapeHtml(video.videoCaptionsLabel || "English")}">` : ""}${video.videoChaptersSrc ? `<track kind="chapters" src="${escapeHtml(video.videoChaptersSrc)}" srclang="en" label="Chapters">` : ""}Your browser does not support the video element.</video><button type="button" class="video-play-overlay" data-video-play hidden><span class="glyphicon glyphicon-play" aria-hidden="true"></span><span data-video-play-label>Play video</span></button><div class="video-resume-host" data-resume-for="${escapeHtml(video.slug)}"></div></div></div>`;
@@ -708,7 +709,7 @@ function renderGatewayUsage(usage) {
 function renderHomeTrainingArtwork(artwork) {
   if (!artwork) return "";
   const lessons = artwork.lessons.map((lesson) => `<img alt="${escapeHtml(lesson.imageAlt)}" src="${escapeHtml(lesson.image)}" width="720" height="405" decoding="async">`).join("");
-  return `<div class="home-training-artwork" role="group" aria-label="TritonAI Discovery Series lesson artwork"><div class="home-training-brand" aria-hidden="true"><img alt="" src="${escapeHtml(artwork.logo)}" width="128" height="128"><div><span class="home-training-wordmark">TRITON<span>AI</span></span><span class="home-training-series">Discovery Series</span></div></div><div class="home-training-lessons">${lessons}</div></div>`;
+  return `<div class="home-training-artwork" role="group" aria-label="TritonAI Discovery Series lesson artwork"><div class="home-training-lessons">${lessons}</div></div>`;
 }
 
 // Hero canvas follows the source structure at https://department.ucsd.edu/.
@@ -1229,6 +1230,11 @@ function applyGoogleAnalytics($) {
   );
 }
 
+function applyFavicon($) {
+  $("link[rel~='icon'], link[rel='shortcut icon'], link[rel='apple-touch-icon']").remove();
+  $("head").prepend('<link rel="icon" href="/favicon.ico">');
+}
+
 function optimizeScriptLoading($) {
   $("script[src]").each((_, element) => {
     const script = $(element);
@@ -1450,6 +1456,7 @@ function transformHtml(html, relativePath, context) {
     .replaceAll("</script", "<\\/script");
   $("head").append(`<script type="application/ld+json" data-tritonai-schema>${schema}</script>`);
   applyGoogleAnalytics($);
+  applyFavicon($);
 
   $(".navbar-nav-list").first().html(renderNavigation(context.site.navigation, route, false));
   $("ul.nav.navmenu-nav").first().html(renderNavigation(context.site.navigation, route, true));
@@ -1656,7 +1663,7 @@ homeHero.lastReviewed = isoDate(homeHero.lastReviewed);
 for (const [index, slide] of homeHero.slides.entries()) {
   requireFields(slide, ["id", "title", "description", "image", "imageAlt", "link", "linkLabel"], `homepage hero slide ${index + 1}`);
   if (slide.trainingArtwork) {
-    requireFields(slide.trainingArtwork, ["logo", "lessons"], `homepage hero artwork ${slide.id}`);
+    requireFields(slide.trainingArtwork, ["lessons"], `homepage hero artwork ${slide.id}`);
     for (const lesson of slide.trainingArtwork.lessons) {
       requireFields(lesson, ["image", "imageAlt", "source"], `homepage hero lesson ${slide.id}`);
     }

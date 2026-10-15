@@ -32,7 +32,7 @@ Welcome to this week’s roundup of AI updates and tools—what’s new, what it
 
 ### Google Gemini & NotebookLM
 
--   **[Gemini Omni adds conversational video editing](https://www.ai-geminiomni.com/en/blog/gemini-omni-may-2026-release-notes/)**: Omni Flash, the new video generator in the Gemini app, now supports conversational editing. Describe changes like “make the background a rainy Tokyo street” or “give him a leather jacket,” and Gemini updates the clip without requiring a full re-prompt.
+-   **[Gemini Omni adds conversational video editing](https://www.ai-geminiomni.com/blog/gemini-omni-may-2026-release-notes/)**: Omni Flash, the new video generator in the Gemini app, now supports conversational editing. Describe changes like “make the background a rainy Tokyo street” or “give him a leather jacket,” and Gemini updates the clip without requiring a full re-prompt.
 
 ### TritonAI Developer API
 
@@ -53,7 +53,7 @@ No live trainings are scheduled in the next 14 days, but you can:
 
 ### UCSD AI in the News
 
--   **[UC San Diego awarded $4.85M to grow NEMAR into HPC hub for neuro-AI](https://today.ucsd.edu/story/uc-san-diego-awarded-4-85m-to-grow-nemar-into-hpc-hub-for-neuro-ai)**: A new $4.85 million NIH grant will expand NEMAR, a platform for sharing and analyzing neuroimaging data, into a high-performance computing hub—enabling scalable AI research for brain science and accelerating discoveries in neurological disorders.
+-   **[UC San Diego awarded $4.85M to grow NEMAR into HPC hub for neuro-AI](https://today.ucsd.edu/story/uc-san-diego-awarded-4.85m-to-grow-nemar-into-hpc-hub-for-neuro-ai)**: A new $4.85 million NIH grant will expand NEMAR, a platform for sharing and analyzing neuroimaging data, into a high-performance computing hub—enabling scalable AI research for brain science and accelerating discoveries in neurological disorders.
 
 -   **[AI model links tumor mutations to treatment response](https://today.ucsd.edu/story/ai-model-links-tumor-mutations-to-treatment-response)**: Researchers at UCSD developed an AI model that predicts how tumors with specific mutations respond to treatments, enabling personalized cancer therapy and reducing reliance on trial-and-error approaches in clinical oncology.
 

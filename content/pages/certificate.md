@@ -19,7 +19,7 @@ sidebar: true
   <div class="hub-heading">
     <p class="home-kicker">TWO STREAMS</p>
     <h2 id="certificate-streams-heading">A path suited to your role</h2>
-    <p>The course is organized into two streams, one each for staff and one for leaders.</p>
+    <p>The course is organized into two streams, one each for staff and one for leaders. Both streams are open to you at no cost. Log in with your SSO, then select Start Course.</p>
   </div>
   <div class="learning-pathway-grid">
     <article class="learning-pathway-card">

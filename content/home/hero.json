@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "owner": "TritonAI",
   "source": "https://tritonai.ucsd.edu/ and the published TritonAI Discovery Series",
-  "lastReviewed": "2026-10-04",
+  "lastReviewed": "2026-10-05",
   "rotationIntervalMs": 7000,
   "slides": [
     {
@@ -17,8 +17,17 @@
       "link": "/training-resources/videos/index.html",
       "linkLabel": "Watch the training videos",
       "trainingArtwork": {
-        "logo": "/_images/tools/logos/tritonai-harness.png",
         "lessons": [
+          {
+            "image": "/_images/homepage/discovery-series-chancellor-khosla-720.webp",
+            "imageAlt": "AI Vision, presented by Pradeep K. Khosla",
+            "source": "/_images/training-resources/videos/chancellor-khosla-presenter-card.png"
+          },
+          {
+            "image": "/_images/homepage/discovery-series-michelle-perez-720.webp",
+            "imageAlt": "Sustainability and AI, presented by Michelle Perez",
+            "source": "/_images/training-resources/videos/michelle-perez-presenter-card.png"
+          },
           {
             "image": "/_images/homepage/discovery-series-prompting-720.webp",
             "imageAlt": "Prompting, presented by Jeniffer Lapek",

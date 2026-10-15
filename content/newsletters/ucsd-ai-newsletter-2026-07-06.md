@@ -28,7 +28,7 @@ No notable changes to the TritonAI model hub this week.
 
 No new live webinars are scheduled for the next two weeks, but you can catch up on previous sessions:
 
--   **[AI Webinar #6 — One Year of Innovation with TritonGPT: Past, Present, and Future](https://youtu.be/qaRfaAzmBEs)** — Covers TritonGPT's launch journey, new features like My Documents and model switching, and strategies for staying engaged with AI tools. [View the slide deck](https://stage-tritonai.ucsd.edu/_files/AI---TGPT-Webinar-6---Anniversary.pdf).
+-   **[AI Webinar #6 — One Year of Innovation with TritonGPT: Past, Present, and Future](https://youtu.be/qaRfaAzmBEs)** — Covers TritonGPT's launch journey, new features like My Documents and model switching, and strategies for staying engaged with AI tools.
 
 -   **Self-paced courses** are always available: [AI Foundations (UC Learning)](https://go.ucsd.edu/3FvH9Hf) and the [Everyday I AI video series](https://www.youtube.com/playlist?list=PLZoL-14Q0aIkY5gnibNuZZh3X0ikY6VGA).
 

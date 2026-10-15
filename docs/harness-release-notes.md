@@ -109,7 +109,11 @@ Before pushing, the worker runs `npm test` and the required GitHub Pages
 build and validation. A dedicated repository credential pushes the scoped
 commit to `main`, which starts the normal Cascade publication workflow.
 The worker waits for the matching commit's successful Cascade run and verifies
-eight public pages and the exact guided download links. n8n reports success
+eight public pages and the exact guided download links. Product pages must show
+the current version, release highlights and any generated guidance. The Build
+hub does not display a version; verification requires its links to the Harness
+overview, release history and setup, and checks any version fields it does carry.
+Failures report the route and mismatched field. n8n reports success
 only when this worker finishes successfully; HTTP dispatch acceptance is not
 completion. Unchanged source snapshots stop without another model call or push.
 
@@ -129,6 +133,12 @@ to fail safely; the next run starts from current main.
 Manual validation is available with `npm run maintain:harness`; the model key
 must be provided through `TRITONAI_RELEASE_API_KEY`. The `--refresh-summary`
 flag refreshes the current summary even when source fingerprints are unchanged.
+
+Summary corrections retain the previous candidate and all verification issues
+from the run, so a correction does not lose earlier fixes. Current setup sources
+include the tagged UC San Diego account guide for optional campus sign-in.
+New plugin cards and recorded training material still require editorial review;
+updating release metadata does not rewrite those sections.
 
 ## Manual candidate generation
 

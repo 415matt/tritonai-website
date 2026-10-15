@@ -69,8 +69,8 @@ bannerMode: abstract
 </ul>
 </div>
 <div class="hub-action-card-footer builder-track-footer">
-<p><a class="btn btn-primary btn-block" href="/developer-apis/start.html#n8n">Request n8n access <span aria-hidden="true">→</span></a></p>
-<p class="builder-track-sublink"><small>Already approved? <a href="https://n8n.tritonai.ucsd.edu/">Open n8n</a></small></p>
+
+
 </div>
 </article>
 </div>
@@ -212,7 +212,7 @@ bannerMode: abstract
 <h2 id="workflow-automation-heading">Build repeatable workflows with n8n</h2>
 <p>UC San Diego hosts n8n, a visual workflow platform that connects applications and APIs with little or no code. A workflow starts from a schedule, webhook, email, or file event and runs a defined series of steps. Model requests inside a workflow go through the Gateway with your key, and a workflow can pause for a person before selected actions.</p>
 <p>n8n fits best once you know the process and how it should handle exceptions. For work that changes shape every time, start in TritonAI Harness.</p>
-<p><a class="btn btn-primary" href="/developer-apis/start.html#n8n">Request n8n access</a> <a class="btn btn-default" href="https://n8n.tritonai.ucsd.edu/">Open n8n</a></p>
+
 </div><div class="col-md-5 hub-split-media">
 <aside class="shared-compute-mini" aria-labelledby="n8n-fits-heading">
 <p id="n8n-fits-heading">Good first workflows</p>
@@ -276,10 +276,3 @@ bannerMode: abstract
 <nav class="hub-section hub-link-panel" id="builder-resources" aria-labelledby="build-resources-heading"><div class="hub-heading"><p class="home-kicker">Builder resources</p><h2 id="build-resources-heading">Where to go next</h2></div><div class="row hub-link-columns"><div class="col-sm-6 col-md-4"><a href="/developer-apis/start.html"><strong>Get Started</strong><span>Eligibility, keys, installers, and setup</span></a></div><div class="col-sm-6 col-md-4"><a href="/developer-apis/citizen-developer.html"><strong>Plan a first project</strong><span>Pick a task you can check and a path that fits</span></a></div><div class="col-sm-6 col-md-4"><a href="https://docs.tritonai.ucsd.edu/llm-api/models"><strong>TritonAI model catalog</strong><span>Live capabilities, rates, and limits</span></a></div><div class="col-sm-6 col-md-4"><a href="/skills/index.html"><strong>Skills Library</strong><span>Reusable instructions for campus jobs</span></a></div><div class="col-sm-6 col-md-4"><a href="/about/trust-architecture.html"><strong>Trust, privacy, and hosting</strong><span>Protection Levels, routes, and oversight</span></a></div><div class="col-sm-6 col-md-4"><a href="/about/roadmap.html"><strong>Roadmap</strong><span>What the platform team is building next</span></a></div></div></nav>
 
 <section class="hub-section hub-subscribe" id="build-start" aria-labelledby="prototype-heading"><div class="row hub-split hub-split-align-center"><div class="col-md-8"><p class="home-kicker">Get a Gateway key</p><h2 id="prototype-heading">Request access and run a first test</h2><p>The Get Started page covers eligibility, funding, key protection, client choice, and installation. Most requests need only the form and a short description of the task.</p></div><div class="col-md-4 hub-subscribe-action"><a class="btn btn-primary btn-lg" href="/developer-apis/start.html">Request API access</a></div></div></section>
-
-<section class="hub-section" data-harness-current-guidance-section aria-labelledby="harness-current-models">
-<div class="hub-heading"><h2 id="harness-current-models">Models in the current stable release</h2>
-<p>TritonAI Harness <strong data-harness-version></strong>.</p></div>
-<p class="hub-section-action"><a class="btn btn-default" data-harness-release>Read the release notes</a></p>
-<ul data-harness-guidance="models"></ul>
-</section>

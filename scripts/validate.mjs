@@ -1093,7 +1093,6 @@ for (const page of htmlFiles) {
     if (
       pathCards.length !== 3 ||
       pathCards.filter((_, element) => $(element).find(`a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/developer-apis/harness.html']`).length === 1).length !== 1 ||
-      pathCards.filter((_, element) => $(element).find(`a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/developer-apis/start.html#n8n']`).length === 1).length !== 1 ||
       pathCards.filter((_, element) => $(element).find(`a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/developer-apis/start.html']`).length === 1).length !== 1
     ) {
       contentFindings.push({ source: route, issue: "Build landing page must offer the TritonAI Harness, n8n, and API paths the homepage promises" });
@@ -1157,9 +1156,6 @@ for (const page of htmlFiles) {
     }
     if (/campus administrative work|not recharged|current Model Hub rates|Research projects charge|grant or approved research project chartstring|inter-campus recharge|chartstring|budget owner|spending limit/.test(apiClientGuidance)) {
       contentFindings.push({ source: route, issue: "Build page must leave detailed eligibility, funding, and billing guidance on the access page" });
-    }
-    if ($(`#workflow-automation a[href='${SITE_BASE_PATH ? `/${SITE_BASE_PATH}` : ""}/developer-apis/start.html#n8n']`).length !== 1 || $("#workflow-automation a[href='https://n8n.tritonai.ucsd.edu/']").length !== 1) {
-      contentFindings.push({ source: route, issue: "Workflow automation section must hand n8n access to the setup page and link the n8n workspace" });
     }
     if (
       $("#built-on-tritonai .use-case-card").length !== 3 ||

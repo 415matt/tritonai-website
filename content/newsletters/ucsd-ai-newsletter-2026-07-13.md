@@ -18,7 +18,7 @@ items: 3
 
 ### Google Gemini & NotebookLM
 
-**[NotebookLM adds video overviews and structured research outputs](https://blog.google/technology/ai/notebooklm/)** — NotebookLM can now generate AI-powered video summaries alongside Audio Overviews, and supports structured outputs like FAQs, timelines, tables, and flashcards. Combined with larger source limits and Gemini 3.5 capabilities, it's a stronger research and analysis tool for campus workflows.
+**[NotebookLM adds video overviews and structured research outputs](https://notebooklm.google.com/)** — NotebookLM can now generate AI-powered video summaries alongside Audio Overviews, and supports structured outputs like FAQs, timelines, tables, and flashcards. Combined with larger source limits and Gemini 3.5 capabilities, it's a stronger research and analysis tool for campus workflows.
 
 ## Coming Up: Trainings & Workshops
 
@@ -30,4 +30,4 @@ items: 3
 
 ## TritonAI News
 
-**Faculty Symposium highlights AI in higher ed teaching.** UC San Diego faculty shared practical examples of AI integration in teaching — from classroom exercises to grading workflows. The event showcased how AI is strengthening, not replacing, the teaching process. [Read more on Today@UCSD](https://today.ucsd.edu/news-articles/faculty-symposium-highlights-ais-strengths-in-higher-ed-teaching).
+**Faculty Symposium highlights AI in higher ed teaching.** UC San Diego faculty shared practical examples of AI integration in teaching — from classroom exercises to grading workflows. The event showcased how AI is strengthening, not replacing, the teaching process. [Read more on Today@UCSD](https://today.ucsd.edu/story/faculty-symposium-highlights-ais-strengths-in-higher-ed-teaching).

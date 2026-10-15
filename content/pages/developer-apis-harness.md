@@ -24,7 +24,7 @@ bannerMode: abstract
 <p>Use it to work through a task in your project folder: read source material, prepare a draft, and check the result. You supervise the work and review consequential actions.</p>
 <p>Prefer another client? Claude Code, Codex, Hermes, OpenCode, and other compatible clients connect to the same Gateway with the same key. <a href="/developer-apis/index.html#tritonai-harness">Compare the client options</a>.</p>
 <p>You’ll need an approved TritonAI Gateway key to connect the Harness to campus models.</p>
-<p class="hub-section-action">
+<p class="hub-section-action harness-actions">
 <a class="btn btn-primary" href="/developer-apis/start.html">Get started</a>
 <a class="btn btn-primary harness-training-link" href="/training/harness/">Start training</a>
 </p>
